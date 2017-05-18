@@ -1,0 +1,222 @@
+.btn.btn-karm{
+  background: #f89939 none repeat scroll 0 0;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  box-shadow: none;
+  padding: 10px 20px;
+  -webkit-transition: all 0.3s ease-out 0s;
+  -o-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+}
+
+.btn.btn-karm:hover{
+  background: #f89939 none repeat scroll 0 0;
+  color: #ffffff;
+}
+
+.content-wrapper .nav-tabs{
+	float: left;
+	width: 20%;
+}
+
+.content-wrapper .nav-tabs > li{
+	float: none;
+	width: 100%;
+}
+
+.content-wrapper .nav-tabs > li a{
+	background: #fff;
+	border-radius: 0;
+	border: 1px solid #ddd;
+	color: #696763;
+}
+
+.content-wrapper .nav-tabs > li a:hover{
+	border: 1px solid #ddd;
+}
+
+.content-wrapper .nav-tabs > li:first-child a {
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.content-wrapper .nav-tabs > li:last-child a {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.content-wrapper .nav-tabs > li.active a{
+	background: #f89939;
+	color: #fff;
+}
+
+.content-wrapper .tab-content {
+  float: left;
+  margin-left: 10px;
+  width: 79%;
+}
+
+.asterisk{
+	color: #f4645f;
+}
+
+
+/** 
+ **Tree structure for selecting product category 
+ **by Yojan 
+ **/
+.tree, .tree ul {
+    margin:0;
+    padding:0;
+    list-style:none
+}
+
+.tree ul {
+    margin-left:1em;
+    position:relative
+}
+
+.tree ul ul {
+    margin-left:.5em
+}
+
+.tree ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:1px solid
+}
+
+.tree li {
+    margin:0;
+    padding:0 1em;
+    line-height:2em;
+    color:#369;
+    font-weight:700;
+    position:relative
+}
+
+.tree ul li:before {
+    content:"";
+    display:block;
+    width:10px;
+    height:0;
+    border-top:1px solid;
+    margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0
+}
+
+.tree ul li:last-child:before {
+    background:#fff;
+    height:auto;
+    top:1em;
+    bottom:0
+}
+
+.indicator {
+    margin-right:5px;
+}
+
+.tree li a {
+    text-decoration: none;
+    color:#369;
+}
+
+.tree li button, .tree li button:active, .tree li button:focus {
+    text-decoration: none;
+    color:#369;
+    border:none;
+    background:transparent;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    outline: 0;
+}
+/**  end for tree structure of product category **/
+
+/** 
+ **few backend css -
+ **by Yojan 
+ **/
+   .display-none{   
+      display: none;    
+   }    
+      
+  /*use image as background */    
+  .show-img-bg{   
+      background-size: cover;   
+      background-position: center center;   
+      height: 200px;    
+    }
+ /** end of css by yojan **/
+
+@media only screen and (max-width: 767px) {
+    .content-wrapper .nav-tabs{
+		width: auto;
+	}
+
+	.content-wrapper .tab-content {
+	  margin-left: 0;
+	  width: auto;
+	}
+
+	.content-wrapper .nav-tabs > li{
+		float: left;
+		width: auto;
+	}
+}
+
+#product-table.table-bordered .list-inline > li{
+  padding-right: 0;
+  padding-left: 4px;
+  margin-right: 3px;
+}
+
+#product-table.table-bordered .list-inline > li:last-child{
+  margin-right: 0;
+}
+
+#product-table.table-bordered .list-inline > li a{
+  padding: 5px;
+}
+
+.dropup .dropdown-menu{
+  -webkit-box-shadow: 13px 10px 10px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 13px 10px 10px -10px rgba(0,0,0,0.75);
+  box-shadow: 13px 10px 10px -10px rgba(0,0,0,0.75);
+
+  min-width: 200px;
+}
+
+.dropup .dropdown-menu > li{
+  padding: 2px 0;
+}
+
+.dropup .dropdown-menu > li:nth-child(2n) {
+  border-bottom: 1px solid #d2d6de;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.dropup .dropdown-menu a{
+  color: #333;
+}
+
+.dropup .dropdown-menu a:hover{
+  background: #ffffff;
+  color: #333;
+}
+
+@media only screen and (max-width: 767px) {
+  
+  .box-body .table-responsive .dataTables_wrapper.form-inline.dt-bootstrap.no-footer {
+    margin-top: 5px;
+  }
+
+}

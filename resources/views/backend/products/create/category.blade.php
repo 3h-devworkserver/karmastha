@@ -1,0 +1,22 @@
+<div class="box box-orange">
+	<div class="box-header with-border">
+		<h3 class="box-title">Category Associations</h3>
+		<div class="box-tools pull-right">
+	        @include('backend.products.includes.expandcollapsebutton')
+	    </div><!--box-tools pull-right-->
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body">
+		<ul id="tree1">
+		    @foreach($categorys as $category)
+	            <li >
+	                {{Form::checkbox('category[]', $category->id)}} {{ $category->title }}
+	                @if(count($category->childs))
+	                    @include('backend.products.create.managechild',['childs' => $category->childs])
+	                @endif
+	            </li>
+	        @endforeach
+		</ul>
+	</div>
+	<!-- /.box-body -->
+</div>
