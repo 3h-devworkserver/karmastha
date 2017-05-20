@@ -42,7 +42,7 @@
 <div class="box">
 		<div class="box-header with-border">
 		<label class="control-label">Slide list</label>
-           <a  href="{{url('admin/sliders/'.$title.'/create')}}" class="btn btn-primary btn-sm pull-right"><span class="glyphicon glyphicon-plus">
+           <a  href="{{url('admin/sliders/'.$title.'/create')}}" class="btn btn-karm btn-sm pull-right"><span class="glyphicon glyphicon-plus">
                 </span> Add Slide</a>
          </div>
         <br>

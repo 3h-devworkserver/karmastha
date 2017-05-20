@@ -30,18 +30,20 @@
 				<table id="page-table" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
+							<th><input type="checkbox" class="checkAll" name="bulk_select"></th>
 							<th>ID</th>
 							<th>Title</th>
 							<th>Slug</th>
-							<th>Status</th>
 							<th>Created At</th>
 							<th>Last Updated</th>
+							<th>Status</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 
 				</table>
 			</div>
+			@include('backend.includes.bulkactionform', ['url'=>'admin/pages/bulkdelete'])
 		</div>
 		<!-- /.box-body -->
 	</div>

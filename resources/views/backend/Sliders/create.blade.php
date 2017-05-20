@@ -34,7 +34,7 @@
 		<div class="box">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="control-label">Title</label>
+					<label class="control-label">Title<em class="asterisk">*</em></label>
 					@if ($slider_title == null)	
 						{{Form::text('title',null,['class'=>'form-control', 'placeholder'=>'Enter title','required'=>'required'])}}
 					@else
@@ -56,7 +56,7 @@
 						{!!Form::textarea('caption[]',null,['class'=>'form-control','rows'=>'3', 'placeholder'=>'Enter Caption']) !!}
 					</div>
 					<div class="form-group">
-						<label class="control-label">Slider Image</label>
+						<label class="control-label">Slider Image<em class="asterisk">*</em></label>
 						<input type="file" name="Slider_image[]" id="Slider_image" accept="image/*" 
 								alt="Slide_image" class="image_upload"  required="required">
 
@@ -94,7 +94,7 @@
 	<div class="col-md-6"></div>
 	<div class="col-md-3">
 		<div class="form-group">	
-			{{Form::submit('Publish Slider',['class'=>'btn bg-olive'])}}
+			{{Form::submit('Publish Slider',['class'=>'btn btn-karm'])}}
 		</div>
 	</div>
 </div>

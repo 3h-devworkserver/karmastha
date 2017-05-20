@@ -55,7 +55,7 @@ class ProductController extends Controller
             //     return $data->featured_label;
             // })
             ->addColumn('price', function($data){
-                return $data->productPrice->price;
+                return 'Rs '.$data->productPrice->price;
             })
             // ->addColumn('special_price', function($data){
             //     return $data->productPrice->special_price;

@@ -1,3 +1,87 @@
+input[type="text"].form-control, .form-group input[type="text"]  {
+  color: #5d5f5d;
+  font-family: "lato";
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+   appearance:        none;
+}
+
+input[type="text"].form-control:focus, 
+input[type="text"].form-control:active, 
+.form-group input[type="text"]:focus, 
+.form-group input[type="text"]:active{
+  box-shadow: none;
+  outline: none;
+  border: 1px solid #742b96;
+}
+
+input[type="file"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus {
+  outline: none;
+  outline-offset: -2px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    display:none;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label{
+  color: #696763;
+  padding-left: 0;
+  position: relative;
+
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+
+
+input[type="checkbox"] + label span, 
+  input[type="radio"] + label span{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display:inline-block;
+  width:15px;
+  height:15px;
+  margin:-2px 10px 0 0;
+  vertical-align:middle;
+  cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span::before,
+input[type="radio"]:checked + label span:before {
+  display: block;
+  font-family: "fontawesome";
+  font-size: 12px;
+  position: absolute;
+} 
+
+input[type="checkbox"]:checked + label span::before {
+  content: "\f00c";
+  left: 2px;
+  top: 2px;
+}
+
+input[type="radio"] + label span {
+  border-radius: 50px;
+}
+
+input[type="radio"]:checked + label span::before {
+  content: "\f111";
+  font-size: 7px;
+  left: 5px;
+  top: 6px;
+}
+
+.btn{
+  font-size: 13px;
+}
+
 .btn.btn-karm{
   background: #f89939 none repeat scroll 0 0;
   color: #ffffff;
@@ -186,6 +270,18 @@
   padding: 5px;
 }
 
+.box-header.with-border .box-title {
+  padding-left: 5px;
+}
+
+.table-responsive #product-table_length {
+  padding-left: 9px;
+}
+
+#bulkDeleteForm .dropup {
+  margin-top: 10px;
+}
+
 .dropup .dropdown-menu{
   -webkit-box-shadow: 13px 10px 10px -10px rgba(0,0,0,0.75);
   -moz-box-shadow: 13px 10px 10px -10px rgba(0,0,0,0.75);
@@ -213,6 +309,20 @@
   color: #333;
 }
 
+.pagination > .active > a, 
+.pagination > .active > a:focus, 
+.pagination > .active > a:hover, 
+.pagination > .active > span, 
+.pagination > .active > span:focus, 
+.pagination > .active > span:hover{
+  background: #f89939;
+  border-color: #f89939;
+}
+
+/* error input */
+
+
+
 @media only screen and (max-width: 767px) {
   
   .box-body .table-responsive .dataTables_wrapper.form-inline.dt-bootstrap.no-footer {
@@ -220,3 +330,12 @@
   }
 
 }
+
+.box-default .box-body .form-group span{
+  width: 100%;
+} 
+
+.box-default .box-body .form-group span i.fa-folder-open{
+  margin-right: 5px;
+}
+

@@ -21,7 +21,7 @@
 <!-- Main content -->
 	<div class="box">
 		<div class="box-header with-border">
-           <a  href={{url('admin/sliders/create')}} class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus">
+           <a  href={{url('admin/sliders/create')}} class="btn btn-karm pull-right"><span class="glyphicon glyphicon-plus">
                 </span> Add Slider</a>
          </div>
         <br>

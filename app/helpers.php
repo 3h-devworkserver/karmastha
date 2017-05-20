@@ -272,7 +272,7 @@ if (! function_exists('bulkSelect')) {
      */
     function bulkSelect($id)
     {
-        return "<input type='checkbox' class='bulkSelect checkbox icheck' data-id='".$id."' name='bulk_select' value='".$id."'>";
+        return "<input type='checkbox' id='checkbox".$id."' class='bulkSelect checkbox icheck' data-id='".$id."' name='bulk_select' value='".$id."'><label for='checkbox".$id."'><span></span></label>";
     }
 }
 

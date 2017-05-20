@@ -30,7 +30,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('Backend.Brand.index');
+        return view('backend.brands.index');
     }
 
 
@@ -65,7 +65,7 @@ class BrandController extends Controller
      */
     public function create(CreateBrandRequest $request)
     {
-        return view('Backend.Brand.create'); 
+        return view('backend.brands.create'); 
     }
 
     /**
@@ -122,7 +122,7 @@ class BrandController extends Controller
     {
 
         $brand = Brand::findOrFail($id);
-        return view('Backend.Brand.edit',compact('brand'));
+        return view('backend.brands.edit',compact('brand'));
     }
 
     /**

@@ -81,16 +81,17 @@
         <!-- JavaScripts -->
         @yield('before-scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
         {{-- {{ Html::script('js/app.js') }} --}}
         {{ Html::script(mix('js/backend.js')) }}
         <script src="http://malsup.github.com/jquery.form.js"></script>
- {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
-    {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
+        {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
+        {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
         @yield('after-scripts')
         {{-- {{ Html::script('js/backend/icheck.min.js') }} --}}
+        {{ Html::script('js/backend/jquery.validate.js') }}
         {{ Html::script('js/backend/custom.js') }}
         {{ Html::script('js/backend/slider.js') }}
-
+        
     </body>
 </html>

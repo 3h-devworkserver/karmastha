@@ -50,7 +50,7 @@
                         </li>
                     <?php */ ?>
                     <li class="{{ active_class(Active::checkUriPattern('admin/pages ')) }}">
-                      <a href="{!! url('admin/pages') !!}"><i class="fa fa-file-text-o"></i> View</a>
+                      <a href="{!! url('admin/pages') !!}"><i class="fa fa-file-text-o"></i> All Pages</a>
                     </li>
                   </ul>
                 </li>
@@ -76,7 +76,7 @@
                       <a href="{!! url('admin/products/create') !!}"><i class="fa fa-plus"></i> Create</a>
                     </li>
                     <li class="{{ active_class(Active::checkUriPattern('admin/products')) }}">
-                      <a href="{!! url('admin/products') !!}"><i class="fa fa-file-text-o"></i> View</a>
+                      <a href="{!! url('admin/products') !!}"><i class="fa fa-file-text-o"></i> All Products</a>
                     </li>
                   </ul>
                 </li>
@@ -85,7 +85,7 @@
             @permission('view-members-management')
                 <li class="{{ active_class(Active::checkUriPattern('admin/members*')) }} treeview">
                   <a href="{!! url('admin/members') !!}">
-                    <i class="fa fa-list"></i><span>Members Manangement</span>
+                    <i class="fa fa-handshake-o"></i><span> Members Manangement</span>
                   </a>
                 </li>
             @endauth
@@ -93,7 +93,7 @@
             @permission('view-brands-management')
                 <li class="{{ active_class(Active::checkUriPattern('admin/brands*')) }} treeview">
                   <a href="{!! url('admin/brands') !!}">
-                    <i class="fa fa-list"></i><span>Brands Manangement</span>
+                    <i class="fa fa-cubes"></i><span>Brands Manangement</span>
                   </a>
                 </li>
             @endauth
@@ -137,15 +137,31 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 
-                <ul class="treeview-menu {{active_class( Active::checkUriPattern('admin/sliders*'),'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/sliders*'), 'display: block;') }}">
-                    <li class="{{ Active::checkUriPattern('admin/sliders/view') }}">
-                        <a href="{!! url('admin/sliders') !!}"><i class="fa fa-angle-right"></i> View</a>
-                    </li>
-
+                <ul class="treeview-menu {{active_class( Active::checkUriPattern('admin/sliders*'),'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/sliders*'), 'display: block;') }}">                    
                     <li class="{{ active_class(Active::checkUriPattern('admin/sliders/create')) }} treeview">
-                        <a href="{!! url('admin/sliders/create') !!}"><i class="fa fa-angle-right"></i> Create</a>
+                        <a href="{!! url('admin/sliders/create') !!}"><i class="fa fa-plus"></i> Create</a>
                     </li>
+                    <li class="{{ Active::checkUriPattern('admin/sliders/view') }}">
+                        <a href="{!! url('admin/sliders') !!}"><i class="fa fa-file-text-o"></i> All Sliders</a>
+                    </li>
+                </ul>
+            </li>
+            @endauth
 
+            @permission('view-static_block-management')
+            <li class="{{ active_class(Active::checkUriPattern('admin/static_blocks*')) }} treeview">
+                <a href="#">
+                    <i class="fa fa-newspaper-o"></i><span>Static-Block Management</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                
+                <ul class="treeview-menu {{active_class( Active::checkUriPattern('admin/static_blocks*'),'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/static_blocks*'), 'display: block;') }}">                    
+                    <li class="{{ active_class(Active::checkUriPattern('admin/sltatic_blocks/create')) }} treeview">
+                        <a href="{!! url('admin/static_blocks/create') !!}"><i class="fa fa-plus"></i> Create</a>
+                    </li>
+                    <li class="{{ Active::checkUriPattern('admin/static_blocks/view') }}">
+                        <a href="{!! url('admin/static_blocks') !!}"><i class="fa fa-file-text-o"></i> View</a>
+                    </li>
                 </ul>
             </li>
             @endauth

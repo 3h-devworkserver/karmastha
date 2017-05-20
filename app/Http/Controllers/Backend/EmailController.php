@@ -9,13 +9,13 @@ class EmailController extends Controller
 {
     public function activateUser()
     {
-    	$content=file_get_contents(base_path().'/resources/views/backend/Emails/ActivateEmail/template.blade.php');
+    	$content=file_get_contents(base_path().'/resources/views/backend/emails/activateemail/template.blade.php');
     	if(empty($content)){
-    		return view('Backend.Emails.ActivateEmail.create');
+    		return view('backend.emails.activateemail.create');
     	}
     	else
     	{
-    		return view('Backend.Emails.ActivateEmail.edit',compact('content'));
+    		return view('backend.emails.activateemail.edit',compact('content'));
 
     	}
     }
@@ -26,7 +26,7 @@ class EmailController extends Controller
         'content' => 'required',
     	]);
 
-    	$content= file_put_contents(base_path().'/resources/views/backend/Emails/ActivateEmail/template.blade.php',$request->content);
+    	$content= file_put_contents(base_path().'/resources/views/backend/emails/activateemail/template.blade.php',$request->content);
     	return back();
 
     }

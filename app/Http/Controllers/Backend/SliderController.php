@@ -32,7 +32,7 @@ class SliderController extends Controller
 	 */
 	public function index()
 	{
-		return view('backend.Sliders.index');
+		return view('backend.sliders.index');
 	}
 
 	/**
@@ -91,14 +91,14 @@ class SliderController extends Controller
 	public function create(createSliderRequest $request)
 	{	
 		$slider_title=null;
-		return view('backend.Sliders.create',compact('slider_title'));
+		return view('backend.sliders.create',compact('slider_title'));
 	}
 
 	public function slide_create($slider_title,createSliderRequest $request)
 	{	
 		//$slider=Slider::find($slider_id);
 
-		return view('backend.Sliders.create',compact('slider_title'));
+		return view('backend.sliders.create',compact('slider_title'));
 	}
 
 	/**
@@ -179,7 +179,7 @@ class SliderController extends Controller
 		$title=$slide->title;
 		// $slider=Slider::find($id);
 
-		return  view('backend.Sliders.list',compact('title'));
+		return  view('backend.sliders.list',compact('title'));
 	}
 
 	
@@ -199,7 +199,7 @@ class SliderController extends Controller
 		//$slides=Slide::where('title',$slider->title)->get();
 
 
-		return view('backend.Sliders.slide_edit',compact('slide'));
+		return view('backend.sliders.slide_edit',compact('slide'));
 
 	}
 

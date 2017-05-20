@@ -24,7 +24,7 @@
 				</div>
 				<div class="box-body">
 					<div class="form-group">
-						<label class="control-label">Site Title</label>
+						<label class="control-label">Site Title<em class="asterisk">*</em></label>
 						{{Form::text('title',null,['class'=>'form-control', 'placeholder'=>'Enter Site Title'])}}
 					</div>
 
@@ -34,7 +34,7 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Admin Email</label>
+						<label class="control-label">Admin Email<em class="asterisk">*</em></label>
 						{{Form::text('email',null,['class'=>'form-control', 'placeholder'=>'Enter Email'])}}
 					</div>
 

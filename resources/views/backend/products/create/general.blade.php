@@ -22,7 +22,7 @@
 
 		<div class="form-group">
 			<label class="control-label">Brand</label>
-			{{Form::select('brand_id',$brand,[],['class'=>'form-control'])}}
+			{{Form::select('brand_id',$brand,null,['class'=>'form-control'])}}
 			{{-- {{Form::text('brand_id',null,['class'=>'form-control', 'placeholder'=>'Enter Product Brand Name'])}} --}}
 		</div>
 

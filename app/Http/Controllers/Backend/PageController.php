@@ -31,14 +31,17 @@ class PageController extends Controller
         $pages = Page::select('id', 'title', 'slug', 'status', 'created_at', 'updated_at');
         return Datatables::of($pages)
             ->escapeColumns(['title', 'slug'])
-            ->editColumn('status', function ($data) {
-                return $data->status_label;
+            ->addColumn('bulk', function ($data) {
+                return bulkSelect($data->id);
             })
             ->editColumn('created_at', function($data){ 
                 return parseDateTimeY_M_D($data->created_at) ;
             })
             ->editColumn('updated_at', function($data){ 
                 return parseDateTimeY_M_D($data->updated_at) ;
+            })
+            ->editColumn('status', function ($data) {
+                return $data->status_label;
             })
             ->addColumn('action', function($data){
                 return crudOps('pages', $data->id);
@@ -121,5 +124,29 @@ class PageController extends Controller
         });
         return redirect()->back()->withFlashSuccess('Page deleted successfully.');
     }
+
+
+    /**
+     * Remove bulk pages form storage.
+     *
+     * @param  App\Http\Requests\Backend\Product\DeletePageRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deletePages(DeletePageRequest $request)
+    {
+        if (empty($request->ids)) {
+            return redirect('/admin/pages')->withFlashDanger('Please select pages to delete.');
+        }
+
+        DB::transaction(function() use ($request){
+            $ids = explode(',', $request->ids);
+            foreach ($ids as $key => $id) {
+                $product = Page::findOrFail($id);
+                $product->delete();
+            }
+        });
+        return redirect('/admin/pages')->withFlashSuccess('Pages deleted successfully.');
+    }
+    
 
 }

@@ -8,12 +8,21 @@ $(document).ready(function(){
 //   });
 // });
 
-$(document).on('click', '.checkAll', function(){
-  alert('here');
-  if($(this). prop("checked") == true){
-  alert('checked');
-  }else{
-    alert('unchecked');
+/** --select all -- **/
+$(document).on('change', '.checkAll', function(){
+  $(".bulkSelect").prop('checked', $(this).prop("checked"));
+  
+});
+
+/** ----- for bulk deleting ---- **/
+$(document).on('change', '.bulkSelect', function(){
+  //uncheck "select all", if one of the listed checkbox item is unchecked
+  if(false == $(this).prop("checked")){ //if this item is unchecked
+        $(".checkAll").prop('checked', false); //change "select all" checked status to false
+    }
+   //check "select all" if all checkbox items are checked
+  if ($('.bulkSelect:checked').length == $('.bulkSelect').length ){
+      $(".checkAll").prop('checked', true);
   }
 });
 
@@ -24,15 +33,16 @@ $(document).on('click', '.checkAll', function(){
 		"stateSave": true,
 		"ajax": base_url + "/data/table/pages",
 		columns: [
+    {data: 'bulk', name: 'bulk', orderable: false, searchable: false},
 		{data: 'id', name: 'id'},
 		{data: 'title', name: 'title'},
 		{data: 'slug', name: 'slug'},
+    {data: 'created_at', name: 'created_at'},
+    {data: 'updated_at', name: 'updated_at'},
 		{data: 'status', name: 'status'},
-		{data: 'created_at', name: 'created_at'},
-		{data: 'updated_at', name: 'updated_at'},
 		{data: 'action', name: 'action', orderable: false, searchable: false},
 		],
-		order: [[0, "asc"]]
+		order: [[1, "asc"]]
 	});
 
   /**  Product table      **/
@@ -58,7 +68,7 @@ $(document).on('click', '.checkAll', function(){
 
 
 //general function for submiting form using <a> tag
-  $(document).on('click', 'a.submit', function(){
+  $(document).on('click', 'a.bulkSubmit', function(){
     var link = $(this);
     var tmp = $(this);
     var cancel = (link.attr('data-trans-button-cancel')) ? link.attr('data-trans-button-cancel') : "Cancel";
@@ -76,6 +86,11 @@ $(document).on('click', '.checkAll', function(){
       closeOnConfirm: true
     }, function(confirmed) {
       if (confirmed){
+        var bulkChecked = $('.bulkSelect:checked').map(function() {
+          return $(this).attr('data-id');
+        }).get();
+        $('.ids').val(bulkChecked);
+      // console.log(bulkChecked);
         link.closest('form').submit();
       }
     });
@@ -84,16 +99,6 @@ $(document).on('click', '.checkAll', function(){
 /**
  *	js for product
  **/
- $(document).on('click', '.bulkSelect', function(){
-  var bulkChecked = $('.bulkSelect:checked').map(function() {
-    return $(this).attr('data-id');
-  }).get();
-  // console.log(bulkChecked);
-  $('.ids').val(bulkChecked);
- });
-
- /** ----- for bulk deleting of product ---- **/
-
 
 	/* ------ for product inventory -----  */
   var check = $('.manageStock').val();
@@ -397,7 +402,49 @@ $(document).on('click', '.attributeRemove', function(){
   $(this).closest('.attribute').remove();
 });
 
+$.validator.setDefaults({
+        errorElement: "span",
+        errorClass: "help-block",
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorPlacement: function (error, element) {
+        // if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+        // if (element.parent('.input-group').length || element.prop('type') === 'checkbox') {
+        // error.insertAfter(element.parent());
+        // }else if(element.parent('.input-group').length || element.prop('type') === 'radio'){
+        //  $('.radio-error').text(error.text());
+        //   // error.insertAfter(element);
+        // } else {
 
+        //     // if (element.parent('.input-group').length || element.prop('type') === 'email' ) {
+        //     //  error.insertAfter(element);
+        //     // }
+            // error.insertAfter(element);
+        // // element.attr("placeholder",error.text());
+        // }
+    }
+});
+
+$('#productForm').validate({
+  ignore: [],
+  rules:{
+    'name': 'required',
+    'sku': 'required',
+    'short_desc': 'required',
+    'detail': 'required',
+    'featured': 'required',
+    'status': 'required',
+    'price': 'required',
+    'manage_stock': 'required',
+    'category[]': 'required',
+    'attr_type[]': 'required',
+    'attr_name[]': 'required',
+  }
+});
 
 
 

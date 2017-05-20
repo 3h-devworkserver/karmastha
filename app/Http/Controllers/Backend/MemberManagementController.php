@@ -26,7 +26,7 @@ class MemberManagementController extends Controller
 
     public function index()
     {
-    	return view('backend.Members.index');
+    	return view('backend.members.index');
     }
 
     /**
@@ -59,7 +59,7 @@ class MemberManagementController extends Controller
      */
     public function create(createMemberRequest $request)
     {
-    	return view('backend.Members.create');
+    	return view('backend.members.create');
     }
 
 

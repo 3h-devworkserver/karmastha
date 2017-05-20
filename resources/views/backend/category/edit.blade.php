@@ -28,7 +28,7 @@
 			</div><!-- /.box-header -->
 			<div class="box-body">
 					<div class="form-group">
-						<label for="title" class="control-label">Title</label>
+						<label for="title" class="control-label">Title<em class="asterisk">*</em></label>
 							{{ Form::text('title',null,array('class'=>'form-control'))}}
 					</div>
 		            <?php /*  ?>
@@ -84,7 +84,7 @@
     <div class="col-md-3">
 		<div class="box box-default">
 			<div class="box-header with-border">
-				<h3 class="box-title">Status</h3>
+				<h3 class="box-title">Status<em class="asterisk">*</em></h3>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 				</div><!-- /.box-tools -->
@@ -103,7 +103,7 @@
 			</div><!-- /.box-header -->
 			<div class="box-body">
 				<div class="form-group">
-					<span class="btn btn-primary btn-file btn-sm">
+					<span class="btn btn-karm btn-file btn-sm">
 						<i class="fa fa-folder-open"></i>Upload Featured Image
 						<input type="file" name="upload" class="form-control" onchange="readURL(this,'#preview');" accept="image/*">
 					</span>
@@ -120,7 +120,7 @@
 		</div><!-- /.box -->
 
 	   <div class="form-group">	
-		   	{{Form::submit('Save',['class'=>'btn bg-olive'])}}
+		   	{{Form::submit('Save',['class'=>'btn btn-karm btn-sm'])}}
 	   </div>
 	</div>
   </div>

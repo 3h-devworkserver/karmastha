@@ -23,7 +23,7 @@
 		<div class="box-header with-border">
             <h3 class="box-title">List of Members</h3>
             <div class="box-tools pull-right">
-                @include('backend.Members.includes.headerbutton')
+                @include('backend.members.includes.headerbutton')
             </div><!--box-tools pull-right-->
         </div><!-- /.box-header -->
 

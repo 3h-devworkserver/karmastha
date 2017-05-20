@@ -30,7 +30,7 @@
 				<table id="product-table" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="checkAll" name="bulk_select"></th>
+							<th><input type="checkbox" id="checkbox0" class="checkAll" name="bulk_select"><label for="checkbox0"><span></span></label></th>
 							<th>ID</th>
 							<th>Name</th>
 							<th>Slug</th>
@@ -45,18 +45,7 @@
 
 				</table>
 			</div>
-			{{Form::open(['url'=>'admin/products/bulkdelete', 'method'=>'delete'])}}
-			<input type="hidden" class="ids" name="ids">
-			<div class="btn-group dropup">
-			    <button type="button" class="btn bnt-sm btn-primary dropdown-toggle" data-toggle="dropdown">
-			    Bulk Action <span class="caret"></span></button>
-			    <ul class="dropdown-menu" role="menu">
-			      <li><a href="javascript:void(0);" class="submit">Delete</a></li>
-			      <!-- <li><a href="javascript:void(0);" class="submit">Select All</a></li>
-			      <li><a href="javascript:void(0);" class="submit">Deselect All</a></li> -->
-			    </ul>
-			</div>
-			{{Form::close()}}
+			@include('backend.includes.bulkactionform', ['url'=>'admin/products/bulkdelete'])
 		</div>
 		<!-- /.box-body -->
 	</div>

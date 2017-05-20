@@ -16,14 +16,13 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">SKU</label>
+			<label class="control-label">SKU<em class="asterisk">*</em></label>
 			{{Form::text('sku',null,['class'=>'form-control', 'placeholder'=>'Enter Product SKU'])}}
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">Brand</label>
-			{{Form::select('brand_id',$brand,[],['class'=>'form-control'])}}
-			{{-- {{Form::text('brand_id',null,['class'=>'form-control', 'placeholder'=>'Enter Product Brand Name'])}} --}}
+			{{Form::select('brand_id',$brand,null,['class'=>'form-control'])}}
 		</div>
 
 		<div class="form-group">
@@ -32,7 +31,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Detail</label>
+			<label class="control-label">Detail<em class="asterisk">*</em></label>
 			{!!Form::textarea('detail',null,['class'=>'form-control', 'rows'=>'8', 'placeholder'=>'Enter Detail'])!!}
 		</div>
 
@@ -42,7 +41,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Featured Product</label>
+			<label class="control-label">Featured Product<em class="asterisk">*</em></label>
 			{{Form::select('featured',['0' => 'No', '1'=>'Yes'],null,['class'=>'form-control'])}}
 		</div>
 
@@ -52,7 +51,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Status</label>
+			<label class="control-label">Status<em class="asterisk">*</em></label>
 			{{Form::select('status',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
 		</div>
 

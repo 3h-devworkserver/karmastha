@@ -28,7 +28,7 @@
 				<div class="box-body">
 
 					<div class="form-group">
-						<label class="control-label">Page Title</label>
+						<label class="control-label">Page Title<em class="asterisk">*</em></label>
 						{{Form::text('title',null,['class'=>'form-control', 'placeholder'=>'Enter Title'])}}
 					</div>
 
@@ -39,7 +39,7 @@
 
 					<div class="form-group">
 						<label class="control-label">Content</label>
-							{!!Form::textarea('content',null,['class'=>'form-control tinymce', 'placeholder'=>'Enter Content']) !!}
+							{!!Form::textarea('content',null,['class'=>'form-control', 'placeholder'=>'Enter Content']) !!}
 					</div>
 				</div>
 				<!-- /.box-body -->
@@ -78,7 +78,7 @@
 		<div class="col-md-3">
 			<div class="box box-default">
 				<div class="box-header with-border">
-					<h3 class="box-title">Status</h3>
+					<h3 class="box-title">Status<em class="asterisk">*</em></h3>
 					<div class="box-tools pull-right">
 						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					</div><!-- /.box-tools -->
@@ -90,7 +90,7 @@
 
 			<div class="box box-default">
 				<div class="box-header with-border">
-					<h3 class="box-title">Slider</h3>
+					<h3 class="box-title">Slider<em class="asterisk">*</em></h3>
 					<div class="box-tools pull-right">
 						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					</div><!-- /.box-tools -->

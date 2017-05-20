@@ -29,12 +29,12 @@
 			<div class="box-body">
 
 				<div class="form-group">
-					<label class="control-label">Name</label>
+					<label class="control-label">Name<em class="asterisk">*</em></label>
 					{{Form::text('brand_name',null,['class'=>'form-control', 'placeholder'=>'Enter Name','required'=>'required'])}}
 				</div>
 
 				<div class="form-group">
-					<label class="control-label">Logo</label>
+					<label class="control-label">Logo<em class="asterisk">*</em></label>
 					{{Form::file('brand_logo',array('id' => 'logo'),['class'=>'form-control','required'=>'required'])}} 
 					
 					<br>
@@ -43,7 +43,7 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label">Url</label>
+					<label class="control-label">Url<em class="asterisk">*</em></label>
 					{!!Form::text('url',null,['class'=>'form-control', 'placeholder'=>'Enter Url','required'=>'required']) !!}
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 
 
 		<div class="form-group">	
-			{{Form::submit('Save',['class'=>'btn bg-olive'])}}
+			{{Form::submit('Create',['class'=>'btn btn-karm'])}}
 		</div>
 	</div>
 </div>
