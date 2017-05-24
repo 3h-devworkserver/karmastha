@@ -270,23 +270,66 @@ $(document).ready(function(){
 
 
 // ------js for static block section
+// 
+// 
+// load staticblocks table
+$(document).ready(function(){
 
-/**
-   * Check File Types.
-   */
+  $('#static-blocks-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax": base_url + "/data/table/staticblocks",
+    columns: [
+    {
+      data: "id",
+      render: function (data, type, row, meta) {
+        return meta.row + meta.settings._iDisplayStart + 1;
+      }
+    },
+    {data: 'page', name: 'title'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ],
+    order: [[0, "asc"]]
+  });
 
-// function Validate(input)
-//   {
-//      var ext = $(input).val().split('.').pop().toLowerCase();
+});
 
-//      if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-//         return false;
-//       }
-//       else{
 
-//         return true;
-//       }    
-//   }
+
+// load static-blocks-table
+$(document).ready(function(){
+
+   var page_id=$('#page_id').val();
+  $('#static-blocks-list-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax":{"type":"post","url": base_url + "/data/table/static_blocks/list","data":{"page_id":page_id}},
+    columns: [
+        {
+          data: "id",
+          render: function (data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+          }
+        },
+        {data:'title', name:'title'},
+        {data:'identifier', name:'identifier'},
+        { data: 'feature_image', name: 'feature_image',
+            render:function(data,type,row){
+            return "<img src='"+base_url+"/"+data+"'  width='250' height='150'/>";
+            }
+        },
+        {data:'created_at', name:'created_at'},
+        {data:'updated_at', name:'updated_at'},
+        {data:'status', name:'status'},
+        {data: 'action', name: 'action', orderable: false, searchable: false},
+  ],
+  order: [[0, "asc"]]
+});
+});
+
+
 
 /**
  * Give image source to preview with preview element as argument.
@@ -317,6 +360,7 @@ function getImageSrc(input,preview){
     
     reader.onload = function(e){
       $(preview).attr('src',e.target.result).show();
+        
     }
 
     reader.readAsDataURL(input.files[0]);
@@ -331,36 +375,71 @@ function getImageSrc(input,preview){
 
 $(document).ready(function(){
 
+  $('.copy_block').hide();
+  $(".copy_block").clone(true).insertAfter('#mainblock').addClass('block-staticblock').removeClass('copy_block').show();
+  $(".block-staticblock:last").find('.content').addClass('tinymce');
+  $(".block-staticblock:last").find('.bgcolor').addClass('colorpicker-component');
+   
+      //Color picker plugins.
+
+  $(function() { $('.colorpicker-component').colorpicker({ colorSelectors: { 'black': '#000000', 'white': '#ffffff', 'red': '#FF0000',
+      'default': '#777777','primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',
+      'danger': '#d9534f' } }); 
+    });
+    
+
+  
+  tinymce.init({
+        selector: ".tinymce",
+        theme: "modern",
+        mode : "exact",
+        // added elements --yojan
+        // elements : ["content","short_desc","statcontent", "long_desc", "description", "content_it"],
+        // elements : ["content","short_desc","statcontent"],
+        menubar : false,
+        relative_urls: false,
+        
+        forced_root_block: false, // Start tinyMCE without any paragraph tag
+        plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars media nonbreaking",
+            "table contextmenu directionality paste textcolor code localautosave"
+        ],
+        toolbar1: "localautosave | bold italic underline hr | link unlink image media | styleselect forecolor backcolor paste | bullist numlist outdent indent | code preview ",
+        entity_encoding: "raw",
+        file_picker_callback : elFinderBrowser
+    });
+
+   
+
   //---Background Option Selection.
 
-
   $('.image_select').hide();
-  $('select[name="BackgroundOption"] option[value="color"]').prop('selected',true);
-  $('.BackgroundOption').on('change', function() {
-    var bg_option=$('.BackgroundOption').val();
-    if(bg_option === "image"){
-      $('.color_select').hide();
-      $('.image_select').show();  
-    }else{
-      $('.color_select').show();
-      $('.image_select').hide();  
-    }             
+  
+  $('.colorbtn').on('click',function(){
+    $('.color_select').show();
+    $('.image_select').hide();
   });
+  $('.imagebtn').on('click',function(){
+    $('.color_select').hide();
+    $('.image_select').show();
+  });
+
 
   // --previews
 
   $('.bg_image_preview').hide();
   $('.bg_image_upload').change(function(){
-    getImageSrc(this,'.bg_image_preview');
+    var preview=$(this).parent().next('.bg_image_preview');
+    getImageSrc(this,preview);
   });
 
 
   $('.feature_image_preview').hide();
-  // $('.feature_image').change(ImageSrc_Staticblock);
-
-  // });
+  
   $('.feature_image').change(function(){
-    getImageSrc(this,'.feature_image_preview');
+    var preview=$(this).parent().next('.feature_image_preview');
+    getImageSrc(this,preview);
   });
 
 
@@ -369,29 +448,56 @@ $(document).ready(function(){
    * 
    */
   var count =0;
+
   $('.remove-block-staticblock').hide();
 
   $('.add-block-staticblock').click(function(){
 
-    $(".block-staticblock:last").clone(true).insertAfter(".block-staticblock:last").find('#Slider_image_edit').val('');
-    $(".block-staticblock:last").find('.title').val('');
-    $(".block-staticblock:last").find('.identifier').val('');
-    $(".block-staticblock:last").find('.content').val('');      
-    $(".block-staticblock:last").find('.BackgroundOption').val('');
-    $(".block-staticblock:last").find('.color').val('');
-    $(".block-staticblock:last").find('.bg_image_upload').attr('src','');
-    $(".block-staticblock:last").find('.page').val('');
-    $(".block-staticblock:last").find('.feature_image').attr('src','');
-    $(".block-staticblock:last").find('.status').val('');
-    $(".block-staticblock:last").find('.position').val('');
-    $(".block-staticblock:last").find('.s_order').val('');
-    $(".block-staticblock:last").find('.deleteBtn').hide();
+      $(".copy_block").clone(true).insertAfter('.block-staticblock:last').addClass('block-staticblock').removeClass('copy_block').show();
+      $(".block-staticblock:last").find('.content').addClass('tinymce');
+      $(".block-staticblock:last").find('.bgcolor').addClass('colorpicker-component');
+      $(".block-staticblock:last").find('.bg_image_upload').attr('src','').val('');
+      $(".block-staticblock:last").find('.bg_image_preview').attr('src','').hide();  
+      $(".block-staticblock:last").find('.feature_image').attr('src','').val('');
+      $(".block-staticblock:last").find('.feature_image_preview').attr('src','').hide();
+      
+      // tinymce for selecting by class
+       tinymce.init({
+          selector: ".tinymce",
+          theme: "modern",
+          mode : "exact",
+          // added elements --yojan
+          // elements : ["content","short_desc","statcontent", "long_desc", "description", "content_it"],
+          // elements : ["content","short_desc","statcontent"],
+          menubar : false,
+          relative_urls: false,
+          
+          forced_root_block: false, // Start tinyMCE without any paragraph tag
+          plugins: [
+              "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+              "searchreplace wordcount visualblocks visualchars media nonbreaking",
+              "table contextmenu directionality paste textcolor code localautosave"
+          ],
+          toolbar1: "localautosave | bold italic underline hr | link unlink image media | styleselect forecolor backcolor paste | bullist numlist outdent indent | code preview ",
+          entity_encoding: "raw",
+          file_picker_callback : elFinderBrowser
+      });
+      
+        //Color picker plugins.
+      $(function() { $('.colorpicker-component').colorpicker({ colorSelectors: { 'black': '#000000', 'white': '#ffffff', 'red': '#FF0000',
+        'default': '#777777','primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',
+        'danger': '#d9534f' } }); 
+      });
+     
+      $(".block-staticblock:last").find('.deleteBtn').hide();
+      $(".block-staticblock:last").find('.pageSelect').remove();
 
-    count++;
-    $(".counter").val(count);
-    $('.remove-block-staticblock').show();
+      count++;
+      $(".counter").val(count);
+      $('.remove-block-staticblock').show();
   });
 
+  
   $('.remove-block-staticblock').click(function(){
     if(count!=0){
 
@@ -406,5 +512,8 @@ $(document).ready(function(){
     }
 
   });
+
 }); 
+
+
 

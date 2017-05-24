@@ -30,7 +30,7 @@
 				<table id="page-table" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="checkAll" name="bulk_select"></th>
+							<th><input type="checkbox" id="checkbox0" class="checkAll" name="bulk_select"><label for="checkbox0"><span></span></label></th>
 							<th>ID</th>
 							<th>Title</th>
 							<th>Slug</th>

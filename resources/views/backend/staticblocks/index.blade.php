@@ -32,13 +32,8 @@
 				<table id="static-blocks-table" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Title</th>
-							<th>Identifier</th>
+							<th>S.N</th>
 							<th>Page</th>
-							<th>Created At</th>
-							<th>Last Updated</th>
-							<th>Status</th>
 							<th>Action</th>
 						</tr>
 					</thead>

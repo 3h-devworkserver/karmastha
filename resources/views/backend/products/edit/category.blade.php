@@ -11,9 +11,9 @@
 		    @foreach($categorys as $category)
 	            <li >
 	            @if(in_array($category->id, $catSelected->toArray()))
-	                {{Form::checkbox('category[]', $category->id, true)}} {{ $category->title }}
+	                {{Form::checkbox('category[]', $category->id, true, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
 	            @else
-	                {{Form::checkbox('category[]', $category->id)}} {{ $category->title }}
+	                {{Form::checkbox('category[]', $category->id, null, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
 	            @endif
 
 	                @if(count($category->childs))

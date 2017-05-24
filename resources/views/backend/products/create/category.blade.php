@@ -9,8 +9,8 @@
 	<div class="box-body">
 		<ul id="tree1">
 		    @foreach($categorys as $category)
-	            <li >
-	                {{Form::checkbox('category[]', $category->id)}} {{ $category->title }}
+	            <li>
+	                {{Form::checkbox('category[]', $category->id, null, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
 	                @if(count($category->childs))
 	                    @include('backend.products.create.managechild',['childs' => $category->childs])
 	                @endif

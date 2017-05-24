@@ -177,6 +177,24 @@ if (! function_exists('crudOps_for_slides')) {
     }
 }
 
+if (! function_exists('crudOps_for_staticblock')) {
+    /**
+     * this is method can be used to generate edit and delete button in table
+     * @param string $resource eg:admin.pages.edit where resource = pages
+     * @param $id 
+     * @return $string
+     */
+    function crudOps_for_staticblock($resource, $title)
+    {
+        $ops = '<ul class="list-inline no-margin-bottom">';
+        
+        $ops .= '<li><a href="'.url('admin/'.$resource.'/'.$title.'/list').'" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i>  Edit</a></li>';
+        $ops .= '<li><a href="'.route('admin.'.$resource.'.destroy', $title).'" data-method="delete" name="delete_item" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>  Delete</a></li>';
+        $ops .= '</ul>';
+        return $ops;
+    }
+}
+
 if(!function_exists('parseStatus')){
 
     function parseStatus($status)
@@ -272,7 +290,7 @@ if (! function_exists('bulkSelect')) {
      */
     function bulkSelect($id)
     {
-        return "<input type='checkbox' id='checkbox".$id."' class='bulkSelect checkbox icheck' data-id='".$id."' name='bulk_select' value='".$id."'><label for='checkbox".$id."'><span></span></label>";
+        return "<input type='checkbox' id='checkbox".$id."' class='bulkSelect' data-id='".$id."' name='bulk_select' value='".$id."'><label for='checkbox".$id."'><span></span></label>";
     }
 }
 

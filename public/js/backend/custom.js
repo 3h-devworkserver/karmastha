@@ -154,12 +154,12 @@ $(document).on('change', '.bulkSelect', function(){
           });
 
 
-        //--added by yojan
-        tree.find('li').not(':has(ul)').each(function () {
-          var branch = $(this);
-          branch.prepend("<i class='" + noChild + "'></i>");
-        });
-        // end of addition
+        // //--added by yojan
+        // tree.find('li').not(':has(ul)').each(function () {
+        //   var branch = $(this);
+        //   branch.prepend("<i class='" + noChild + "'></i>");
+        // });
+        // // end of addition
 
         /* fire event from the dynamically added icon */
         tree.find('.branch .indicator').each(function(){
@@ -407,9 +407,21 @@ $.validator.setDefaults({
         errorClass: "help-block",
         highlight: function(element) {
             $(element).closest('.form-group').addClass('has-error');
+            var id = $(element).closest('.tab-pane').attr('id');
+            var tmp = $('#myTab').find('li a i.'+id).each(function(){
+              $(this).addClass('fa fa-exclamation-circle');
+            });
         },
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error');
+            $('.tab-pane').each(function(){
+              var count = $(this).has('.has-error').length;
+              var id = $(this).attr('id');
+              if (count == 0) {
+                $('#myTab li a i.'+id).removeClass('fa fa-exclamation-circle');
+              }
+            });
+
         },
         errorPlacement: function (error, element) {
         // if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
@@ -423,7 +435,7 @@ $.validator.setDefaults({
         //     // if (element.parent('.input-group').length || element.prop('type') === 'email' ) {
         //     //  error.insertAfter(element);
         //     // }
-            // error.insertAfter(element);
+            error.insertAfter(element);
         // // element.attr("placeholder",error.text());
         // }
     }

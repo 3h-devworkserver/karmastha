@@ -41,8 +41,10 @@ class CategoryController extends Controller {
 	public function postEdit($id, UpdateCategoryRequest $request)
 	{	
 		$this->validate($request,[
-            'title' => 'required|unique:categorys,title,'.$id,
+            // 'title' => 'required|unique:categorys,title,'.$id,
+            'title' => 'required',
             'status' => 'required',
+            'cat_type' => 'required',
             'upload' => 'image|max:2000',
             'url' => 'unique:categorys,url,'.$id,
         ]);
@@ -86,7 +88,8 @@ class CategoryController extends Controller {
 			$item->meta_title 		= e(Request::get('meta_title',''));	
 			$item->meta_keyword 		= e(Request::get('meta_keyword',''));	
 			$item->meta_desc 		= e(Request::get('meta_desc',''));	
-			$item->feat_img 		= $filename;	
+			$item->feat_img 		= $filename;
+			$item->cat_type 		= e(Request::get('cat_type',''));		
 
 			$item->save();
 		});
@@ -132,8 +135,10 @@ class CategoryController extends Controller {
 	public function postNew(CreateCategoryRequest $request)
 	{	
 		$this->validate($request,[
-            'title' => 'required|unique:categorys,title',
+            // 'title' => 'required|unique:categorys,title',
+            'title' => 'required',
             'status' => 'required',
+            'cat_type' => 'required',
             'upload' => 'image|max:2000',
             'url' => 'unique:categorys,url',
         ]);
@@ -168,6 +173,7 @@ class CategoryController extends Controller {
 			$item->meta_keyword 		= e(Request::get('meta_keyword',''));	
 			$item->meta_desc 		= e(Request::get('meta_desc',''));	
 			$item->feat_img 		= $filename;	
+			$item->cat_type 		= e(Request::get('cat_type',''));		
 
 			$item->save();
 		});

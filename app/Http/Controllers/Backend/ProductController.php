@@ -86,7 +86,7 @@ class ProductController extends Controller
         $rand = str_random(20);
         $brand = Brand::where('status', 1)->pluck('brand_name', 'id');
         $brand->prepend('--Select--', '');
-        $categorys = Category::where('parent_id', 0)->orderBy('order', 'asc')->get();
+        $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
         return view('backend.products.create', compact('brand', 'categorys', 'rand'));
     }
 
@@ -345,7 +345,7 @@ class ProductController extends Controller
         $rand = str_random(20);
         $brand = Brand::where('status', 1)->pluck('brand_name', 'id');
         $brand->prepend('--Select--', '');
-        $categorys = Category::where('parent_id', 0)->orderBy('order', 'asc')->get();
+        $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
 
         return view('backend.products.edit',compact('product', 'brand', 'categorys', 'catSelected', 'rand'));
     }

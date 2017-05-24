@@ -123,13 +123,13 @@
 <?php */ ?>
 
 <ul id="myTab" class="nav nav-tabs">
-  <li class="active"><a href="#home" data-toggle="tab">General</a></li>
-  <li class=""><a href="#price" data-toggle="tab">Price</a></li>
-  <li class=""><a href="#meta" data-toggle="tab">Meta Information</a></li>
-  <li class=""><a href="#image" data-toggle="tab">Image</a></li>
-  <li class=""><a href="#inventory" data-toggle="tab">Inventory</a></li>
-  <li class=""><a href="#category" data-toggle="tab">Category</a></li>
-  <li class=""><a href="#attribute" data-toggle="tab">Attribute</a></li>
+  <li class="active"><a href="#home" data-toggle="tab" >General<i class="home pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#price" data-toggle="tab">Price<i class="price pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#meta" data-toggle="tab">Meta Information<i class="meta pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#image" data-toggle="tab">Image<i class="image pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#inventory" data-toggle="tab">Inventory<i class="inventory pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#category" data-toggle="tab">Category<i class="category pull-right text-danger" aria-hidden="true"></i></a></li>
+  <li class=""><a href="#attribute" data-toggle="tab">Attribute<i class="attribute pull-right text-danger" aria-hidden="true"></i></a></li>
 </ul>
 
 <div id="myTabContent" class="tab-content">

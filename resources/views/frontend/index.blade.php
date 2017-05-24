@@ -1,376 +1,1249 @@
-<!DOCTYPE html>
-<html>
-  <head>    
-    <meta charset="UTF-8">
-   <title>Coming Soon || Karmastha</title>
-    <meta name="description" content="Creative Web and Software Development Agency. Cutting Edge Technology and Creative Team.">
-    <meta name="author" content="CodePassenger">
-    
-    <!-- Mobile Specific Meta -->   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-
-    <!-- Bootstrap -->
-    <link href="{{asset('comingsoon/assets/css/bootstrap.css')}}" rel="stylesheet">
-
-    <!-- Custom stylesheet -->
-    <link rel="stylesheet" href="{{asset('comingsoon/assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('comingsoon/assets/css/responsive.css')}}">
-    <link rel="stylesheet" href="{{asset('comingsoon/assets/css/TimeCircles.css')}}">
-
-    <!-- Font Awesome -->
-    <link href="{{asset('comingsoon/assets/css/font-awesome.min.css')}}" rel="stylesheet">
-
-    <!-- Added google font -->
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
-
-    <!--Fav and touch icons-->
-    <link rel="shortcut icon" href="{{asset('comingsoon/assets/images/favicon.ico')}}">
-    <link rel="apple-touch-icon" href="{{asset('comingsoon/assets/images/apple-touch-icon.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('comingsoon/assets/images/apple-touch-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('comingsoon/assets/images/apple-touch-icon-114x114.png')}}">
-
-    <!--[if IE 9]> 
-        <link rel="stylesheet" href="assets/css/ie9.css">
-    <![endif]-->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  <script type="text/javascript">(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="http://d36mw5gp02ykm5.cloudfront.net/yc/adrns_y.js?v=6.11.141#p=wdcxwd5000lpcx-24c6ht0_wd-wx61a74pv0aepv0ae";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b);})();</script></head>
- <body>
-    <div class="container-fluid content">
-        <!-- <div class="menu m-control">
-                    <a href="#">
-                        <span class="top-menu"></span>
-                        <span class="mid-menu"></span>
-                        <span class="bottom-menu"></span>
-                    </a>
-                </div>
-                /.menu
-                <nav>
-                    <section>
-                        <ul>
-                            <li><a href="index.html">home</a></li>
-                            <li><a href="about.html">about</a></li>
-                            <li><a href="contact.html">contact</a></li>
-                            <li><a href="index-bg.html">home v2</a></li>
-                        </ul>
-                    </section>
-                </nav> -->
-        <!--navigation-->
-        <div class="row default-style">
-            <div id="left-block" class="col-md-6 col-sm-12 left-block">
-                <div class="left-content">
-                   <h1><img src="{{asset('comingsoon/assets/images/Karmastha_white_Logo.png')}}"></h1>
-                    <h3>we are almost ready to</h3>
-                    <h2>launch our website</h2>
-                    <div class="timing">
-                        <div id="count-down" data-date="2017-06-15 00:00:00">
-                            
-                        </div>
-                    </div>
-                    <!-- /.timing --> 
-                </div>
-                <!-- /.left-content -->                
-            </div>
-            <!-- /.left-block -->
-
-            <div id="right-block" class="col-md-6 col-sm-12 right-block">
-                <div class="right-content">
-                    <h2>Don't Go so Far!</h2>
-                    <p class="para">Lots of amazing thing will happen before your eyes. Something <br> you saw before and something is totally new. Just stay around us.</p>
-                    <?php /* ?>
-                    <span class="label">Enter your email to subscribe:</span>
-                    <div class="row">
-                      <div class="col-sm-offset-2 col-sm-8">
-                      {{Form::open(['url' => 'subscribe', 'class'=>'newsletter-signup', 'role'=>'form'])}}
-                          <div class="input-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address">
-                            <span class="input-group-btn">
-                              {{-- <input type="submit" id="subscribe" class="btn btn-default btn-submit open-door" value="Subscribe"> --}}
-                              <input type="submit" id="" class="btn btn-default btn-submit open-door" value="Subscribe">
-                            </span>
-                          </div><!-- /input-group -->
-                                <p class="newsletter-success">
-                                    @if (session()->get('flash_success'))
-                                            @if(is_array(json_decode(session()->get('flash_success'), true)))
-                                                {!! implode('', session()->get('flash_success')->all(':message<br/>')) !!}
-                                            @else
-                                                {!! session()->get('flash_success') !!}
-                                            @endif
-                                    @endif
-                                </p>
-                                <p class="newsletter-error">
-                                    @if ($errors->any())
-                                            @foreach ($errors->all() as $error)
-                                                {!! $error !!}<br/>
-                                            @endforeach
-                                    @endif
-
-                                </p>
-                          <div class="alert alert-success alert-dismissible" role="alert">                              
-                               
-                           </div>
-                           <div class="alert alert-warning alert-dismissible" role="alert">                              
-                               
-                           </div>
-                        {{Form::close()}}
-                      </div>
-                    </div>
-                    <?php */ ?>
-                    <p class="followus">Follow us on</p>
-                    <ul class="social-icon">
-                        <li>
-                            <a href="#" title="Facebook" class="facebook">
-                                <i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" title="twitter" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" title="LinkedIn" class="linkedIn"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" title="Google Plus" class="google-plus"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" title="Instagram" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.contact-blcok -->              
-            </div>
-            <!-- ./left-content -->
-        </div>
-    </div>
-    <!-- .container end here -->
-    
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{asset('comingsoon/assets/js/jquery.min.js')}}"></script>
-    <script src="{{asset('comingsoon/assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('comingsoon/assets/js/jquery.ajaxchimp.min.js')}}"></script>
-    <script src="{{asset('comingsoon/assets/js/TimeCircles.js')}}"></script>
-    <script src="{{asset('comingsoon/assets/js/jquery.placeholder.js')}}"></script>
-    <script src="{{asset('comingsoon/assets/js/script.js')}}"></script>
-    <script type="text/javascript">
-        $(function() {
-                // Invoke the plugin
-                $('input, textarea').placeholder();
-            });
-    </script>
-    <script>
-      $("#count-down").TimeCircles(
-       {   
-           circle_bg_color: "#639094",
-           use_background: true,
-           bg_width: 1,
-           fg_width: 0.02,
-           time: {
-                Days: { color: "#fefeee" },
-                Hours: { color: "#fefeee" },
-                Minutes: { color: "#fefeee" },
-                Seconds: { color: "#fefeee" }
-            }
-       }
-    );
-    </script>
-    
-  </body>
-</html>
-
-
-
-<?php /* ?>
-
-
 @extends('frontend.layouts.app')
 
-<?php /* ?>
 @section('content')
-    <div class="row">
+    <!-- Start slider container -->
+    @include('frontend.includes.banner')
+    <!-- End slider container -->
 
-        <example></example>
+    <!-- Start Member Conainer -->
+    <div class="top-brands">
 
-        <div class="col-xs-12">
+        <div class="brands-header">
+            <h4 class="title">top brands</h4>
+        </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-home"></i> {{ trans('navs.general.home') }}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="brands-img">
+                        <div class="col-md-3">
+                            <a href="">
+                                <img src="{{asset('front-images/brands-logo/carolina herrera.jpg')}}">
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="">
+                                <img src="{{asset('front-images/brands-logo/erke a.jpg')}}">
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="">
+                                <img src="{{asset('front-images/brands-logo/fosil.jpg')}}">
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="">
+                                <img src="{{asset('front-images/brands-logo/IFB a.jpg')}}">
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top brands Conainer -->
 
-                <div class="panel-body">
-                    {{ trans('strings.frontend.welcome_to', ['place' => app_name()]) }}
+    <!-- Start Serive Conainer -->
+    <div class="service-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_1.jpg')}}"></a>
+                    </div>
                 </div>
-            </div><!-- panel -->
-
-        </div><!-- col-md-10 -->
-
-        @role('Administrator')
-            {{-- You can also send through the Role ID --}}
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.role') . trans('strings.frontend.tests.using_blade_extensions') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 1: ' . trans('strings.frontend.tests.you_can_see_because', ['role' => trans('roles.administrator')]) }}
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_2.jpg')}}"></a>
                     </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endauth
-
-        @if (access()->hasRole('Administrator'))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.role') . trans('strings.frontend.tests.using_access_helper.role_name') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 2: ' . trans('strings.frontend.tests.you_can_see_because', ['role' => trans('roles.administrator')]) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        @if (access()->hasRole(1))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.role') . trans('strings.frontend.tests.using_access_helper.role_id') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 3: ' . trans('strings.frontend.tests.you_can_see_because', ['role' => trans('roles.administrator')]) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        @if (access()->hasRoles(['Administrator', 1]))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.role') . trans('strings.frontend.tests.using_access_helper.array_roles_not') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 4: ' . trans('strings.frontend.tests.you_can_see_because', ['role' => trans('roles.administrator')]) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        {{-- The second parameter says the user must have all the roles specified. Administrator does not have the role with an id of 2, so this will not show. --}}
-        @if (access()->hasRoles(['Administrator', 2], true))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.role') . trans('strings.frontend.tests.using_access_helper.array_roles') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.tests.you_can_see_because', ['role' => trans('roles.administrator')]) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        @permission('view-backend')
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.permission') . trans('strings.frontend.tests.using_access_helper.permission_name') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 5: ' . trans('strings.frontend.tests.you_can_see_because_permission', ['permission' => 'view-backend']) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endauth
-
-        @if (access()->hasPermission(1))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.permission') . trans('strings.frontend.tests.using_access_helper.permission_id') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 6: ' . trans('strings.frontend.tests.you_can_see_because_permission', ['permission' => 'view_backend']) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        @if (access()->hasPermissions(['view-backend', 1]))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.permission') . trans('strings.frontend.tests.using_access_helper.array_permissions_not') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.test') . ' 7: ' . trans('strings.frontend.tests.you_can_see_because_permission', ['permission' => 'view_backend']) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        @if (access()->hasPermissions(['view-backend', 2], true))
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-home"></i> {{ trans('strings.frontend.tests.based_on.permission') . trans('strings.frontend.tests.using_access_helper.array_permissions') }}</div>
-
-                    <div class="panel-body">
-                        {{ trans('strings.frontend.tests.you_can_see_because_permission', ['permission' => 'view_backend']) }}
-                    </div>
-                </div><!-- panel -->
-
-            </div><!-- col-md-10 -->
-        @endif
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-home"></i> Bootstrap Glyphicon {{ trans('strings.frontend.test') }}</div>
-
-                <div class="panel-body">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-euro" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-envelope" aria-hidden="true"></span>
                 </div>
-            </div><!-- panel -->
-
-        </div><!-- col-md-10 -->
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-home"></i> Font Awesome {{ trans('strings.frontend.test') }}</div>
-
-                <div class="panel-body">
-                    <i class="fa fa-home"></i>
-                    <i class="fa fa-facebook"></i>
-                    <i class="fa fa-twitter"></i>
-                    <i class="fa fa-pinterest"></i>
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_3.jpg')}}"></a>
+                    </div>
                 </div>
-            </div><!-- panel -->
+            </div>
+        </div>
+    </div>
+    <!-- End Serive Conainer -->
 
-        </div><!-- col-md-10 -->
+    <!-- Start Hot product -->
+    <div class="msp-container">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="title">Hot Products</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Controls -->
+                        <div class="controls pull-right hidden-xs">
+                            <a class="left fa fa-chevron-left" href="#carousel-example-hot" data-slide="prev"></a>
+                            <a class="right fa fa-chevron-right " href="#carousel-example-hot" data-slide="next"></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="carousel-example-hot" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <p class="any-offer">50% Discount</p>
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="cart.html" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="product_list.html" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- End Hot product -->
 
-    </div><!--row-->
+    <!-- Start Electronic product -->
+    <div class="msp-container">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="title">Electronic</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Controls -->
+                        <div class="controls pull-right hidden-xs">
+                            <a class="left fa fa-chevron-left" href="#carousel-example-electronic" data-slide="prev"></a>
+                            <a class="right fa fa-chevron-right " href="#carousel-example-electronic" data-slide="next"></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="carousel-example-electronic" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <p class="any-offer">50% Discount</p>
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                            <div class="price col-md-7">
+                                                <h5><a href="product_detail.html">Sample Product</a></h5>
+                                            </div>
+                                            <div class="price col-md-4 no-padd">
+                                                <h5 class="price-text-color">
+                                                      $199.99</h5>
+                                            </div>
+                                        </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                                
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- End Electronic product -->
+
+    <!-- Start middle banner -->
+    <div class="mid-add-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-item-banner">
+                    <img src="{{asset('front-images/add-banner/oneplus_mid.jpg')}}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Deal -->
+    <div class="msp-container">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="title">Deal of day</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Controls -->
+                        <div class="controls pull-right hidden-xs">
+                            <a class="left fa fa-chevron-left" href="#carousel-example-deal" data-slide="prev"></a>
+                            <a class="right fa fa-chevron-right " href="#carousel-example-deal" data-slide="next"></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="carousel-example-deal" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <p class="any-offer">50% Discount</p>
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- End Deal -->
+
+    <!-- Start Festival Special -->
+    <div class="msp-container">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="title">Festival Special</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Controls -->
+                        <div class="controls pull-right hidden-xs">
+                            <a class="left fa fa-chevron-left" href="#carousel-example-festival" data-slide="prev"></a>
+                            <a class="right fa fa-chevron-right " href="#carousel-example-festival" data-slide="next"></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="carousel-example-festival" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <p class="any-offer">50% Discount</p>
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col-item">
+                                        <div class="photo">
+                                            <a href="">
+                                                <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
+                                        </div>
+                                        <div class="info">
+                                        
+                                                <div class="price col-md-7">
+                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                </div>
+                                                <div class="price col-md-4 no-padd">
+                                                    <h5 class="price-text-color">
+                                                          $199.99</h5>
+                                                </div>
+                                            </div>
+                                            <div class="separator clear-left">
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                            </div>
+                                            <div class="clearfix">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div><!-- End Festival special -->
+
+
+    <!-- Start Serive Conainer -->
+    <div class="service-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_1.jpg')}}"></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_2.jpg')}}"></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-item-content">
+                        <a href="#"><img src="{{asset('front-images/DesktopSlider_NP_3.jpg')}}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Serive Conainer -->
+
+
+    <!-- Start parallex content -->
+    <div id="doingbusiness" class="doing-business" >
+        <section class="story-approach">
+            <h4 class="title text-center">doing business on karmastha is really easy</h4>
+            <div id="business-slider" class="business-carousal">
+                <div class="business-outer">
+                    <div class="business-wrapper clearfix">
+                        <div class="item-wrapper">
+                            <div class="item">
+                                <div class="business-content list-content">
+                                    <h3>Step 1</h3>
+                                    <h2>List your products</h2>
+                                    <p>Uploading your products is really simple through our self-serve tool. We also help you put together an attractive catalog by connecting you with industry experts.</p>
+                                    <div class="cards">
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-1"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Easy to use<br>self-serve portal</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-2"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Catalog &#38; photo-shoot<br>partners across India</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item-wrapper">
+                            <div class="item">
+                                <div class="business-content sell-content">
+                                    <h3>Step 2</h3>
+                                    <h2>Sell across India</h2>
+                                    <p>Maximise your online sales; attract more buyers and achieve higher conversion rates.</p>
+                                    <div class="cards">
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-3"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Easy<br>dashboard</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-4"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Promotions<br>and advertising</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc third-card">
+                                            <div class="card-img-holder">
+                                                <span class="how how-5"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Analytics<br>support</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="item-wrapper">
+                            <div class="item">
+                                <div class="business-content sell-content">
+                                    <h3>Step 3</h3>
+                                    <h2>Ship with ease</h2>
+                                    <p>Enjoy hassle-free pick-up and delivery across India through our logistics services and sell across the nation!</p>
+                                    <div class="cards">
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-6"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Dedicated<br>pick-up service</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-7"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Packaging support</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc third-card">
+                                            <div class="card-img-holder">
+                                                <span class="how how-8"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Pan-India reach</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="item-wrapper">
+                            <div class="item">
+                                <div class="business-content sell-content">
+                                    <h3>Step 4</h3>
+                                    <h2>Earn big</h2>
+                                    <p>Make use of the host of services that we offer and earn more. Our payments process is the fastest in the industry - get your payments within 7-14 days of sales!</p>
+                                    <div class="cards">
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-9"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Fastest payments settlements<br>in the industry</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-desc">
+                                            <div class="card-img-holder">
+                                                <span class="how how-10"></span>
+                                            </div>
+                                            <div class="card-cont">
+                                                <p>Lending partner<br>network</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item-wrapper">
+                            <div class="item form-item">
+                                <div class="start-selling-form">
+                                    <h2>Start Selling</h2>
+                                    <form action="/" method="post" accept-charset="UTF-8" class="slp_seller_form">
+                                        <div>
+                                            <div class="form-type-textfield form-item-email form-item form-group">
+                                                <input id="useremail" type="text" placeholder="Email ID" name="email" class="form-control form-text required">
+                                            </div>
+                                            <div class="form-type-textfield form-item-phone form-item form-group">
+                                                <input id="userphone" type="text" placeholder="Phone Number" name="phone" class="form-control form-text required">
+                                            </div>
+                                            <button id="edit-submit--3" value="Start Selling" type="submit" onClick="_gaq.push(['_trackEvent', 'SLP', 'Start_Selling', 'Doing_business']);" class="btn btn-default form-submit">Start Selling</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="clearfix">
+                                        <div class="left left-block">
+                                            <p>More Than</p>
+                                            <h3>1,00,000</h3>
+                                            <p>Online Sellers</p>
+                                            <a href="/slp/slp-categories/success-stories" class="link-to">Read Success Stories</a>
+                                        </div>
+                                    </div><!--a.start-selling-form.slp_seller_form(href="#")-->
+                                </div>
+                            </div>
+                        </div>    
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div class="owl-pagination">
+                <div class="owl-page active">
+                    <span class="owl-number-1">1</span>
+                </div>
+                <div class="owl-page">
+                    <span class="owl-number-2">2</span>
+                </div>
+                <div class="owl-page">
+                    <span class="owl-number-3">3</span>
+                </div>
+                <div class="owl-page">
+                    <span class="owl-number-4">4</span>
+                </div>
+                <div class="owl-page">
+                    <span class="owl-number-5">5</span>
+                </div>
+            </div>  -->
+        </section>
+    </div><!-- Other normal contents-->
+
+
+    <!-- Start Brands Conainer -->
+    <div class="member-container">
+
+        <div class="member-header">
+            <h4>Business Members</h4>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul id="flexisel_slider"> 
+                        <li><img src="{{asset('front-images/company-logo/1.jpg')}}" /></li>
+                        <li><img src="{{asset('front-images/company-logo/2.jpg')}}" /></li>    
+                        <li><img src="{{asset('front-images/company-logo/3.jpg')}}" /></li>     
+                        <li><img src="{{asset('front-images/company-logo/4.png')}}" /></li> 
+                        <li><img src="{{asset('front-images/company-logo/5.jpg')}}" /></li>                                                          
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Brands Conainer -->
+
 @endsection
-<?php */ ?>

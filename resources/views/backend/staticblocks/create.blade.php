@@ -2,8 +2,8 @@
 
 @section('after-styles')
 
-{{ Html::style('js/backend/plugin/farbtastic/farbtastic.css') }}
-
+<!-- {{ Html::style('js/backend/plugin/bootstrap-colorpicker.css') }}  -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/css/bootstrap-colorpicker.css">
 @endsection
 
 @section ('title', 'Static-Blocks Management')
@@ -24,9 +24,9 @@
 @endsection
 
 @section('content')
-{{Form::open(['url'=>'admin/static_blocks','files'=>'true'])}}
-<!-- The block to clone after add more. -->
-<div class="block-staticblock">
+<!--The block to be copied -->
+
+<div class="copy_block">
 	<div class="row">
 		<div class="col-md-9">
 			<div class="box box-orange">
@@ -46,43 +46,58 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">Url<em class="asterisk">*</em></label>
-						{{Form::text('url[]',null,['class'=>'form-control url', 'placeholder'=>'Enter Url','required'=>'required'])}}
+						{{Form::text('url[]',null,['class'=>'form-control url', 'placeholder'=>'Enter Url'])}}
 					</div>
 					<div class="form-group">
 						<label class="control-label">Content</label>
-						{{Form::textarea('content[]',null,['class'=>'form-control content', 'placeholder'=>'Enter Content'])}}
+						{{Form::textarea('content[]',null,['class'=>'form-control content', 'placeholder'=>'Enter Content','rows'=>'4'])}}
 					</div>
 					<div class="form-group">
 						<label class="control-label">Choose Background option<em class="asterisk">*</em></label>
 						<div class="row">	
 							<div class="col-md-12">
-								{{Form::select('BackgroundOption[]',['color'=>'Background Color','image'=>'Background Image'],null,['class'=>'form-control BackgroundOption'])}}							
+														
+								<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  									<div class="btn-group" role="group">
+    									<button type="button" class="btn btn-default colorbtn">Color</button>
+  									</div>
+ 									<div class="btn-group" role="group">
+    									<button type="button" class="btn btn-default imagebtn">Image</button>
+  									</div>
+  								</div>
+
 							</div>
+
+
 						</div>
-						<br>
+
 						<div class="col-md-12 color_select" >
-							<div class="bfh-colorpicker" data-name="colorpicker1">
-								<span class="input-group-addon">							
-									{{Form::text('BgColor[]','#123456',['class'=>'form-control color'])}}
-								</span>
-								<div class="colorpicker"></div> 
+						<hr>
+	 						<div  data-format="alias" class="input-group bgcolor">
+								{{Form::text('BgColor[]','primary',['class'=>'form-control'])}}
+								<span class="input-group-addon"><i></i></span> 
 							</div> 
-						</div>
+
+ 						</div>
+						<hr>
 						<div class="col-md-12 image_select" >
-							
-	    						
-	    						{{Form::file('Background_image[]',['class'=>'bg_image_upload','required'=>'required'])}}  
-							<img class="bg_image_preview" width="700" height="370" src="#"  alt="Preview" />
+							<div class="form-group">
+								<span class="btn btn-sm btn-karm btn-file ">
+								<i class="fa fa-folder-open"></i>Upload Background Image
+									<input type="file" name="Background_image[]" class="form-control bg_image_upload" accept="image/*">
+								</span>
+								<img class="bg_image_preview" width="760" height="400"  src="#" alt="preview">
+							</div>	
 						</div>
 					</div>	
-						
+
 				</div>
 				<!-- /.box-body -->
 			</div>
 			
 		</div>
 		<div class="col-md-3">
-			<div class="row">
+			<div class="row pageSelect">
 				<div class="box box-default">
 					<div class="box-header with-border">
 						<h3 class="box-title">Selected Page<em class="asterisk">*</em></h3>
@@ -91,7 +106,7 @@
 						</div><!-- /.box-tools -->
 					</div><!-- /.box-header -->
 					<div class="box-body">
-						{{Form::select('page[]',$page,null,['class'=>'form-control page'])}}
+						{{Form::select('page',$page,null,['class'=>'form-control page'])}}
 					</div><!-- /.box-body -->
 				</div>			
 			</div>
@@ -104,10 +119,15 @@
 						</div><!-- /.box-tools -->
 					</div><!-- /.box-header -->
 					<div class="box-body">
+						<div class="form-group">
+								<span class="btn btn-sm btn-karm btn-file ">
+								<i class="fa fa-folder-open"></i>Upload feature Image
+									<input type="file" name="feature_image[]" class="form-control feature_image" accept="image/*">
+								</span>
+								<img class="feature_image_preview" width="260" height="150"  src="#" alt="preview">
+						</div>
 						
-						{{Form::file('feature_image[]',['class'=>'feature_image','required'=>'required'])}} 
 						
-						<img class="feature_image_preview" width="260" height="150"  src="#" alt="preview">
 					</div><!-- /.box-body -->
 				</div>			
 			</div>
@@ -149,12 +169,17 @@
 					<div class="box-body">
 						{{Form::number('s_order[]',0,['class'=>'form-control s_order','min'=>'0'])}}
 					</div><!-- /.box-body -->
+					{{ Form::hidden('count[]',null) }}
 				</div>			
 			</div>			
 		</div>
 	</div>
-</div>	
-<!-- The block to clone after add more. -->
+</div>
+<!--end of the block to be copied -->
+
+{{Form::open(['url'=>'admin/static_blocks','files'=>'true'])}}
+<div id="mainblock"></div>
+
 <div class="row">
 	<div class=" col-md-3 ">
 		<a class="btn btn-primary add-block-staticblock">Add More</a>
@@ -170,17 +195,25 @@
 </div>
 {{Form::close()}}
 
+@include('backend.includes.tinymce')
+<div class="clearfix"></div>
 
 
 @endsection
 
 @section('after-scripts')
-{{ Html::script('js/backend/plugin/farbtastic/farbtastic.js') }}
+<!-- {{ Html::script('js/backend/plugin/farbtastic/farbtastic.js') }}
 <script type="text/javascript">
-	 $(document).ready(function() {
+	$(document).ready(function() {
 
-  $('.colorpicker').farbtastic('.color');
+  	$('.colorpicker').farbtastic('.color');
 
-});
-</script>
+	});
+
+</script> -->
+<!-- {{ Html::script('js/backend/plugin/bootstrap-colorpicker.js') }}
+{{ Html::script('js/backend/plugin/bootstrap-colorpicker.min.js') }}
+ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/js/bootstrap-colorpicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/js/bootstrap-colorpicker.min.js"></script>
 @endsection

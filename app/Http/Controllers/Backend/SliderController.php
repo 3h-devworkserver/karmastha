@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend;
 use DB;
 use Datatables;
 use Validator;
-use App\Models\Slider;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +21,6 @@ class SliderController extends Controller
      * Base Directory to upload images.
      * @var string
      */
-	protected $baseDir="images/member_logo";
 	protected $baseDir_Slide="images/slides";
 
 
@@ -174,10 +172,9 @@ class SliderController extends Controller
 	public function slide_list($title,Request $request)
 	{	
 
-		$slide=Slide::where('title',$title)->first();
+		// $slide=Slide::where('title',$title)->first();
 		
-		$title=$slide->title;
-		// $slider=Slider::find($id);
+		// $title=$slide->title;
 
 		return  view('backend.sliders.list',compact('title'));
 	}
@@ -193,11 +190,6 @@ class SliderController extends Controller
 	{
 
 		$slide=Slide::find($id);
-
-		//$slider=Slider::findOrFail($id);
-		
-		//$slides=Slide::where('title',$slider->title)->get();
-
 
 		return view('backend.sliders.slide_edit',compact('slide'));
 
@@ -235,33 +227,33 @@ class SliderController extends Controller
 	public function updateSlide($id,updateSliderRequest $request)
 	{
 		
-			$slide=Slide::findOrFail($id);	
+		$slide=Slide::findOrFail($id);	
 
-			//check if new file is uploaded and update slide-image.
+		//check if new file is uploaded and update slide-image.
+		
+		if ( $request->hasFile('Slider_image')){
+			$file= $request->file('Slider_image');
+			$filename=time().$file->getClientOriginalName();
+			$filepath=$this->Upload_and_GetFilepath($file,$filename);
 			
-			if ( $request->hasFile('Slider_image')){
-				$file= $request->file('Slider_image');
-				$filename=time().$file->getClientOriginalName();
-				$filepath=$this->Upload_and_GetFilepath($file,$filename);
-				
 
-				$slide->update([
-					'title'=>$request->title,
-					'caption'=>$request->caption,
-					'Slider_image'=>$filepath,
-					'link'=>$request->link,
-					]);
+			$slide->update([
+				'title'=>$request->title,
+				'caption'=>$request->caption,
+				'Slider_image'=>$filepath,
+				'link'=>$request->link,
+				]);
 
-			}
-					//slide image or file not uploaded so updating other fields only.
-			else{
+		}
+				//slide image or file not uploaded so updating other fields only.
+		else{
 
-				$slide->update([
-					'title'=>$request->title,
-					'caption'=>$request->caption,
-					'link'=>$request->link,
-					]);
-			}
+			$slide->update([
+				'title'=>$request->title,
+				'caption'=>$request->caption,
+				'link'=>$request->link,
+				]);
+		}
 
 				
 	
@@ -279,22 +271,22 @@ class SliderController extends Controller
 	{
 
 		
-			$slides=Slide::where('title',$title)->get();
+		$slides=Slide::where('title',$title)->get();
 
-			foreach ($slides as  $slide) {
+		foreach ($slides as  $slide) {
 
-				DB::transaction(function () use ($slide) {
-		
-					Slide::destroy($slide->id);
-
-				});
+			DB::transaction(function () use ($slide) {
 	
+				Slide::destroy($slide->id);
 
-				if(file_exists(url($slide->Slider_image) ) ) {
+			});
 
-					unlink( url($slide->Slider_image) );
-				}
+
+			if(file_exists(url($slide->Slider_image) ) ) {
+
+				unlink( url($slide->Slider_image) );
 			}
+		}
 
 
 		return redirect()->back()->withFlashSuccess('Slider deleted successfully.');

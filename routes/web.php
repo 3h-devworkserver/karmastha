@@ -42,6 +42,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('/data/table/sliders','Backend\SliderController@load');
     Route::get('/data/table/brands','Backend\BrandController@load');
     Route::post('/data/table/slide/list','Backend\SliderController@load_slide_list');
-    
+    Route::get('/data/table/staticblocks','Backend\StaticblockController@load');
+    Route::post('/data/table/static_blocks/list','Backend\StaticblockController@load_staticblock_list');
+
     Route::delete('/slides/destroy/{id}','Backend\SliderController@slide_delete')->name('admin.slides.destroy');
+    
     Route::get('admin/slides/{id}/edit','Backend\SliderController@edit')->name('admin.slides.edit');
+
+    Route::delete('/static_blocks/destroy/{id}','Backend\SliderController@static_block_delete')->name('admin.static_blocks.destroy');
+    Route::get('admin/static_blocks/{id}/edit','Backend\StaticblockController@edit')->name('admin.static_blocks.edit');

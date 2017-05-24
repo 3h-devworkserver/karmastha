@@ -19,11 +19,6 @@
 
 @section('content')
 
-
-<!-- Main content -->
-
-
-
 {{Form::open(['url'=>'admin/slide/'.$slide->id,'method' =>'patch', 'files'=> 'true','id'=>'formSlide-'.$slide->id])}}
 
 <!-- The block to clone after add more. -->
@@ -45,7 +40,6 @@
 						<img  class="sdPreview_edit" src="{{url($slide->Slider_image)}}"  width="675"  height="300" alt="" />						
 					</div>
 				</div>
-				<!-- /.box-body -->
 			</div>			
 		</div>
 		<div class="col-md-3">
@@ -62,25 +56,17 @@
 		</div>
 	</div>
 
-	
-
 <!-- The block to clone after add more. -->
 {{Form::close()}}
-
 		<div class="row">
 			<div class='col-md-9'></div>
 			<div class="col-md-3">
 				<div class="form-group">									
-					<!-- {{Form::submit('Update',['class'=>'btn bg-olive'])}} -->
-					<button type="submit"  class="btn btn-karm btn-sm updateBtn" value="{{$slide->id}}"  >Update Slide</button>
-
-					<!-- <a href="{{ route('admin.slides.destroy', $slide->id) }}" name="delete_item" data-method="delete" class="btn btn-danger deleteBtn"><i class="fa fa-trash-o"></i>Delete</a> -->
-					<!-- <button type="submit" class="btn btn-danger deleteBtn" value="{{$slide->id}}"> Delete Slide</button> -->
+					<button type="submit" class="btn btn-karm btn-sm updateBtn" value="{{$slide->id}}">Update Slide</button>
 				</div>
 			</div>
 		</div>
 
 </div>		
-
 
 @endsection
