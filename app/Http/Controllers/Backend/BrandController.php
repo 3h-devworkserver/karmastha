@@ -39,9 +39,12 @@ class BrandController extends Controller
      * @return [json ] [contents for datatable of members.]
      */
      public function load(){
-        $brands = Brand::select('id', 'brand_name', 'brand_logo', 'url','status', 'created_at', 'updated_at');
+        $brands = Brand::select('id', 'brand_name', 'brand_logo', 'slug','status', 'created_at', 'updated_at');
         return Datatables::of($brands)
-            ->escapeColumns(['brand_name','url','brand_logo'])
+            ->escapeColumns(['brand_name','slug','brand_logo'])
+            ->addColumn('bulk', function ($data) {
+                return bulkSelect($data->id);
+            })
             ->editColumn('status', function ($data) {
                 return parseStatus($data->status);
             })
@@ -81,7 +84,9 @@ class BrandController extends Controller
             'brand_name' => 'required',
             'status' => 'required',
             'brand_logo' => 'required',
-            'url'=>'required',
+            'slug'=>'required',
+            'b_order'=>'required',
+            'topbrand'=>'required',
             ]);
 
 
@@ -93,8 +98,10 @@ class BrandController extends Controller
             Brand::create([
                 'brand_name'=>$request->brand_name,
                 'brand_logo'=>$filepath,
-                'url'=>$request->url,
+                'slug'=>$request->slug,
                 'status'=>$request->status,
+                'b_order'=>$request->b_order,
+                'topbrand'=>$request->topbrand,
                 ]);
         });
 
@@ -138,7 +145,9 @@ class BrandController extends Controller
         $this->validate($request,[
             'brand_name' => 'required',
             'status' => 'required',
-            'url'=>'required',
+            'slug'=>'required',
+            'b_order'=>'required',
+            'topbrand'=>'required',
             ]);
 
         $brand=Brand::findOrFail($id);
@@ -165,8 +174,10 @@ class BrandController extends Controller
 
             $brand->update([
             'brand_name'=>$request->brand_name,
-            'url'=>$request->url,
-            'status'=>$request->status,         
+            'slug'=>$request->slug,
+            'status'=>$request->status,
+            'b_order'=>$request->b_order,
+            'topbrand'=>$request->topbrand,         
             ]) ;
 
         });
@@ -194,6 +205,35 @@ class BrandController extends Controller
 
         return redirect()->back()->withFlashSuccess('Brand deleted successfully.');
     }
+
+    /**
+     * Bulk Delete
+     * @param  DeleteBrandRequest $request [description]
+     * @return [type]                      [description]
+     */
+    public function deleteBrands(DeleteBrandRequest $request)
+    {
+        
+         if (empty($request->ids)) {
+            return redirect('/admin/brands')->withFlashDanger('Please select brands to delete.');
+        }
+
+        DB::transaction(function() use ($request){
+            $ids = explode(',', $request->ids);
+            foreach ($ids as $key => $id) {
+                $brand = Brand::findOrFail($id);
+                
+                if(file_exists($brand->brand_logo)){
+                    unlink($brand->brand_logo);
+                }
+                
+                $brand->delete();
+
+            }
+        });
+        return redirect('/admin/brands')->withFlashSuccess('Brands deleted successfully.');
+    }
+
 
     /**
      * Make a Filename for file

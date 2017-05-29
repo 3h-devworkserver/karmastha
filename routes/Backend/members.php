@@ -6,6 +6,7 @@
 
 		],function(){
 
-			Route::resource('members','MemberManagementController');
+			Route::delete('members/bulkdelete', 'MemberManagementController@deleteMembers');
+			Route::resource('members','MemberManagementController', ['except' => ['show']]);
 
 	});

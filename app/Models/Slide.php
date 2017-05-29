@@ -20,5 +20,6 @@ class Slide extends Model
     			'caption',
     			'Slider_image',
     			'link',
+                'group_identifier',
     		];
 }

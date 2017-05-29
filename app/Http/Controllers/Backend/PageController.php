@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Datatables;
-use App\Models\Page;
-use Illuminate\Http\Request;
-use DB;
-use Illuminate\Validation\Rule;
 use App\Http\Requests\Backend\Page\CreatePageRequest;
 use App\Http\Requests\Backend\Page\DeletePageRequest;
 use App\Http\Requests\Backend\Page\StatusPageRequest;
 use App\Http\Requests\Backend\Page\UpdatePageRequest;
+use App\Models\Page;
+use App\Models\Slide;
+use DB;
+use Datatables;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 
 /**
@@ -51,7 +52,10 @@ class PageController extends Controller
     }
 
     public function create(CreatePageRequest $request){
-    	return view('backend.pages.create');
+        $sliders = Slide::select('title', 'group_identifier')->groupBy('title', 'group_identifier')->get();
+        $sliders = $sliders->pluck('title', 'group_identifier');
+        $sliders->prepend('-- Select Slider --', '');
+    	return view('backend.pages.create', compact('sliders'));
     }
 
     public function store(CreatePageRequest $request){
@@ -72,6 +76,7 @@ class PageController extends Controller
                 'content' => $request->content,    
                 'status' => $request->status,    
                 'slider' => $request->slider,    
+                'slider_identifier' => $request->slider_identifier,    
                 'meta_title' => $request->meta_title,    
                 'meta_keyword' => $request->meta_keyword,    
                 'meta_desc' => $request->meta_desc,    
@@ -83,7 +88,10 @@ class PageController extends Controller
 
     public function edit($id, UpdatePageRequest $request){
         $page = Page::findOrFail($id);
-        return view('backend.pages.edit',compact('page'));
+        $sliders = Slide::select('title', 'group_identifier')->groupBy('title', 'group_identifier')->get();
+        $sliders = $sliders->pluck('title', 'group_identifier');
+        $sliders->prepend('-- Select Slider --', '');
+        return view('backend.pages.edit',compact('page', 'sliders'));
     }
 
     public function update($id, UpdatePageRequest $request){
@@ -108,7 +116,8 @@ class PageController extends Controller
                 'slug' => $slug,    
                 'content' => $request->content,    
                 'status' => $request->status,    
-                'slider' => $request->slider,    
+                'slider' => $request->slider,   
+                'slider_identifier' => $request->slider_identifier,    
                 'meta_title' => $request->meta_title,    
                 'meta_keyword' => $request->meta_keyword,    
                 'meta_desc' => $request->meta_desc,    

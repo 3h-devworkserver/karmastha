@@ -57,10 +57,15 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">Slider Image<em class="asterisk">*</em></label>
-						<input type="file" name="Slider_image[]" id="Slider_image" accept="image/*" 
-								alt="Slide_image" class="image_upload"  required="required">
-
-								<img  class="sdPreview" src="#"  width="675"  height="300" alt="" />
+						
+						<br>
+						<span class="btn btn-sm btn-karm btn-file">
+							<i class="fa fa-folder-open"></i>Upload Slider Image
+							<input type="file" name="Slider_image[]" class="form-control image_upload" accept="image/*" required="required">
+							<br>
+						</span>
+						
+						<img  class="sdPreview" src="#"  width="675"  height="300" alt="" />
 							
 					</div>
 						{{ Form::hidden('count[]',null) }}

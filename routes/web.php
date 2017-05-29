@@ -39,15 +39,19 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 	Route::get('/data/table/pages', 'Backend\PageController@load');
     Route::get('/data/table/members','Backend\MemberManagementController@load');
     Route::get('/data/table/products','Backend\ProductController@load');
-    Route::get('/data/table/sliders','Backend\SliderController@load');
     Route::get('/data/table/brands','Backend\BrandController@load');
-    Route::post('/data/table/slide/list','Backend\SliderController@load_slide_list');
+    Route::get('/data/table/sliders','Backend\SliderController@load');
     Route::get('/data/table/staticblocks','Backend\StaticblockController@load');
+
+    Route::post('/data/table/slide/list','Backend\SliderController@load_slide_list');
     Route::post('/data/table/static_blocks/list','Backend\StaticblockController@load_staticblock_list');
-
-    Route::delete('/slides/destroy/{id}','Backend\SliderController@slide_delete')->name('admin.slides.destroy');
-    
+ 
+// edit and delete
     Route::get('admin/slides/{id}/edit','Backend\SliderController@edit')->name('admin.slides.edit');
-
-    Route::delete('/static_blocks/destroy/{id}','Backend\SliderController@static_block_delete')->name('admin.static_blocks.destroy');
+    Route::delete('/slides/destroy/{id}','Backend\SliderController@slide_delete')->name('admin.slides.destroy');    
+    
     Route::get('admin/static_blocks/{id}/edit','Backend\StaticblockController@edit')->name('admin.static_blocks.edit');
+
+    Route::delete('/static_blocks/delete/{id}','Backend\StaticblockController@static_block_delete')->name('admin.static_blocks.delete');
+
+    

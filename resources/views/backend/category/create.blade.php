@@ -22,7 +22,7 @@
 <div class="row">
 	<div class="col-md-9"> 
 
-		<div class="box box-default">
+		<div class="box">
 			<div class="box-header with-border">
 				<h3 class="box-title">Create Category</h3>
 				<a href="{{ url('admin/category')}}" class="btn btn-warning btn-sm pull-right">Go Back</a>
@@ -30,7 +30,7 @@
 			<div class="box-body">
 					<div class="form-group">
 						<label for="title" class="control-label">Title<em class="asterisk">*</em></label>
-							{{ Form::text('title',null,array('class'=>'form-control'))}}
+							{{ Form::text('title',null,array('class'=>'form-control', 'placeholder'=>'Enter Title'))}}
 					</div>
 		            <?php /*  ?>
 		            <div class="form-group">
@@ -42,12 +42,15 @@
 		            <?php */ ?>
 		            <div class="form-group">
 		            	<label for="url" class="control-label">URL</label>
-		            		{{ Form::text('url',null,array('class'=>'form-control'))}}
+		            	<div class="input-group">
+						  <span class="input-group-addon">{{url('/').'/category'}}</span>
+		            		{{ Form::text('url',null,array('class'=>'form-control', 'placeholder'=>'Enter Url'))}}
+						</div>
 		            </div>
 
 		            <div class="form-group">
 		            	<label for="url" class="control-label">Description</label>
-		            		{{ Form::textarea('description',null,array('class'=>'form-control'))}}
+		            		{{ Form::textarea('description',null,array('class'=>'form-control', 'placeholder'=>'Enter Description'))}}
 		            </div>
 		            
 			</div><!-- /.box-body -->

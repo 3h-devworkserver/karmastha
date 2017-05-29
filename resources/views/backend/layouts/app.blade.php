@@ -10,6 +10,7 @@
 
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Karmastha')">
+        <meta name="keyword" content="@yield('meta_description', 'Karmastha')">
         <meta name="author" content="@yield('meta_author', 'Three Hammers')">
         @yield('meta')
 

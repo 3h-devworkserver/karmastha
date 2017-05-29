@@ -53,77 +53,17 @@ $(document).ready(function(){
 });
 
 
-//  js for slider section
-
-/**
- * Validate Image Size and Preview for edit slide.
- *  
- */
-function ImageSrc_edit() 
-{
-
-  var $input = $(this);
-
-  if(Validate($input)===false){
-    swal({                  
-      title: "Invalid Image Type!",
-      type:"error", 
-      text: "Valid extensions are gif, png, jpg, jpeg",
-      timer: 1000,
-      showConfirmButton: false             
-    });
-
-    $($input).val('');
-    $('.sdPreview_edit').hide();
-    return false;
-  }
-
-  if (this.files && this.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-
-      var image = new Image();
-      image.src = e.target.result;
-      image.onload = function () {
-
-        var height = this.height;
-        var width = this.width;
-
-        if (height < 370 || width < 881) {
-          swal({                  
-            title: "Invalid Size",
-            type:"warning", 
-            text: "Dimension must be greater than 370*881",
-            timer: 1000,
-            showConfirmButton: false             
-          });
-
-          $input.val('');
-          $input.next('.sdPreview_edit').hide();
-          return false;
-        }
-
-        $input.next('.sdPreview_edit').attr('src', e.target.result).show();
-      }
-
-    };
-    reader.readAsDataURL(this.files[0]);
-  }
-}
-
-
 //for create section
 
 /**
 * Validate Image Size and Preview.
 *  
 */
-function ImageSrc() 
+function ImageSrc(input,preview) 
 {
 
-  var $input = $(this);
 
-  if(Validate($input)===false){
+  if(Validate(input)===false){
     swal({                  
       title: "Invalid Image Type!",
       type:"error", 
@@ -132,12 +72,12 @@ function ImageSrc()
       showConfirmButton: false             
     });
 
-    $($input).val('');
-    $('.sdPreview').hide();
+    $(input).val('');
+    $(preview).hide();
     return false;
   }
 
-  if (this.files && this.files[0]) {
+  if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function(e) {
 
@@ -157,17 +97,17 @@ function ImageSrc()
             showConfirmButton: false             
           });
 
-          $input.val('');
-          $input.next('.sdPreview').hide();
+          $(input).val('');
+          $(preview).hide();
           return false;
         }
 
-        $input.next('.sdPreview').attr('src', e.target.result).show();
+        $(preview).attr('src', e.target.result).show();
       }
 
     };
     
-    reader.readAsDataURL(this.files[0]);
+    reader.readAsDataURL(input.files[0]);
   }
 }
 
@@ -206,8 +146,10 @@ $(document).ready(function(){
 
 
    $('.sdPreview').hide();
-   $('.image_upload').change(ImageSrc);
-
+   $('.image_upload').change(function(){
+      var preview=$(this).parent().next('.sdPreview');
+      ImageSrc(this,preview);
+   });
 });
 
 
@@ -253,7 +195,10 @@ $(document).ready(function(){
 
 
    $('.sdPreview_edit').show();
-   $('.image_upload_edit').change(ImageSrc_edit);
+   $('.image_upload_edit').change(function(){
+      var preview=$(this).parent().next('.sdPreview_edit');
+      ImageSrc(this,preview);
+   });
 
 
     //Update Button click Event
@@ -265,13 +210,10 @@ $(document).ready(function(){
   });
 
 
-// ----------end of slider section
+// --------------------------------------------end of slider section------------------------------------------------------------------------------------
 
-
-
-// ------js for static block section
-// 
-// 
+// --------------------------------------------Static-Block section-------------------------------------------------------
+ 
 // load staticblocks table
 $(document).ready(function(){
 
@@ -300,33 +242,33 @@ $(document).ready(function(){
 // load static-blocks-table
 $(document).ready(function(){
 
-   var page_id=$('#page_id').val();
-  $('#static-blocks-list-table').DataTable({
-    "processing": true,
-    "serverSide": true,
-    "stateSave": true,
-    "ajax":{"type":"post","url": base_url + "/data/table/static_blocks/list","data":{"page_id":page_id}},
-    columns: [
-        {
-          data: "id",
-          render: function (data, type, row, meta) {
-            return meta.row + meta.settings._iDisplayStart + 1;
-          }
-        },
-        {data:'title', name:'title'},
-        {data:'identifier', name:'identifier'},
-        { data: 'feature_image', name: 'feature_image',
-            render:function(data,type,row){
-            return "<img src='"+base_url+"/"+data+"'  width='250' height='150'/>";
-            }
-        },
-        {data:'created_at', name:'created_at'},
-        {data:'updated_at', name:'updated_at'},
-        {data:'status', name:'status'},
-        {data: 'action', name: 'action', orderable: false, searchable: false},
-  ],
-  order: [[0, "asc"]]
-});
+    var page_id=$('#page_id').val();
+    $('#static-blocks-list-table').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "stateSave": true,
+        "ajax":{"type":"post","url": base_url + "/data/table/static_blocks/list","data":{"page_id":page_id}},
+        columns: [
+            {
+              data: "id",
+              render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+              }
+            },
+            {data:'title', name:'title'},
+            {data:'identifier', name:'identifier'},
+            { data: 'feature_image', name: 'feature_image',
+                render:function(data,type,row){
+                return "<img src='"+base_url+"/"+data+"'  width='250' height='150'/>";
+                }
+            },
+            {data:'created_at', name:'created_at'},
+            {data:'updated_at', name:'updated_at'},
+            {data:'status', name:'status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+      ],
+      order: [[0, "asc"]]
+    });
 });
 
 
@@ -366,8 +308,6 @@ function getImageSrc(input,preview){
     reader.readAsDataURL(input.files[0]);
   }
 }
-
-
 
 
 //  --------Create static_blocks-------
@@ -513,7 +453,25 @@ $(document).ready(function(){
 
   });
 
-}); 
+});
 
+//-------Edit Static_blocks----------
+$(document).ready(function(){
+
+  // --previews
+
+  $('.bg_image_upload_edit').change(function(){
+    var preview=$(this).parent().next('.bg_image_preview_edit');
+    getImageSrc(this,preview);
+  });
+
+  
+  $('.feature_image_edit').change(function(){
+    var preview=$(this).parent().next('.feature_image_preview_edit');
+    getImageSrc(this,preview);
+  });
+
+
+});
 
 

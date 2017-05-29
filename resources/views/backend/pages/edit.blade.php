@@ -34,7 +34,10 @@
 
 					<div class="form-group">
 						<label class="control-label">Slug</label>
-						{{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter Title'])}}
+						<div class="input-group">
+						  <span class="input-group-addon">{{url('/').'/'}}</span>
+						  {{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter Slug'])}}
+						</div>
 					</div>
 
 					<div class="form-group">
@@ -96,7 +99,13 @@
 					</div><!-- /.box-tools -->
 				</div><!-- /.box-header -->
 				<div class="box-body">
-					{{Form::select('slider',['0' => 'Disable', '1'=>'Enable'],null,['class'=>'form-control'])}}
+					<div class="form-group">
+						{{Form::select('slider',['0' => 'Disable', '1'=>'Enable'],null,['class'=>'form-control'])}}
+					</div>
+					<div class="form-group">
+						<label class="control-label">Select Slider</label>
+						{{Form::select('slider_identifier',$sliders->toArray(),null,['class'=>'form-control'])}}
+					</div>
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 

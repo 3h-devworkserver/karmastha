@@ -9,7 +9,7 @@
 
 @section('page-header')
 <h1>
-	Create Static-Block
+	Edit Static-Block
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -17,7 +17,7 @@
 		Static-Blocks Management 
 	</li>
 	<li class="active">
-		Add New Static-Block
+		Update Static-Block
 	</li>
 </ol>
 @endsection
@@ -25,7 +25,7 @@
 @section('content')
 
 {{Form::model($static_block,['url'=>'admin/static_blocks/'.$static_block->id,'method' =>'patch', 'files'=> 'true'])}}
-<div class="block-staticblock">
+<div class="block-staticblock-edit">
 	<div class="row">
 		<div class="col-md-9">
 			<div class="box box-orange">
@@ -54,8 +54,7 @@
 					<div class="form-group">
 						<label class="control-label">Choose Background option<em class="asterisk">*</em></label>
 						<div class="row">	
-							<div class="col-md-12">
-														
+							<div class="col-md-12">														
 								<div class="btn-group btn-group-justified" role="group" aria-label="...">
   									<div class="btn-group" role="group">
     									<button type="button" class="btn btn-default colorbtn">Color</button>
@@ -64,28 +63,24 @@
     									<button type="button" class="btn btn-default imagebtn">Image</button>
   									</div>
   								</div>
-
 							</div>
-
-
 						</div>
-
 						<div class="col-md-12 color_select" >
-						<hr>
-	 						<div  data-format="alias" class="input-group bgcolor">
-								{{Form::text('BgColor','primary',['class'=>'form-control'])}}
+							<hr>
+	 						<div  data-format="alias" class="input-group colorpicker-component">
+								{{Form::text('BgColor',$static_block->bgcolor,['class'=>'form-control'])}}
 								<span class="input-group-addon"><i></i></span> 
 							</div> 
-
  						</div>
 						<hr>
+						
 						<div class="col-md-12 image_select" >
 							<div class="form-group">
 								<span class="btn btn-sm btn-karm btn-file ">
 								<i class="fa fa-folder-open"></i>Upload Background Image
-									<input type="file" name="Background_image" class="form-control bg_image_upload" accept="image/*">
+									<input type="file" name="Background_image" class="form-control bg_image_upload_edit" accept="image/*">
 								</span>
-								<img class="bg_image_preview" width="760" height="400"  src="#" alt="preview">
+								<img class="bg_image_preview_edit" width="760" height="400"  src="{{url($static_block->bgimage)}}" alt="preview">
 							</div>	
 						</div>
 					</div>	
@@ -121,9 +116,9 @@
 						<div class="form-group">
 								<span class="btn btn-sm btn-karm btn-file ">
 								<i class="fa fa-folder-open"></i>Upload feature Image
-									<input type="file" name="feature_image" class="form-control feature_image" accept="image/*">
+									<input type="file" name="feature_image" class="form-control feature_image_edit" accept="image/*">
 								</span>
-								<img class="feature_image_preview" width="260" height="150"  src="#" alt="preview">
+								<img class="feature_image_preview_edit" width="260" height="150"  src="{{url($static_block->feature_image)}}" alt="preview">
 						</div>
 						
 						

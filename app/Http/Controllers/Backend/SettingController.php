@@ -18,7 +18,10 @@ class SettingController extends Controller
     public function generalSetting()
     {
         $setting = GeneralSetting::first();
-        return view('backend.settings.generalsetting', compact('setting'));
+        if(empty($setting)){
+            return view('backend.settings.generalsettingcreate');
+        }
+        return view('backend.settings.generalsettingedit', compact('setting'));
     }
 
 
@@ -33,13 +36,23 @@ class SettingController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'email' => 'required|email',
-            'upload' => 'image',
+            'meta_title' => 'required',
+            'meta_keyword' => 'required',
+            'meta_desc' => 'required',
+            'uploadLogo' => 'image',
             'uploadFavicon' => 'image',
             ]);
 
-        $filenameLogo = '';
-        $filenameFavicon = '';
         $setting = GeneralSetting::first();
+        $exists = 'true';
+        if(empty($setting)){
+            $exists = 'false';
+            $setting = new GeneralSetting;
+            $filenameLogo = '';
+            $filenameFavicon = '';
+        }
+        $filenameLogo = $setting->logo;
+        $filenameFavicon = $setting->favicon;
 
         if ($request->hasFile('uploadLogo')) {
         	$file= $request->file('uploadLogo');
@@ -69,23 +82,42 @@ class SettingController extends Controller
 			}
         }
 
-		DB::transaction(function () use ($request, $setting, $filenameLogo, $filenameFavicon) {
-	        $setting->update([
-	        	'title' => $request->title,
-	        	'tagline' => $request->tagline,
-	        	'email' => $request->email,
-	        	'meta_title' => $request->meta_title,
-	        	'meta_keyword' => $request->meta_keyword,
-	        	'meta_desc' => $request->meta_desc,
-	        	'misc_javascript' => $request->misc_javascript,
-	        	'facebook' => $request->facebook,
-	        	'twitter' => $request->twitter,
-	        	'youtube' => $request->youtube,
-	        	'google_plus' => $request->google_plus,
-	        	'pinterest' => $request->pinterest,
-	        	'logo' => $filenameLogo,
-	        	'favicon' => $filenameFavicon,
-	        	]);
+		DB::transaction(function () use ($exists, $request, $setting, $filenameLogo, $filenameFavicon) {
+	        if($exists == 'false'){
+                GeneralSetting::create([
+                    'title' => $request->title,
+                    'tagline' => $request->tagline,
+                    'email' => $request->email,
+                    'meta_title' => $request->meta_title,
+                    'meta_keyword' => $request->meta_keyword,
+                    'meta_desc' => $request->meta_desc,
+                    'misc_javascript' => $request->misc_javascript,
+                    'facebook' => $request->facebook,
+                    'twitter' => $request->twitter,
+                    'youtube' => $request->youtube,
+                    'google_plus' => $request->google_plus,
+                    'pinterest' => $request->pinterest,
+                    'logo' => $filenameLogo,
+                    'favicon' => $filenameFavicon,
+                ]);
+            }else{
+                $setting->update([
+    	        	'title' => $request->title,
+    	        	'tagline' => $request->tagline,
+    	        	'email' => $request->email,
+    	        	'meta_title' => $request->meta_title,
+    	        	'meta_keyword' => $request->meta_keyword,
+    	        	'meta_desc' => $request->meta_desc,
+    	        	'misc_javascript' => $request->misc_javascript,
+    	        	'facebook' => $request->facebook,
+    	        	'twitter' => $request->twitter,
+    	        	'youtube' => $request->youtube,
+    	        	'google_plus' => $request->google_plus,
+    	        	'pinterest' => $request->pinterest,
+    	        	'logo' => $filenameLogo,
+    	        	'favicon' => $filenameFavicon,
+    	        ]);
+            }
 	       });
 		return redirect()->back()->withFlashSuccess('General settings updated Successfully.');
     }

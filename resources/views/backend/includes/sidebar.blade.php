@@ -160,7 +160,7 @@
                         <a href="{!! url('admin/static_blocks/create') !!}"><i class="fa fa-plus"></i> Create</a>
                     </li>
                     <li class="{{ Active::checkUriPattern('admin/static_blocks/view') }}">
-                        <a href="{!! url('admin/static_blocks') !!}"><i class="fa fa-file-text-o"></i> View</a>
+                        <a href="{!! url('admin/static_blocks') !!}"><i class="fa fa-file-text-o"></i>All Static-blocks</a>
                     </li>
                 </ul>
             </li>

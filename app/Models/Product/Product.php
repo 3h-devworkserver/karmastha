@@ -48,6 +48,10 @@ class Product extends Model
         return $this->hasMany('App\Models\Product\ProductGallery')->orderBy('image_order');
     }
 
+    public function productListImage(){
+        return $this->hasMany('App\Models\Product\ProductGallery')->where('small_image', 1)->orderBy('image_order');
+    }
+
 
     /**
      * @return string

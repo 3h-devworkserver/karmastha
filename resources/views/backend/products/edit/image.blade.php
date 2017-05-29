@@ -29,14 +29,16 @@
 
 				<tbody class="selectedFiles">
 					@if(count($product->galleryswithOrder) !=0)
+					<?php $i = 3000; $j=4000; $k=5000; ?>
 						@foreach($product->galleryswithOrder as $image)
 						<tr>
 							<td><img src="{{asset('images/product/'.$product->id.'/thumbnail/'.$image->image)}}" height="50" width="50"></td><td><input type="number" name="image_order_edit[]" value="{{$image->image_order}}" min='0' step='1'></td>
-							<td><input name="base_img_edit[]" type="checkbox" value="{{$image->id}}" @if($image->base_image == 1) checked @endif></td>
-							<td><input name="small_img_edit[]" type="checkbox" value="{{$image->id}}" @if($image->small_image == 1) checked @endif> </td>
-							<td><input name="thumbnail_img_edit[]" type="checkbox" value="{{$image->id}}" @if($image->thumbnail == 1) checked @endif></td>
+							<td><input name="base_img_edit[]" type="checkbox" id="{{$i}}" value="{{$image->id}}" @if($image->base_image == 1) checked @endif><label for="{{$i}}"><span></span></label></td>
+							<td><input name="small_img_edit[]" type="checkbox" id="{{$j}}" value="{{$image->id}}" @if($image->small_image == 1) checked @endif><label for="{{$j}}"><span></span></label> </td>
+							<td><input name="thumbnail_img_edit[]" type="checkbox" id="{{$k}}" value="{{$image->id}}" @if($image->thumbnail == 1) checked @endif><label for="{{$k}}"><span></span></label></td>
 							<td><a class="btn btn-sm btn-danger fa fa-trash deleteProductImg" href="javascript:void(0);" data-id="{{$image->id}}" ></a> <i class="delSpin fa fa-spinner fa-spin display-none"></i></td>
 						</tr>
+						<?php $i++; $j++; $k++; ?>
 						<?php /* ?>		
 						<tr>
 							<td><img src="{{asset('images/category/1mkaq-02.jpg')}}" height="50" width="50"></td>

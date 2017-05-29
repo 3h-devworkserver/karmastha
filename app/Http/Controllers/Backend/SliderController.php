@@ -46,12 +46,7 @@ class SliderController extends Controller
 				
 		return Datatables::of($sliders)
 		->escapeColumns(['title'])
-		// ->editColumn('created_at',function($data){
-		// 	return parseDateTimeY_M_D($data->created_at);
-		// })
-		// ->editColumn('updated_at',function($data){
-		// 	return parseDateTimeY_M_D($data->updated_at);
-		// })	
+	
 		->addColumn('action',function($data){
 			return crudOps_for_slider('sliders',$data->title);
 		})
@@ -121,7 +116,11 @@ class SliderController extends Controller
 
 	
 		$slide=Slide::where('title','=',$request->title)->first();
-	
+		if (!empty($slide)) {
+			$groupIdentifier = $slide->group_identifier;
+		}else{
+			$groupIdentifier = str_random(10);
+		}
 
 			$files=$request->file('Slider_image');
 
@@ -136,16 +135,17 @@ class SliderController extends Controller
 					}
 					else
 					{
-						$filepath[$key]='No slide';
+						$filepath[$key]='';
 					}
 
-					DB::transaction(function() use($request,$filepath,$key)
+					DB::transaction(function() use($request,$filepath,$key,$groupIdentifier)
 					{
 							Slide::create([
 								'title'=>$request->title,
 								'caption'=>$request->caption[$key],
 								'Slider_image'=>$filepath[$key],
 								'link'=>$request->link[$key],
+								'group_identifier'=>$groupIdentifier,
 								]);			
 
 					 });		
@@ -172,11 +172,14 @@ class SliderController extends Controller
 	public function slide_list($title,Request $request)
 	{	
 
-		// $slide=Slide::where('title',$title)->first();
+		 $slide=Slide::where('title',$title)->first();
 		
-		// $title=$slide->title;
+		if(empty($slide)){
+			return "empty for ".$title;
+		}		
+		 $slider_title=$slide->title;
 
-		return  view('backend.sliders.list',compact('title'));
+		return  view('backend.sliders.list',compact('slider_title'));
 	}
 
 	
@@ -203,10 +206,15 @@ class SliderController extends Controller
 	 * @return [type]                       [description]
 	 */
 	public function update($title,updateSliderRequest $request)
-	{
-		
-		$slides=Slide::where('title',$title)->get();
+	{	
+		//return $request->title;
 
+		$this->validate($request,[
+            'title' => 'required',            
+            ]);
+
+		$slides=Slide::where('title',$title)->get();
+		
 		//Updaing each slides .				
 		foreach ($slides as $key => $slide)
 		{
@@ -215,7 +223,7 @@ class SliderController extends Controller
 						]);
 		}
 			
-		return redirect()->back()->withFlashSuccess('Title Successfully Updated.');	 	
+		return redirect(url('admin/sliders/'.$request->title.'/list'))->withFlashSuccess('Title Successfully Updated.');	 	
 	}
 
 	/**
@@ -226,37 +234,36 @@ class SliderController extends Controller
 	 */
 	public function updateSlide($id,updateSliderRequest $request)
 	{
-		
+		$this->validate($request,[
+            'title' => 'required',
+            'caption' => 'required',
+            'link' => 'required',            
+            ]);
+
 		$slide=Slide::findOrFail($id);	
 
 		//check if new file is uploaded and update slide-image.
 		
 		if ( $request->hasFile('Slider_image')){
+
 			$file= $request->file('Slider_image');
 			$filename=time().$file->getClientOriginalName();
 			$filepath=$this->Upload_and_GetFilepath($file,$filename);
 			
-
 			$slide->update([
-				'title'=>$request->title,
-				'caption'=>$request->caption,
+
 				'Slider_image'=>$filepath,
-				'link'=>$request->link,
+			
 				]);
 
 		}
-				//slide image or file not uploaded so updating other fields only.
-		else{
-
-			$slide->update([
-				'title'=>$request->title,
-				'caption'=>$request->caption,
-				'link'=>$request->link,
-				]);
-		}
-
-				
-	
+		
+		$slide->update([
+			'title'=>$request->title,
+			'caption'=>$request->caption,
+			'link'=>$request->link,
+		]);
+			
 		return redirect()->back()->withFlashSuccess('Slider Successfully Updated.');
 	}
 
@@ -310,9 +317,9 @@ class SliderController extends Controller
 
 		}
 
-		$slide=Slide::where('title','=',$title)->first();
+		$rem_slide=Slide::where('title','=',$title)->first();
 		
-		if ( $slide === null  ) {
+		if ( $rem_slide === null  ) {
 
 			return redirect()->action('Backend\SliderController@index')->withFlashSuccess('Slide deleted successfully');	
 		}

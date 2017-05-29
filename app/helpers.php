@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product\Product;
+
 
 /**
  * Global helpers file with misc functions.
@@ -189,7 +191,7 @@ if (! function_exists('crudOps_for_staticblock')) {
         $ops = '<ul class="list-inline no-margin-bottom">';
         
         $ops .= '<li><a href="'.url('admin/'.$resource.'/'.$title.'/list').'" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i>  Edit</a></li>';
-        $ops .= '<li><a href="'.route('admin.'.$resource.'.destroy', $title).'" data-method="delete" name="delete_item" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>  Delete</a></li>';
+        $ops .= '<li><a href="'.route('admin.'.$resource.'.delete', $title).'" data-method="delete" name="delete_item" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>  Delete</a></li>';
         $ops .= '</ul>';
         return $ops;
     }
@@ -314,6 +316,18 @@ if (! function_exists('delete_files')) {
         }
     }
 }
+
+if (! function_exists('featured_products')) {
+    /* 
+     * function that populate featured products
+     */
+    function featured_products($limit=NULL) {
+        $products = Product::where('featured', 1)->where('status', 1)->get();
+        $html = view('frontend.includes.featuredproducts')->with('products', $products)->render();
+        return $html;
+    }
+}
+
 
 
 

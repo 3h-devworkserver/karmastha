@@ -66,6 +66,61 @@ $(document).on('change', '.bulkSelect', function(){
     order: [[1, "asc"]]
   });
 
+  /**  Member table      **/
+  $('#member-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax": base_url + "/data/table/members",
+    columns: [
+    {data: 'bulk', name: 'bulk', orderable: false, searchable: false},
+    {data: 'id', name: 'id'},
+    {data: 'name', name: 'name'},
+    { data: 'logo', 
+    name: 'logo',
+    render:function(data,type,row){
+      return "<img src='"+base_url+"/"+data+"'  width='100' height='50'/>";
+    }
+    },
+    {data: 'url', name: 'url'},
+    {data: 'created_at', name: 'created_at'},
+    {data: 'updated_at', name: 'updated_at'},
+    {data: 'status', name: 'status'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ],
+    order: [[0, "asc"]]
+  });
+
+
+  /** load brand-table */
+
+  $('#brand-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax": base_url + "/data/table/brands",
+    columns: [
+    {data: 'bulk', name: 'bulk', orderable: false, searchable: false},
+    {data: 'id', name: 'id'},
+    {data: 'brand_name', name: 'brand_name'},
+    { data: 'brand_logo', 
+    name: 'brand_logo',
+    render:function(data,type,row){
+      return "<img src='"+base_url+"/"+data+"'  width='100' height='50'/>";
+    }
+    },
+    {data: 'slug', name: 'slug'},
+    {data: 'created_at', name: 'created_at'},
+    {data: 'updated_at', name: 'updated_at'},
+    {data: 'status', name: 'status'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ],
+    order: [[0, "asc"]]
+  });
+
+
+
+
 
 //general function for submiting form using <a> tag
   $(document).on('click', 'a.bulkSubmit', function(){
@@ -526,74 +581,40 @@ function countProductImageRowAndDisplayText(){
 }
 
 
-// Members part of js
-
-$(document).ready(function(){
-
-
-  $('#member-table').DataTable({
-    "processing": true,
-    "serverSide": true,
-    "stateSave": true,
-    "ajax": base_url + "/data/table/members",
-    columns: [
-    {data: 'id', name: 'id'},
-    {data: 'name', name: 'name'},
-    { data: 'logo', 
-    name: 'logo',
-    render:function(data,type,row){
-      return "<img src='"+base_url+"/"+data+"'  width='100' height='50'/>";
-    }
-    },
-    {data: 'url', name: 'url'},
-    {data: 'created_at', name: 'created_at'},
-    {data: 'updated_at', name: 'updated_at'},
-    {data: 'status', name: 'status'},
-    {data: 'action', name: 'action', orderable: false, searchable: false},
-    ],
-    order: [[0, "asc"]]
-  });
-
-
-});
+//------------------------------------------Members and Brand section---------------------------------------------------------------------------------
 
 
 
 /**
    * Check File Types.
-   */
+*/
 
-   function Validate(input)
-   {
-     var ext = $(input).val().split('.').pop().toLowerCase();
-     
-     if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-      return false;
+function Validate(input)
+{
+    var ext = $(input).val().split('.').pop().toLowerCase();
+   
+    if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+       return false;
     }
     else{
 
       return true;
     }    
-  }
+}
 
-/**
- * Give image source to preview with preview element as argument.
- * 
- * @param  {Element} input   [calling Element]
- * @param  {Element} preview [Preview Element]
- * @return {void}            [description]
- */
- function getImageSrc(input,preview){
+ // Give image source to preview with preview element as argument.
+
+function getImageSrc(input,preview){
 
   if(Validate(input)===false){
-    //alert('Invalid Image Type!')
-      swal({                  
-                    title: "Invalid Image Type!",
-                    type:"error", 
-                    text: "Valid extensions are gif, png, jpg, jpeg",
-                    timer: 1000,
-                    showConfirmButton: false             
-                });
+
+    swal({                  
+      title: "Invalid Image Type!",
+      type:"error", 
+      text: "Valid extensions are gif, png, jpg, jpeg",
+      timer: 1000,
+      showConfirmButton: false             
+    });
 
     $(input).val('');
     $(preview).hide();
@@ -606,6 +627,7 @@ $(document).ready(function(){
     
     reader.onload = function(e){
       $(preview).attr('src',e.target.result).show();
+      // $(preview).css('background-image', 'url('+e.target.result+')').show();
     }
 
     reader.readAsDataURL(input.files[0]);
@@ -627,34 +649,10 @@ $('#logo_edit').change(function(){
 });
 
 
-//js for brand section
-$(document).ready(function(){
-
-  $('#brand-table').DataTable({
-    "processing": true,
-    "serverSide": true,
-    "stateSave": true,
-    "ajax": base_url + "/data/table/brands",
-    columns: [
-    {data: 'id', name: 'id'},
-    {data: 'brand_name', name: 'brand_name'},
-    { data: 'brand_logo', 
-    name: 'brand_logo',
-    render:function(data,type,row){
-      return "<img src='"+base_url+"/"+data+"'  width='100' height='50'/>";
-    }
-    },
-    {data: 'url', name: 'url'},
-    {data: 'created_at', name: 'created_at'},
-    {data: 'updated_at', name: 'updated_at'},
-    {data: 'status', name: 'status'},
-    {data: 'action', name: 'action', orderable: false, searchable: false},
-    ],
-    order: [[0, "asc"]]
-  });
 
 
-});
+
+
 
 function elFinderBrowser(callback, value, meta) {
         var request = base_url + 'yelfinder/tinymce4';
@@ -701,100 +699,34 @@ function elFinderBrowser(callback, value, meta) {
         });
         return false;
     }
+    function readLogoURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#previewLogo').attr('src', e.target.result).removeClass('hide');
+      $("#img-preview").hide();
+    }
+    reader.readAsDataURL(input.files[0]);
+  }else{
+    $('#previewLogo').addClass('hide').attr('src', 'url(\'\')');
+  }
+}
+
+function readFaviconURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#previewFavicon').attr('src', e.target.result).removeClass('hide');
+      $("#img-preview2").hide();
+    }
+    reader.readAsDataURL(input.files[0]);
+  }else{
+    $('#previewFavicon').addClass('hide').attr('src', 'url(\'\')');
+  }
+}
 
 
-// //js for slider section
-// /**
-//  * Validate Image Size and Preview.
-//  *  
-//  */
-//  function ImageSrc() {
-
-//   var $input = $(this);
-
-//     if(Validate($input)===false){
-//              swal({                  
-//                   title: "Invalid Image Type!",
-//                   type:"error", 
-//                   text: "Valid extensions are gif, png, jpg, jpeg",
-//                   timer: 1000,
-//                   showConfirmButton: false             
-//               });
-
-//             $($input).val('');
-//             $('.sdPreview').hide();
-//             return false;
-//       }
-
-//   if (this.files && this.files[0]) {
-//     var reader = new FileReader();
-//     reader.onload = function(e) {
-
-//       var image = new Image();
-//       image.src = e.target.result;
-//       image.onload = function () {
-
-//         var height = this.height;
-//         var width = this.width;
-
-//         if (height < 390 || width < 881) {
-//           swal({                  
-//                   title: "Invalid Size",
-//                   type:"warning", 
-//                   text: "Dimension must be greater than 1349*600",
-//                   timer: 1000,
-//                   showConfirmButton: false             
-//               });
-
-//           $input.val('');
-//           $input.next('.sdPreview').hide();
-//           return false;
-//         }
-
-//         $input.next('.sdPreview').attr('src', e.target.result).show();
-//       }
-
-//     };
-//     reader.readAsDataURL(this.files[0]);
-//   }
-// }
-
-// $(document).ready(function(){ 
-
-//     /**
-//  * Add or Remove Slide Block.
-//  * 
-//  */
-//  var count =0;
-//  $('.remove-block').hide();
-//  $('.add-block').click(function(){
-//     $(".block:last").clone(true).insertAfter(".block:last").find('#Slider_image').val('');
-//     $(".block:last").find('.sdPreview').attr('src','');
-//     count++;
-//     $(".counter").val(count);
-//     $('.remove-block').show();
-//   });
-
-//  $('.remove-block').click(function(){
-//     if(count!=0){
-
-//      $('.block:last').remove();
-//      count--;
-//        if (count==0) {
-//           $(this).hide();
-//         }
-//      $(".counter").val(count);
-
-//    }
-
-//     });
-
-
-// $('.sdPreview').hide();
-// $('.image_upload').change(ImageSrc);
-
-// });
-
-
-// //end of slider section
 

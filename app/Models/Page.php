@@ -32,7 +32,5 @@ class Page extends Model
         return "<label class='label label-danger'>".'Disabled'.'</label>';
     }
 
-    
-
 
 }

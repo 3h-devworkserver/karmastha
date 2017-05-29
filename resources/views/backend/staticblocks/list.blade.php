@@ -22,7 +22,7 @@
 <div class="box">
 		<div class="box-header with-border">
 		<label class="control-label">Static-Blocks</label>
-           <a  href="{{url('/admin/static_blocks/create')}}" class="btn btn-karm btn-sm pull-right"><span class="glyphicon glyphicon-plus">
+           <a  href="{{url('admin/static_blocks/'.$selected_page.'/create')}}" class="btn btn-karm btn-sm pull-right"><span class="glyphicon glyphicon-plus">
                 </span> Add Static-Block</a>
          </div>
         <br>

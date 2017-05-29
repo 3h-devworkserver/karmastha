@@ -18,15 +18,18 @@ class Controller extends BaseController
     	$categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
     	$setting = GeneralSetting::first();
         if(empty($setting)){
-            $setting = new Setting;
-            $setting->title = '3Hammers';
+            $setting = new GeneralSetting;
+            $setting->meta_title = 'Karmastha';
+            $setting->meta_desc = '';
+            $setting->meta_keyword = '';
+            $setting->author = '';
         }
     	// $setting1 = array();
     	// $setting1['facebook'] = $setting->facebook;
 
     	// $footer = StaticBlock::where('page_id', NULL)->first();
     	View::share ( 'categorys', $categorys );
-    	// View::share ( 'setting', $setting );
+    	View::share ( 'setting', $setting );
     	// View::share ( 'setting1', $setting1 );
     	// View::share ( 'footer', $footer );
     }

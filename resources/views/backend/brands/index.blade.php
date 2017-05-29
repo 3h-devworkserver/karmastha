@@ -33,10 +33,11 @@
 				<table id="brand-table" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
+							<th><input type="checkbox" id="checkbox0" class="checkAll" name="bulk_select"><label for="checkbox0"><span></span></label></th>
 							<th>ID</th>
 							<th>Brand Name</th>
 							<th>Brand Logo</th>
-							<th>Url</th>
+							<th>Slug</th>
 							<th>Created At</th>
 							<th>Last Updated</th>
 							<th>Status</th>
@@ -45,6 +46,7 @@
 					</thead>
 				</table>
 			</div>
+			@include('backend.includes.bulkactionform', ['url'=>'admin/brands/bulkdelete'])
 		</div>
 		<!-- /.box-body -->
 	</div>

@@ -6,6 +6,8 @@
 
 		],function(){
 
-			Route::resource('brands','BrandController');
+			Route::delete('brands/bulkdelete', 'BrandController@deleteBrands');
+			Route::resource('brands','BrandController', ['except' => ['show']]);
+			
 
 	});

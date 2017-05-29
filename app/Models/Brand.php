@@ -18,7 +18,9 @@ class Brand extends Model
     		[
     			'brand_name',
     			'brand_logo',
-    			'url',
+    			'slug',
+                'b_order',
+                'topbrand',
     			'status',
     		];
 

@@ -19,7 +19,9 @@ class Member extends Model
     			'Name',
     			'logo',
     			'url',
-    			'status',
+    			'm_order',
+                'status',
+
     		];
 
 }

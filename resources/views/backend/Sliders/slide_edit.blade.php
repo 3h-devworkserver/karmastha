@@ -19,7 +19,7 @@
 
 @section('content')
 
-{{Form::open(['url'=>'admin/slide/'.$slide->id,'method' =>'patch', 'files'=> 'true','id'=>'formSlide-'.$slide->id])}}
+{{Form::model($slide,['url'=>'admin/slide/'.$slide->id,'method' =>'patch', 'files'=> 'true','id'=>'formSlide-'.$slide->id])}}
 
 <!-- The block to clone after add more. -->
 
@@ -28,15 +28,20 @@
 		<div class="col-md-9">
 			<div class="box">
 				<div class="box-body">
-					{{ Form::hidden('title',$slide->title) }}
+					{{ Form::hidden('title',null) }}
 					<div class="form-group">
 						<label class="control-label">Caption</label>
-						{!!Form::textarea('caption',$slide->caption,['class'=>'form-control caption-edit', 'rows'=>'3','placeholder'=>'Enter Caption']) !!}
+						{!!Form::textarea('caption',null,['class'=>'form-control caption-edit', 'rows'=>'3','placeholder'=>'Enter Caption']) !!}
 					</div>
 					<div class="form-group">
 						<label class="control-label">Slider Image</label>
-						<input type="file" name="Slider_image" id="Slider_image_edit" accept="image/*" 
-						alt="Slide_image" class="image_upload_edit"  >
+						<br>
+						<span class="btn btn-sm btn-karm btn-file">
+							<i class="fa fa-folder-open"></i>Upload Slider Image
+							<input type="file" name="Slider_image" class="form-control image_upload_edit" accept="image/*" required="required">
+							<br>
+						</span>
+
 						<img  class="sdPreview_edit" src="{{url($slide->Slider_image)}}"  width="675"  height="300" alt="" />						
 					</div>
 				</div>
@@ -49,7 +54,7 @@
 				</div>
 
 				<div class="box-body">
-					{{Form::text('link',$slide->link,['class'=>'form-control link-edit','placeholder'=>'Enter link'])}}
+					{{Form::text('link',null,['class'=>'form-control link-edit','placeholder'=>'Enter link'])}}
 				</div>
 				
 			</div>

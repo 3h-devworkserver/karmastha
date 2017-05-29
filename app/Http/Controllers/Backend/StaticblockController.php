@@ -40,10 +40,19 @@ class StaticblockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(CreateBlockRequest $request)
-    {
+    {   
+        $selected_page=null;
         $page = Page::where('status', 1)->pluck('title', 'id');
         $page->prepend('--Select--', '');
-        return view('backend.staticblocks.create',compact('page'));
+        return view('backend.staticblocks.create',compact('page','selected_page'));
+    }
+
+    public function staticblock_add($page_id,CreateBlockRequest $request)
+    {   
+        $selected_page=$page_id;
+        $page = Page::where('status', 1)->pluck('title', 'id');
+        $page->prepend('--Select--', '');
+        return view('backend.staticblocks.create',compact('selected_page','page'));
     }
 
     /**
@@ -106,9 +115,22 @@ class StaticblockController extends Controller
      */
     public function store(CreateBlockRequest $request)
     {
-        //return $request->BgColor[0];
-        //return $request->all();
-        #$page=Page::findOrFail($request->page);
+        $static_block=Staticblock::where('page','=',$request->page)->first();
+        
+        $this->validate($request,[
+            'title.*' => 'required',
+            'identifier.*' => 'required',
+            'content.*' => 'required',
+            'url.*'=>'required',
+            'BgColor.*'=>'required',
+            'Background_image.*'=>'required',
+            'page'=>'required',
+            'feature_image.*'=>'required',
+            'status.*'=>'required',
+            'position.*'=>'required',
+            's_order.*'=>'required',
+            ]);
+
         $files_feature    = $request->file('feature_image');
         $files_background = $request->file('Background_image');
 
@@ -138,15 +160,15 @@ class StaticblockController extends Controller
             
         }
 
-    // if ( $page === null ) {
+     if ( $static_block === null ) {
                 
                     return view('backend.staticblocks.index')->withFlashSuccess('Static-block created successfully.');
-                // }
-                // else{
+                 }
+                 else{
 
-                //     return redirect(url('admin/sliders/'.$request->title.'/list'))->withFlashSuccess('Slides added successfully.');
+                    return redirect(url('admin/static_blocks/'.$request->page.'/list'))->withFlashSuccess('Slides added successfully.');
                 
-                // }   
+                 }   
     }
 
 
@@ -154,7 +176,8 @@ class StaticblockController extends Controller
     {
          $page = Page::find($page_id);
          $title=$page->title;
-        return  view('backend.staticblocks.list',compact('page_id','title'));
+         $selected_page=$page->id;
+        return  view('backend.staticblocks.list',compact('page_id','title','selected_page'));
     }
 
     /**
@@ -191,13 +214,89 @@ class StaticblockController extends Controller
      */
     public function update( $id,EditBlockRequest $request)
     {
-        return "ok";
+        $this->validate($request,[
+            'title' => 'required',
+            'identifier' => 'required',
+            'content' => 'required',
+            'url'=>'required',
+            'BgColor'=>'required',
+            'page'=>'required',
+            'status'=>'required',
+            'position'=>'required',
+            's_order'=>'required',
+            ]);
+
+
+        $static_block=Staticblock::findOrFail($id);  
+        
+        if ( $request->hasFile('feature_image')){
+
+            $file= $request->file('feature_image');
+            $filename=time().$file->getClientOriginalName();
+            $filepath=$this->Upload_and_GetFilepath($file,$filename);
+        
+            $static_block->update([
+                'feature_image'=>$filepath,
+                ]);
+        }
+
+        if ( $request->hasFile('Background_image')){
+
+            $file= $request->file('Background_image');
+            $filename=time().$file->getClientOriginalName();
+            $filepath=$this->Upload_and_GetFilepath($file,$filename);
+            
+
+            $static_block->update([
+                'bgimage'=>$filepath,
+                ]);
+
+        }
+            
+        $static_block->update([
+               
+                'title'=>$request->title,
+                'identifier'=>$request->identifier,
+                'url'=>$request->url,
+                'content'=>$request->content,
+                'bgcolor'=>$request->BgColor,
+                'page'=>$request->page,
+                'status'=>$request->status,
+                'position'=>$request->position,
+                's_order'=>$request->s_order,   
+            ]);
+            
+        return redirect()->back()->withFlashSuccess('Staticblock Successfully Updated.');
     }
 
 
     public function static_block_delete($id,DeleteBlockRequest $request)
     {
-        return "ok";
+        
+        $static_blocks=Staticblock::where('page',$id)->get();
+
+        foreach ($static_blocks as  $key => $static_block) {
+
+            DB::transaction(function () use ($static_block) {
+    
+                Staticblock::destroy($static_block->id);
+
+            });
+
+
+            if(file_exists($static_block->feature_image)){
+                unlink($static_block->feature_image);
+
+            }
+
+            if(file_exists($static_block->bgimage)){
+                unlink($static_block->bgimage);
+
+            }
+        }
+
+
+        return redirect()->back()->withFlashSuccess('Static-blocks deleted successfully.');
     }
 
 
@@ -209,16 +308,39 @@ class StaticblockController extends Controller
      */
     public function destroy($id,DeleteBlockRequest $request)
     {
-        return "de oK";
+       
+        $static_block=Staticblock::findOrFail($id);
+        
+        Staticblock::destroy($id);
+
+        if(file_exists($static_block->feature_image)){
+            unlink($static_block->feature_image);
+
+        }
+
+        if(file_exists($static_block->bgimage)){
+            unlink($static_block->bgimage);
+
+        }
+
+        $rem_static_block=Staticblock::where('page','=',$static_block->page)->first();
+        
+        if ( $rem_static_block === null  ) {
+
+            return redirect()->action('Backend\StaticblockController@index')->withFlashSuccess('Staticblocks deleted successfully');    
+        }
+
+        return redirect()->back()->withFlashSuccess('Staticblock deleted successfully.'); 
     }
+    
 
      
     protected function getFilename(UploadedFile $file)
     {
          if ( !empty($file) ){
 
-            $filename=time().$file->getClientOriginalName();
-            $filepath=$this->Upload_and_GetFilepath($file,$filename);
+                $filename=time().$file->getClientOriginalName();
+                $filepath=$this->Upload_and_GetFilepath($file,$filename);
             }
             else
             {

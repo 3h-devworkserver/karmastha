@@ -37,6 +37,9 @@ class MemberManagementController extends Controller
         $members = Member::select('id', 'name', 'logo', 'url','status', 'created_at', 'updated_at');
         return Datatables::of($members)
             ->escapeColumns(['name','url','logo'])
+             ->addColumn('bulk', function ($data) {
+                return bulkSelect($data->id);
+             })
              ->editColumn('created_at', function($data){ 
                 return parseDateTimeY_M_D($data->created_at) ;
              })
@@ -75,6 +78,7 @@ class MemberManagementController extends Controller
             'status' => 'required',
             'logo' => 'required',
             'url'=>'required',
+            'm_order'=>'required',
             ]);
 
 
@@ -87,6 +91,7 @@ class MemberManagementController extends Controller
     			'Name'=>$request->Name,
     			'logo'=>$filepath,
     			'url'=>$request->url,
+                'm_order'=>$request->m_order,
     			'status'=>$request->status,
     			]);
     	});
@@ -121,6 +126,7 @@ class MemberManagementController extends Controller
             'Name' => 'required',
             'status' => 'required',
             'url'=>'required',
+            'm_order'=>'required',
             ]);
 
     	$member=Member::findOrFail($id);
@@ -148,7 +154,8 @@ class MemberManagementController extends Controller
 			$member->update([
 			'Name'=>$request->Name,
 			'url'=>$request->url,
-			'status'=>$request->status,    		
+			'status'=>$request->status,
+            'm_order'=>$request->m_order,   		
 			]) ;
 
     	});
@@ -175,6 +182,32 @@ class MemberManagementController extends Controller
         });
 
         return redirect()->back()->withFlashSuccess('Member deleted successfully.');
+    }
+
+    /**
+     * Bulk Delete
+     * @param  deleteMemberRequest $request [description]
+     * @return [type]                       [description]
+     */
+    public function deleteMembers(deleteMemberRequest $request)
+    {
+        if (empty($request->ids)) {
+            return redirect('/admin/members')->withFlashDanger('Please select members to delete.');
+        }
+
+        DB::transaction(function() use ($request){
+            $ids = explode(',', $request->ids);
+            foreach ($ids as $key => $id) {
+                $member = Member::findOrFail($id);
+                
+                if(file_exists($member->logo)){
+                    unlink($member->logo);
+                }
+                
+                $member->delete();
+            }
+        });
+        return redirect('/admin/members')->withFlashSuccess('Members deleted successfully.');
     }
 
 

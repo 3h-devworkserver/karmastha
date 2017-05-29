@@ -10,7 +10,7 @@
 
 @section('page-header')
 <h1>
-	Create Static-Block
+	Add Static-Block
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -55,8 +55,7 @@
 					<div class="form-group">
 						<label class="control-label">Choose Background option<em class="asterisk">*</em></label>
 						<div class="row">	
-							<div class="col-md-12">
-														
+							<div class="col-md-12">														
 								<div class="btn-group btn-group-justified" role="group" aria-label="...">
   									<div class="btn-group" role="group">
     									<button type="button" class="btn btn-default colorbtn">Color</button>
@@ -65,19 +64,15 @@
     									<button type="button" class="btn btn-default imagebtn">Image</button>
   									</div>
   								</div>
-
 							</div>
-
-
 						</div>
 
 						<div class="col-md-12 color_select" >
-						<hr>
+							<hr>
 	 						<div  data-format="alias" class="input-group bgcolor">
 								{{Form::text('BgColor[]','primary',['class'=>'form-control'])}}
 								<span class="input-group-addon"><i></i></span> 
 							</div> 
-
  						</div>
 						<hr>
 						<div class="col-md-12 image_select" >
@@ -100,13 +95,18 @@
 			<div class="row pageSelect">
 				<div class="box box-default">
 					<div class="box-header with-border">
-						<h3 class="box-title">Selected Page<em class="asterisk">*</em></h3>
+						<h3 class="box-title">Select Page<em class="asterisk">*</em></h3>
 						<div class="box-tools pull-right">
 							<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 						</div><!-- /.box-tools -->
 					</div><!-- /.box-header -->
 					<div class="box-body">
-						{{Form::select('page',$page,null,['class'=>'form-control page'])}}
+						@if($selected_page == null)
+							{{Form::select('page',$page,null,['class'=>'form-control page'])}}
+						@else
+							{{Form::select('page',$page,$selected_page,['class'=>'form-control page','readonly'])}}
+						@endif
+						
 					</div><!-- /.box-body -->
 				</div>			
 			</div>

@@ -35,9 +35,13 @@
 
 				<div class="form-group">
 					<label class="control-label">Logo</label>
-					{{Form::file('logo',array('id' => 'logo_edit'),['class'=>'form-control'])}} 
 					<br>
-					<img class="img-center" width="150" height="80" id="logo_preview_edit" src="{{url($member->logo)}}" alt="logo preview">
+					<span class="btn btn-sm btn-karm btn-file">
+					<i class="fa fa-folder-open"></i>Upload Member Logo
+						<input id='logo_edit' type="file" name="logo" class="form-control logo_edit" accept="image/*" required="required">
+					</span> 
+					<br><br>
+					<img class="img-center" width="250" height="150" id="logo_preview_edit" src="{{url($member->logo)}}" alt="logo preview">
 
 				</div>
 
@@ -61,7 +65,17 @@
 				{{Form::select('status',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
-
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title">Order</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				</div><!-- /.box-tools -->
+			</div><!-- /.box-header -->
+			<div class="box-body">
+				{{Form::number('m_order',null,['class'=>'form-control s_order','min'=>'0'])}}
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
 
 		<div class="form-group">	
 			{{Form::submit('Update',['class'=>'btn btn-karm'])}}

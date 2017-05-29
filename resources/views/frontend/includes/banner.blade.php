@@ -9,35 +9,30 @@
     <div class="container-fluid">
         <div class="row">
             <div class="main-slider-container col-xs-12 col-sm-8 col-md-8">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                @if(!empty($sliders))
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                        <?php $i =0; ?>
+                        @foreach($sliders as $slider)
+                            <li data-target="#carousel-example-generic" data-slide-to="{{$i}}" class="{{($i==0) ? 'active' : ''}}"></li>
+                            <?php $i++; ?>
+                        @endforeach
                     </ol>
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img src="{{asset('front-images/slider/2.jpg')}}" alt="...">
-                            <!-- <div class="carousel-caption">
-                                First Image
-                            </div> -->
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('front-images/slider/3.jpg')}}" alt="...">
-                           <!--  <div class="carousel-caption">
-                               Second Image
-                           </div> -->
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('front-images/slider/2.jpg')}}" alt="...">
-                            <!-- <div class="carousel-caption">
-                                Third Image
-                            </div> -->
-                        </div>
-                        
+                        <?php $i =0; ?>
+                        @foreach($sliders as $slider)
+                            <div class="item {{($i==0) ? 'active' : ''}}">
+                                <img src="{{asset($slider->Slider_image)}}" alt="{{$slider->caption}}">
+                                <!-- <div class="carousel-caption">
+                                    First Image
+                                </div> -->
+                            </div>
+                        <?php $i++; ?>
+                        @endforeach
+
                     </div>
 
                     <!-- Controls -->
@@ -49,7 +44,9 @@
                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
-                </div>
+                    </div>
+                @endif
+
             </div>
             <!-- end of Main Slider -->
 

@@ -36,7 +36,9 @@
         <div class="container">
             <div class="row">
                 <div class="nav-logo col-xs-12 col-sm-2 col-md-2">
-                    <a href="index.html"><img src="{{asset('front-images/Karmastha_logo.png')}}" alt=""></a>
+                    @if(!empty($setting->logo))
+                        <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo)}}" alt=""></a>
+                    @endif
                 </div>
                 
 
@@ -182,7 +184,7 @@
                             <section class="navigation-items">
                                 <ul>
                                     @foreach($categorys as $category)
-                                        <li><a href="#">{{$category->title}} <i class="fa fa-angle-down"></i></a>
+                                        <li><a href="{{url('category/'.$category->url)}}">{{$category->title}} <i class="fa fa-angle-down"></i></a>
                                             @if(count($category->childs) > 0 || (!empty($category->feat_img)) )
                                             <section class="submenu-container">
                                                 @if(count($category->topChilds) > 0)
@@ -191,7 +193,7 @@
                                                    </a>
                                                     <ul class="submenu">
                                                         @foreach($category->topChilds as $child)
-                                                            <li><a href="product.html">{{$child->title}}</a></li>
+                                                            <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -202,7 +204,7 @@
                                                     <a href="#" class="category-title"><h2>More Categories <i class="fa fa-caret-right"></i></h2></a> 
                                                     <ul class="submenu">
                                                         @foreach($category->moreChilds as $child)
-                                                            <li><a href="#">{{$child->title}}</a></li>
+                                                            <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
