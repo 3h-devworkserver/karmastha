@@ -41,9 +41,15 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Content</label>
-							{!!Form::textarea('content',null,['class'=>'form-control', 'placeholder'=>'Enter Content']) !!}
+						<label class="control-label">Top Content</label>
+							{!!Form::textarea('top_content',null,['class'=>'form-control', 'placeholder'=>'Enter Content']) !!}
 					</div>
+
+					<div class="form-group">
+						<label class="control-label">Bottom Content</label>
+							{!!Form::textarea('bottom_content',null,['class'=>'form-control', 'placeholder'=>'Enter Content']) !!}
+					</div>
+					
 				</div>
 				<!-- /.box-body -->
 			</div>

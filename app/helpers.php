@@ -321,9 +321,20 @@ if (! function_exists('featured_products')) {
     /* 
      * function that populate featured products
      */
-    function featured_products($limit=NULL) {
+    function featured_products($title = 'Products', $limit=NULL) {
         $products = Product::where('featured', 1)->where('status', 1)->get();
-        $html = view('frontend.includes.featuredproducts')->with('products', $products)->render();
+        $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
+        return $html;
+    }
+}
+
+if (! function_exists('hot_products')) {
+    /* 
+     * function that populate featured products
+     */
+    function hot_products($title = 'Products', $limit=NULL) {
+        $products = Product::where('hot', 1)->where('status', 1)->get();
+        $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
         return $html;
     }
 }

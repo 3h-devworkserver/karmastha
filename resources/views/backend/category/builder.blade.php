@@ -1,8 +1,4 @@
 @extends('backend.layouts.app')
-@section('after-styles')
-    {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
-    {{ Html::style("nestable/nestable.css") }}
-@endsection
 
 @section ('title', 'Category Management')
 
@@ -117,8 +113,7 @@
    </div><!-- /.modal -->
 
 @section('after-scripts')
-    {{ Html::script('selectize/js/standalone/selectize.min.js') }}
-    {{ Html::script('nestable/jquery.nestable.js') }}
+    
     <script type="text/javascript">
   
   /**

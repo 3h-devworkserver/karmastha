@@ -65,9 +65,11 @@ class CategoryController extends Controller {
 		            // $filename = time() . '-' . $file->getClientOriginalExtension();
 		        $move =$file->move($destination_path, $filename);
 		        if($move){
-		        	if(file_exists($destination_path.'/'.$item->feat_img)){
-	                    unlink($destination_path.'/'.$item->feat_img);
-	                }
+		        	if(!empty($item->feat_img)){
+			        	if(file_exists($destination_path.'/'.$item->feat_img)){
+		                    unlink($destination_path.'/'.$item->feat_img);
+		                }
+		            }
 		        }
 		    }else{
 		    	$filename = $item->feat_img;
@@ -79,19 +81,115 @@ class CategoryController extends Controller {
 
 			// $item->save();
 
-			$item->title 	= e(Request::get('title','untitled'));
-			$item->label 	= e(Request::get('label',''));	
+			$item->title 	= Request::get('title','untitled');
+			$item->label 	= Request::get('label','');	
 			$item->url 		= $url;	
 
-			$item->description 		= e(Request::get('description',''));	
-			$item->status 		= e(Request::get('status',''));	
-			$item->meta_title 		= e(Request::get('meta_title',''));	
-			$item->meta_keyword 		= e(Request::get('meta_keyword',''));	
-			$item->meta_desc 		= e(Request::get('meta_desc',''));	
+			$item->description 		= Request::get('description','');	
+			$item->status 		= Request::get('status','');	
+			$item->meta_title 		= Request::get('meta_title','');	
+			$item->meta_keyword 		= Request::get('meta_keyword','');	
+			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;
-			$item->cat_type 		= e(Request::get('cat_type',''));		
+			$item->cat_type 		= Request::get('cat_type','');		
 
 			$item->save();
+
+
+			$prevBanner = $item->banners;
+            $prevBannerCount = count($prevBanner);
+            $bannerCount = count($request->banner_title);
+            // $banner = $_FILES['uploadBanner']['tmp_name'];
+            $file = $request->file('uploadBanner');
+		    $destination_path = 'images/category/banner';
+            $i = 0;
+            if ($prevBannerCount <= $bannerCount) {
+                while ($i < $prevBannerCount) {
+                	// if ($request->hasFile('uploadBanner')) {
+	                	if (!empty($file[$i])) {
+	                		$filename = str_random(5) . '-' . $file[$i]->getClientOriginalName();
+			        		$move = $file[$i]->move($destination_path, $filename);
+							if($move){
+								if(!empty($prevBanner[$i]->banner_image)){
+									deleteFile($destination_path.'/'.$prevBanner[$i]->banner_image);
+								}
+					        }
+	                		$prevBanner[$i]->update([
+		                        'banner_title' => $request->banner_title[$i],
+								'banner_desc' => $request->banner_desc[$i],
+								'banner_image' => $filename,
+								'banner_url' => $request->banner_url[$i],
+								'banner_position' => $request->banner_position[$i],
+								'banner_order' =>$request->banner_order[$i],
+		                    ]);
+	                	}else{
+	                		$prevBanner[$i]->update([
+		                        'banner_title' => $request->banner_title[$i],
+								'banner_desc' => $request->banner_desc[$i],
+								'banner_url' => $request->banner_url[$i],
+								'banner_position' => $request->banner_position[$i],
+								'banner_order' =>$request->banner_order[$i],
+		                    ]);
+	                	}
+                	// }
+                    
+                    $i++;
+                }
+                while ($i < $bannerCount) {
+                	if (!empty($file[$i])) {
+				        $filename = str_random(5) . '-' . $file[$i]->getClientOriginalName();
+				        $file[$i]->move($destination_path, $filename);
+
+				        $item->banners()->create([
+							'banner_title' => $request->banner_title[$i],
+							'banner_desc' => $request->banner_desc[$i],
+							'banner_image' => $filename,
+							'banner_url' => $request->banner_url[$i],
+							'banner_position' => $request->banner_position[$i],
+							'banner_order' =>$request->banner_order[$i],
+						]);
+				    }
+                    $i++;
+                }
+            }else{
+                while ($i < $bannerCount) {
+                    if (!empty($file[$i])) {
+                		$filename = str_random(5) . '-' . $file[$i]->getClientOriginalName();
+		        		$move = $file[$i]->move($destination_path, $filename);
+						if($move){
+							if(!empty($prevBanner[$i]->banner_image)){
+								deleteFile($destination_path.'/'.$prevBanner[$i]->banner_image);
+							}
+				        }
+                		$prevBanner[$i]->update([
+	                        'banner_title' => $request->banner_title[$i],
+							'banner_desc' => $request->banner_desc[$i],
+							'banner_image' => $filename,
+							'banner_url' => $request->banner_url[$i],
+							'banner_position' => $request->banner_position[$i],
+							'banner_order' =>$request->banner_order[$i],
+	                    ]);
+                	}else{
+                		$prevBanner[$i]->update([
+	                        'banner_title' => $request->banner_title[$i],
+							'banner_desc' => $request->banner_desc[$i],
+							'banner_url' => $request->banner_url[$i],
+							'banner_position' => $request->banner_position[$i],
+							'banner_order' =>$request->banner_order[$i],
+	                    ]);
+                	}
+                    $i++;
+                }
+                while ($i < $prevBannerCount) {
+                    deleteFile($destination_path.'/'.$prevBanner[$i]->banner_image);
+                    if(!empty($prevBanner[$i]->banner_image)){
+						deleteFile($destination_path.'/'.$prevBanner[$i]->banner_image);
+					}
+					$prevBanner[$i]->delete();
+                    $i++;
+                }
+            }
+
 		});
 		return redirect()->back()->withFlashSuccess('Category updated successfully.');
 	}
@@ -162,20 +260,43 @@ class CategoryController extends Controller {
 			// Create a new menu item and save it
 			$item = new Category;
 
-			$item->title 	= e(Request::get('title','untitled'));
-			$item->label 	= e(Request::get('label',''));	
+			$item->title 	= Request::get('title','untitled');
+			$item->label 	= Request::get('label','');	
 			$item->url 		= $url;	
 			$item->order 	= Category::max('order')+1;
 
-			$item->description 		= e(Request::get('description',''));	
-			$item->status 		= e(Request::get('status',''));	
-			$item->meta_title 		= e(Request::get('meta_title',''));	
-			$item->meta_keyword 		= e(Request::get('meta_keyword',''));	
-			$item->meta_desc 		= e(Request::get('meta_desc',''));	
+			$item->description 		= Request::get('description','');	
+			$item->status 		= Request::get('status','');	
+			$item->meta_title 		= Request::get('meta_title','');	
+			$item->meta_keyword 		= Request::get('meta_keyword','');	
+			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;	
-			$item->cat_type 		= e(Request::get('cat_type',''));		
+			$item->cat_type 		= Request::get('cat_type','');		
 
 			$item->save();
+
+			$i = 0;
+			while($i < count(Request::get('banner_title'))){
+		        $file = $request->file('uploadBanner');
+		        $destination_path = 'images/category/banner';
+
+				// if ($request->hasFile('uploadBanner')) {
+				if (!empty($file[$i])) {
+			        $filename = str_random(5) . '-' . $file[$i]->getClientOriginalName();
+			        $file[$i]->move($destination_path, $filename);
+
+			        $item->banners()->create([
+						'banner_title' => $request->banner_title[$i],
+						'banner_desc' => $request->banner_desc[$i],
+						'banner_image' => $filename,
+						'banner_url' => $request->banner_url[$i],
+						'banner_position' => $request->banner_position[$i],
+						'banner_order' =>$request->banner_order[$i],
+					]);
+			    }
+		    	$i++;
+			}
+
 		});
 
 		return Redirect::to('admin/category');

@@ -7,7 +7,7 @@
 Route::get('/', 'FrontendController@index')->name('index');
 Route::get('macros', 'FrontendController@macros')->name('macros');
 
-
+Route::get('/category/{slug}', 'FrontendController@showCategoryPage')->name('category.show');
 
 
 

@@ -32,5 +32,13 @@ class Page extends Model
         return "<label class='label label-danger'>".'Disabled'.'</label>';
     }
 
+    public function topStaticBlock(){
+        return $this->hasMany('App\Models\Staticblock', 'page')->where('position', 0)->where('status', 1)->orderBy('s_order', 'asc');
+    }
+
+    public function bottomStaticBlock(){
+        return $this->hasMany('App\Models\Staticblock', 'page')->where('position', 1)->where('status', 1)->orderBy('s_order', 'asc');
+    }
+
 
 }

@@ -132,6 +132,7 @@ class ProductController extends Controller
                 'detail' => $request->detail,
                 'offer' => $request->offer,
                 'featured' => $request->featured,
+                'hot' => $request->hot,
                 'tags' => $request->tags,
                 'status' => $request->status,
 
@@ -284,10 +285,11 @@ class ProductController extends Controller
         $i = 0;
         $j = 1000;
         $k = 2000;
+        $rand = str_random(3);
         foreach ($tmpImages as $image) {
             $url = asset($this->tmpDir.$image->image);
             // $deleteUrl = url('tmp/image/delete/'.$image->id);
-            $html .= "<tr><td><img src=\"".$url."\" height=\"50\" width=\"50\"></td><td><input type=\"number\" name=\"image_order[]\" value=\"0\" min='0' step='1'></td><td><input name=\"base_img[]\" type=\"checkbox\" id=\"".$i."\" value=\"".$image->id."\"><label for=\"".$i."\"><span></span></label></td><td><input name=\"small_img[]\" type=\"checkbox\" id=\"".$j."\" value=\"".$image->id."\"><label for=\"".$j."\"><span></span></label> </td><td><input name=\"thumbnail_img[]\" type=\"checkbox\" id=\"".$k."\" value=\"".$image->id."\"><label for=\"".$k."\"><span></span></label></td><td><a class=\"btn btn-sm btn-danger fa fa-trash deleteTmpImg\" href=\"javascript:void(0);\" data-id=\"".$image->id."\" ></a> <i class=\"delSpin fa fa-spinner fa-spin display-none\"></i></td></tr>";
+            $html .= "<tr><td><img src=\"".$url."\" height=\"50\" width=\"50\"></td><td><input type=\"number\" name=\"image_order[]\" value=\"0\" min='0' step='1'></td><td><input name=\"base_img[]\" type=\"checkbox\" id=\"".$rand.$i."\" value=\"".$image->id."\"><label for=\"".$rand.$i."\"><span></span></label></td><td><input name=\"small_img[]\" type=\"checkbox\" id=\"".$rand.$j."\" value=\"".$image->id."\"><label for=\"".$rand.$j."\"><span></span></label> </td><td><input name=\"thumbnail_img[]\" type=\"checkbox\" id=\"".$rand.$k."\" value=\"".$image->id."\"><label for=\"".$rand.$k."\"><span></span></label></td><td><a class=\"btn btn-sm btn-danger fa fa-trash deleteTmpImg\" href=\"javascript:void(0);\" data-id=\"".$image->id."\" ></a> <i class=\"delSpin fa fa-spinner fa-spin display-none\"></i></td></tr>";
         $i++;
         $j++;
         $k++;
@@ -395,6 +397,7 @@ class ProductController extends Controller
                 'detail' => $request->detail,
                 'offer' => $request->offer,
                 'featured' => $request->featured,
+                'hot' => $request->hot,
                 'tags' => $request->tags,
                 'status' => $request->status,
 

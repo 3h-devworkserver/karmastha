@@ -38,7 +38,7 @@
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
 					<i class="fa fa-folder-open"></i>Upload Brand Logo
-						<input id='logo_edit' type="file" name="brand_logo" class="form-control logo_edit" accept="image/*" required="required">
+						<input id='logo_edit' type="file" name="brand_logo" class="form-control logo_edit" accept="image/*" >
 					</span>
 					<br><br>
 					<img class="img-center" width="250" height="150" id="logo_preview_edit" src="{{url($brand->brand_logo)}}" alt="logo preview">
@@ -52,6 +52,33 @@
 			</div>
 			<!-- /.box-body -->
 		</div>
+		<div class="box box-orange">
+	<div class="box-header with-border">
+		<h3 class="box-title">Category Associations</h3>
+		<div class="box-tools pull-right">
+	        {{-- @include('backend.products.includes.expandcollapsebutton') --}}
+	    </div><!--box-tools pull-right-->
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body">
+		<ul id="tree1">
+		    @foreach($categorys as $category)
+	            <li >
+	            @if(in_array($category->id, $catSelected->toArray()))
+	                {{Form::checkbox('category[]', $category->id, true, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
+	            @else
+	                {{Form::checkbox('category[]', $category->id, null, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
+	            @endif
+
+	                @if(count($category->childs))
+	                    @include('backend.products.edit.managechild',['childs' => $category->childs])
+	                @endif
+	            </li>
+	        @endforeach
+		</ul>
+	</div>
+	<!-- /.box-body -->
+</div>
 	</div>
 	<div class="col-md-3">
 		<div class="box box-default">
@@ -73,7 +100,7 @@
 				</div><!-- /.box-tools -->
 			</div><!-- /.box-header -->
 			<div class="box-body">
-				{{Form::select('topbrand',['1' => 'topbrand', '0'=>'not topbrand'],null,['class'=>'form-control'])}}
+				{{Form::select('topbrand',['0'=>'not topbrand', '1' => 'topbrand'],null,['class'=>'form-control'])}}
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 

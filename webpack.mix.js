@@ -25,6 +25,12 @@ mix.sass('resources/assets/sass/frontend/app.scss', 'public/css/frontend.css')
         'resources/assets/js/plugin/sweetalert/sweetalert.min.js',
         'resources/assets/js/plugins.js',
     ], 'public/js/backend.js')
+    .js([
+        // 'resources/assets/js/backend/datatables/jquery.dataTables.min.js',
+        // 'resources/assets/js/backend/datatables/dataTables.bootstrap.min.js',
+        'resources/assets/js/backend/selectize.min.js',
+        'resources/assets/js/backend/jquery.nestable.js',
+    ], 'public/js/backendplugins.js')
     .webpackConfig({
         plugins: [
             new WebpackRTLPlugin('/css/[name].rtl.css')

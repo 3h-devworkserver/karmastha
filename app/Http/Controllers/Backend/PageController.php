@@ -73,7 +73,8 @@ class PageController extends Controller
             Page::create([
                 'title' => $request->title,    
                 'slug' => $slug,    
-                'content' => $request->content,    
+                'top_content' => $request->top_content,    
+                'bottom_content' => $request->bottom_content,    
                 'status' => $request->status,    
                 'slider' => $request->slider,    
                 'slider_identifier' => $request->slider_identifier,    
@@ -114,7 +115,8 @@ class PageController extends Controller
             $page->update([
                 'title' => $request->title,    
                 'slug' => $slug,    
-                'content' => $request->content,    
+                'top_content' => $request->top_content,    
+                'bottom_content' => $request->bottom_content,        
                 'status' => $request->status,    
                 'slider' => $request->slider,   
                 'slider_identifier' => $request->slider_identifier,    

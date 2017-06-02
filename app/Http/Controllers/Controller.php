@@ -19,6 +19,7 @@ class Controller extends BaseController
     	$setting = GeneralSetting::first();
         if(empty($setting)){
             $setting = new GeneralSetting;
+            $setting->title = 'Karmastha';
             $setting->meta_title = 'Karmastha';
             $setting->meta_desc = '';
             $setting->meta_keyword = '';

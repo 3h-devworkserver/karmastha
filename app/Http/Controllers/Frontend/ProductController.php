@@ -24,14 +24,12 @@ class ProductController extends Controller
     public function showProductDetail($slug){
     	// return $slug;
 
-    	// $product = Product::where('slug', $slug)->where('status', 1)->first();
-    	// if(empty($product)){
-    	// 	abort(404);
-    	// }else{
-    	// 	return $product;
-    	// }
-
-        return view('frontend.product')->withClass('inner-page product-detail-page');
+    	$product = Product::where('slug', $slug)->where('status', 1)->first();
+    	if(empty($product)){
+    		abort(404);
+    	}
+        $baseImage = $product->productBaseImage;
+        return view('frontend.productdetail', compact('product', 'baseImage'))->withClass('inner-page product-detail-page');
     }
 
 

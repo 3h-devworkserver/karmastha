@@ -22,4 +22,5 @@ class Slide extends Model
     			'link',
                 'group_identifier',
     		];
+
 }

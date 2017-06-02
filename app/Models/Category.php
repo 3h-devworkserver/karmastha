@@ -59,4 +59,23 @@ protected $table = 'categorys';
 		return $this->hasMany('App\Models\Category', 'parent_id', 'id')->where('status', 1)->where('cat_type', 'more');
 	}
 
+	public function banners(){
+		return $this->hasMany('App\Models\CategoryBanner');
+	}
+
+	public function topBanners(){
+		return $this->hasMany('App\Models\CategoryBanner')->where('banner_position', 'top')->orderBy('banner_order', 'asc');
+	}
+	public function middleBanners(){
+		return $this->hasMany('App\Models\CategoryBanner')->where('banner_position', 'middle')->orderBy('banner_order', 'asc');
+	}
+
+	public function topBrands(){
+        return $this->belongsToMany('App\Models\Brand')->where('topbrand', 1)->where('status', 1)->orderBy('b_order', 'asc');
+    }
+
+    public function isParent(){
+    	return ($this->parent_id == 0) ? 'true': 'false';
+    }
+
 }

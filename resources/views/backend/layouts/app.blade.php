@@ -26,7 +26,8 @@
         @endif
         {{-- {{ Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')}} --}}
         {{ Html::style('css/backend/plugin/datatables/dataTables.bootstrap.min.css') }}
-
+        {{ Html::style("nestable/nestable.css") }}
+        
         @yield('after-styles')
         {{ Html::style('css/backend/skin-orange.css') }}
         <!-- iCheck -->
@@ -82,12 +83,14 @@
         <!-- JavaScripts -->
         @yield('before-scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
         {{-- {{ Html::script('js/app.js') }} --}}
         {{ Html::script(mix('js/backend.js')) }}
         <script src="http://malsup.github.com/jquery.form.js"></script>
         {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
         {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
+        {{ Html::script(mix('js/backendplugins.js')) }}
+         {{--{{ Html::script('selectize/js/standalone/selectize.min.js') }}
+        {{ Html::script('nestable/jquery.nestable.js') }}  --}}
         @yield('after-scripts')
         {{-- {{ Html::script('js/backend/icheck.min.js') }} --}}
         {{ Html::script('js/backend/jquery.validate.js') }}

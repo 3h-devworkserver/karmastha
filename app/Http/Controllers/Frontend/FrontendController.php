@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Member;
 use App\Models\Page;
 use App\Models\Slide;
@@ -39,4 +40,20 @@ class FrontendController extends Controller
     {
         return view('frontend.macros');
     }
+
+    /**
+     * Show the form for creating a new resource.
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function showCategoryPage($slug){
+        $category = Category::where('url', $slug)->where('status', 1)->first();
+        if ($category->isParent() == 'true') {
+            return view('frontend.categorypage', compact('category'))->withClass('inner-page product_cat');
+        }else{
+            return view('frontend.subcategorypage', compact('category'))->withClass('inner-page product_cat');
+        }
+    }
+
+
 }

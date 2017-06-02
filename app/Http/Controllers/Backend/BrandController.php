@@ -95,7 +95,7 @@ class BrandController extends Controller
             $filename=$this-> makeFileName($file);
             $filepath=$this->Upload_and_GetFilepath($file,$filename);
             
-            Brand::create([
+            $brand = Brand::create([
                 'brand_name'=>$request->brand_name,
                 'brand_logo'=>$filepath,
                 'slug'=>$request->slug,
@@ -103,6 +103,9 @@ class BrandController extends Controller
                 'b_order'=>$request->b_order,
                 'topbrand'=>$request->topbrand,
                 ]);
+
+            //categorys associated with brand
+            $brand->categorys()->attach($request->category);
         });
 
         return redirect()->route('admin.brands.index')->withFlashSuccess('Brand created successfully.');
@@ -129,7 +132,9 @@ class BrandController extends Controller
     {
 
         $brand = Brand::findOrFail($id);
-        return view('backend.brands.edit',compact('brand'));
+        $catSelected = $brand->categorys;
+        $catSelected = $catSelected->pluck('id');
+        return view('backend.brands.edit',compact('brand', 'catSelected'));
     }
 
     /**
@@ -179,6 +184,9 @@ class BrandController extends Controller
             'b_order'=>$request->b_order,
             'topbrand'=>$request->topbrand,         
             ]) ;
+
+            //categorys associated with product
+            $brand->categorys()->sync($request->category);
 
         });
 

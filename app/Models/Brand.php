@@ -22,6 +22,11 @@ class Brand extends Model
                 'b_order',
                 'topbrand',
     			'status',
+                'category',
     		];
+
+    public function categorys(){
+        return $this->belongsToMany('App\Models\Category');
+    }
 
 }

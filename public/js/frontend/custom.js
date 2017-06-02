@@ -46,3 +46,29 @@ $(window).scroll(function(){
         }
     });
 });
+
+$( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+} );
+
+
+$("#slideshow > div:gt(0)").hide();
+
+    setInterval(function() { 
+      $('#slideshow > div:first')
+        .fadeOut(1000)
+        .next()
+        .fadeIn(2000)
+        .end()
+        .appendTo('#slideshow');
+    },  3000);

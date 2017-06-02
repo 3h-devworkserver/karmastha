@@ -202,10 +202,12 @@ $(document).on('change', '.bulkSelect', function(){
               if (this == e.target) {
                 var icon = $(this).children('i:first');
                 icon.toggleClass(openedClass + " " + closedClass);
-                $(this).children().children().toggle();
+                // $(this).children().children().toggle();
+                $(this).children().children().not('span').toggle();
               }
             })
-            branch.children().children().toggle();
+            // branch.children().children().toggle();
+            branch.children().children().not('span').toggle();
           });
 
 
@@ -519,6 +521,19 @@ $('#productForm').validate({
 /**
  *	end of js for product
  **/
+
+
+
+ // js for category
+ $(document).on('click', '.bannerAdd', function(){
+  var html = $('.categorybanner-extra').html();
+  $('.categorybanner-block').append(html);
+    
+});
+
+$(document).on('click', '.bannerRemove', function(){
+  $(this).closest('.categorybanner').remove();
+});
  
 
 });
@@ -565,6 +580,27 @@ function readURL(input, preview) {
     reader.readAsDataURL(input.files[0]);
   }else{
     $(preview).hide().css('background-image', 'url(\'\')');
+  }
+}
+
+/**
+ * method used to show image preview when image is selected
+ */
+function readImageURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+
+    reader.onload = function (e) {
+    var tmp = $(input).closest('.form-group').find('.show-img-bg').first();
+      $(tmp).css('background-image', 'url('+e.target.result+')').show();
+      $(input).closest('.form-group').find('.image-preview').hide();
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }else{
+    var tmp = $(input).closest('.form-group').find('.show-img-bg').first();
+    $(tmp).hide().css('background-image', 'url(\'\')');
   }
 }
 

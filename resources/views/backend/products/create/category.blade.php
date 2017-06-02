@@ -2,7 +2,7 @@
 	<div class="box-header with-border">
 		<h3 class="box-title">Category Associations</h3>
 		<div class="box-tools pull-right">
-	        @include('backend.products.includes.expandcollapsebutton')
+	        {{-- @include('backend.products.includes.expandcollapsebutton') --}}
 	    </div><!--box-tools pull-right-->
 	</div>
 	<!-- /.box-header -->

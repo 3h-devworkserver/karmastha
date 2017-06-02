@@ -5,7 +5,7 @@
         theme: "modern",
         mode : "exact",
         // added elements --yojan
-        elements : ["content","short_desc", "short_desc2", "statcontent", "long_desc", "description", "content_it", "detail", "offer"],
+        elements : ["content","short_desc", "short_desc2", "statcontent", "long_desc", "description", "content_it", "detail", "offer", "top_content", "bottom_content"],
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
         relative_urls: false,

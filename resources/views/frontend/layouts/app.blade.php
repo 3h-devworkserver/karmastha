@@ -166,12 +166,12 @@
     <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>Home || Page</title>
+    <title>@yield('title', $setting->title)</title>
     
-    <meta name="title" content="@yield('title', $setting->meta_title)" />
-    <meta name="description" content="@yield('description', $setting->meta_desc)" />
-    <meta name="keyword" content="@yield('keyword', $setting->meta_keyword)" />
-    <meta name="author" content="@yield('author', 'Karmastha')" />
+    <meta name="title" content="@yield('meta_title', $setting->meta_title)" />
+    <meta name="description" content="@yield('meta_description', $setting->meta_desc)" />
+    <meta name="keyword" content="@yield('meta_keyword', $setting->meta_keyword)" />
+    <meta name="author" content="@yield('meta_author', 'Karmastha')" />
     <!-- Google will often use this as its description of your page/site. Make it good. -->
     
     <meta name="google-site-verification" content="" />
@@ -305,6 +305,7 @@
 <!-- All js plugins included in this file. -->
 <script src="{{asset('js/frontend/plugins.js')}}"></script>
 <script src="{{asset('js/frontend/main.js')}}"></script>
+<script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 @yield('after-scripts')
