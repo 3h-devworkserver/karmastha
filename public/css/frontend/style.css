@@ -2613,6 +2613,7 @@ section.story-approach{
         overflow:hidden
       }
         .business-wrapper{
+          /*width:500%;*/
           background: url(https://img1a.flixcart.com/fk-sp-static/images/seller-home-page-illustration.png) no-repeat;
 
           background-size:95% auto;

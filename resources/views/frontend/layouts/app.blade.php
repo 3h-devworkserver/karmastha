@@ -306,44 +306,16 @@
 <script src="{{asset('js/frontend/plugins.js')}}"></script>
 <script src="{{asset('js/frontend/main.js')}}"></script>
 <script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/ScrollMagic.js"></script>
+<script src="{{asset('js/frontend/animation.gsap.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 @yield('after-scripts')
 
-<!-- <script type="text/javascript">
-
-    $(function () { // wait for document ready
-                            // init
-                            var controller = new ScrollMagic.Controller();
-
-                            // define movement of panels
-                            var wipeAnimation = new TimelineMax()
-                                // animate to second panel
-                                .to("#slideContainer", 0.5, {z: -150})      // move back in 3D space
-                                .to("#slideContainer", 1,   {x: "-25%"})    // move in to first panel
-                                .to("#slideContainer", 0.5, {z: 0})             // move back to origin in 3D space
-                                // animate to third panel
-                                .to("#slideContainer", 0.5, {z: -150, delay: 1})
-                                .to("#slideContainer", 1,   {x: "-50%"})
-                                .to("#slideContainer", 0.5, {z: 0})
-                                // animate to forth panel
-                                .to("#slideContainer", 0.5, {z: -150, delay: 1})
-                                .to("#slideContainer", 1,   {x: "-75%"})
-                                .to("#slideContainer", 0.5, {z: 0});
-
-                            // create scene to pin and link animation
-                            new ScrollMagic.Scene({
-                                    triggerElement: "#pinContainer",
-                                    triggerHook: "onLeave",
-                                    duration: "500%"
-                                })
-                                .setPin("#pinContainer")
-                                .setTween(wipeAnimation)
-                                .addIndicators() // add indicators (requires plugin)
-                                .addTo(controller);
-                        });
-
-</script> -->
 <!-- Asynchronous google analytics; this is the official snippet.
      Replace UA-XXXXXX-XX with your site's ID and uncomment to enable.
      
@@ -366,5 +338,4 @@
   
 </body>
 </html>
-
 

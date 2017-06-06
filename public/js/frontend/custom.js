@@ -1,3 +1,5 @@
+
+
 $(window).scroll(function(){
 	var sticky = $('.navbar-fixed-top'),
 	    scroll = $(window).scrollTop();

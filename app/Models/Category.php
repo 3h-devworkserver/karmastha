@@ -78,4 +78,8 @@ protected $table = 'categorys';
     	return ($this->parent_id == 0) ? 'true': 'false';
     }
 
+    public function products(){
+    	return $this->belongsToMany('App\Models\Product\Product')->where('status', 1);
+    }
+
 }

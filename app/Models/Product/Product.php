@@ -56,6 +56,10 @@ class Product extends Model
         return $this->hasMany('App\Models\Product\ProductGallery')->where('base_image', 1)->orderBy('image_order');
     }
 
+    public function brand(){
+        return $this->belongsTo('App\Models\Brand');
+    }
+
 
     /**
      * @return string

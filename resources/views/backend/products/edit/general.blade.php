@@ -31,13 +31,23 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Detail<em class="asterisk">*</em></label>
-			{!!Form::textarea('detail',null,['class'=>'form-control', 'rows'=>'8', 'placeholder'=>'Enter Detail'])!!}
+			<label class="control-label">Offer</label>
+			{!!Form::textarea('offer',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Offer Detail'])!!}
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Offer</label>
-			{!!Form::textarea('offer',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Offer Detail'])!!}
+			<label class="control-label">Release Note</label>
+			{!!Form::textarea('release_note',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Release Note'])!!}
+		</div>
+
+		<div class="form-group">
+			<label class="control-label">Return Policy<em class="asterisk">*</em></label>
+			{!!Form::textarea('return_policy',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Return Policy'])!!}
+		</div>
+
+		<div class="form-group">
+			<label class="control-label">Product Detail<em class="asterisk">*</em></label>
+			{!!Form::textarea('detail',null,['class'=>'form-control', 'rows'=>'8', 'placeholder'=>'Enter Detail'])!!}
 		</div>
 
 		<div class="form-group">

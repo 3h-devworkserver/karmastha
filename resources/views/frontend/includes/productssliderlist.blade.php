@@ -26,14 +26,14 @@
                                     <div class="col-sm-3">
                                         <div class="col-item">
                                             <div class="photo">
-                                                <a href="">
+                                                <a href="{{url('product/'.$product->slug)}}">
                                                     {{-- <p class="any-offer">50% Discount</p> --}}
                                                     <img src="{{asset('images/product/'.$product->id.'/small/'.$product->productListImage[0]->image)}}" alt="{{$product->name}}" /></a>
                                             </div>
-                                            <div class="info">
                                             
+                                            <div class="info">
                                                     <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">{{$product->name}}</a></h5>
+                                                        <h5><a href="{{url('product/'.$product->slug)}}">{{$product->name}}</a></h5>
                                                     </div>
                                                     <div class="price col-md-4 no-padd">
                                                         <h5 class="price-text-color">
@@ -44,7 +44,7 @@
                                                 </div>
                                                 <div class="separator clear-left">
                                                     <a class="btn-add" href="cart.html" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="product_list.html" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
+                                                    <a class="btn-add" target="_blank" href="{{url('product/'.$product->slug)}}" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
                                                 </div>
                                                 <div class="clearfix">
                                           

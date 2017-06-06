@@ -104,6 +104,7 @@ class ProductController extends Controller
             'sku' => 'required',            
             'short_desc' => 'required',            
             'detail' => 'required',            
+            'return_policy' => 'required',            
             'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug',    
@@ -130,7 +131,9 @@ class ProductController extends Controller
                 'brand_id' => $request->brand_id,
                 'short_desc' => $request->short_desc,
                 'detail' => $request->detail,
+                'return_policy' => $request->return_policy,
                 'offer' => $request->offer,
+                'release_note' => $request->release_note,
                 'featured' => $request->featured,
                 'hot' => $request->hot,
                 'tags' => $request->tags,
@@ -368,7 +371,13 @@ class ProductController extends Controller
     {
         // return $request->all();
         $this->validate($request,[
+
+
             'name' => 'required',            
+            'sku' => 'required',            
+            'short_desc' => 'required',            
+            'detail' => 'required',            
+            'return_policy' => 'required',            
             'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug,'.$id,    
@@ -376,7 +385,7 @@ class ProductController extends Controller
 
             'price' => 'required|numeric', 
 
-            'manage_stock' => 'required',      
+            'manage_stock' => 'required', 
         ]);
 
         DB::transaction(function() use ($request, $id){
@@ -395,7 +404,9 @@ class ProductController extends Controller
                 'brand_id' => $request->brand_id,
                 'short_desc' => $request->short_desc,
                 'detail' => $request->detail,
+                'return_policy' => $request->return_policy,
                 'offer' => $request->offer,
+                'release_note' => $request->release_note,
                 'featured' => $request->featured,
                 'hot' => $request->hot,
                 'tags' => $request->tags,

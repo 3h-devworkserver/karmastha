@@ -51,7 +51,8 @@ class FrontendController extends Controller
         if ($category->isParent() == 'true') {
             return view('frontend.categorypage', compact('category'))->withClass('inner-page product_cat');
         }else{
-            return view('frontend.subcategorypage', compact('category'))->withClass('inner-page product_cat');
+            $products = $category->products;
+            return view('frontend.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
     }
 

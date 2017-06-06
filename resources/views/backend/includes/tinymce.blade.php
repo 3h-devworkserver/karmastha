@@ -5,10 +5,11 @@
         theme: "modern",
         mode : "exact",
         // added elements --yojan
-        elements : ["content","short_desc", "short_desc2", "statcontent", "long_desc", "description", "content_it", "detail", "offer", "top_content", "bottom_content"],
+        elements : ["content","short_desc", "short_desc2", "statcontent", "long_desc", "description", "content_it", "detail", "offer", "top_content", "bottom_content", "return_policy", "release_note"],
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
         relative_urls: false,
+        extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag
         plugins: [
@@ -77,6 +78,7 @@
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
         relative_urls: false,
+        extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag
         plugins: [

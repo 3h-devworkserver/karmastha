@@ -166,180 +166,50 @@
                                 </div>
                             </div>
                         </div><!--end side bar -->
+                        @if(count($products) > 0)
                         <div class="col-md-9 col-sm-9" id="cart_items">
                            <div class="left_bg_color">
                                 <div class="product-list-container">
                                     <div class="product_list_image">
+                                    
+                                    @foreach($products as $product)
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="product-box hvr-glow">
+                                                <figure><a href="{{url('product/'.$product->slug)}}"><img src="{{asset('images/product/'.$product->id.'/small/'.$product->productListImage[0]->image)}}" alt="{{$product->name}}" class="overlay-image"></a></figure>
 
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
+                                                <div class="info">
+                                                    <div class="info_product">
+                                                        <div class="price col-md-7">
+                                                            <h5><a href="{{url('product/'.$product->slug)}}">{{$product->name}}</a></h5>
+                                                        </div>
+                                                        <div class="price col-md-4 no-padd">
+                                                            <h5 class="price-text-color">
+                                                                @if(!empty($product->productPrice->special_price)) NPR {{$product->productPrice->special_price}} @else NPR {{$product->productPrice->price}} 
+                                                                @endif
+                                                            </h5>
+                                                        </div>
                                                     </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
+                                                    <div class="separator clear-left">
+                                                        <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                        <a class="btn-add" target="_blank" href="{{url('product/'.$product->slug)}}" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
                                                     </div>
                                                 </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
+
                                             </div>
                                         </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <div class="col-md-4 col-sm-4">
-                                        <div class="product-box hvr-glow">
-                                            <figure><a href="product_list.html"><img src="{{asset('front-images/product/1-800x800.jpg')}}" alt="Avatar" class="overlay-image"></a></figure>
-                                            <div class="info">
-                                                <div class="info_product">
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">$199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
 
                                     
                                 </div><!-- End product list image -->
                                 
                             </div>
                         </div>
-                    </div>    
+                    </div>
+                    @endif
+
+                    </div>
                 </div>
-            </div>
-        </div><!-- End product list-->
+            </div><!-- End product list-->
 
 
     <!-- START QUICKVIEW PRODUCT -->

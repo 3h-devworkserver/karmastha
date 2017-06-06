@@ -833,3 +833,42 @@
     </div><!-- End Brands Conainer -->
     @endif
 @endsection
+
+@section('after-scripts')
+<script type="text/javascript">
+//     $(function () { // wait for document ready
+//     // init
+//     var controller = new ScrollMagic.Controller();
+
+//     // define movement of panels
+//     var wipeAnimation = new TimelineMax()
+//         // animate to second panel
+//         .to(".business-wrapper", 0.5, {y:200, z: -150})      // move back in 3D space
+//         .to(".business-wrapper", 1,   {x: "-20%"})    // move in to first panel
+//         .to(".business-wrapper", 0.5, {z: 0})             // move back to origin in 3D space
+//         // animate to third panel
+//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
+//         .to(".business-wrapper", 1,   {x: "-40%"})
+//         .to(".business-wrapper", 0.5, {z: 0})
+//         // animate to forth panel
+//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
+//         .to(".business-wrapper", 1,   {x: "-60%"})
+//         .to(".business-wrapper", 0.5, {z: 0})
+//         // animate to fifth panel
+//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
+//         .to(".business-wrapper", 1,   {x: "-80%"})
+//         .to(".business-wrapper", 0.5, {z: 0});
+
+//     // create scene to pin and link animation
+//     new ScrollMagic.Scene({
+//             triggerElement: ".business-outer",
+//             triggerHook: "onLeave",
+//             duration: "500%"
+//         })
+//         .setPin(".business-outer")
+//         .setTween(wipeAnimation)
+//         // .addIndicators() // add indicators (requires plugin)
+//         .addTo(controller);
+// });
+</script>
+@endsection

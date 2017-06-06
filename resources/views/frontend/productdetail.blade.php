@@ -1,5 +1,21 @@
 @extends('frontend.layouts.app')
 
+@section('title')
+{{$product->name}} @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
+@endsection
+
+@section('meta_title')
+@if(!empty($product->meta_title)){{$product->meta_title}}@else @if(!empty($product->name)){{$product->title}}@else{{$setting->meta_title}}@endif @endif
+@endsection
+
+@section('meta_description')
+@if(!empty($product->meta_desc)){{$product->meta_desc}}@else{{$setting->meta_desc}}@endif
+@endsection
+
+@section('meta_keyword')
+@if(!empty($product->meta_keyword)){{$product->meta_keyword}}@else{{$setting->meta_keyword}} @endif
+@endsection
+
 @section('content')
 
 	<!-- <div class="breadcrumbs">
@@ -34,14 +50,14 @@
                                         <div class="product-info-Wishlist">
                                             <a href="#" data-toggle="tooltip" title="Add To Wishlist" class="w-list" data-placement="left"><i class="fa fa-heart"></i></a>
                                         </div>
-                                        <img id="zoom_03" src="{{asset('images/product/2/base/bj8nCtaozL-6.jpg')}}" data-zoom-image="{{asset('images/product/2/base/bj8nCtaozL-6.jpg')}}" alt="">
+                                        <img id="zoom_03" src="{{asset('images/product/'.$product->id.'/original/'.$baseImage[0]->image)}}" data-zoom-image="{{asset('images/product/'.$product->id.'/original/'.$baseImage[0]->image)}}" alt="{{$product->name}}">
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div id="gallery_01" class="carousel-btn slick-arrow-3 mt-30">
                                                 @foreach($baseImage as $image)
                                                     <div class="p-c">
-                                                        <a href="#" data-image="{{asset('images/product/2/base/bj8nCtaozL-6.jpg')}}" data-zoom-image="{{asset('images/product/2/base/bj8nCtaozL-6.jpg')}}">
-                                                            <img class="zoom_03" src="{{asset('images/product/2/base/bj8nCtaozL-6.jpg')}}" alt="">
+                                                        <a href="#" data-image="{{asset('images/product/'.$product->id.'/original/'.$image->image)}}" data-zoom-image="{{asset('images/product/'.$product->id.'/original/'.$image->image)}}">
+                                                            <img class="zoom_03" src="{{asset('images/product/'.$product->id.'/original/'.$image->image)}}" alt="">
                                                         </a>
                                                     </div>
                                                 @endforeach
@@ -63,21 +79,62 @@
                                 <div class="col-md-7 col-sm-7 col-xs-12"> 
                                     <div class="single-product-info">
                                         <h3 class="text-black-1">{{$product->name}}</h3>
-                                        <h6 class="brand-name-2">brand name</h6>
-                                       
+                                        @if(!empty($product->brand))
+                                        <h6 class="brand-name-2">{{$product->brand->brand_name}}</h6>
+                                        @endif
+
                                         <!-- single-pro-rating -->
+                                        <!--
                                         <div class="single-pro-rating product-info-item clearfix">
                                             <div class="pro-rating sin-pro-rating f-right">
                                                 <a href="#" tabindex="0">35<i class="fa fa-star"></i></a>
                                                 <span class="text-black-5"><b>27</b> Rating &amp; <b>32 </b>Review</span>
                                             </div>
-                                        </div>
+                                        </div>-->
+
                                         <!-- single-product-price -->
                                         <div class="pro-price product-info-item">
-                                            <span class="new">Price: $ 869.00</span> 
-                                            <span class="old">$900</span> 
+                                            <span class="new">
+                                            Price:@if(!empty($product->productPrice->special_price)) NPR {{$product->productPrice->special_price}} @else NPR {{$product->productPrice->price}} @endif
+                                            </span> 
+                                            @if($product->productPrice->special_price)
+                                            <span class="old">NPR {{$product->productPrice->special_price}}</span> 
+                                            @endif
                                             <span class="incl-taxes">(incliding all taxes)</span>
                                         </div>
+
+                                        @if(count($product->productAttributesWithOrder) > 0)
+
+                                            @foreach($product->productAttributesWithOrder as $attr)
+
+                                                @if($attr->attr_type == 'textfield')
+                                                <div class="product-info-detail product-info-item">
+                                                    <h4 class="title">{{$attr->attr_name}}</h4>
+                                                    {{$attr->value_text}}
+                                                </div>
+                                                @endif
+
+                                                @if($attr->attr_type == 'textarea')
+                                                <div class="product-info-detail product-info-item">
+                                                    <h4 class="title">{{$attr->attr_name}}</h4>
+                                                    {{$attr->value_textarea}}
+                                                </div>
+                                                @endif
+
+                                                @if($attr->attr_type == 'dropdown')
+                                                <div class="product-info-detail product-info-item">
+                                                    <h4 class="title">{{$attr->attr_name}}</h4>
+                                                    <?php 
+                                                        $val = explode(',',$attr->value_dropdown);
+
+                                                    ?>
+                                                    {{Form::select('test', $val, null)}}
+                                                </div>
+                                                @endif
+
+                                            @endforeach
+
+                                        @endif
 
                                         <!-- single-pro-color -->
                                         <div class="sin-pro-color product-info-item">
@@ -110,23 +167,33 @@
                                             </div>
                                         </div>
                                         <!-- plus-minus-pro-action end -->
-                                        
+
+                                        @if(!empty($product->short_desc))
                                         <div class="product-info-detail product-info-item">
                                             <h4 class="title">detail</h4>
-                                            <p>There are many variations of passages of Lorem Ipsum available, but the majo Rity have be suffered alteration in some form, by injected humou or randomis Rity have be suffered alteration in some form, by injected humou or randomis words which donot look even slightly believable. If you are going to use a passage Lorem Ipsum.</p>
+                                            {!!$product->short_desc!!}
+                                            {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majo Rity have be suffered alteration in some form, by injected humou or randomis Rity have be suffered alteration in some form, by injected humou or randomis words which donot look even slightly believable. If you are going to use a passage Lorem Ipsum.</p> --}}
                                         </div>
-
+                                        @endif
+                                        
+                                        @if(!empty($product->offer))
                                         <div class="product-info-offer product-info-item">
                                             <h4 class="title">Offer</h4>
-                                            <ul>
+                                            {!!$product->offer!!}
+                                            {{-- <ul>
                                                 <li>no cost: Emi from ###</li>
                                                 <li>return in 3 days</li>
                                                 <li>discount offer</li>
-                                            </ul>
+                                            </ul> --}}
                                         </div>
+                                        @endif
+                                        
+                                        @if(!empty($product->release_note))
                                         <div class="product-info-released product-info-item">
-                                            <p>released on <span class="date">2017-08-12</span>saturday. <span class="open-order">pre order open now!</span></p>
+                                           {!! $product->release_note !!}
                                         </div>
+                                        @endif
+
                                         <div class="product-info-item">
                                             <a href="cart.html" class="button open-door extra-small button-black" tabindex="-1">
                                                     <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
@@ -184,73 +251,37 @@
                             </ul>
                          </div>   
                     </div>
+
+                    @if(!empty($product->return_policy))
                     <div class="col-md-7 col-sm-7 col-xs-12">
                         <div class="return-policy">
                             <h4>return policy</h4>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majo Rity have be suffered alteration in some form, by injected humou or randomis Rity have be suffered alteration in some form, by injected humou or randomis words which donot look even slightly believable. If you are going to use a passage Lorem Ipsum.</p>
+                            {!! $product->return_policy !!}
+                            {{-- <p>There are many variations of passages of Lorem Ipsum available, but the majo Rity have be suffered alteration in some form, by injected humou or randomis Rity have be suffered alteration in some form, by injected humou or randomis words which donot look even slightly believable. If you are going to use a passage Lorem Ipsum.</p> --}}
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
     </div>
+
+    @if(!empty($product->detail))
     <div class="product-specify">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="product-det-spec">
-                        <h4>product detail/specifical</h4>
-                        <span>general</span>
-                        <ul class="specifical">
-                            <li class="specify-heading">
-                                <span>Specifications</span>
-                                <span>Galaxy S8 Specs</span>
-                            </li>
-                            <li>
-                                <span>Camera Features</span>
-                                <span>Optical image stabilization, geo tagging, facial recognition, HDR, auto laser focus</span>
-                            </li>
-                            <li>
-                                <span>Camera – Front</span>
-                                <span>9.0 Megapixels</span>
-                            </li>
-                            <li>
-                                <span>Camera – Rear</span>
-                                <span>30 Megapixels</span>
-                            </li>
-                            <li>
-                                <span>Colors</span>
-                                <span>Black, blue, gold, and white</span>
-                            </li>
-                            <li>
-                                <span>Features</span>
-                                <span>Corning Gorilla Glass 5, 4G LTE, Bluetooth 5.0, fingerprint scanner, <a href="#">retina eye scanner</a>, wireless charging, rapid charging, mini projector</span>
-                            </li>
-                            <li>
-                                <span>Operating System</span>
-                                <span>Current Android operating system 2017</span>
-                            </li>
-                            <li>
-                                <span>Processor</span>
-                                <span>  Snapdragon Qualcomm octa-core 3.2 GHz processor</span>
-                            </li>
-                            <li>
-                                <span>RAM</span>
-                                <span>6 GB RAM</span>
-                            </li>
-                            <li>
-                                <span>Release Date</span>
-                                <span>April 2017 – See Below</span>
-                            </li>
-                            <li>
-                                <span>Screen Display</span>
-                                <span> <a href="#"> 5.2” 4K display with a 4096 x 2160 screen resolution </a></span>
-                            </li>
-                        </ul>
+                        <h4>product detail/specification</h4>
+                        {!! $product->detail !!}
+                        
                     </div>
                 </div>    
             </div>
         </div>
     </div>
+    @endif
+
+    <?php /* ?>
     <div class="customer-review" id="reviews">
         <div class="container">
             <div class="row">
@@ -602,6 +633,7 @@
             </div>
         </div>
     </div>	
-    <!-- End product list-->
+    <!-- End product list--> 
+    <?php  */ ?>
 
 @endsection

@@ -157,7 +157,7 @@
                     <div class="cart-left pull-left">
                         <a href="#" class="is-ralative cart-button ">
                             <div class="cart-btn-left"></div>
-                            <div class="cart-btn-title">Sopping <br> Cart</div>
+                            <div class="cart-btn-title">Shopping <br> Cart</div>
                             <span class="nav-label animated bounceIn">1</span>
                         </a>
                     </div>
