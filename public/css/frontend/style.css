@@ -608,18 +608,25 @@ span.nav-label {
 
 /* Second Top Nav */
 
+.second-top-nav .nav-logo {
+  width: 23%;
+}
+
 .second-top-nav {
-    padding: 20px 0px;
+  padding: 20px 0px;
 }
 
 .nav-logo img {
-    box-sizing: border-box;
-    width: 100%;
+  box-sizing: border-box;
+  height: 61px;
+  width: 227px;
 }
 
 .center-search-nav {
-  padding-top: 10px;
-  width: 745px;
+  padding-left: 5px;
+  padding-right: 0;
+  padding-top: 20px;
+  width: 670px;
 }
 
 .center-search-nav .col-md-3{
@@ -684,12 +691,12 @@ span.nav-label {
 }
 
 .product-search-box button.btn {
-  background: #742b96;
+  background: #742b96 none repeat scroll 0 0;
   border-radius: 3px;
   color: #fff;
   height: 35px;
   letter-spacing: 0.3px;
-  margin-left: 15px;
+  margin-left: 5px;
   z-index: 1;
 }
 
@@ -717,7 +724,7 @@ span.nav-label {
   height: 35px;
   margin-top: 0;
   padding-left: 10px;
-  width: 440px;
+  width: 433px;
 }
 
 .product-search-box .form-group .form-control:focus {
@@ -849,7 +856,7 @@ span.nav-label {
   background-image: url("../../../front-images/sprite.png");
   background-repeat: no-repeat;
   float: left;
-  margin-top: 8px;
+  margin-top: 18px;
   height: 32px;
   width: 32px;
 }
@@ -3621,6 +3628,22 @@ footer .digital-agency img {
 .single-product-info {
   background: #fff none repeat scroll 0 0;
   padding: 15px;
+}
+
+.product-info-detail.product-info-item.attribute-section {
+  display: inline-block;
+  width: 49%;
+}
+
+.SumoSelect:focus > .CaptionCont, .SumoSelect:hover > .CaptionCont, .SumoSelect.open > .CaptionCont {
+  border-color: #a4a4a4;
+  box-shadow: none;
+}
+
+.SumoSelect > .optWrapper > .options li label{
+  font-family: "lato";
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .single-product-info .product-info-item{

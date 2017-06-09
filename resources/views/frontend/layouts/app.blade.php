@@ -212,16 +212,17 @@
     <meta name="msapplication-TileColor" content="" /> 
     <meta name="msapplication-TileImage" content="" />
     <!-- Twitter -->
-    <meta name="twitter:card" content="">
-    <meta name="twitter:site" content="">
-    <meta name="twitter:title" content="">
-    <meta name="twitter:description" content="">
-    <meta name="twitter:url" content="">
+    <meta name="twitter:card" content="@yield('tw_card', '')">
+    <meta name="twitter:site" content="@yield('tw_site', '')">
+    <meta name="twitter:title" content="@yield('tw_title', '')">
+    <meta name="twitter:description" content="@yield('tw_desc', '')">
+    <meta name="twitter:url" content="@yield('tw_url', '')">
+    <meta name="twitter:image" content="@yield('tw_image', '')">
     <!-- Facebook -->
-    <meta property="og:title" content="" />
-    <meta property="og:description" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="@yield('og_title', '')" />
+    <meta property="og:description" content="@yield('og_desc', '')" />
+    <meta property="og:url" content="@yield('og_url', '')" />
+    <meta property="og:image" content="@yield('og_image', '')" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Styles -->
@@ -243,6 +244,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/jquery.fancybox.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/sumoselect.css')}}">
     <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
 
@@ -307,11 +309,12 @@
 <script src="{{asset('js/frontend/main.js')}}"></script>
 <script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/ScrollMagic.js"></script>
 <script src="{{asset('js/frontend/animation.gsap.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script> --}}
 
+<script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 @yield('after-scripts')
@@ -335,7 +338,7 @@
 -->
 
 @include('includes.partials.ga')
-  
+
 </body>
 </html>
 

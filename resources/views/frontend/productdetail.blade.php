@@ -16,6 +16,36 @@
 @if(!empty($product->meta_keyword)){{$product->meta_keyword}}@else{{$setting->meta_keyword}} @endif
 @endsection
 
+@section('og_title')
+{{$product->name}}
+@endsection
+
+@section('og_desc')
+{!!$product->short_desc!!}
+@endsection
+
+@section('og_url')
+{{url()->current()}}
+@endsection
+
+@section('og_image'){{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}}@endsection
+
+@section('tw_title')
+{{$product->name}}
+@endsection
+
+@section('tw_desc')
+{!!$product->short_desc!!}
+@endsection
+
+@section('tw_url')
+{{url()->current()}}
+@endsection
+
+@section('tw_image')
+{{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}}
+@endsection
+
 @section('content')
 
 	<!-- <div class="breadcrumbs">
@@ -100,7 +130,7 @@
                                             @if($product->productPrice->special_price)
                                             <span class="old">NPR {{$product->productPrice->special_price}}</span> 
                                             @endif
-                                            <span class="incl-taxes">(incliding all taxes)</span>
+                                            <span class="incl-taxes">(including all taxes)</span>
                                         </div>
 
                                         @if(count($product->productAttributesWithOrder) > 0)
@@ -109,34 +139,47 @@
 
                                                 @if($attr->attr_type == 'textfield')
                                                 <div class="product-info-detail product-info-item">
-                                                    <h4 class="title">{{$attr->attr_name}}</h4>
-                                                    {{$attr->value_text}}
+                                                    <h5 class="title">{{$attr->attr_name}}</h5>
+                                                    {!!$attr->value_text!!}
                                                 </div>
                                                 @endif
 
                                                 @if($attr->attr_type == 'textarea')
                                                 <div class="product-info-detail product-info-item">
-                                                    <h4 class="title">{{$attr->attr_name}}</h4>
-                                                    {{$attr->value_textarea}}
+                                                    <h5 class="title">{{$attr->attr_name}}</h5>
+                                                    {!!$attr->value_textarea!!}
                                                 </div>
                                                 @endif
 
                                                 @if($attr->attr_type == 'dropdown')
-                                                <div class="product-info-detail product-info-item">
-                                                    <h4 class="title">{{$attr->attr_name}}</h4>
+                                                <div class="product-info-detail product-info-item attribute-section">
+                                                    <h5 class="title">{{$attr->attr_name}}</h5>
                                                     <?php 
                                                         $val = explode(',',$attr->value_dropdown);
-
                                                     ?>
-                                                    {{Form::select('test', $val, null)}}
+                                                    {{Form::select('test', $val, null, ['placeholder'=>'-- Select --', 'class'=>'form-control selectBox'])}}
                                                 </div>
                                                 @endif
+
+                                                <?php /* ?>
+                                                @if($attr->attr_type == 'number')
+                                                <div class="product-info-detail product-info-item">
+                                                    
+                                                    <div class="sin-plus-minus cart-size clearfix">
+                                                        <p class="color-title pull-left">{{$attr->attr_name}}</p>
+                                                        <div class="cart-plus-minus pull-left">
+                                                            <input type="text" value="{{$attr->value_number_min}}" min="{{$attr->value_number_min}}" max="{{$attr->value_number_max}}" name="qtybutton" class="cart-plus-minus-box">
+                                                        </div>   
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                <?php */ ?>
 
                                             @endforeach
 
                                         @endif
 
-                                        <!-- single-pro-color -->
+                                        {{-- <!-- single-pro-color -->
                                         <div class="sin-pro-color product-info-item">
                                             <p class="color-title">Color</p>
                                             <div class="widget-color">
@@ -147,24 +190,30 @@
                                                     <li class="color-4"><a href="#"></a></li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                             
                                         
                                         
                                         <!-- plus-minus-pro-action -->
                                         <div class="plus-minus-pro-action product-info-item clearfix">
-                                            <div class="sin-plus-minus cart-quantity pull-left clearfix">
+                                            {{-- <div class="sin-plus-minus cart-quantity pull-left clearfix">
                                                 <p class="color-title pull-left">size</p>
                                                 <div class="cart-plus-minus pull-left">
                                                     <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
                                                 </div>   
-                                            </div>
+                                            </div> --}}
                                             <div class="sin-plus-minus cart-size clearfix">
                                                 <p class="color-title pull-left">Qty</p>
                                                 <div class="cart-plus-minus pull-left">
-                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+                                                    @if($product->productInventory->manage_stock == 1)
+                                                    {{Form::text('qtybutton', 1 ,['class'=>'cart-plus-minus-box', 'min'=>"1", 'max'=>$product->productInventory->quantity])}}
+                                                    @else
+                                                    {{Form::text('qtybutton', 1 ,['class'=>'cart-plus-minus-box', 'min'=>'1'])}}
+                                                    @endif
+                                                    {{-- <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box"> --}}
                                                 </div>   
                                             </div>
+                                            
                                         </div>
                                         <!-- plus-minus-pro-action end -->
 
@@ -206,12 +255,14 @@
                                             <h3>share on :</h3>
                                             <ul class="action-button">
                                                 <li>
-                                                    <a href="#" title="facebook" tabindex="0"><i class="fa fa-facebook"></i></a>
+                                                    <a title="facebook" tabindex="0" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)"><i class="fa fa-facebook"></i>
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" title="twitter" tabindex="0"><i class="fa fa-twitter"></i></a>
+                                                    <a title="twitter" tabindex="0" onclick="window.open('http://twitter.com/intent/tweet?status={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)"><i class="fa fa-twitter"></i>
+                                                    </a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="#" title="google" tabindex="0"><i class="fa fa-google-plus-official"></i></a>
                                                 </li>
                                                 <li>
@@ -219,7 +270,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="#" title="linkedIn" tabindex="0"><i class="fa fa-linkedin-square"></i></a>
-                                                </li>
+                                                </li> --}}
                                                 </ul>
                                         </div>
                                     </div>    

@@ -47,124 +47,65 @@
                     <div class="product_list">
                         <div class="col-md-3 col-sm-3">
                             <div class="sidebar">
-                                <h4 class="title">categories</h4>
-                                <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                                    <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-                                                    Sportswear
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="sportswear" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul>
-                                                    <li><a href="#">Nike </a></li>
-                                                    <li><a href="#">Under Armour </a></li>
-                                                    <li><a href="#">Adidas </a></li>
-                                                    <li><a href="#">Puma</a></li>
-                                                    <li><a href="#">ASICS </a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                                    <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-                                                    Men's
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="mens" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul>
-                                                    <li><a href="#">Fendi</a></li>
-                                                    <li><a href="#">Guess</a></li>
-                                                    <li><a href="#">Valentino</a></li>
-                                                    <li><a href="#">Dior</a></li>
-                                                    <li><a href="#">Versace</a></li>
-                                                    <li><a href="#">Armani</a></li>
-                                                    <li><a href="#">Prada</a></li>
-                                                    <li><a href="#">Dolce and Gabbana</a></li>
-                                                    <li><a href="#">Chanel</a></li>
-                                                    <li><a href="#">Gucci</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                            
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                                    <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-                                                    Women's
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="womens" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul>
-                                                    <li><a href="#">Fendi</a></li>
-                                                    <li><a href="#">Guess</a></li>
-                                                    <li><a href="#">Valentino</a></li>
-                                                    <li><a href="#">Dior</a></li>
-                                                    <li><a href="#">Versace</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                            @if(count($category->childs) > 0)
+                            <h4 class="title">categories</h4>
+                            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+
+                                @if(count($category->topChilds) >0 )
+                                    @include('frontend.category.sidebarcategory', ['childs'=>$category->topChilds])
+                                @endif
+                                @if(count($category->moreChilds) >0 )
+                                    @include('frontend.category.sidebarcategory', ['childs'=>$category->moreChilds])
+                                @endif
+
+                            </div>
+                            @endif
+                            <div class="sidebar_price">
+                                <h4 class="title">price</h4 class="title">
+                                <div class="price-slider">
+                                    <label for="amount">Price range:</label>
+                                  <input type="text" id="amount" disabled>
                                 </div>
-                                <div class="sidebar_price">
-                                    <h4 class="title">price</h4 class="title">
-                                    <div class="price-slider">
-                                        <label for="amount">Price range:</label>
-                                      <input type="text" id="amount" disabled>
-                                    </div>
-                                    <div id="slider-range"></div>
+                                <div id="slider-range"></div>
+                            </div>
+                            <div class="sidebar_brand">
+                                <h4 class="title">brand</h4>
+                                <div class="sidebar_search_form">
+                                    <form action="" class="form-horizontal">
+                                        <div class="form-group">
+                                            <button class="btn"><i class="fa fa-search"></i></button>
+                                            <input class="form-control" id="" placeholder="search for brand" type="text">
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="sidebar_brand">
-                                    <h4 class="title">brand</h4>
-                                    <div class="sidebar_search_form">
-                                        <form action="" class="form-horizontal">
-                                            <div class="form-group">
-                                                <button class="btn"><i class="fa fa-search"></i></button>
-                                                <input class="form-control" id="" placeholder="search for brand" type="text">
-                                            </div>
-                                        </form>
+                                <div class="sidebar_checkbox">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox" name="check">
+                                        <label for="checkbox1"><span></span>levi's</label>
                                     </div>
-                                    <div class="sidebar_checkbox">
-                                        <div class="checkbox">
-                                            <input id="checkbox1" type="checkbox" name="check">
-                                            <label for="checkbox1"><span></span>levi's</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input id="checkbox2" type="checkbox" name="check">
-                                            <label for="checkbox2"><span></span>wrangler</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input id="checkbox3" type="checkbox" name="check">
-                                            <label for="checkbox3"><span></span>united colors of benetton</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input id="checkbox4" type="checkbox" name="check">
-                                            <label for="checkbox4"><span></span>peter england</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input id="checkbox5" type="checkbox" name="check">
-                                            <label for="checkbox5"><span></span>lee</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <input id="checkbox6" type="checkbox" name="check">
-                                            <label for="checkbox6"><span></span>puma</label>
-                                        </div>
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label for="checkbox2"><span></span>wrangler</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label for="checkbox3"><span></span>united colors of benetton</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label for="checkbox4"><span></span>peter england</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label for="checkbox5"><span></span>lee</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label for="checkbox6"><span></span>puma</label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </div><!--end side bar -->
                         @if(count($products) > 0)
                         <div class="col-md-9 col-sm-9" id="cart_items">

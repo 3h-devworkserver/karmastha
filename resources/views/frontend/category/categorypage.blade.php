@@ -30,6 +30,7 @@
 	        </div>
 	    </div>
 	</div> 
+
     <div class="product_cat_info">
         <div class="container">
             <div class="row">
@@ -40,115 +41,35 @@
             </div>
         </div>
     </div>
-    {{-- <div class="secondad-banner">
-        <div class="container">
-            <div class="row">
-                    <div class="is-padding banner-static">
-                        <div class="col-md-6 col-sm-6 col-sms-12">
-                            <div class="col col1">
-                                <a href="#">
-                                    <img src="{{asset('front-images/block-home7.jpg')}}" alt="block">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-sms-12">
-                            <div class="col col2">
-                                <a href="#">
-                                    <img src="{{asset('front-images/block1-home7.jpg')}}" alt="block1">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div> --}}
+    
 	<div class="catagory_container product-listing-category">
 	    <div class="container">
 	        <div class="row">
 	            <div class=" is-padding product_list">
 	                <div class="col-md-3 col-sm-3">
 	                    <div class="sidebar">
+	                    	@if(count($category->childs) > 0)
 	                        <h4 class="title">categories</h4>
 	                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">
-	                                    <h4 class="panel-title">
-	                                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-	                                            <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-	                                            Sportswear
-	                                        </a>
-	                                    </h4>
-	                                </div>
-	                                <div id="sportswear" class="panel-collapse collapse">
-	                                    <div class="panel-body">
-	                                        <ul>
-	                                            <li><a href="#">Nike </a></li>
-	                                            <li><a href="#">Under Armour </a></li>
-	                                            <li><a href="#">Adidas </a></li>
-	                                            <li><a href="#">Puma</a></li>
-	                                            <li><a href="#">ASICS </a></li>
-	                                        </ul>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">
-	                                    <h4 class="panel-title">
-	                                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-	                                            <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-	                                            Men's
-	                                        </a>
-	                                    </h4>
-	                                </div>
-	                                <div id="mens" class="panel-collapse collapse">
-	                                    <div class="panel-body">
-	                                        <ul>
-	                                            <li><a href="#">Fendi</a></li>
-	                                            <li><a href="#">Guess</a></li>
-	                                            <li><a href="#">Valentino</a></li>
-	                                            <li><a href="#">Dior</a></li>
-	                                            <li><a href="#">Versace</a></li>
-	                                            <li><a href="#">Armani</a></li>
-	                                            <li><a href="#">Prada</a></li>
-	                                            <li><a href="#">Dolce and Gabbana</a></li>
-	                                            <li><a href="#">Chanel</a></li>
-	                                            <li><a href="#">Gucci</a></li>
-	                                        </ul>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                    
-	                            <div class="panel panel-default">
-	                                <div class="panel-heading">
-	                                    <h4 class="panel-title">
-	                                        <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-	                                            <span class="badge pull-right"><i class="fa fa-angle-down"></i></span>
-	                                            Women's
-	                                        </a>
-	                                    </h4>
-	                                </div>
-	                                <div id="womens" class="panel-collapse collapse">
-	                                    <div class="panel-body">
-	                                        <ul>
-	                                            <li><a href="#">Fendi</a></li>
-	                                            <li><a href="#">Guess</a></li>
-	                                            <li><a href="#">Valentino</a></li>
-	                                            <li><a href="#">Dior</a></li>
-	                                            <li><a href="#">Versace</a></li>
-	                                        </ul>
-	                                    </div>
-	                                </div>
-	                            </div>
+
+	                        	@if(count($category->topChilds) >0 )
+									@include('frontend.category.sidebarcategory', ['childs'=>$category->topChilds])
+	                            @endif
+	                            @if(count($category->moreChilds) >0 )
+									@include('frontend.category.sidebarcategory', ['childs'=>$category->moreChilds])
+	                            @endif
+
 	                        </div>
-	                        <div class="sidebar_price">
+	                        @endif
+	                        {{-- <div class="sidebar_price">
 	                            <h4 class="title">price</h4 class="title">
 	                            <div class="price-slider">
 	                                <label for="amount">Price range:</label>
 	                              <input type="text" id="amount" disabled>
 	                            </div>
 	                            <div id="slider-range"></div>
-	                        </div>
-	                        <div class="sidebar_brand">
+	                        </div> --}}
+	                        {{-- <div class="sidebar_brand">
 	                            <h4 class="title">brand</h4>
 	                            <div class="sidebar_search_form">
 	                                <form action="" class="form-horizontal">
@@ -184,7 +105,7 @@
 	                                    <label for="checkbox6"><span></span>puma</label>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </div> --}}
 	                    </div>
 	                </div><!--end side bar -->
 	                <div class="col-md-9 col-sm-9" id="cart_items">
@@ -457,6 +378,5 @@
 	    </div>
 	    </div>
 	</div><!-- End product list-->
-
 
 @endsection

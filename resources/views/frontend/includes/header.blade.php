@@ -45,14 +45,15 @@
                 <div class="center-search-nav col-xs-12 col-sm-8 col-md-8">
                     <div class="col-md-3 col-sm-3">
                         <div class="dropdown">
-                            <button id="dLabel" class="top-category-button" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true">
+                        {{Form::select('test', $categorySelection, null, ['id'=>'dLabel', 'class'=>'top-category-button'    ])}}
+                            {{-- <button id="dLabel" class="top-category-button" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true">
                             All Category
                                 <span class="caret"></span>
-                            </button>
+                            </button> --}}
 
                             <ul class="dropdown-menu multi-level top-category-dropdown" role="menu" aria-labelledby="dLabel" id="top-category-dropdown">
 
-                                <li class="dropdown-submenu">
+                                {{-- <li class="dropdown-submenu">
                                     <a tabindex="-1" href="#" class="sub-dropdown-menu">Books &amp; Audible</a>
                                     <ul class="dropdown-menu" id="inner-dropdown-menu">
                                         <div class="inner-dropdown-content">
@@ -105,7 +106,7 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>
+                                </li> --}}
 
 
                                 <li>

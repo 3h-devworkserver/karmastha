@@ -12,7 +12,7 @@
 	            <li>
 	                {{Form::checkbox('category[]', $category->id, null, ['id'=>'checkbox'.$category->id])}}<label for="checkbox{{$category->id}}"><span></span></label> {{ $category->title }}
 	                @if(count($category->childs))
-	                    @include('backend.products.create.managechild',['childs' => $category->childs])
+	                    @include('backend.products.create.managechild',['childs' => $category->childs, 'parentId'=>$category->id])
 	                @endif
 	            </li>
 	        @endforeach

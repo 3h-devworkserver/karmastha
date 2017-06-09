@@ -30,6 +30,7 @@ class FrontendController extends Controller
         if (empty($page)) {
             abort(404);
         }
+       
         return view('frontend.index', compact('brands', 'members', 'sliders', 'page'))->withClass('home');
     }
 
@@ -49,10 +50,10 @@ class FrontendController extends Controller
     public function showCategoryPage($slug){
         $category = Category::where('url', $slug)->where('status', 1)->first();
         if ($category->isParent() == 'true') {
-            return view('frontend.categorypage', compact('category'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category'))->withClass('inner-page product_cat');
         }else{
             $products = $category->products;
-            return view('frontend.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
+            return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
     }
 

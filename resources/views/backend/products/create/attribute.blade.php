@@ -8,7 +8,7 @@
 			<div class="box-body">
 				<div class="form-group">
 					<label class="control-label">Select Type<em class="asterisk">*</em></label>
-					{{Form::select('attr_type[]', ['textfield'=>'Text Field', 'textarea'=>'Text Area', 'dropdown'=>'Dropdown', 'number'=>'Number'], null, ['class' => 'form-control inputType'])}}
+					{{Form::select('attr_type[]', ['textfield'=>'Text Field', 'textarea'=>'Text Area', 'dropdown'=>'Dropdown'], null, ['class' => 'form-control inputType'])}}
 				</div>
 				<div class="form-group">
 					<label class="control-label">Name<em class="asterisk">*</em></label>

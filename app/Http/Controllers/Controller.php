@@ -16,7 +16,8 @@ class Controller extends BaseController
 
     public function __construct(){
     	$categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
-    	$setting = GeneralSetting::first();
+        $categorySelection = $categorys->pluck('title', 'id');
+        $setting = GeneralSetting::first();
         if(empty($setting)){
             $setting = new GeneralSetting;
             $setting->title = 'Karmastha';
@@ -30,7 +31,8 @@ class Controller extends BaseController
 
     	// $footer = StaticBlock::where('page_id', NULL)->first();
     	View::share ( 'categorys', $categorys );
-    	View::share ( 'setting', $setting );
+        View::share ( 'setting', $setting );
+    	View::share ( 'categorySelection', $categorySelection );
     	// View::share ( 'setting1', $setting1 );
     	// View::share ( 'footer', $footer );
     }

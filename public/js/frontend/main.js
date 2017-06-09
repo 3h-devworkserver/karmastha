@@ -63,21 +63,53 @@
   /* ********************************************
     Cart Plus Minus Button
   ******************************************** */
+    // $(".cart-plus-minus").prepend('<div class="dec qtybutton">-</div>');
+    // $(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
+    // $(".qtybutton").on("click", function() {
+    //     var $button = $(this);
+    //     var oldValue = $button.parent().find("input").val();
+    //     if ($button.text() == "+") {
+    //         var newVal = parseFloat(oldValue) + 1;
+    //     } 
+    //     else {
+    //         // Don't allow decrementing below zero
+    //         if (oldValue > 0) {
+    //             var newVal = parseFloat(oldValue) - 1;
+    //         } 
+    //         else {
+    //             newVal = 0;
+    //         }
+    //     }
+    //     $button.parent().find("input").val(newVal);
+    // });
+
+    //-- modified by yojan
     $(".cart-plus-minus").prepend('<div class="dec qtybutton">-</div>');
     $(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
     $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
+        
+        var minValue = $button.parent().find("input").attr('min');
+        var maxValue = $button.parent().find("input").attr('max');
+        if(!minValue) minValue = 1;
+        if(!maxValue) maxValue = 9999999999999;
+
         if ($button.text() == "+") {
-            var newVal = parseFloat(oldValue) + 1;
+            if (oldValue < maxValue) {
+                var newVal = parseFloat(oldValue) + 1;
+            } 
+            else {
+                newVal = maxValue;
+            }
         } 
         else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > minValue) {
                 var newVal = parseFloat(oldValue) - 1;
             } 
             else {
-                newVal = 0;
+                newVal = minValue;
             }
         }
         $button.parent().find("input").val(newVal);

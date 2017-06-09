@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-// $(function () {
-//   $('input').iCheck({
-//     checkboxClass: 'icheckbox_square-orange',
-//     radioClass: 'iradio_square-orange',
-//     increaseArea: '20%' // optional
-//   });
-// });
-
 /** --select all -- **/
 $(document).on('change', '.checkAll', function(){
   $(".bulkSelect").prop('checked', $(this).prop("checked"));
@@ -245,6 +237,24 @@ $(document).on('change', '.bulkSelect', function(){
 
 /* Initialization of treeviews */
 $('#tree1').treed();
+
+
+/**   -----  selecting parent checkbox if child is selected ---- **/
+$(document).on('change', 'input[type="checkbox"]', function(){
+   if(this.checked) {
+    var id = $(this).attr('data-parent-id');
+    // alert(id);
+    if(!$('#'+id).prop( "checked")){
+      // $('#'+id).prop( "checked", true);
+      $('#'+id).click();
+      }else{
+        $('#'+id).click();
+        $('#'+id).click();
+      }
+    }
+});
+
+
 
 /**
  *  image upload in tmp and db and showing preview
@@ -505,6 +515,7 @@ $('#productForm').validate({
     'sku': 'required',
     'short_desc': 'required',
     'detail': 'required',
+    'return_policy': 'required',
     'featured': 'required',
     'status': 'required',
     'price': 'required',

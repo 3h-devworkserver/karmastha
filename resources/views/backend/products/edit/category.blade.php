@@ -17,7 +17,7 @@
 	            @endif
 
 	                @if(count($category->childs))
-	                    @include('backend.products.edit.managechild',['childs' => $category->childs])
+	                    @include('backend.products.edit.managechild',['childs' => $category->childs, 'parentId'=>$category->id])
 	                @endif
 	            </li>
 	        @endforeach

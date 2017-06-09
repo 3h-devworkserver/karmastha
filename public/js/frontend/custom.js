@@ -1,5 +1,3 @@
-
-
 $(window).scroll(function(){
 	var sticky = $('.navbar-fixed-top'),
 	    scroll = $(window).scrollTop();
@@ -74,3 +72,8 @@ $("#slideshow > div:gt(0)").hide();
         .end()
         .appendTo('#slideshow');
     },  3000);
+
+
+$(document).ready(function(){
+    $('.selectBox').SumoSelect();
+});
