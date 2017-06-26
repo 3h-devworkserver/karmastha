@@ -38,7 +38,7 @@
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
 					<i class="fa fa-folder-open"></i>Upload Member Logo
-						<input id='logo_edit' type="file" name="logo" class="form-control logo_edit" accept="image/*" required="required">
+						<input id='logo_edit' type="file" name="logo" class="form-control logo_edit" accept="image/*">
 					</span> 
 					<br><br>
 					<img class="img-center" width="250" height="150" id="logo_preview_edit" src="{{url($member->logo)}}" alt="logo preview">

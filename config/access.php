@@ -52,7 +52,7 @@ return [
         /*
          * The role the user is assigned to when they sign up from the frontend, not namespaced
          */
-        'default_role' => 'User',
+        'default_role' => 'Customer',
         //'default_role' => 2,
 
         /*
@@ -73,7 +73,7 @@ return [
         /*
          * Whether a role must contain a permission or can be used standalone as a label
          */
-        'role_must_contain_permission' => true,
+        'role_must_contain_permission' => false,
     ],
 
     /*

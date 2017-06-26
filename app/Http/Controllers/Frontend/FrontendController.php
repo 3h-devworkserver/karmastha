@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Member;
 use App\Models\Page;
 use App\Models\Slide;
+use Illuminate\Http\Request;
+use Session;
 
 /**
  * Class FrontendController.
@@ -23,6 +25,7 @@ class FrontendController extends Controller
      */
     public function index()
     {
+        // Session::flush();
         $brands = Brand::where('status', 1)->where('topbrand', 1)->orderBy('b_order', 'asc')->get();
         $members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
         $page = Page::where('id',1)->where('status', 1)->first();
@@ -56,6 +59,7 @@ class FrontendController extends Controller
             return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
     }
+
 
 
 }

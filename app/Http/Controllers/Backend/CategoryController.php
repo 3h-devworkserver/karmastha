@@ -7,6 +7,7 @@ use App\Models\Category;
 use View;
 use DB;
 use Redirect;
+use Validator;
 use App\Http\Requests\Backend\Category\CreateCategoryRequest;
 use App\Http\Requests\Backend\Category\DeleteCategoryRequest;
 use App\Http\Requests\Backend\Category\UpdateCategoryRequest;
@@ -240,6 +241,7 @@ class CategoryController extends Controller {
             'upload' => 'image|max:2000',
             'url' => 'unique:categorys,url',
         ]);
+
 		DB::transaction(function () use ($request) {
 	        if (empty($request->url)) {
 	           $url = generateUniqueUrl('App\Models\Category', $request->title);

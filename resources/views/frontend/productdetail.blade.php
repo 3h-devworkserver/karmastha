@@ -107,6 +107,9 @@
                                 <!-- imgs-zoom-area end -->
                                 <!-- single-product-info start -->
                                 <div class="col-md-7 col-sm-7 col-xs-12"> 
+                                    {{Form::open(['url'=>'addtocart', 'method'=>'post', 'id'=>'productActionForm'])}}  
+                                    {{Form::hidden('action', '')}}  
+                                    {{Form::hidden('product', $product->id)}}  
                                     <div class="single-product-info">
                                         <h3 class="text-black-1">{{$product->name}}</h3>
                                         @if(!empty($product->brand))
@@ -134,7 +137,7 @@
                                         </div>
 
                                         @if(count($product->productAttributesWithOrder) > 0)
-
+                                            
                                             @foreach($product->productAttributesWithOrder as $attr)
 
                                                 @if($attr->attr_type == 'textfield')
@@ -153,11 +156,18 @@
 
                                                 @if($attr->attr_type == 'dropdown')
                                                 <div class="product-info-detail product-info-item attribute-section">
-                                                    <h5 class="title">{{$attr->attr_name}}</h5>
-                                                    <?php 
-                                                        $val = explode(',',$attr->value_dropdown);
-                                                    ?>
-                                                    {{Form::select('test', $val, null, ['placeholder'=>'-- Select --', 'class'=>'form-control selectBox'])}}
+                                                    <div class="form-group">
+                                                        <h5 class="title">{{$attr->attr_name}}</h5>
+                                                        <?php 
+                                                            $values = explode(',',$attr->value_dropdown);
+                                                            $val = array();
+                                                            foreach ($values as $value) {
+                                                                $val[$value] = $value;
+                                                            }
+                                                        ?>
+                                                        {{Form::hidden('attr_name[]', $attr->attr_name)}}
+                                                        {{Form::select('attr_val[]', $val, null, ['placeholder'=>'-- Select --', 'class'=>'form-control selectBox', 'required'])}}
+                                                    </div>
                                                 </div>
                                                 @endif
 
@@ -174,7 +184,6 @@
                                                 </div>
                                                 @endif
                                                 <?php */ ?>
-
                                             @endforeach
 
                                         @endif
@@ -206,9 +215,9 @@
                                                 <p class="color-title pull-left">Qty</p>
                                                 <div class="cart-plus-minus pull-left">
                                                     @if($product->productInventory->manage_stock == 1)
-                                                    {{Form::text('qtybutton', 1 ,['class'=>'cart-plus-minus-box', 'min'=>"1", 'max'=>$product->productInventory->quantity])}}
+                                                    {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'required'])}}
                                                     @else
-                                                    {{Form::text('qtybutton', 1 ,['class'=>'cart-plus-minus-box', 'min'=>'1'])}}
+                                                    {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>'1', 'required'])}}
                                                     @endif
                                                     {{-- <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box"> --}}
                                                 </div>   
@@ -244,9 +253,11 @@
                                         @endif
 
                                         <div class="product-info-item">
-                                            <a href="cart.html" class="button open-door extra-small button-black" tabindex="-1">
+
+                                            <button type="button" class="button open-door extra-small button-black addToCart" tabindex="-1">
                                                     <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
-                                            </a>
+                                            </button>
+
                                             <a href="#" class="button open-door extra-small button-black" tabindex="-1">
                                                     <span class="text-capitalize"><i class="fa fa-external-link"></i> pre order</span>
                                             </a>
@@ -273,7 +284,8 @@
                                                 </li> --}}
                                                 </ul>
                                         </div>
-                                    </div>    
+                                    </div> 
+                                    {{Form::close()}}   
                                 </div>
                                 <!-- single-product-info end -->
                             </div>

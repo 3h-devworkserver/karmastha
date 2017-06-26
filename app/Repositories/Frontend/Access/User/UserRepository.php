@@ -2,15 +2,16 @@
 
 namespace App\Repositories\Frontend\Access\User;
 
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Access\User\SocialLogin;
 use App\Events\Frontend\Auth\UserConfirmed;
-use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Exceptions\GeneralException;
+use App\Models\Access\Role\Role;
+use App\Models\Access\User\SocialLogin;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserRepository.
@@ -87,19 +88,30 @@ class UserRepository extends BaseRepository
     {
         $user = self::MODEL;
         $user = new $user();
-        $user->name = $data['name'];
+        $user->name = $data['fname']. ' '.$data['lname'];
         $user->email = $data['email'];
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;
         $user->password = $provider ? null : bcrypt($data['password']);
         $user->confirmed = $provider ? 1 : (config('access.users.confirm_email') ? 0 : 1);
 
-        DB::transaction(function () use ($user) {
+        DB::transaction(function () use ($user, $data) {
             if ($user->save()) {
+                //create profile of the user
+                $user->profile()->create([
+                    'fname'=>$data['fname'],
+                    'lname'=>$data['lname'],
+                    'phone'=>$data['phone'],
+                ]);
+
                 /*
                  * Add the default site role to the new user
-                 */
-                $user->attachRole($this->role->getDefaultUserRole());
+                 */ 
+                // $user->attachRole($this->role->getDefaultUserRole());
+                if ($data['user_type'] == 'Customer' || $data['user_type'] == 'Vendor' || $data['user_type'] == 'WholeSeller') {
+                    $role = Role::where('name', $data['user_type'])->first();
+                    $user->attachRole($role);
+                }
             }
         });
 

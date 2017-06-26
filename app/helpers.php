@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cartitem\Cartitem;
 use App\Models\Product\Product;
 
 
@@ -338,6 +339,78 @@ if (! function_exists('hot_products')) {
         return $html;
     }
 }
+
+if (! function_exists('productPrice')) {
+    /* 
+     * price of product
+     */
+    function productPrice($id) {
+        $product = Product::findOrFail($id);
+        $price = (empty($product->productPrice->special_price)) ? $product->productPrice->price : $product->productPrice->special_price;
+        return $price;
+    }
+}
+
+if (! function_exists('custom_number_format')) {
+    /* 
+     * formatting for currency
+     */
+    function custom_number_format($money){
+        $val = number_format($money, 2);
+        $val2 = str_replace(".00", "", (string)$val);
+        return $val2;
+    }
+}
+
+if (! function_exists('countCartItems')) {
+    /* 
+     * count cartitems
+     */
+    function countCartItems(){
+        $totalCartItems = 0;
+
+        if (Auth::check()) {
+           $cartitems = Cartitem::where('user_id', Auth::user()->id)->get();
+           foreach ($cartitems as $key => $cartitem) {
+                $totalCartItems += $cartitem->qty;
+            }
+            return $totalCartItems;
+        }else {
+            $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            if (!empty($cartItems)) {
+                foreach ($cartItems as $key => $cartItem) {
+                    $totalCartItems += $cartItem['qty'];
+                }
+            }
+            return $totalCartItems;
+        }
+    }
+}
+
+if (! function_exists('CartItemsTotalPrice')) {
+    /* 
+     * total price of cartitems
+     */
+    function CartItemsTotalPrice(){
+        $total = 0;
+        if (Auth::check()) {
+           $cartitems = Cartitem::where('user_id', Auth::user()->id)->get();
+           foreach ($cartitems as $key => $cartitem) {
+                $total += productPrice($cartitem->product_id) * $cartitem->qty;
+            }
+            return custom_number_format($total);
+        }else {
+            $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            if (!empty($cartItems)) {
+                foreach ($cartItems as $key => $cartItem) {
+                    $total += productPrice($cartItem['productId']) * $cartItem['qty'];
+                }
+            }
+            return custom_number_format($total);
+        }
+    }
+}
+
 
 
 

@@ -18,7 +18,7 @@
 					
 						<div class="form-group">
 							<label class="control-label">Select Type<em class="asterisk">*</em></label>
-							{{Form::select('attr_type[]', ['textfield'=>'Text Field', 'textarea'=>'Text Area', 'dropdown'=>'Dropdown'], $attribute->attr_type, ['class' => 'form-control inputType'])}}
+							{{Form::select('attr_type[]', ['dropdown'=>'Dropdown'], $attribute->attr_type, ['class' => 'form-control inputType'])}}
 						</div>
 						<div class="form-group">
 							<label class="control-label">Name<em class="asterisk">*</em></label>
@@ -62,7 +62,7 @@
 	@endif
 </div>
 		<div class="form-group">
-			<a href="javascript:void(0);" class="attributeAdd btn btn-sm btn-success"><i class="fa fa-plus"></i> Add more</a>
+			<a href="javascript:void(0);" class="attributeAdd btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add more</a>
 		</div>
 
 		<div class="form-group">

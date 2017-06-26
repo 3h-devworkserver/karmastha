@@ -28,10 +28,13 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'name'                 => 'required|max:255',
+            'fname'                 => 'required|max:255',
+            'lname'                 => 'required|max:255',
             'email'                => ['required', 'email', 'max:255', Rule::unique('users')],
             'password'             => 'required|min:6|confirmed',
-            'g-recaptcha-response' => 'required_if:captcha_status,true|captcha',
+            'phone'             => 'required',
+            'user_type'             => 'required',
+            // 'g-recaptcha-response' => 'required_if:captcha_status,true|captcha',
         ];
     }
 

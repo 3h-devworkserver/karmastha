@@ -37,13 +37,13 @@
                                                     </div>
                                                     <div class="price col-md-4 no-padd">
                                                         <h5 class="price-text-color">
-                                                              @if(!empty($product->productPrice->special_price)) NPR {{$product->productPrice->special_price}} @else NPR {{$product->productPrice->price}} @endif
+                                                              NPR {{custom_number_format(productPrice($product->id))}}
 
                                                         </h5>
                                                     </div>
                                                 </div>
                                                 <div class="separator clear-left">
-                                                    <a class="btn-add" href="cart.html" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                                     <a class="btn-add" target="_blank" href="{{url('product/'.$product->slug)}}" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
                                                 </div>
                                                 <div class="clearfix">

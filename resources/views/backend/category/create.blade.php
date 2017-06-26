@@ -18,6 +18,10 @@
 
 @section('content')
 
+@if($errors->has('banner_title[0]'))
+	erro
+@endif
+
 <div class="categorybanner-extra display-none">
 	<div class="categorybanner">
 				<div class="box">
@@ -50,7 +54,7 @@
 							{{Form::number('banner_order[]',null,['class'=>'form-control', 'placeholder'=>'Banner Order', 'min'=>'0', 'step'=>'1'])}}
 						</div>
 						<div class="form-group">
-							<label class="control-label">Image</label>
+							<label class="control-label">Image<em class="asterisk">*</em></label>
 							<input type="file" name="uploadBanner[]" accept="image/*" class="image-upload2 imgBanner" onchange="readImageURL(this);">
 							<div class="show-img-bg display-none" alt="Image Preview"></div>
 						</div>
@@ -61,7 +65,7 @@
 			</div>
 </div>
 
-{{ Form::open(['url'=>'admin/category/new','class'=>'','role'=>'form', 'files'=>'true'])}}
+{{ Form::open(['url'=>'admin/category/new','id'=>'categoryForm','role'=>'form', 'files'=>'true'])}}
 <div class="row">
 	<div class="col-md-9"> 
 

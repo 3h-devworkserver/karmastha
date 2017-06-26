@@ -116,7 +116,7 @@
 			</div><!-- /.box -->
 
 		   <div class="form-group">	
-			   	{{Form::submit('Save',['class'=>'btn bg-olive'])}}
+			   	{{Form::submit('Save',['class'=>'btn btn-karm'])}}
 		   </div>
 		</div>
 

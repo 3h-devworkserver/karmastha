@@ -35,4 +35,12 @@ trait UserRelationship
     {
         return $this->hasMany(Session::class);
     }
+
+    public function profile(){
+        return $this->hasOne('App\Models\Access\User\Profile');
+    }
+
+
+
+
 }

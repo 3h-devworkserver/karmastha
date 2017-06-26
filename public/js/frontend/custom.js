@@ -6,6 +6,28 @@ $(window).scroll(function(){
 	else sticky.removeClass('fixed');
 });
 
+$(function() {
+    $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: {
+          effect: "fade"
+        },
+        pagination: {
+          effect: "fade"
+        },
+        effect: {
+          fade: {
+            speed: 1800
+          }
+        },
+        play: {
+          effect: "fade",
+          auto: true
+        }
+    });
+});
+
  $(window).load(function() {
     $("#flexisel_slider").flexisel({
         visibleItems: 4,
@@ -75,5 +97,75 @@ $("#slideshow > div:gt(0)").hide();
 
 
 $(document).ready(function(){
+
+    /** ====== generic anchor tag used to submit form ===== **/
+    $(document).on('click', 'a.submit', function(){
+        $(this).closest('form').submit();
+    });
+    /** ====== end - generic anchor tag used to submit form ===== **/
+
     $('.selectBox').SumoSelect();
+
+/** ======== form validation default settings  ======= **/
+    $.validator.setDefaults({
+        errorElement: "span",
+        errorClass: "help-block",
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            
+
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter($(element).closest('.form-group').children().last());
+        }
+    });
+
+/** ========start-   product add to cart  ======= **/
+    $('#productActionForm').validate();
+
+    $(document).on('click', '.addToCart', function(){
+        $('#productActionForm input[name="action"]').val('addToCart');
+        if($('#productActionForm').valid()){
+            $('#productActionForm').submit();
+        }
+    });
+/** ========end-   product add to cart  ======= **/
+
+
+    /** ====== display <a> tag to update qty in cart ===== **/
+    $(document).on('change', '.qtyTextBox', function(){
+        $(this).next().removeClass('hide');
+    });
+    /** ====== end - display <a> tag to update qty in cart ===== **/
+
+
+    /** ====== register form validation  ===== **/
+    $('.userRegisterForm').validate({
+        rules:{
+            'email': 'required',
+            'first_name': 'required',
+            'last_name': 'required',
+            'phone': 'required',
+            'user_type': 'required',
+            password: { 
+                required: true,
+                minlength: 6
+            },
+            password_confirmation: { 
+                equalTo: ".userRegisterForm #password",
+                minlength: 6
+            },
+        }
+    });
+
+    /** ====== end- register form validation  ===== **/
+
+
+
+
+
 });

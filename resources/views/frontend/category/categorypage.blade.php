@@ -112,15 +112,34 @@
 	                    <div class="left_bg_color">
 	                        @if(count($category->topBanners) > 0 )
 	                        <div class="category_slideshow">
-	                            <div id="slideshow">
+	                            {{-- <div id="slideshow clearfix"> --}}
+	                            	
+	                        	@if(count($category->topBanners) == 1 )
+	                            	<div class="single-banner">
+		                            <a href="{{$category->topBanners[0]->banner_url}}" title="{{$category->topBanners[0]->banner_title}}">
+	                                 	<img src="{{asset('images/category/banner/'.$category->topBanners[0]->banner_image)}}" alt="{{$category->topBanners[0]->banner_desc}}">
+	                                </a>
+	                               </div>
+                               	@else
+									<div id="slides">
 		                            @foreach($category->topBanners as $banner)
+
+                                      <a href="{{$banner->banner_url}}" title="{{$banner->banner_title}}">
+			                                 	<img src="{{asset('images/category/banner/'.$banner->banner_image)}}" alt="{{$banner->banner_desc}}">
+			                                </a>
+
+                                    <?php /* ?>
+
 		                               	<div>
 			                               	<a href="{{$banner->banner_url}}" title="{{$banner->banner_title}}">
 			                                 	<img src="{{asset('images/category/banner/'.$banner->banner_image)}}" alt="{{$banner->banner_desc}}">
 			                                </a>
 		                               	</div>
+		                            <?php */ ?>
 		                            @endforeach
-	                            </div>
+                                    </div>
+                               	@endif
+	                            {{-- </div> --}}
 	                        </div>
 	                        @endif
 	                            

@@ -534,8 +534,9 @@ $('#productForm').validate({
  **/
 
 
-
- // js for category
+/**
+ *  start of js for category
+ **/
  $(document).on('click', '.bannerAdd', function(){
   var html = $('.categorybanner-extra').html();
   $('.categorybanner-block').append(html);
@@ -545,7 +546,21 @@ $('#productForm').validate({
 $(document).on('click', '.bannerRemove', function(){
   $(this).closest('.categorybanner').remove();
 });
- 
+
+$('#categoryForm').validate({
+  ignore: ['ignore'],
+  rules:{
+    'title': 'required',
+    'status': 'required',
+    'cat_type': 'required',
+    // 'banner_title[]': 'required',
+    // 'uploadBanner[]': 'required',
+  }
+});
+
+/**
+ *  end of js for category
+ **/
 
 });
 

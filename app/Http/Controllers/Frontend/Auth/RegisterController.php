@@ -27,10 +27,23 @@ class RegisterController extends Controller
      */
     public function __construct(UserRepository $user)
     {
-        // Where to redirect users after registering
-        $this->redirectTo = route('frontend.index');
-
+        parent::__construct();
         $this->user = $user;
+
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/login';
     }
 
     /**
@@ -40,7 +53,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('frontend.auth.register');
+        return view('frontend.auth.register')->withClass('inner-page join_page');
     }
 
     /**

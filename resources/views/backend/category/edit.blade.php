@@ -50,7 +50,7 @@
 					{{Form::number('banner_order[]',null,['class'=>'form-control', 'placeholder'=>'Banner Order', 'min'=>'0', 'step'=>'1'])}}
 				</div>
 				<div class="form-group">
-					<label class="control-label">Image</label>
+					<label class="control-label">Image<em class="asterisk">*</em></label>
 					<input type="file" name="uploadBanner[]" accept="image/*" class="image-upload2 imgBanner" onchange="readImageURL(this);">
 					<div class="show-img-bg display-none" alt="Image Preview"></div>
 				</div>
@@ -61,7 +61,7 @@
 	</div>
 </div>
 
-{{ Form::model($item, array('url' => "admin/category/edit/{$item->id}", 'role'=>'form', 'files'=>'true')) }}
+{{ Form::model($item, array('url' => "admin/category/edit/{$item->id}", 'id'=>'categoryForm', 'role'=>'form', 'files'=>'true')) }}
   <div class="row">
     <div class="col-md-9"> 
 
@@ -160,8 +160,8 @@
 								{{Form::number('banner_order[]',$banner->banner_order,['class'=>'form-control', 'placeholder'=>'Banner Order', 'min'=>'0', 'step'=>'1'])}}
 							</div>
 							<div class="form-group">
-								<label class="control-label">Image</label>
-								<input type="file" name="uploadBanner[]" accept="image/*" class="image-upload2 imgBanner" onchange="readImageURL(this);">
+								<label class="control-label">Image<em class="asterisk">*</em></label>
+								<input type="file" name="uploadBanner[]" accept="image/*" class="image-upload2 imgBanner  ignore" onchange="readImageURL(this);">
 								<div class="show-img-bg display-none" alt="Image Preview"></div>
 								@if(!empty($banner->banner_image))
 									<div style="background-image:url({{url('images/category/banner/'.$banner->banner_image)}})" alt = "image preview" title="image preview" class="show-img-bg image-preview">

@@ -16,8 +16,9 @@
                         <ul class="right-top-nav">
                             <li>
                                 <div class="dropdown topnav-rgt">
-                                    <a href="login.html" class="dropbtn">my karmastha</a>
+                                    <a href="login.html" class="dropbtn">@if(Auth::check()) {{Auth::user()->name}} @else my karmastha @endif</a>
                                     <div class="dropdown-content">
+                                        <a href="{{url('/dashboard')}}">Dashboard</a>
                                         <a href="#">my orders</a>
                                         <a href="#">my account</a>
                                         <a href="#">my favorites</a>
@@ -37,7 +38,7 @@
             <div class="row">
                 <div class="nav-logo col-xs-12 col-sm-2 col-md-2">
                     @if(!empty($setting->logo))
-                        <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo)}}" alt=""></a>
+                        <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo)}}" alt="@if(!empty($setting->title)) $setting->title @endif"></a>
                     @endif
                 </div>
                 
@@ -45,7 +46,7 @@
                 <div class="center-search-nav col-xs-12 col-sm-8 col-md-8">
                     <div class="col-md-3 col-sm-3">
                         <div class="dropdown">
-                        {{Form::select('test', $categorySelection, null, ['id'=>'dLabel', 'class'=>'top-category-button'    ])}}
+                        {{Form::select('test', $categorySelection, null, ['id'=>'dLabel', 'class'=>'top-category-button selectBox', 'placeholder'=>'All Category'])}}
                             {{-- <button id="dLabel" class="top-category-button" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true">
                             All Category
                                 <span class="caret"></span>
@@ -156,10 +157,13 @@
 
                 <div class="second-right-nav col-xs-12 col-sm-2 col-md-2">
                     <div class="cart-left pull-left">
-                        <a href="#" class="is-ralative cart-button ">
+                        <a href="{{url('/cart')}}" class="is-ralative cart-button ">
                             <div class="cart-btn-left"></div>
                             <div class="cart-btn-title">Shopping <br> Cart</div>
-                            <span class="nav-label animated bounceIn">1</span>
+                           
+                            @if(!empty(countCartItems()))
+                            <span class="nav-label animated bounceIn"> {{countCartItems()}}</span>
+                            @endif
                         </a>
                     </div>
                     <div class="cart-right pull-right">

@@ -40,7 +40,7 @@ class SettingController extends Controller
             'meta_keyword' => 'required',
             'meta_desc' => 'required',
             'uploadLogo' => 'image',
-            'uploadFavicon' => 'image',
+            'uploadFavicon' => 'mimes:jpeg,bmp,png,ico',
             ]);
 
         $setting = GeneralSetting::first();

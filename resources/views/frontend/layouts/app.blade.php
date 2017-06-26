@@ -245,11 +245,14 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/jquery.fancybox.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/sumoselect.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/joinnreg.css')}}">
     <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
 
     @yield('after-styles')
     <script src="{{asset('js/frontend/jquery-1.9.1.min.js')}}"></script>
+    <script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
+    
 
     <!-- <scrip  src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script> -->
@@ -266,6 +269,10 @@
             {!! $setting->misc_javascript !!}
         @endif
     @endif
+
+    <script type="text/javascript">
+        $('.selectBox').SumoSelect();
+    </script>
     
 </head>
 
@@ -277,13 +284,11 @@
     <div class="wrapper">
         @yield('content')
 
-        <!-- Starts footer container -->
-        @include('frontend.includes.footer')
-        <!-- Ends footer container -->
-
     </div>
 
-       <!-- End footer Conainer -->
+    <!-- Starts footer container -->
+    @include('frontend.includes.footer')
+    <!-- End footer Conainer -->
         
     
 <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -308,13 +313,14 @@
 <script src="{{asset('js/frontend/plugins.js')}}"></script>
 <script src="{{asset('js/frontend/main.js')}}"></script>
 <script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
+<script src="{{asset('js/frontend/jquery.slides.min.js')}}"></script>
+{{ Html::script('js/frontend/jquery.validate.js') }}
 
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/ScrollMagic.js"></script>
 <script src="{{asset('js/frontend/animation.gsap.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script> --}}
 
-<script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 @yield('after-scripts')
@@ -336,8 +342,6 @@
 
 </script>
 -->
-
-@include('includes.partials.ga')
 
 </body>
 </html>

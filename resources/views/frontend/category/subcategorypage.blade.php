@@ -131,7 +131,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="separator clear-left">
-                                                        <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                        <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                                         <a class="btn-add" target="_blank" href="{{url('product/'.$product->slug)}}" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
                                                     </div>
                                                 </div>
