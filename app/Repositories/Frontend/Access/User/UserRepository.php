@@ -12,6 +12,7 @@ use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 /**
  * Class UserRepository.
@@ -122,7 +123,11 @@ class UserRepository extends BaseRepository
          * If this is a social account they are confirmed through the social provider by default
          */
         if (config('access.users.confirm_email') && $provider === false) {
-            $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+            Mail::send('emails.activateemail',['user'=>$user], function($message) use($user){
+                $message->to($user['email'], $user['name'])
+                ->subject('Please confirm your account.');
+            });
+            // $user->notify(new UserNeedsConfirmation($user->confirmation_code,$data ));
         }
 
         /*

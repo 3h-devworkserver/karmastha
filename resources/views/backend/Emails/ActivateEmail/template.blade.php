@@ -1,2 +1,0 @@
-<div><a><img title="Karmastha" src="/images/Karmastha logo.png" alt="Karmastha Logo" /><br /><br /><br /></a></div>
-Hello <strong>{{ $user['name'] }}</strong>,<br /><br />Thank you for registering with us.<br /><br />Please Click on Following link to activate your account<br /><br />{{$email_token}}

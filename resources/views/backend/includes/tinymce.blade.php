@@ -8,7 +8,7 @@
         elements : ["content","short_desc", "short_desc2", "statcontent", "long_desc", "description", "content_it", "detail", "offer", "top_content", "bottom_content", "return_policy", "release_note"],
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
-        relative_urls: false,
+        relative_urls: true,
         extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag
@@ -77,7 +77,7 @@
         // elements : ["content","short_desc","statcontent", "long_desc", "description", "content_it"],
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
-        relative_urls: false,
+        relative_urls: true,
         extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag

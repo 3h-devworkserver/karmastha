@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cartitem\Cartitem;
+use App\Models\GeneralSetting;
 use App\Models\Product\Product;
 
 
@@ -408,6 +409,16 @@ if (! function_exists('CartItemsTotalPrice')) {
             }
             return custom_number_format($total);
         }
+    }
+}
+
+if (! function_exists('getLogoUrl')) {
+    /* 
+     * get logo url
+     */
+    function getLogoUrl(){
+        $setting = GeneralSetting::first();
+        return url('images/logo/'.$setting->logo);
     }
 }
 
