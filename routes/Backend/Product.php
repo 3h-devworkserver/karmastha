@@ -7,6 +7,7 @@ Route::group([
 ], function() {
 
 	//attributes
+	Route::delete('attributes/bulkdelete', 'AttributeController@deleteAttributes');
 	Route::resource('attributes', 'AttributeController');
 
 

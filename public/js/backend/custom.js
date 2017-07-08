@@ -110,6 +110,24 @@ $(document).on('change', '.bulkSelect', function(){
     order: [[0, "asc"]]
   });
 
+    /**  Attribute table      **/
+  $('#attribute-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax": base_url + "/data/table/attributes",
+    columns: [
+    {data: 'bulk', name: 'bulk', orderable: false, searchable: false},
+    {data: 'id', name: 'id'},
+    {data: 'name', name: 'name'},
+    {data: 'created_at', name: 'created_at'},
+    {data: 'updated_at', name: 'updated_at'},
+    {data: 'status', name: 'status'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ],
+    order: [[1, "asc"]]
+  });
+
 
 
 
@@ -560,6 +578,38 @@ $('#categoryForm').validate({
 
 /**
  *  end of js for category
+ **/
+
+
+ /**
+ *  start of js for attributes
+ **/
+
+ $(document).on('click', '.addValueBtn', function(){
+  tmp = $('.addValue').html();
+  $('.valueBlock').append(tmp);
+ });
+
+  $(document).on('click', '.removeValueBtn', function(){
+  tmp = $('.addValue').html();
+  $(this).closest('.box').remove();
+ });
+
+  $('.attributeForm').validate({
+  ignore: [],
+  rules:{
+    'name': 'required',
+    'status': 'required',
+    'attr_order': 'required',
+    'value[]': 'required',
+    'value_order[]': 'required',
+    'value_status[]': 'required',
+  }
+});
+
+
+ /**
+ *  end of js for attributes
  **/
 
 });

@@ -54,4 +54,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 
     Route::delete('/static_blocks/delete/{id}','Backend\StaticblockController@static_block_delete')->name('admin.static_blocks.delete');
 
+    Route::get('/data/table/attributes', 'Backend\AttributeController@load');
+
     

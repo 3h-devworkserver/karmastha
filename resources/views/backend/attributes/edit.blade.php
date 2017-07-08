@@ -1,10 +1,10 @@
 @extends('backend.layouts.app')
 
-@section ('title', 'Create Attribute')
+@section ('title', 'Edit Attribute')
 
 @section('page-header')
 <h1>
-	Create Attribute
+	Edit Attribute
 </h1>
 <ol class="breadcrumb">
 	<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -12,7 +12,7 @@
 		Attributes Management 
 	</li>
 	<li class="active">
-		Add New Attribute
+		Edit Attribute
 	</li>
 </ol>
 @endsection
@@ -45,7 +45,7 @@
 	</div>
 </div>
 
-{{Form::open(['url'=>'admin/attributes','files'=>'true', 'class'=>'attributeForm'])}}
+{{Form::model($attribute, ['url'=>'admin/attributes/'.$attribute->id,'files'=>'true', 'class'=>'attributeForm', 'method'=>'PATCH'])}}
 <div class="row">
 	<div class="col-md-9">
 		<div class="box box-orange">
@@ -70,27 +70,33 @@
 		</div>
 		
 		<div class="valueBlock">
-			<div class="box box-orange">
-				<div class="box-header">
-					<!-- <h3 class="box-title">Create Page</h3> -->
+			@if(count($attribute->attributesValuesWithOrder) > 0)
+				@foreach($attribute->attributesValuesWithOrder as $val)
+				<div class="box box-orange">
+					<div class="box-header">
+						<!-- <h3 class="box-title">Create Page</h3> -->
+						<div class="box-tools pull-right">
+							<a href="javascript:void(0);" class="removeValueBtn btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</a>
+						</div><!-- /.box-tools -->
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="form-group">
+							<label class="control-label">Value<em class="asterisk">*</em></label>
+							{{Form::text('value[]',$val->value,['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+						</div>
+						<div class="form-group">
+							<label class="control-label">Value Order</label>
+							{{Form::number('value_order[]',$val->value_order,['class'=>'form-control','min'=>'0'])}}
+						</div>
+						<div class="form-group">
+							<label class="control-label">Value Status</label>
+							{{Form::select('value_status[]',['0' => 'Inactive', '1'=>'Active'],$val->value_status,['class'=>'form-control'])}}
+						</div>
+					</div>
 				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-					<div class="form-group">
-						<label class="control-label">Value<em class="asterisk">*</em></label>
-						{{Form::text('value[]',null,['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
-					</div>
-					<div class="form-group">
-						<label class="control-label">Value Order</label>
-						{{Form::number('value_order[]',0,['class'=>'form-control','min'=>'0'])}}
-					</div>
-					<div class="form-group">
-						<label class="control-label">Value Status</label>
-						{{Form::select('value_status[]',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
-					</div>
-				</div>
-				<!-- /.box-body -->
-			</div>
+				@endforeach
+			@endif
 		</div>
 
 		<div>

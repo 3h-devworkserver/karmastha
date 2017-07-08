@@ -32,8 +32,7 @@
 						<tr>
 							<th><input type="checkbox" id="checkbox0" class="checkAll" name="bulk_select"><label for="checkbox0"><span></span></label></th>
 							<th>ID</th>
-							<th>Title</th>
-							<th>Slug</th>
+							<th>Name</th>
 							<th>Created At</th>
 							<th>Last Updated</th>
 							<th>Status</th>
@@ -43,7 +42,7 @@
 
 				</table>
 			</div>
-			{{-- @include('backend.includes.bulkactionform', ['url'=>'admin/pages/bulkdelete']) --}}
+			@include('backend.includes.bulkactionform', ['url'=>'admin/attributes/bulkdelete'])
 		</div>
 		<!-- /.box-body -->
 	</div>

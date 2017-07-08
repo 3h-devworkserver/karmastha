@@ -58,7 +58,7 @@
                     {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
 
                     <div class="col-lg-1">
-                        {{ Form::checkbox('status', '1', true) }}
+                        {{Form::checkbox('status','1', true, ['id'=>'checkbox1'])}}<label for="checkbox1"><span></span></label>
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
@@ -66,7 +66,7 @@
                     {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
 
                     <div class="col-lg-1">
-                        {{ Form::checkbox('confirmed', '1', true) }}
+                        {{Form::checkbox('confirmed','1', true, ['id'=>'checkbox2'])}}<label for="checkbox2"><span></span></label>
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
@@ -76,7 +76,7 @@
                     </label>
 
                     <div class="col-lg-1">
-                        {{ Form::checkbox('confirmation_email', '1') }}
+                        {{Form::checkbox('confirmation_email','1', null, ['id'=>'checkbox3'])}}<label for="checkbox3"><span></span></label>
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
@@ -86,7 +86,9 @@
                     <div class="col-lg-3">
                         @if (count($roles) > 0)
                             @foreach($roles as $role)
-                                <input type="checkbox" value="{{ $role->id }}" name="assignees_roles[{{ $role->id }}]" id="role-{{ $role->id }}" {{ is_array(old('assignees_roles')) && in_array($role->id, old('assignees_roles')) ? 'checked' : '' }} /> <label for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                {{-- {{Form::checkbox('assignees_roles['. $role->id.']', $role->id, null, ['id'=>'role-'.$role->id])}}<label for="role-{{$role->id}}"><span></span>{{ $role->name }}</label> --}}
+                                
+                                <input type="checkbox" value="{{ $role->id }}" name="assignees_roles[{{ $role->id }}]" id="role-{{ $role->id }}" {{ is_array(old('assignees_roles')) && in_array($role->id, old('assignees_roles')) ? 'checked' : '' }} /> <label for="role-{{ $role->id }}"><span></span>{{ $role->name }}</label>
                                 <a href="#" data-role="role_{{ $role->id }}" class="show-permissions small">
                                     (
                                         <span class="show-text">{{ trans('labels.general.show') }}</span>

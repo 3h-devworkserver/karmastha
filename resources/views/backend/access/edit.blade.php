@@ -43,7 +43,8 @@
                         {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
 
                         <div class="col-lg-1">
-                            {{ Form::checkbox('status', '1', $user->status == 1) }}
+                            {{Form::checkbox('status','1', true, ['id'=>'checkbox1'])}}<label for="checkbox1"><span></span></label>
+                            {{-- {{ Form::checkbox('status', '1', $user->status == 1) }} --}}
                         </div><!--col-lg-1-->
                     </div><!--form control-->
 
@@ -51,7 +52,8 @@
                         {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
 
                         <div class="col-lg-1">
-                            {{ Form::checkbox('confirmed', '1', $user->confirmed == 1) }}
+                            {{Form::checkbox('confirmed','1', true, ['id'=>'checkbox2'])}}<label for="checkbox2"><span></span></label>
+                            {{-- {{ Form::checkbox('confirmed', '1', $user->confirmed == 1) }} --}}
                         </div><!--col-lg-1-->
                     </div><!--form control-->
 
@@ -61,7 +63,7 @@
                         <div class="col-lg-3">
                             @if (count($roles) > 0)
                                 @foreach($roles as $role)
-                                    <input type="checkbox" value="{{$role->id}}" name="assignees_roles[{{ $role->id }}]" {{ is_array(old('assignees_roles')) ? (in_array($role->id, old('assignees_roles')) ? 'checked' : '') : (in_array($role->id, $user_roles) ? 'checked' : '') }} id="role-{{$role->id}}" /> <label for="role-{{$role->id}}">{{ $role->name }}</label>
+                                    <input type="checkbox" value="{{$role->id}}" name="assignees_roles[{{ $role->id }}]" {{ is_array(old('assignees_roles')) ? (in_array($role->id, old('assignees_roles')) ? 'checked' : '') : (in_array($role->id, $user_roles) ? 'checked' : '') }} id="role-{{$role->id}}" /> <label for="role-{{$role->id}}"><span></span>{{ $role->name }}</label>
                                         <a href="#" data-role="role_{{$role->id}}" class="show-permissions small">
                                             (
                                                 <span class="show-text">{{ trans('labels.general.show') }}</span>
