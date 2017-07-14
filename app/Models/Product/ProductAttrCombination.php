@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Attribute;
+namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AttributeValue extends Model
+class ProductAttrCombination extends Model
 {
    /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'attribute_values';
+    protected $table = 'product_attr_combination';
     
     /**
      * The attributes that are not mass assignable.
@@ -20,10 +20,9 @@ class AttributeValue extends Model
      */
     protected $guarded = ['id'];
 
-    public function atrtibuteId(){
-        return $this->belongsTo('\App\Models\Attribute\Attribute'); 
+    public function productAttrCombinationValue(){
+        return $this->hasMany('App\Models\Product\ProductAttrCombinationValue');
     }
-
 
 
 }

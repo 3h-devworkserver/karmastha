@@ -12,6 +12,8 @@ use App\Models\Category;
 use App\Models\Member;
 use App\Models\Product\Product;
 use App\Models\Product\ProductGallery;
+use App\Models\Attribute\Attribute;
+use App\Models\Attribute\AttributeValue;
 use App\Models\TmpImage;
 use DB;
 use Datatables;
@@ -87,7 +89,9 @@ class ProductController extends Controller
         $brand = Brand::where('status', 1)->pluck('brand_name', 'id');
         $brand->prepend('--Select--', '');
         $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
-        return view('backend.products.create', compact('brand', 'categorys', 'rand'));
+        $attributes = Attribute::where('status', 1)->orderBy('attr_order', 'asc')->pluck('name', 'id');
+        $attributeValues = AttributeValue::orderBy('value_order', 'asc')->get();
+        return view('backend.products.create', compact('brand', 'categorys', 'rand', 'attributes', 'attributeValues'));
     }
 
     /**
@@ -161,24 +165,48 @@ class ProductController extends Controller
             //categorys associated with product
             $product->categorys()->attach($request->category);
 
-            if(!empty($request->attr_type)){
-                $i =0;
-                while($i < count($request->attr_type)){
-                    $product->productAttributes()->create([
-                        //atribute
-                        'attr_type'=>$request->attr_type[$i],
-                        'attr_name'=>$request->attr_name[$i],
-                        'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
-                        'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
-                        'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
-                        'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
-                        'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
-                        'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
-                        'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            //storing attribute combination values
+            if (!empty($request->identifier)) {
+                $i = 0;
+                while($i < count($request->identifier)){
+                    $productAttrCombination = $product->productAttrCombination()->create([
+                        'identifier' => $request->identifier[$i] ,
+                        'quantity' => $request->comb_quantity[$i] ,
                     ]);
+
+                    $x = 0;
+                    while($x < count($request->attribute_select)){
+                        $y = 0;
+                        while($y < count($request->attribute_select[$x])){
+                            $productAttrCombination->productAttrCombinationValue()->create([
+                                'attribute_value_id' => $request->attribute_select[$x][$y],
+                            ]);
+                            $y++;
+                        }
+                        $x++;
+                    }
                     $i++;
                 }
             }
+
+            // if(!empty($request->attr_type)){
+            //     $i =0;
+            //     while($i < count($request->attr_type)){
+            //         $product->productAttributes()->create([
+            //             //atribute
+            //             'attr_type'=>$request->attr_type[$i],
+            //             'attr_name'=>$request->attr_name[$i],
+            //             'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
+            //             'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
+            //             'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
+            //             'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
+            //             'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
+            //             'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
+            //             'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            //         ]);
+            //         $i++;
+            //     }
+            // }
 
             //storing images in db and copying images from tmp
             $groupIdentifier = $request->group_identifier;

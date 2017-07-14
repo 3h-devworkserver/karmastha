@@ -55,7 +55,7 @@
 
 					<div class="form-group">
 						<label class="control-label">Miscellaneous JavaScript</label>
-						{{Form::textarea('misc_javascript',null,['class'=>'form-control', 'rows'=>'4', 'placeholder'=>'Enter Meta Description'])}}
+						{{Form::textarea('misc_javascript',null,['class'=>'form-control', 'rows'=>'4', 'placeholder'=>'Enter Miscellaneous JavaScript'])}}
 					</div>
 				</div> 
 			</div>

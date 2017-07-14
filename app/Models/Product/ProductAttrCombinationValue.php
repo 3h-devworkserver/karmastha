@@ -4,14 +4,14 @@ namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttribute extends Model
+class ProductAttrCombinationValue extends Model
 {
    /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'product_attributes';
+    protected $table = 'product_attr_combination_value';
     
     /**
      * The attributes that are not mass assignable.
@@ -19,6 +19,4 @@ class ProductAttribute extends Model
      * @var array
      */
     protected $guarded = ['id'];
-
-    
 }

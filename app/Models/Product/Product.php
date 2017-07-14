@@ -64,6 +64,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Brand');
     }
 
+    public function productAttrCombination(){
+        return $this->hasMany('App\Models\Product\ProductAttrCombination');
+    }
+
 
     /**
      * @return string

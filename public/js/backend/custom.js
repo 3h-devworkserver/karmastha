@@ -455,7 +455,9 @@ $(document).on('change', '#productForm .inputType', function(){
 
 $(document).on('click', '.attributeAdd', function(){
   var html = $('.attribute-extra').html();
+  var no = $('.attribute-block .attrValue').length;
   $('.attribute-block').append(html);
+  $('#productForm .attribute-block .attribute').last().find('.attrValue').attr('name', 'attribute_select['+ no +'][]');
   $('#productForm .attribute-block textarea').addClass('tinymce');
 
   // tinymce for selecting by class
@@ -542,6 +544,46 @@ $('#productForm').validate({
     'attr_type[]': 'required',
     'attr_name[]': 'required',
   }
+});
+
+$(document).on('change', '.attributeSelect', function(){
+  var attr = $(this);
+  var attribute = $(this).val();
+  var option = attr.closest('.row').find('.attrValSelect').find('option');
+  option.removeClass('hide');
+  option.each(function(){
+    if (attribute != $(this).attr('data-attr')) {
+      $(this).addClass('hide');
+    }
+    option.first().removeClass('hide');
+     attr.closest('.row').find('.attrValSelect').val('');
+    // console.log($(this));
+  });
+});
+
+$(document).on('click', '.attrSelect', function(){
+  // var attrSelect = $('.attributeSelect').val();
+  var elem = $(this).closest('.row').find('.attributeSelect')
+  var attrSelect = elem.val();
+  // var attrSelectText = $('.attributeSelect option:selected').text();
+  var attrSelectText = elem.find('option:selected').text();
+
+  var elem2 = $(this).closest('.row').find('.attrValSelect')
+  var attrValSelect = elem2.val();
+  // var attrValSelectText = $('.attrValSelect option:selected').text();
+  var attrValSelectText = elem2.find('option:selected').text();
+
+  if ( attrSelect != '' && attrValSelect != '') {
+      // $('.attrValue').append('<option value='+attrValSelect+'>'+attrSelectText+' : '+attrValSelectText+'</option>');
+      $(this).closest('.box-body').find('.attrValue').append('<option value='+attrValSelect+'>'+attrSelectText+' : '+attrValSelectText+'</option>');
+  }else{
+    alert('Please select attribute and corresponding values..');
+  }
+});
+
+$(document).on('click', '.attrRemove', function(){
+  // $('.attrValue option:selected').remove();
+  $(this).closest('.box-body').find('.attrValue option:selected').remove();
 });
 
 

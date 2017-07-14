@@ -18,6 +18,7 @@ class Attribute extends Model
      *
      * @var array
      */
+    
     protected $guarded = ['id'];
 
     public function attributesValues(){
