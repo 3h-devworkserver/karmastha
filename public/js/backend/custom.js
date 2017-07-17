@@ -575,7 +575,7 @@ $(document).on('click', '.attrSelect', function(){
 
   if ( attrSelect != '' && attrValSelect != '') {
       // $('.attrValue').append('<option value='+attrValSelect+'>'+attrSelectText+' : '+attrValSelectText+'</option>');
-      $(this).closest('.box-body').find('.attrValue').append('<option value='+attrValSelect+'>'+attrSelectText+' : '+attrValSelectText+'</option>');
+      $(this).closest('.box-body').find('.attrValue').append('<option value='+attrValSelect+' selected >'+attrSelectText+' : '+attrValSelectText+'</option>');
   }else{
     alert('Please select attribute and corresponding values..');
   }

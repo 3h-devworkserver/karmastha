@@ -24,6 +24,10 @@ class AttributeValue extends Model
         return $this->belongsTo('\App\Models\Attribute\Attribute'); 
     }
 
+    public function attribute(){
+        return $this->belongsTo('App\Models\Attribute\Attribute');
+    }
+
 
 
 }

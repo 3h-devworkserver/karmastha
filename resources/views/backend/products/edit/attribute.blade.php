@@ -1,10 +1,10 @@
 <?php 
-	$attributes = $product->productAttributesWithOrder;
+	$attributesCombSelected = $product->productAttrCombination;
 ?>			
 <div class="attribute-block">
-	@if(count($attributes)> 0)
+	@if(count($attributesCombSelected)> 0)
 		<?php $i = 0; ?>
-		@foreach($attributes as $attribute)
+		@foreach($attributesCombSelected as $attrCombSelect)
 			<div class="attribute">
 				<div class="box">
 					<div class="box-header with-border">
@@ -15,43 +15,54 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
-					
+
 						<div class="form-group">
-							<label class="control-label">Select Type<em class="asterisk">*</em></label>
-							{{Form::select('attr_type[]', ['dropdown'=>'Dropdown'], $attribute->attr_type, ['class' => 'form-control inputType'])}}
+							<div class="row">
+								<div class="col-sm-5">
+									<label class="control-label">Select Attribute<em class="asterisk">*</em></label>
+									{{Form::select('attribute[]', $attributes, null, ['class' => 'form-control attributeSelect', 'placeholder'=>'-- Select Attribute --'])}}
+								</div>
+								<div class="col-sm-5">
+									<label class="control-label">Select Attribute Values<em class="asterisk">*</em></label>
+									<select name="attr_value[]" class="form-control attrValSelect">
+										<option value="">-- Select Attribute Value --</option>
+										@foreach($attributeValues as $val)
+										<option class="hide" value="{{$val->id}}" data-attr= "{{$val->attribute_id}}">{{$val->value}}</option>
+										@endforeach
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<a href="javascript:void(0);" class="attrSelect btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</a>
+								</div>
+							</div>
 						</div>
+
 						<div class="form-group">
-							<label class="control-label">Name<em class="asterisk">*</em></label>
-							{{Form::text('attr_name[]',$attribute->attr_name,['class'=>'form-control', 'placeholder'=>'Attribute Name'])}}
+							<div class="row">
+								<div class="col-sm-10">
+									<label class="control-label">Combination<em class="asterisk">*</em></label>
+									{{-- {{Form::select('attribute_select[0][]', [], null,['class'=>'form-control attrValue', 'multiple'])}} --}}
+									<select name="attribute_select[{{$i}}][]" class="form-control attrValue" multiple>
+										@foreach($attrCombSelect->productAttrCombinationValue as $combValue)
+											<option value="{{$combValue->attribute_value_id}}" selected>{{$combValue->atrributeVal->attribute->name.' : '. $combValue->atrributeVal->value}}</option>
+										@endforeach
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<a href="javascript:void(0);" class="attrRemove btn btn-sm btn-danger"><i class="fa fa-minus"></i> Delete</a>
+								</div>
+							</div>
 						</div>
-						<div class="form-group textfield inputfield">
-							<label class="control-label">Value<em class="asterisk">*</em></label>
-							{{Form::text('value_text[]',$attribute->value_text,['class'=>'form-control', 'placeholder'=>'Attribute Value'])}}
-						</div>
-						<div class="form-group inputfield textarea display-none">
-							<label class="control-label">Value<em class="asterisk">*</em></label>
-							{{Form::textarea('value_textarea[]',$attribute->value_textarea,['class'=>'form-control tinymce', 'placeholder'=>'Attribute Value'])}}
-						</div>
-						<div class="form-group inputfield dropdown display-none">
-							<label class="control-label">Values<em class="asterisk">*</em> <small>(Eg: Red,Green,Blue)</small></label>
-							{{Form::text('value_dropdown[]',$attribute->value_dropdown,['class'=>'form-control', 'placeholder'=>'Attribute Values'])}}
-						</div>
-						<div class="form-group inputfield number display-none">
-							<label class="control-label">Min. Value</label>
-							{{Form::number('value_number_min[]',$attribute->value_number_min,['class'=>'form-control', 'placeholder'=>'Attribute Min. Values', 'min'=>'0'])}}
-						</div>
-						<div class="form-group inputfield number display-none">
-							<label class="control-label">Max. Value</label>
-							{{Form::number('value_number_max[]',$attribute->value_number_max,['class'=>'form-control', 'placeholder'=>'Attribute Max. Values', 'min'=>'0'])}}
-						</div>
-						<div class="form-group inputfield number display-none">
-							<label class="control-label">Increment Value</label>
-							{{Form::number('value_number_step[]',$attribute->value_number_step,['class'=>'form-control', 'placeholder'=>'Increment Amount', 'step'=>'any'])}}
-						</div>
+
 						<div class="form-group">
-							<label class="control-label">Ordering</label>
-							{{Form::number('attr_order[]',$attribute->attr_order,['class'=>'form-control', 'placeholder'=>'Attribure Order', 'min'=>'0', 'step'=>'1'])}}
-						</div>
+							<label class="control-label">Identifier<em class="asterisk">*</em></label>
+							{{Form::text('identifier[]',$attrCombSelect->identifier,['class'=>'form-control', 'placeholder'=>'Identifier'])}}
+						</div>	
+
+						<div class="form-group">
+							<label class="control-label">Quantity<em class="asterisk">*</em></label>
+							{{Form::number('comb_quantity[]',$attrCombSelect->quantity,['class'=>'form-control', 'placeholder'=>'Quantity', 'step'=>'1', 'min'=>'0'])}}
+						</div>	
 
 					</div>
 					<!-- /.box-body -->

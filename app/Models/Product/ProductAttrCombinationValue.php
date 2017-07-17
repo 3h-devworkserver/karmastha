@@ -19,4 +19,8 @@ class ProductAttrCombinationValue extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+    public function atrributeVal(){
+        return $this->belongsTo('App\Models\Attribute\AttributeValue', 'attribute_value_id');
+    }
 }

@@ -102,7 +102,30 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
+
+        // if (!empty($request->identifier)) {
+        //         $i = 0;
+        //         while($i < count($request->identifier)){
+        //             // $productAttrCombination = $product->productAttrCombination()->create([
+        //             //     'identifier' => $request->identifier[$i] ,
+        //             //     'quantity' => $request->comb_quantity[$i] ,
+        //             // ]);
+
+        //             if(!empty(count($request->attribute_select))){
+        //                 $y = 0;
+        //                 while($y < count($request->attribute_select[$i])){
+        //                    echo '<br>attribute_value_id = '.$i.'->' .$i .'&'. $y. '='.$request->attribute_select[$i][$y];
+
+        //                     $y++;
+        //                 }
+        //             }
+        //                 die();
+        //             $i++;
+        //         }
+        //     }
+
         // return $request->all();
+        // return $request->attribute_select[1];
         $this->validate($request,[
             'name' => 'required',            
             'sku' => 'required',            
@@ -174,17 +197,28 @@ class ProductController extends Controller
                         'quantity' => $request->comb_quantity[$i] ,
                     ]);
 
-                    $x = 0;
-                    while($x < count($request->attribute_select)){
+                    if(!empty(count($request->attribute_select))){
                         $y = 0;
-                        while($y < count($request->attribute_select[$x])){
-                            $productAttrCombination->productAttrCombinationValue()->create([
-                                'attribute_value_id' => $request->attribute_select[$x][$y],
+                        while($y < count($request->attribute_select[$i])){
+                          $productAttrCombination->productAttrCombinationValue()->create([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
                             ]);
                             $y++;
                         }
-                        $x++;
                     }
+
+                    // $x = 0;
+                    // while($x < count($request->attribute_select)){
+                    //     $y = 0;
+                    //     while($y < count($request->attribute_select[$x])){
+                    //         $productAttrCombination->productAttrCombinationValue()->create([
+                    //             'attribute_value_id' => $request->attribute_select[$x][$y],
+                    //         ]);
+                    //         $y++;
+                    //     }
+                    //     $x++;
+                    // }
+
                     $i++;
                 }
             }
@@ -385,7 +419,10 @@ class ProductController extends Controller
         $brand->prepend('--Select--', '');
         $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
 
-        return view('backend.products.edit',compact('product', 'brand', 'categorys', 'catSelected', 'rand'));
+        $attributes = Attribute::where('status', 1)->orderBy('attr_order', 'asc')->pluck('name', 'id');
+        $attributeValues = AttributeValue::orderBy('value_order', 'asc')->get();
+
+        return view('backend.products.edit',compact('product', 'brand', 'categorys', 'catSelected', 'rand', 'attributes', 'attributeValues'));
     }
 
     /**
@@ -397,7 +434,7 @@ class ProductController extends Controller
      */
     public function update($id, UpdateProductRequest $request)
     {
-        // return $request->all();
+        return $request->all();
         $this->validate($request,[
 
 
@@ -462,42 +499,44 @@ class ProductController extends Controller
             //categorys associated with product
             $product->categorys()->sync($request->category);
 
-            $prevAttributes = $product->productAttributes;
-            $prevAttrCount = count($prevAttributes);
-            $attrCount = count($request->attr_type);
+
+            $prevAttributesCombSelected = $product->productAttrCombination;
+            $prevAttrCombCount = count($prevAttributesCombSelected);
+            // $attrCombCount = count($request->attribute_select);
+            $attrCombCount = count($request->identifier);
             $i = 0;
-            if ($prevAttrCount <= $attrCount) {
-                while ($i < $prevAttrCount) {
-                    $prevAttributes[$i]->update([
-                        'attr_type'=>$request->attr_type[$i],
-                        'attr_name'=>$request->attr_name[$i],
-                        'value_text'=>($request->attr_type[$i] == 'textfield') ? $request->value_text[$i] : '',
-                        'value_textarea'=>($request->attr_type[$i] == 'textarea') ? $request->value_textarea[$i] : '',
-                        'value_dropdown'=>($request->attr_type[$i] == 'dropdown') ? $request->value_dropdown[$i] : '',
-                        'value_number_min'=>($request->attr_type[$i] == 'number') ? $request->value_number_min[$i] : 0,
-                        'value_number_max'=>($request->attr_type[$i] == 'number') ? $request->value_number_max[$i] : 0,
-                        'value_number_step'=>($request->attr_type[$i] == 'number') ?  $request->value_number_step[$i] : 0,
-                        'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            if ($prevAttrCombCount <= $attrCombCount) {
+                while ($i < $prevAttrCombCount) {
+                    $prevAttributesCombSelected[$i]->update([
+                        'identifier' => $request->identifier[$i] ,
+                        'quantity' => $request->comb_quantity[$i] ,
                     ]);
+
+                    $prevAttributesCombValueSelected = $prevAttributesCombSelected[$i]->productAttrCombinationValue;
+                    $prevAttributesCombValueSelectedCount = count($prevAttributesCombValueSelected);
+
                     $i++;
                 }
-                while ($i < $attrCount) {
-                    $product->productAttributes()->create([
-                        'attr_type'=>$request->attr_type[$i],
-                        'attr_name'=>$request->attr_name[$i],
-                        'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
-                        'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
-                        'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
-                        'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
-                        'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
-                        'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
-                        'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+                while ($i < $attrCombCount) {
+                    $productAttrCombination = $product->productAttrCombination()->create([
+                        'identifier' => $request->identifier[$i] ,
+                        'quantity' => $request->comb_quantity[$i] ,
                     ]);
+
+                    if(!empty(count($request->attribute_select))){
+                        $y = 0;
+                        while($y < count($request->attribute_select[$i])){
+                          $productAttrCombination->productAttrCombinationValue()->create([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                    }
                     $i++;
                 }
             }else{
-                while ($i < $attrCount) {
-                    $prevAttributes[$i]->update([
+                while ($i < $attrCombCount) {
+                    $prevAttributesCombSelected[$i]->update([
                         'attr_type'=>$request->attr_type[$i],
                         'attr_name'=>$request->attr_name[$i],
                         'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
@@ -510,11 +549,65 @@ class ProductController extends Controller
                     ]);
                     $i++;
                 }
-                while ($i < $prevAttrCount) {
-                    $prevAttributes[$i]->delete();
+                while ($i < $prevAttrCombCount) {
+                    $prevAttributesCombSelected[$i]->delete();
                     $i++;
                 }
             }
+
+            // $prevAttributes = $product->productAttributes;
+            // $prevAttrCount = count($prevAttributes);
+            // $attrCount = count($request->attr_type);
+            // $i = 0;
+            // if ($prevAttrCount <= $attrCount) {
+            //     while ($i < $prevAttrCount) {
+            //         $prevAttributes[$i]->update([
+            //             'attr_type'=>$request->attr_type[$i],
+            //             'attr_name'=>$request->attr_name[$i],
+            //             'value_text'=>($request->attr_type[$i] == 'textfield') ? $request->value_text[$i] : '',
+            //             'value_textarea'=>($request->attr_type[$i] == 'textarea') ? $request->value_textarea[$i] : '',
+            //             'value_dropdown'=>($request->attr_type[$i] == 'dropdown') ? $request->value_dropdown[$i] : '',
+            //             'value_number_min'=>($request->attr_type[$i] == 'number') ? $request->value_number_min[$i] : 0,
+            //             'value_number_max'=>($request->attr_type[$i] == 'number') ? $request->value_number_max[$i] : 0,
+            //             'value_number_step'=>($request->attr_type[$i] == 'number') ?  $request->value_number_step[$i] : 0,
+            //             'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            //         ]);
+            //         $i++;
+            //     }
+            //     while ($i < $attrCount) {
+            //         $product->productAttributes()->create([
+            //             'attr_type'=>$request->attr_type[$i],
+            //             'attr_name'=>$request->attr_name[$i],
+            //             'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
+            //             'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
+            //             'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
+            //             'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
+            //             'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
+            //             'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
+            //             'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            //         ]);
+            //         $i++;
+            //     }
+            // }else{
+            //     while ($i < $attrCount) {
+            //         $prevAttributes[$i]->update([
+            //             'attr_type'=>$request->attr_type[$i],
+            //             'attr_name'=>$request->attr_name[$i],
+            //             'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
+            //             'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
+            //             'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
+            //             'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
+            //             'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
+            //             'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
+            //             'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+            //         ]);
+            //         $i++;
+            //     }
+            //     while ($i < $prevAttrCount) {
+            //         $prevAttributes[$i]->delete();
+            //         $i++;
+            //     }
+            // }
 
             //changing base,small,thumbnail images and order for images other than new
             $i = 0;
