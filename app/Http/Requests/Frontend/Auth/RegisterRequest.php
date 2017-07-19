@@ -33,7 +33,7 @@ class RegisterRequest extends Request
             'email'                => ['required', 'email', 'max:255', Rule::unique('users')],
             'password'             => 'required|min:6|confirmed',
             'phone'             => 'required',
-            'user_type'             => 'required',
+            // 'user_type'             => 'required',
             // 'g-recaptcha-response' => 'required_if:captcha_status,true|captcha',
         ];
     }

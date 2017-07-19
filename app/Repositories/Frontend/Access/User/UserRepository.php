@@ -108,11 +108,11 @@ class UserRepository extends BaseRepository
                 /*
                  * Add the default site role to the new user
                  */ 
-                // $user->attachRole($this->role->getDefaultUserRole());
-                if ($data['user_type'] == 'Customer' || $data['user_type'] == 'Vendor' || $data['user_type'] == 'WholeSeller') {
-                    $role = Role::where('name', $data['user_type'])->first();
-                    $user->attachRole($role);
-                }
+                 $user->attachRole($this->role->getDefaultUserRole());
+                // if ($data['user_type'] == 'Customer' || $data['user_type'] == 'Vendor' || $data['user_type'] == 'WholeSeller') {
+                //     $role = Role::where('name', $data['user_type'])->first();
+                //     $user->attachRole($role);
+                // }
             }
         });
 

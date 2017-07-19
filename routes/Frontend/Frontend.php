@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
          * User Dashboard Specific
          */
         Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+        Route::get('dashboard/profile', 'DashboardController@profile')->name('profile');
 
         /*
          * User Account Specific

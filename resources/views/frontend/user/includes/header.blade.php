@@ -21,8 +21,10 @@
                                           <li id="submenu-avatar">
                                              <a href="#"><img src="{{asset('/images/avatar.png')}}"></a> 
                                           </li>
-                                          <li> Hello, <a href="product.html"><span>Pranit</span><i class="fa fa-address-card" aria-hidden="true"></i></a></li>
-                                          <li><a href="#"><span>my account</span></a><a href="#"> <span>signout</span></a></li>
+                                          <?php $user = Auth::user(); 
+                                          ?>
+                                          <li> Hello, <a href="#"><span>{{ $user->name }}</span><i class="fa fa-address-card" aria-hidden="true"></i></a></li>
+                                          <li><a href="{{ URL::to('/dashboard/profile') }}"><span>my account</span></a><a href="{{ URL::to('/logout') }}"> <span>signout</span></a></li>
                                           
                                       </ul> 
                                     </div>  

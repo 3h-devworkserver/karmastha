@@ -50,11 +50,11 @@ Register @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                 <input maxlength="20" name="phone" id="phoneFlagComp" size="32" class="form-control input-sm" autocomplete="off" type="tel" placeholder="Mobile Phone">
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 {{Form::select('user_type',['Customer'=>'Normal User', 'Vendor'=>'Vendor', 'WholeSeller'=>'WholeSeller'],null, ['placeholder'=>'-- Select User Type --', 'class'=>'form-control selectBox'])}}
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <div class="form-group login-info last">
                                 <div class="col-md-12 col-sm-12">

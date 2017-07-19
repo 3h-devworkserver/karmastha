@@ -52,7 +52,7 @@ return [
         /*
          * The role the user is assigned to when they sign up from the frontend, not namespaced
          */
-        'default_role' => 'Customer',
+        'default_role' => 'Individual',
         //'default_role' => 2,
 
         /*

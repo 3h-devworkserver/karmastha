@@ -16,4 +16,9 @@ class DashboardController extends Controller
     {
         return view('frontend.user.dashboard')->withClass('profile-dashboard');
     }
+
+    public function profile()
+    {
+        return view('frontend.user.profile')->withClass('profile-info');
+    }
 }

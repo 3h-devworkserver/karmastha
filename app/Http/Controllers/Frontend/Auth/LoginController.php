@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
         if (access()->allow('view-backend')) {
             return route('admin.dashboard');
-        }elseif(access()->hasRole('Customer')){
+        }elseif(access()->hasRole('Individual')){
             return route('frontend.index');
         }
         return "different roles assignged";  // used for testing
