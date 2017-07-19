@@ -434,7 +434,7 @@ class ProductController extends Controller
      */
     public function update($id, UpdateProductRequest $request)
     {
-        return $request->all();
+        // return $request->all();
         $this->validate($request,[
 
 
@@ -514,7 +514,25 @@ class ProductController extends Controller
 
                     $prevAttributesCombValueSelected = $prevAttributesCombSelected[$i]->productAttrCombinationValue;
                     $prevAttributesCombValueSelectedCount = count($prevAttributesCombValueSelected);
+                    // $combination = $request->attribute_select[$i];
+                    $combinationCount = count($request->attribute_select[$i]);
+                    $y = 0;
+                    if ($prevAttributesCombValueSelectedCount <= $combinationCount) {
+                        while ( $y <= $prevAttributesCombValueSelectedCount) {
+                            $prevAttributesCombValueSelected[$y]->update([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                        while ( $y < $combinationCount) {
+                            $prevAttributesCombSelected[$i]->productAttrCombinationValue()->create([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                    }else{
 
+                    }
                     $i++;
                 }
                 while ($i < $attrCombCount) {
