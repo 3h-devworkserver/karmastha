@@ -6,6 +6,7 @@ $(window).scroll(function(){
 	else sticky.removeClass('fixed');
 });
 
+
 $(function() {
     $('#slides').slidesjs({
         width: 940,

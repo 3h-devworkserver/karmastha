@@ -18,8 +18,16 @@
             </div>
         </a>
         <ul>
-            <li class="has-children active">
+            <li class="has-children">
                 <a href="userdash_buyer.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+            </li>
+            <li class="has-children active">
+                <a href="#0"><i class="fa fa-home" aria-hidden="true"></i>Personal Information</a>
+                <ul>
+                    <li>                
+                        <a href="{{ URL::to('/dashboard/profile') }}"><i class="fa fa-home" aria-hidden="true"></i>My Profile</a>
+                    </li>
+                </ul>
             </li>
             <li class="has-children">
                 <a href="#0"><i class="fa fa-file-text-o" aria-hidden="true"></i>Orders<i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -44,13 +52,13 @@
                     <div class="userdash-right">
                         
                         <div is="null" class="list-module-wrap">
-                            <div class="personal-info">
                                 <?php $user = Auth::user(); 
                                     $extrainfo = Auth::user()->profile; 
                                     $extra = Auth::user()->roles; 
                                    // echo '<pre>'; print_r($extra);
                                 ?>
-                                <ul>
+                           <!-- <div class="personal-info">
+                                 <ul>
                                     <li>Name: {{ $user->name }} </li>
                                     <li>Email: {{ $user->email }}</li>
                                     @if( !empty($extrainfo))
@@ -58,19 +66,20 @@
                                     <li>Last Name: {{ $extrainfo->lname }}</li>
                                     <li>Mobile/Phone: {{ $extrainfo->phone }}</li>
                                     @endif
-                                </ul>
-                            </div>
+                                </ul> 
+                            </div>-->
                             <div class="edit-profileinfo">
                                 
-                            <form method="post" action="javascript:;" name="eventform" id="eventform" novalidate="novalidate">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            {{ Form::open(['url' => 'profile/update/'.$user->id, 'method' => 'patch', 'class' => 'profile-form','file'=>'true']) }}                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                              
+                                <input type="hidden" value="{{$user->id}}" name="user_id">
                               <div class="form-group">
                                 <label>Name<span>*</span></label>
                                 <input type="text" class="form-control required fullname" name="fullname" placeholder="Enter Name" value="{{ $user->name }}" />
                               </div>
                               <div class="form-group">
                                 <label>Email<span>*</span></label>
-                                <input type="email" class="form-control required email" name="email" placeholder="Enter Email" value="{{ $user->email }}"/>
+                                <input type="email" class="form-control required email" name="email" placeholder="Enter Email" value="{{ $user->email }}" disabled/>
                               </div>
                               
                                <div class="form-group">
@@ -85,9 +94,54 @@
                                 <label>Phone Number<span>*</span></label>
                                 <input type="text" class="form-control required number" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->phone; }?>" name="phone" placeholder="Enter Phone Number" />
                               </div>
+                              <div class="form-group">
+                                <h2>Contact Address</h2>
+                                <div class="address-info">
+                                <label>Street<span>*</span></label>
+                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->street; }?>" name="street" placeholder="Enter street" />
+                                <label>City<span>*</span></label>
+                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->city; }?>" name="city" placeholder="Enter city" />
+                                <label>Zone<span>*</span></label>
+                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="city" placeholder="Enter zone" />
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label>Bussiness Type</label>
+                                <select name="business_type" class="business_type form-control">
+                                  <option>Please select one</option>
+                                  <option value="vendor">Retailer/Vendor</option>
+                                  <option value="wholesaler">Wholesaler/Distributor</option>
+                                </select>
+                              </div>
+                              <div class="form-group radio">
+                                <label>Website</label>
+                                <input type="radio" id="website" name="website" class="have_one" value="" checked> <label for="website"><span></span>I have one</label>
+                                <input type="radio" id="other" name="website" class="dont_have_one" value=""> <label for="other" id="tested"><span></span>I don't have one</label>
+                              </div>
+                             
+                              <div class="form-group" class="opentext">
+                                <input type="text" name="website_url" placeholder="http://www.example.com" value="" class="form-control">
+                              </div>
+
+                                <div class="form-group company-address">
+                                <h2>Company Address</h2>
+                                <div class="address-info">
+                                <label>Street</label>
+                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->street; }?>" name="street" placeholder="Enter street" />
+                                <label>City</label>
+                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->city; }?>" name="city" placeholder="Enter city" />
+                                <label>Zone</label>
+                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="city" placeholder="Enter zone" />
+                                <label>Company Introduction</label>
+                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->description; }?>" name="description" placeholder="Enter text" />
+                                <label>Logo</label>
+                                <input type="file" class="" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->logo; }?>" name="logo" />
+                                </div>
+                              </div>
                              <input type="submit" class="btn btn-outline" value="Submit">
                               <img src="{{ asset('/img/loading.gif') }}" id="imgloader" style="display:none;" height="20" width="20">
-                            </form>
+    {{ Form::close() }}
                         </div>
 
                         </div>

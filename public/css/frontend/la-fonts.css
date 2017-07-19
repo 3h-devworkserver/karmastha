@@ -1,0 +1,82 @@
+@font-face {
+    font-family: "la-icons";
+    src: url(../../font/la-icons.eot);
+    src: url(../../font/la-iconsd41d.eot?#iefix) format("embedded-opentype"), 
+    url(../../font/la-icons.woff) format("woff"), 
+    url(../../font/la-icons.ttf) format("truetype"), 
+    url(../../font/la-icons.svg#la-icons) format("svg")
+}
+
+[class*="la-icon-"],
+[class^="la-icon-"] {
+  display: inline-block;
+  font-family: "la-icons" !important;
+  font-size: inherit;
+  font-style: normal;
+  line-height: inherit;
+  text-rendering: auto;
+  text-transform: none !important;
+}
+.la-icon-bag:before {
+    content: "\61"
+}
+
+.la-icon-woman:before {
+    content: "\62"
+}
+
+.la-icon-star:before {
+    content: "\63"
+}
+
+.la-icon-grid:before {
+    content: "\64"
+}
+
+.la-icon-list:before {
+    content: "\65"
+}
+
+.la-icon-zoom:before {
+    content: "\66"
+}
+
+.la-icon-heart-o:before {
+    content: "\67"
+}
+
+.la-icon-star-o:before {
+    content: "\68"
+}
+
+.la-icon-search:before {
+    content: "\69"
+}
+
+.la-icon-arrow-right:before {
+    content: "\6a"
+}
+
+.la-icon-clogs:before {
+    content: "\6b"
+}
+
+.la-icon-shirt:before {
+    content: "\6c"
+}
+
+.la-icon-diamon:before {
+    content: "\6d"
+}
+
+.la-icon-lock:before {
+    content: "\6e"
+}
+
+.la-icon-compare:before {
+    content: "\6f"
+}
+
+.la-icon-arrow-right-1:before {
+    content: "\70"
+}

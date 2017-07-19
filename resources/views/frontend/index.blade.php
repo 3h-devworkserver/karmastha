@@ -16,859 +16,448 @@
 @if(!empty($page->meta_keyword)){{$page->meta_keyword}}@else{{$setting->meta_keyword}} @endif
 @endsection
 @section('content')
-    <!-- Start slider container -->
     @include('frontend.includes.banner')
-    <!-- End slider container -->
 
-    <!-- Start Member Conainer -->
-    @if(count($brands) > 0)
-        <div class="top-brands">
+@include('frontend.includes.advertisement')
 
-            <div class="brands-header">
-                <h4 class="title">top brands</h4>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="brands-img">
-
-                            @foreach($brands as $brand)
-                            <div class="col-md-2">
-                                <a href="{{'brand/'.$brand->slug}}">
-                                    <img src="{{asset($brand->brand_logo)}}" alt="{{$brand->brand_name}}">
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-    <!-- End Top brands Conainer -->
-
-    @if(count($page->topStaticBlock) > 0)
-    <!-- Start Serive Conainer -->
-    <div class="service-container">
-        <div class="container">
-            <div class="row">
-                @foreach($page->topStaticBlock as $block)
-                <div class="col-md-4 col-sm-4">
-                    <div class="col-item-content">
-                        <a href="{{$block->url}}"><img src="{{asset($block->feature_image)}}"></a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+<section class="products-wrapper">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="section-title">
+              <h2>Trending</h2>
+          </div>
         </div>
     </div>
-    <!-- End Serive Conainer -->
-    @endif
-
-   
-    @if(!empty($page->top_content))
-        <?php   
-            file_put_contents(base_path() . '/resources/views/frontend/tmp.blade.php', $page->top_content);
-                $html = view('frontend.tmp')->render();
-            echo $html;
-        ?> 
-    @endif
-
-    <?php /* ?>
-        <!-- Start Electronic product -->
-        <div class="msp-container">
-            <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h4 class="title">Electronic</h3>
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Controls -->
-                            <div class="controls pull-right hidden-xs">
-                                <a class="left fa fa-chevron-left" href="#carousel-example-electronic" data-slide="prev"></a>
-                                <a class="right fa fa-chevron-right " href="#carousel-example-electronic" data-slide="next"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="carousel-example-electronic" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <p class="any-offer">50% Discount</p>
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                                <div class="price col-md-7">
-                                                    <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                </div>
-                                                <div class="price col-md-4 no-padd">
-                                                    <h5 class="price-text-color">
-                                                          $199.99</h5>
-                                                </div>
-                                            </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                                    
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row products-fluid mt50">
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <a href="#">
+            <div class="product-img">
+              <div class="img-wrap">
+                <img src="{{asset('front-images/cap.png')}}" alt="">
+              </div>
             </div>
+            
+          </a>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+  
+          <div class="caption">
+            <h3><a href="#">product title</a></h3>
+            <p class="price">$34.95</p>
+          </div>
         </div>
-        <!-- End Electronic product -->
-
-        <!-- Start middle banner -->
-        <div class="mid-add-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-item-banner">
-                        <img src="{{asset('front-images/add-banner/oneplus_mid.jpg')}}">
-                    </div>
-                </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/bag.png')}}" alt="">
+              
             </div>
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
         </div>
-
-        <!-- Start Deal -->
-        <div class="msp-container">
-            <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h4 class="title">Deal of day</h4>
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Controls -->
-                            <div class="controls pull-right hidden-xs">
-                                <a class="left fa fa-chevron-left" href="#carousel-example-deal" data-slide="prev"></a>
-                                <a class="right fa fa-chevron-right " href="#carousel-example-deal" data-slide="next"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="carousel-example-deal" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <p class="any-offer">50% Discount</p>
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/bangle.png')}}" alt="">
+              
             </div>
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
         </div>
-        <!-- End Deal -->
-
-        <!-- Start Festival Special -->
-        <div class="msp-container">
-            <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h4 class="title">Festival Special</h3>
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Controls -->
-                            <div class="controls pull-right hidden-xs">
-                                <a class="left fa fa-chevron-left" href="#carousel-example-festival" data-slide="prev"></a>
-                                <a class="right fa fa-chevron-right " href="#carousel-example-festival" data-slide="next"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="carousel-example-festival" class="carousel slide hidden-xs" data-ride="carousel" data-interval="false">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <p class="any-offer">50% Discount</p>
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/3.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/1.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="col-item">
-                                            <div class="photo">
-                                                <a href="">
-                                                    <img src="{{asset('front-images/product/2.jpg')}}" alt="a" /></a>
-                                            </div>
-                                            <div class="info">
-                                            
-                                                    <div class="price col-md-7">
-                                                        <h5><a href="product_detail.html">Sample Product</a></h5>
-                                                    </div>
-                                                    <div class="price col-md-4 no-padd">
-                                                        <h5 class="price-text-color">
-                                                              $199.99</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                    <a class="btn-add" href="#" class="hidden-sm"><i class="fa fa-list"></i> Detail</a>
-                                                </div>
-                                                <div class="clearfix">
-                                          
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/headphone.png')}}" alt="">
+              
             </div>
-        </div><!-- End Festival special -->
-    <?php */ ?>
-
-    @if(count($page->bottomStaticBlock) > 0)    
-    <!-- Start Serive Conainer -->
-    <div class="service-container">
-        <div class="container">
-            <div class="row">
-            @foreach($page->bottomStaticBlock as $block)
-                <div class="col-md-4 col-sm-4">
-                    <div class="col-item-content">
-                        <a href="{{$block->url}}"><img src="{{asset($block->feature_image)}}"></a>
-                    </div>
-                </div>
-            @endforeach
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <a href="#">
+            <div class="product-img">
+              <div class="img-wrap">
+                <img src="{{asset('front-images/cap.png')}}" alt="">
+              </div>
             </div>
+            
+          </a>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+  
+          <div class="caption">
+            <h3><a href="#">product title</a></h3>
+            <p class="price">$34.95</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/bag.png')}}" alt="">
+              
+            </div>
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/bangle.png')}}" alt="">
+              
+            </div>
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="thumbnail">
+          <div class="product-img">
+            <div class="img-wrap">
+              <img src="{{asset('front-images/headphone.png')}}" alt="">
+              
+            </div>
+          </div>
+          <div class="action">
+            <a href="#" class="quick-view">
+              <i class="la-icon-zoom"></i>
+              
+            </a>
+            <a href="#" class="wishlist">
+              <i class="la-icon-heart-o"></i>                  
+            </a>
+            <a href="#" class="compare-products">
+              <i class="la-icon-compare"></i>                  
+            </a>
+          </div>
+          <div class="caption">
+            <h3>product title</h3>
+            <p class="price">$34.95</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products-wrapper three-col category-wrapper">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="section-title">
+              <h2>Fashion</h2>
+              <ul class="list-unstyled list-inline">
+                <li><a href="#">Jeans</a></li>
+                <li><a href="#">Wedding</a></li>
+                <li><a href="#">T-shirt</a></li>
+                <li><a href="#">Vestons</a></li>
+              </ul>
+              <a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a>
+          </div>
         </div>
     </div>
-    <!-- End Serive Conainer -->
-    @endif
-
-    @if(!empty($page->bottom_content))
-        <?php   
-            file_put_contents(base_path() . '/resources/views/frontend/tmp.blade.php', $page->bottom_content);
-                $html = view('frontend.tmp')->render();
-            echo $html;
-        ?> 
-    @endif
-
-    <!-- Start Brands Conainer -->
-    @if(count($members) > 0)
-    <div class="member-container">
-
-        <div class="member-header">
-            <h4>Business Members</h4>
+    <div class="row mt50">
+      <div class="col-md-3 col-sm-3">
+        <div class="featured-category">
+            <a href="#">
+              <img src="{{asset('front-images/addbanner1.jpg')}}" alt="">
+            </a>
         </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <ul id="flexisel_slider"> 
-                        @foreach($members as $member)
-                        <li><img src="{{asset($member->logo)}}" alt="{{$member->Name}}" /></li>
-                        @endforeach
-                    </ul>
+      </div>
+      <div class="col-md-9 col-sm-9">
+        <div class="owl-carousel">
+          <div class="item">
+            <div class="thumbnail">
+              <div class="product-img">
+                <div class="img-wrap">
+                  <img src="{{asset('front-images/bag.png')}}" alt="">
+                  
                 </div>
+              </div>
+              <div class="action">
+                <a href="#" class="quick-view">
+                  <i class="la-icon-zoom"></i>
+                  
+                </a>
+                <a href="#" class="wishlist">
+                  <i class="la-icon-heart-o"></i>                  
+                </a>
+                <a href="#" class="compare-products">
+                  <i class="la-icon-compare"></i>                  
+                </a>
+              </div>
+              <div class="caption">
+                <h3>product title</h3>
+                <p class="price">$34.95</p>
+              </div>
             </div>
+            
+          </div>
+          <div class="item">
+            <div class="thumbnail">
+              <div class="product-img">
+                <div class="img-wrap">
+                  <img src="{{asset('front-images/bangle.png')}}" alt="">
+                  
+                </div>
+              </div>
+              <div class="action">
+                <a href="#" class="quick-view">
+                  <i class="la-icon-zoom"></i>
+                  
+                </a>
+                <a href="#" class="wishlist">
+                  <i class="la-icon-heart-o"></i>                  
+                </a>
+                <a href="#" class="compare-products">
+                  <i class="la-icon-compare"></i>                  
+                </a>
+              </div>
+              <div class="caption">
+                <h3>product title</h3>
+                <p class="price">$34.95</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+              <div class="thumbnail">
+                  <div class="product-img">
+                      <div class="img-wrap">
+                          <img src="{{asset('front-images/headphone.png')}}" alt="">
+                      </div>
+                  </div>
+                  <div class="action">
+                      <a href="#" class="quick-view">
+                          <i class="la-icon-zoom"></i>
+                      </a>
+                      <a href="#" class="wishlist">
+                          <i class="la-icon-heart-o"></i>
+                      </a>
+                      <a href="#" class="compare-products">
+                          <i class="la-icon-compare"></i>
+                      </a>
+                  </div>
+                  <div class="caption">
+                      <h3>product title</h3>
+                      <p class="price">$34.95</p>
+                  </div>
+              </div>
+          </div>
+
         </div>
-    </div><!-- End Brands Conainer -->
-    @endif
-@endsection
+      </div>
 
-@section('after-scripts')
-<script type="text/javascript">
-//     $(function () { // wait for document ready
-//     // init
-//     var controller = new ScrollMagic.Controller();
+      
+    </div>
+  </div>
+</section>
 
-//     // define movement of panels
-//     var wipeAnimation = new TimelineMax()
-//         // animate to second panel
-//         .to(".business-wrapper", 0.5, {y:200, z: -150})      // move back in 3D space
-//         .to(".business-wrapper", 1,   {x: "-20%"})    // move in to first panel
-//         .to(".business-wrapper", 0.5, {z: 0})             // move back to origin in 3D space
-//         // animate to third panel
-//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
-//         .to(".business-wrapper", 1,   {x: "-40%"})
-//         .to(".business-wrapper", 0.5, {z: 0})
-//         // animate to forth panel
-//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
-//         .to(".business-wrapper", 1,   {x: "-60%"})
-//         .to(".business-wrapper", 0.5, {z: 0})
-//         // animate to fifth panel
-//         .to(".business-wrapper", 0.5, {z: -150, delay: 1})
-//         .to(".business-wrapper", 1,   {x: "-80%"})
-//         .to(".business-wrapper", 0.5, {z: 0});
+<section class="brands-wrapper gray-bg">
+  <div class="container">
+    <h2 class="section-title-1">Our Brands</h2>
+    <div class="brand-list">
+      <ul class="list-unstyled list-inline">
+        <li><a href="#"><img src="{{asset('front-images/brand1.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand2.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand3.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand4.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand5.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand6.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand7.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand8.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand9.jpg')}}" alt=""></a></li>
+        <li><a href="#"><img src="{{asset('front-images/brand10.jpg')}}" alt=""></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-//     // create scene to pin and link animation
-//     new ScrollMagic.Scene({
-//             triggerElement: ".business-outer",
-//             triggerHook: "onLeave",
-//             duration: "500%"
-//         })
-//         .setPin(".business-outer")
-//         .setTween(wipeAnimation)
-//         // .addIndicators() // add indicators (requires plugin)
-//         .addTo(controller);
-// });
-</script>
+<section class="steps-wrapper text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <h2 class="section-title-1">doing business on karmastha is really easy</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <i class="flaticon-list"></i>
+        <h4>List your products</h4>
+        <p>
+          Uploading your products is really simple through our self-serve tool. We also help you put together an attractive catalog by connecting you with industry experts.
+        </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <i class="flaticon-full-items-inside-a-shopping-bag"></i>
+        <h4>Sell across India</h4>
+        <p>
+          Maximise your online sales; attract more buyers and achieve higher conversion rates.
+        </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <i class="flaticon-trolley"></i>
+        <h4>Ship with ease</h4>
+        <p>
+          Enjoy hassle-free pick-up and delivery across India through our logistics services and sell across the nation!
+        </p>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <i class="flaticon-money-bag"></i>
+        <h4>Earn big</h4>
+        <p>
+          Make use of the host of services that we offer and earn more. Our payments process is the fastest in the industry - get your payments within 7-14 days of sales!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brands-wrapper gray-bg">
+  <div class="container">
+    <h2 class="section-title-1">Business Member</h2>
+    <div class="brand-list">
+      <div class="owl-carousel">
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand1.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand2.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand3.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand4.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand5.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand6.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand7.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand8.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand9.jpg')}}" alt=""></a>
+        </div>
+        <div class="item">
+          <a href="#"><img src="{{asset('front-images/brand10.jpg')}}" alt=""></a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
 @endsection

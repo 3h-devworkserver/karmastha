@@ -21,6 +21,14 @@
             <li class="has-children active">
                 <a href="userdash_buyer.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
             </li>
+            <li class="has-children active">
+                <a href="#0"><i class="fa fa-home" aria-hidden="true"></i>Personal Information</a>
+                <ul>
+                    <li>                
+                        <a href="{{ URL::to('/dashboard/profile') }}"><i class="fa fa-home" aria-hidden="true"></i>My Profile</a>
+                    </li>
+                </ul>
+            </li>
             <li class="has-children">
                 <a href="#0"><i class="fa fa-file-text-o" aria-hidden="true"></i>Orders<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 <ul>

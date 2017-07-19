@@ -512,13 +512,14 @@ class ProductController extends Controller
                         'quantity' => $request->comb_quantity[$i] ,
                     ]);
 
+                    /**  ------ update, create or delete combination values ----  **/
                     $prevAttributesCombValueSelected = $prevAttributesCombSelected[$i]->productAttrCombinationValue;
                     $prevAttributesCombValueSelectedCount = count($prevAttributesCombValueSelected);
                     // $combination = $request->attribute_select[$i];
                     $combinationCount = count($request->attribute_select[$i]);
                     $y = 0;
                     if ($prevAttributesCombValueSelectedCount <= $combinationCount) {
-                        while ( $y <= $prevAttributesCombValueSelectedCount) {
+                        while ( $y < $prevAttributesCombValueSelectedCount) {
                             $prevAttributesCombValueSelected[$y]->update([
                                 'attribute_value_id' => $request->attribute_select[$i][$y],
                             ]);
@@ -531,7 +532,16 @@ class ProductController extends Controller
                             $y++;
                         }
                     }else{
-
+                        while ( $y < $combinationCount) {
+                            $prevAttributesCombValueSelected[$y]->update([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                        while ( $y < $prevAttributesCombValueSelectedCount) {
+                            $prevAttributesCombValueSelected[$y]->delete();
+                            $y++;
+                        }
                     }
                     $i++;
                 }
@@ -555,16 +565,41 @@ class ProductController extends Controller
             }else{
                 while ($i < $attrCombCount) {
                     $prevAttributesCombSelected[$i]->update([
-                        'attr_type'=>$request->attr_type[$i],
-                        'attr_name'=>$request->attr_name[$i],
-                        'value_text'=>($request->attr_type[$i] == 'textfield')? $request->value_text[$i]: '',
-                        'value_textarea'=>($request->attr_type[$i] == 'textarea')? $request->value_textarea[$i]: '',
-                        'value_dropdown'=>($request->attr_type[$i] == 'dropdown')? $request->value_dropdown[$i]: '',
-                        'value_number_min'=>($request->attr_type[$i] == 'number')? $request->value_number_min[$i]: 0,
-                        'value_number_max'=>($request->attr_type[$i] == 'number')?$request->value_number_max[$i]: 0,
-                        'value_number_step'=>($request->attr_type[$i] == 'number')?$request->value_number_step[$i]: 0,
-                        'attr_order'=>(!empty($request->attr_order[$i])) ? $request->attr_order[$i] : 0,
+                        'identifier' => $request->identifier[$i] ,
+                        'quantity' => $request->comb_quantity[$i] ,
                     ]);
+
+                    /**  ------ update, create or delete combination values ----  **/
+                    $prevAttributesCombValueSelected = $prevAttributesCombSelected[$i]->productAttrCombinationValue;
+                    $prevAttributesCombValueSelectedCount = count($prevAttributesCombValueSelected);
+                    // $combination = $request->attribute_select[$i];
+                    $combinationCount = count($request->attribute_select[$i]);
+                    $y = 0;
+                    if ($prevAttributesCombValueSelectedCount <= $combinationCount) {
+                        while ( $y < $prevAttributesCombValueSelectedCount) {
+                            $prevAttributesCombValueSelected[$y]->update([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                        while ( $y < $combinationCount) {
+                            $prevAttributesCombSelected[$i]->productAttrCombinationValue()->create([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                    }else{
+                        while ( $y < $combinationCount) {
+                            $prevAttributesCombValueSelected[$y]->update([
+                                'attribute_value_id' => $request->attribute_select[$i][$y],
+                            ]);
+                            $y++;
+                        }
+                        while ( $y < $prevAttributesCombValueSelectedCount) {
+                            $prevAttributesCombValueSelected[$y]->delete();
+                            $y++;
+                        }
+                    }
                     $i++;
                 }
                 while ($i < $prevAttrCombCount) {

@@ -415,41 +415,41 @@ $(document).on('click', '.deleteProductImg', function(e){
 //   inputType.siblings('.textarea').show();
 // }
 
-$('#productForm .inputType').each(function(){
-  var inputVal = $(this).val();
-  var inputType = $(this).closest('.attribute').find('.inputfield');
-  if (inputVal == 'textfield') {
-    inputType.hide();
-    inputType.siblings('.textfield').show();
-  }else if(inputVal == 'textarea'){
-    inputType.hide();
-    inputType.siblings('.textarea').show();
-  }else if(inputVal == 'dropdown'){
-    inputType.hide();
-    inputType.siblings('.dropdown').show();
-  }else if(inputVal == 'number'){
-    inputType.hide();
-    inputType.siblings('.number').show();
-  }
-});
+// $('#productForm .inputType').each(function(){
+//   var inputVal = $(this).val();
+//   var inputType = $(this).closest('.attribute').find('.inputfield');
+//   if (inputVal == 'textfield') {
+//     inputType.hide();
+//     inputType.siblings('.textfield').show();
+//   }else if(inputVal == 'textarea'){
+//     inputType.hide();
+//     inputType.siblings('.textarea').show();
+//   }else if(inputVal == 'dropdown'){
+//     inputType.hide();
+//     inputType.siblings('.dropdown').show();
+//   }else if(inputVal == 'number'){
+//     inputType.hide();
+//     inputType.siblings('.number').show();
+//   }
+// });
 
-$(document).on('change', '#productForm .inputType', function(){
-  var inputVal = $(this).val();
-  var inputType = $(this).closest('.attribute').find('.inputfield');
-  if (inputVal == 'textfield') {
-    inputType.hide();
-    inputType.siblings('.textfield').show();
-  }else if(inputVal == 'textarea'){
-    inputType.hide();
-    inputType.siblings('.textarea').show();
-  }else if(inputVal == 'dropdown'){
-    inputType.hide();
-    inputType.siblings('.dropdown').show();
-  }else if(inputVal == 'number'){
-    inputType.hide();
-    inputType.siblings('.number').show();
-  }
-});
+// $(document).on('change', '#productForm .inputType', function(){
+//   var inputVal = $(this).val();
+//   var inputType = $(this).closest('.attribute').find('.inputfield');
+//   if (inputVal == 'textfield') {
+//     inputType.hide();
+//     inputType.siblings('.textfield').show();
+//   }else if(inputVal == 'textarea'){
+//     inputType.hide();
+//     inputType.siblings('.textarea').show();
+//   }else if(inputVal == 'dropdown'){
+//     inputType.hide();
+//     inputType.siblings('.dropdown').show();
+//   }else if(inputVal == 'number'){
+//     inputType.hide();
+//     inputType.siblings('.number').show();
+//   }
+// });
 
 
 
@@ -487,6 +487,10 @@ $(document).on('click', '.attributeAdd', function(){
 
 $(document).on('click', '.attributeRemove', function(){
   $(this).closest('.attribute').remove();
+  $('#productForm .attribute-block .attribute').each(function(index){
+    alert(index);
+    $(this).find('.attrValue').attr('name', 'attribute_select['+ index +'][]');
+  });
 });
 
 $.validator.setDefaults({
@@ -527,6 +531,12 @@ $.validator.setDefaults({
         // }
     }
 });
+
+// $('#productForm').submit(function(e){
+//   e.preventDefault();
+//   alert('here');
+//   $('#productForm .attribute-block .attrValue option').attr('selected', 'selected');
+// });
 
 $('#productForm').validate({
   ignore: [],

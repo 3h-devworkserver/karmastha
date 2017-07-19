@@ -225,6 +225,11 @@ class UserRepository extends BaseRepository
      */
     public function updateProfile($id, $input)
     {
+
+        echo '<pre>'; print_r($id);
+        echo '<pre>'; print_r($input);
+
+        die();
         $user = $this->find($id);
         $user->name = $input['name'];
 
@@ -253,6 +258,11 @@ class UserRepository extends BaseRepository
         }
 
         return $user->save();
+    }
+
+    public function updateUser($id, $input)
+    {
+        
     }
 
     /**

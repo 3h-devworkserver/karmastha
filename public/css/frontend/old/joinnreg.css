@@ -1,0 +1,126 @@
+
+.login_page .col-md-8.col-sm-8.col-xs-12.pull-left{
+    text-align: center;
+}
+
+.login-txt-left {
+  /* background: white none repeat scroll 0 0; */
+  display: inline-block;
+  font-size: 40px;
+  font-weight: bolder;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.login-txt-left a, .login-txt-left a p{
+    color: #fff;
+}
+
+.login-txt-left .trade {
+  font-size: 30px;
+}
+
+.login-txt-left .protect_order {
+  font-weight: normal;
+}
+
+.login-txt-left .learn-more {
+  color: #fff;
+  width: auto;
+}
+
+.panel-heading{
+    background: none !important;
+    border-bottom: none !important;
+}
+
+.join-form.panel-default {
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 10px #ddd;
+    margin:0;
+    width: 100%;
+}
+.join-form .panel-body{
+    padding: 15px;
+}
+.join-form .form-horizontal{
+    /* margin-top: 30px; */
+}
+.join-form .form-control{
+    font-size: 15px;
+    height: 40px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.join-form .form-control:hover, .join-form .form-control:active, .join-form .form-control:focus{
+    border: 1px solid #742b96;
+    box-shadow: none;
+}
+.join-form .form-group.last { padding-bottom:0px; }
+.join-form .form-horizontal .checkbox, .join-form .form-horizontal .radio{ padding-top: 0; }
+.learn-more, .join-form .form-group button.login_reg{
+    background: #742b96 none repeat scroll 0 0;
+    color: #fff;
+    font-size: 15px;
+    height: 35px;
+    width: 100%;
+}
+input[type="checkbox"] + label, input[type="radio"] + label{
+    font-size: 14px;
+}
+
+.log_info_pass a{
+    font-size: 13px;
+    color: #696763;
+    display: block;
+    text-align: right;
+}
+.log_info_pass a:hover{
+    color: #742b96;
+}
+.login-info span{
+    font-size: 14px;
+}
+
+.login-info span a{
+    color: #742b96;
+}
+
+.centered-form{
+    margin-bottom: 60px;
+}
+
+.centered-form .panel-default{
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 10px #ddd;
+    margin:0;
+    width: 100%;
+}
+
+.form-horizontal .join_reg_left .form-group{
+    margin-right 0;
+}
+
+.form-horizontal .join_reg_right .form-group{
+    margin-left: 0;
+}
+
+.panel-footer{
+    background: none;
+    font-size: 14px;
+}
+.panel-footer a{
+    color: #742b96;
+    margin-left: 5px;
+}
+
+.panel_find_psw{
+    float: none !important;
+    margin: 0 auto;
+}
+
+.find_psw .join-form.panel-default{
+    padding-top: 30px;
+}
