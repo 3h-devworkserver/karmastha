@@ -77,12 +77,12 @@
       <div class="row">
         <div class="col-md-6 col-sm-6">
           <p class="copyright">
-            &copy; Copyright 2017. All Rights Reserved
+            &copy; Copyright <?php echo date('Y');  ?>. All Rights Reserved
           </p>
         </div>
         <div class="col-md-6 col-sm-6">
           <p class="digital-agency">
-              Digital Agency : <a href="#"><img src="{{asset('front-images/3hammers.png')}}" alt=""></a>
+              Digital Agency : <a href="http://www.3hammers.com"><img src="{{asset('front-images/3hammers.png')}}" alt="Three Hammers"></a>
           </p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<section class="advertisement-wrapper pb0">
+<section class="advertisement-wrappers pb0">
   <div class="container">
     <div class="row">
       <div class="col-md-3">

@@ -50,7 +50,7 @@ class ProfileController extends Controller
     public function userUpdate(UpdateProfileRequest $request)
     {
         $output = $this->user->updateProfile(access()->id(), $request->all());
-        return redirect()->route('frontend.user.account')->withFlashSuccess(trans('strings.frontend.user.profile_updated'));
+        return redirect('/dashboard/profile')->withFlashSuccess(trans('strings.frontend.user.profile_updated'));
 
     }
 }

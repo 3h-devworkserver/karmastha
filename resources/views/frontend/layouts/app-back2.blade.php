@@ -9,8 +9,14 @@
   <meta charset="utf-8">
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- <title>Karmastha || Best Ecommerce Site In Nepal</title> -->
   <title>@yield('title', $setting->title)</title>
-  
+    
+  <meta name="title" content="@yield('meta_title', $setting->meta_title)" />
+  <meta name="description" content="@yield('meta_description', $setting->meta_desc)" />
+  <meta name="keyword" content="@yield('meta_keyword', $setting->meta_keyword)" />
+  <meta name="author" content="@yield('meta_author', 'Karmastha')" />
+
   <!-- Twitter -->
   <meta name="twitter:card" content="@yield('tw_card', '')">
   <meta name="twitter:site" content="@yield('tw_site', '')">
@@ -26,14 +32,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-  <!-- Iconifier might be helpful for generating favicons and touch icons: http://iconifier.net -->
-    <link rel="shortcut icon" href="@if(!empty($setting->favicon)){{asset('images/logo/favicon/'.$setting->favicon)}} @endif" />
-    <!-- This is the traditional favicon.
-         - size: 16x16 or 32x32
-         - transparency is OK -->
-         
-    <link rel="apple-touch-icon" href="@if(!empty($setting->favicon)){{asset('images/logo/favicon/'.$setting->favicon)}} @endif" />
-  
   <!-- Styles -->
   @yield('before-styles')
 
@@ -41,23 +39,19 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/bootstrap.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('font/flaticon.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/la-fonts.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/xzoom.css')}}">
-
-  <!-- Styles -->
-  @yield('after-styles')
-  
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
-  <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet">
 
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic' rel='stylesheet' type='text/css'>
 </head>
-
-<body id="{{!empty($class)? $class : ''}}">
+<body>
 
 @include('frontend.includes.header')
 
 @yield('content')
+
+
+
 
 @include('frontend.includes.footer')
 
@@ -68,32 +62,8 @@
 <script src="{{asset('js/frontend/bootstrap.js')}}"></script>
 <script src="{{asset('js/frontend/owl.carousel.js')}}"></script>
 <script src="{{asset('js/frontend/script.js')}}"></script>
-<script src="{{asset('js/frontend/slider-menu.jquery.js')}}"></script>
-<script src="{{asset('js/frontend/ap-drilldown-menu.min.js')}}"></script>
-<script src="{{asset('js/frontend/zoom-setup.js')}}"></script>
-<script src="{{asset('js/frontend/xzoom.min.js')}}"></script>
-
-<script type="text/javascript">
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "100%";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
-</script>
- 
-<script type="text/javascript">
-  $(function() {
-    $('#menu').apDrillDownMenu({
-    });
-  });
-</script>
 
 @yield('after-scripts')
-
-
-
 
 </body>
 </html>

@@ -9,7 +9,8 @@
 /* xZoom Styles below */
 .xzoom-container { 
   display: inline-block;
-  position: relative; 
+  position: relative;
+  width: 100%; 
 }
 
 .xzoom-thumbs {
@@ -67,7 +68,7 @@
   background-repeat: no-repeat;
   border-radius: 100%;
   opacity: .7;
-  background: url(../images/xloading.gif);
+  background: url(../../images/xloading.gif);
   width: 48px;
   height: 48px;
 }

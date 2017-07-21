@@ -52,7 +52,7 @@
     <!-- This is an un-minified, complete version of Modernizr. 
          Before you move to production, you should generate a custom build that only has the detects you need. -->
     
-    <script src="{{asset('js/frontend/modernizr-2.6.2.dev.js')}}"></script>
+    <script src="{{asset('js/dashboard/modernizr-2.6.2.dev.js')}}"></script>
     
     <!-- Application-specific meta tags -->
     <!-- Windows 8 -->
@@ -76,36 +76,51 @@
     <!-- Styles -->
     @yield('before-styles')
 
-    <!-- Check if the language is set to RTL, so apply the RTL layouts -->
+   {{--  <!-- Check if the language is set to RTL, so apply the RTL layouts -->
     <!-- Otherwise apply the normal LTR layouts -->
-    <!-- @langRTL
+    @langRTL
         {{ Html::style(getRtlCss(mix('css/frontend.css'))) }}
     @else
         {{ Html::style(mix('css/frontend.css')) }}
-    @endif -->
+    @endif --}}
 
     <!-- concatenate and minify for production -->
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/font-awesome.min.css')}}">  --}}
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/font-awesome.min.css')}}"> --}}
 
-     <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/bootstrap.min.css')}}"> 
-
+   {{--  <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/bootstrap.min.css')}}"> --}}
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/font-awesome.min.css')}}"> --}}
+    <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/userdash.css')}}">
-    <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">  
+
+
+    
 
     @yield('after-styles')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{{asset('js/frontend/jquery.min.js')}}"></script>
+    {{-- <script src="{{asset('js/frontend/jquery-1.9.1.min.js')}}"></script> --}}
     <script src="{{asset('js/dashboard/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/dashboard/jquery.flexisel.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/backend/jquery.validate.js')}}"></script>
     @if(!empty($setting))
         @if(!empty($setting->misc_javascript))
             {!! $setting->misc_javascript !!}
         @endif
     @endif
+    <script type="text/javascript">
+        $(window).scroll(function(){
+          var sticky = $('.navbar-fixed-top'),
+              scroll = $(window).scrollTop();
+
+          if (scroll >= 100) sticky.addClass('fixed');
+          else sticky.removeClass('fixed');
+        });
+    </script>
 </head>
 
 <body class="{{$class}}">
@@ -139,7 +154,7 @@
 @yield('before-scripts')
 
 {{ Html::script('js/dashboard/jquery.menu-aim.js') }}
-{{-- {{ Html::script('js/dashboard/dash_usernav.js') }} --}}
+{{ Html::script('js/dashboard/dash_usernav.js') }}
 {{ Html::script('js/dashboard/custom.js') }}
 
 @yield('after-scripts')

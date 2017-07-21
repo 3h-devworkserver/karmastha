@@ -21,4 +21,5 @@ class DashboardController extends Controller
     {
         return view('frontend.user.profile')->withClass('profile-info');
     }
+    
 }

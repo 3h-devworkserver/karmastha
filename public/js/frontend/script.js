@@ -1,16 +1,15 @@
 (function($) {
-    function menuslidedown(){
-        $(".navigation-items li").hover(
-            function() {
-              $('.submenu-container', this).stop( true, true ).slideDown("fast");
-              $(this).toggleClass('open');
-            },
-            function() {
-              $('.submenu-container', this).stop( true, true ).slideUp("fast");
-              $(this).toggleClass('open');
-            }
-          );
+
+    function overflow(){
+        $('#hamburger').click(function(){
+            $('body').toggleClass('toggle-overflow');
+        });
+        $('.closebtn').click(function(){
+            $('body').removeClass('toggle-overflow');
+        });
     }
+            
+    
     function homeBanner(){
         $('.banner-wrapper .owl-carousel').owlCarousel({
             items: 1,
@@ -29,7 +28,7 @@
     function productCarousel(){
         $('.four-col .owl-carousel').owlCarousel({
             loop:true,
-            margin:30,
+            margin:15,
             dots:false,
             nav:true,
             navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -48,9 +47,9 @@
     }
 
     function trendingCarousel(){
-        $('.three-col .owl-carousel').owlCarousel({
+        $('.five-col .owl-carousel').owlCarousel({
             loop:true,
-            margin:30,
+            margin:15,
             dots:false,
             nav:true,
             navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -62,7 +61,7 @@
                     items:2
                 },
                 1000:{
-                    items:3
+                    items:5
                 }
             }
         })
@@ -83,39 +82,10 @@
                     items:3
                 },
                 1000:{
-                    items:5
+                    items:6
                 }
             }
         })
-    }
-
-    function filterProducts(){
-       jQuery( "#range-search-slider" ).slider({
-            range: true,
-            values: [ 99, 9000 ],
-            min: 99,
-            max: 9000,
-            slide: function( event, ui ) {
-            jQuery( "#min-price" ).val( ui.values[ 0 ] );
-            jQuery( "#max-price" ).val( ui.values[ 1 ] );
-            jQuery( ".comp_est_year_num" ).text( ui.value );
-            },
-            stop: function() {
-            jQuery('#companies_current_page').val('1');
-            }  
-            });
-            jQuery( "#advance-search-slider" ).slider({
-            range: "min",
-            value: 100,
-            min: 1,
-            max: 1000,
-            slide: function( event, ui ) {
-            jQuery( "#geo-radius" ).val( ui.value );
-            jQuery( "#geo-radius-search" ).val( ui.value );
-            }
-            });
-            jQuery( "#geo-radius" ).val( jQuery( "#advance-search-slider" ).slider( "value" ) );
-            jQuery( "#geo-radius-search" ).val( jQuery( "#advance-search-slider" ).slider( "value" ) );
     }
 
     function cart(){
@@ -138,16 +108,22 @@
                 }
             });       
     }
-    
+
+    function menuslidedown(){
+
+        $(".total-calculate").click(function(){
+        $("#billingopt").slideToggle();
+    }); 
+    }
     
     $(document).ready(function() {
-       menuslidedown(); 
+       overflow();
        homeBanner();
        productCarousel();
        businessMemberCarousel();
        trendingCarousel();
-       filterProducts();
        cart();
+       menuslidedown();
     });
     $(window).resize(function() {
     });

@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-md-9 col-sm-9">
         <div class="owl-carousel">
-          <div class="item bg-img" style="background-image: url({{asset('front-images/banner1.png') }});">
+          <div class="item bg-img" style="background-image: url({{asset('front-images/banner1.png')}});">
 
           </div>
-          <div class="item bg-img" style="background-image: url({{asset('front-images/banner1.png') }});">
+          <div class="item bg-img" style="background-image: url({{asset('front-images/banner1.png')}});">
 
           </div>
         </div>

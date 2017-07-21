@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Input;
+
 /**
  * Class UserRepository.
  */
@@ -226,38 +230,130 @@ class UserRepository extends BaseRepository
     public function updateProfile($id, $input)
     {
 
-        echo '<pre>'; print_r($id);
-        echo '<pre>'; print_r($input);
-
-        die();
+       
         $user = $this->find($id);
-        $user->name = $input['name'];
-
-        if ($user->canChangeEmail()) {
-            //Address is not current address
-            if ($user->email != $input['email']) {
-                //Emails have to be unique
-                if ($this->findByEmail($input['email'])) {
-                    throw new GeneralException(trans('exceptions.frontend.auth.email_taken'));
-                }
-
-                // Force the user to re-verify his email address
-                $user->confirmation_code = md5(uniqid(mt_rand(), true));
-                $user->confirmed = 0;
-                $user->email = $input['email'];
-                $updated = $user->save();
-
-                // Send the new confirmation e-mail
-                $user->notify(new UserNeedsConfirmation($user->confirmation_code));
-
-                return [
-                    'success' => $updated,
-                    'email_changed' => true,
-                ];
-            }
+        $user->name = $input['fullname'];
+        //$user->email = $input['email'];
+        if( $input['business_type'] != '0'){
+            $user->roles()->update(['role_id'=>$input['business_type']]);
         }
+       $user_img =  DB::table('profiles')->select('image')->where('user_id',$id)->first();
+            if(Input::hasFile('pimage'))
+                        {
+                            $file = Input::file('pimage');
+                            $destinationPath = public_path(). '/images/logo/';
+                             $pname = $file->getClientOriginalName();
+                             $file->move($destinationPath, $pname);
+                           
+                        }
+                        else
+                        {
+                            if($user_img->image != ''){
+                                $pname = $user_img->image;
+                            }else{
+                                $pname = '';
+                            }
+                        }
+        DB::table('profiles')
+                            ->where('user_id', $id)
+                            ->update([
+                                'fname' => $input['fname'],
+                                'lname' => $input['lname'],
+                                'phone' => $input['phone'],
+                                'street' => $input['street'],
+                                'city' => $input['city'],
+                                'zone' => $input['zone'],
+                                'image' => $pname,
+                              ]);  
+       $user_id =  DB::table('user_information')->select('user_id','c_logo')->where('user_id',$id)->first();
+       if(!empty($input['website_url'])){
+                            $url = $input['website_url'];
+                        }else{
+                            $url = '';
+                        }
+       if( !empty($user_id)){
+
+        if(Input::hasFile('c_logo'))
+                        {
+                            $file = Input::file('c_logo');
+                            $destinationPath = public_path(). '/images/logo/';
+                             $filename = $file->getClientOriginalName();
+                             $file->move($destinationPath, $filename);
+                           
+                        }
+                        else
+                        {
+                            if($user_id->c_logo != ''){
+                                $filename = $user_id->c_logo;
+                            }else{
+                                $filename = '';
+                            }
+                        }
+
+
+                        
+         DB::table('user_information')
+                            ->where('user_id', $id)
+                            ->update([
+                                'website' => $input['website'],
+                                'website_url' => $url,
+                                'c_street' => $input['c_street'],
+                                'c_city' => $input['c_city'],
+                                'c_zone' => $input['c_zone'],
+                                'c_description' => $input['c_description'],
+                                'c_logo' => $filename,
+                              ]);   
+       }else{
+
+        if(Input::hasFile('c_logo'))
+                        {
+                            $file = Input::file('c_logo');
+                            $destinationPath = public_path(). '/images/logo/';
+                             $filename = $file->getClientOriginalName();
+                             $file->move($destinationPath, $filename);
+                           
+                        }else{
+                            $filename = '';
+                        }
+         DB::table('user_information')
+         ->insert([
+                                'user_id' => $id,
+                                'website' => $input['website'],
+                                'website_url' => $url,
+                                'c_street' => $input['c_street'],
+                                'c_city' => $input['c_city'],
+                                'c_zone' => $input['c_zone'],
+                                'c_description' => $input['c_description'],
+                                'c_logo' => $filename,
+            ]);
+       }
 
         return $user->save();
+
+        // if ($user->canChangeEmail()) {
+        //     //Address is not current address
+        //     if ($user->email != $input['email']) {
+        //         //Emails have to be unique
+        //         if ($this->findByEmail($input['email'])) {
+        //             throw new GeneralException(trans('exceptions.frontend.auth.email_taken'));
+        //         }
+
+        //         // Force the user to re-verify his email address
+        //         $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        //         $user->confirmed = 0;
+        //         $user->email = $input['email'];
+        //         $updated = $user->save();
+
+        //         // Send the new confirmation e-mail
+        //         $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+
+        //         return [
+        //             'success' => $updated,
+        //             'email_changed' => true,
+        //         ];
+        //     }
+        // }
+
     }
 
     public function updateUser($id, $input)

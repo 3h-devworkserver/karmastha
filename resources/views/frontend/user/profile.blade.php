@@ -3,6 +3,14 @@
 @section ('title', 'User Profile')
 
 @section('content')
+
+<?php 
+                                    $user = Auth::user(); 
+                                    $extrainfo = Auth::user()->profile; 
+                                    $extra = Auth::user()->roles; 
+                                    $info = DB::table('user_information')->where('user_id',$user->id)->first();
+                                   
+                                ?>
 <main class="cd-main-content">
     <nav class="navigate-menu cd-side-nav buyer-version">
         <a class="version-switcher" data-id="version-switcher" data-spm="dswitchb" href="userdash.html">
@@ -26,7 +34,8 @@
                 <ul>
                     <li>                
                         <a href="{{ URL::to('/dashboard/profile') }}"><i class="fa fa-home" aria-hidden="true"></i>My Profile</a>
-                    </li>
+                    </li> 
+                    
                 </ul>
             </li>
             <li class="has-children">
@@ -52,11 +61,7 @@
                     <div class="userdash-right">
                         
                         <div is="null" class="list-module-wrap">
-                                <?php $user = Auth::user(); 
-                                    $extrainfo = Auth::user()->profile; 
-                                    $extra = Auth::user()->roles; 
-                                   // echo '<pre>'; print_r($extra);
-                                ?>
+                                
                            <!-- <div class="personal-info">
                                  <ul>
                                     <li>Name: {{ $user->name }} </li>
@@ -70,9 +75,9 @@
                             </div>-->
                             <div class="edit-profileinfo">
                                 
-                            {{ Form::open(['url' => 'profile/update/'.$user->id, 'method' => 'patch', 'class' => 'profile-form','file'=>'true']) }}                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              
-                                <input type="hidden" value="{{$user->id}}" name="user_id">
+                            {{ Form::open(['url' => 'profile/update/'.$user->id, 'method' => 'patch', 'class' => 'profile-form','files'=>'true']) }}                                
+
+                              <input type="hidden" value="{{$user->id}}" name="user_id">
                               <div class="form-group">
                                 <label>Name<span>*</span></label>
                                 <input type="text" class="form-control required fullname" name="fullname" placeholder="Enter Name" value="{{ $user->name }}" />
@@ -88,7 +93,17 @@
                                 </div> 
                                 <div class="form-group">
                                     <label>Last Name<span>*</span></label>
-                                    <input type="text" name="lname" id="" cols="30" rows="10"  value="<?php if(!empty( $extrainfo )){ echo $extrainfo->lname; }?>" class="form-control required course" placeholder="Last Name" />
+                                    <input type="text" name="lname" id="" cols="30" rows="10"  value="<?php if(!empty( $extrainfo )){ echo $extrainfo->lname; }?>" class="form-control required" placeholder="Last Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload profile image<span>*</span></label>
+                                    <input type="file" name="pimage" onchange="readfeatured10(this,'upload-img');" class="" />
+                                    @if($extrainfo->image != '')
+                                    <div class="bg-img upload-img" style="background-image:url('{{ asset('images/logo/'.$extrainfo->image) }}');">                                      
+                                    </div>
+                                    @else
+                                    <div class="upload-img"></div>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                 <label>Phone Number<span>*</span></label>
@@ -102,46 +117,54 @@
                                 <label>City<span>*</span></label>
                                 <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->city; }?>" name="city" placeholder="Enter city" />
                                 <label>Zone<span>*</span></label>
-                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="city" placeholder="Enter zone" />
+                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="zone" placeholder="Enter zone" />
                                 </div>
                               </div>
 
                               <div class="form-group">
                                 <label>Bussiness Type</label>
                                 <select name="business_type" class="business_type form-control">
-                                  <option>Please select one</option>
-                                  <option value="vendor">Retailer/Vendor</option>
-                                  <option value="wholesaler">Wholesaler/Distributor</option>
+                                  <option value="0">Please select one</option>
+                                  <option value="4" <?php if($extra[0]->id == 4){ echo 'selected';}?>>Retailer/Vendor</option>
+                                  <option value="6" <?php if($extra[0]->id == 6){ echo 'selected';}?>>Wholesaler/Distributor</option>
                                 </select>
                               </div>
+                              
                               <div class="form-group radio">
                                 <label>Website</label>
-                                <input type="radio" id="website" name="website" class="have_one" value="" checked> <label for="website"><span></span>I have one</label>
-                                <input type="radio" id="other" name="website" class="dont_have_one" value=""> <label for="other" id="tested"><span></span>I don't have one</label>
+                                <input type="radio" id="website" name="website" class="have_one required" value="1" <?php if($info->website == 1){ echo 'checked';}?> > <label for="website" id="have_one"><span></span>I have one</label>
+                                <input type="radio" id="other" name="website" class="dont_have_one" value="0" <?php if($info->website == 0){ echo 'checked';}?>> <label for="other" id="tested"><span></span>I don't have one</label>
                               </div>
-                             
-                              <div class="form-group" class="opentext">
-                                <input type="text" name="website_url" placeholder="http://www.example.com" value="" class="form-control">
+                              <div class="form-group opentext" style="<?php if($info->website == 0){ echo 'display:none;';}?>" >
+                                <input type="text" name="website_url" placeholder="http://www.example.com" value="<?php if(!empty( $info ) && $info->website != 0 ){ echo $info->website_url; }?>" class="form-control website_url <?php if(!empty( $info ) && $info->website != 0 ){ echo 'required'; }?>">
                               </div>
+
 
                                 <div class="form-group company-address">
                                 <h2>Company Address</h2>
                                 <div class="address-info">
                                 <label>Street</label>
-                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->street; }?>" name="street" placeholder="Enter street" />
+                                <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_street; }?>" name="c_street" placeholder="Enter street" />
                                 <label>City</label>
-                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->city; }?>" name="city" placeholder="Enter city" />
+                                <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_city; }?>" name="c_city" placeholder="Enter city" />
                                 <label>Zone</label>
-                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="city" placeholder="Enter zone" />
+                                <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_zone; }?>" name="c_zone" placeholder="Enter zone" />
                                 <label>Company Introduction</label>
-                                <input type="text" class="form-control" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->description; }?>" name="description" placeholder="Enter text" />
+                                <textarea name="c_description" placeholder="Enter text" class="form-control"/><?php if(!empty( $info )){ echo $info->c_description; }?></textarea>
                                 <label>Logo</label>
-                                <input type="file" class="" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->logo; }?>" name="logo" />
+                                <input type="file" class="" name="c_logo" onchange="readfeatured10(this,'featured-img');"/>
+                                @if($info->c_logo != '')
+                                  <div class="bg-img featured-img" style="background-image:url('{{ asset('images/logo/'.$info->c_logo) }}');">
+                                    
+                                  </div>
+                                  @else
+                                  <div class="featured-img"></div>
+                                  @endif
                                 </div>
                               </div>
                              <input type="submit" class="btn btn-outline" value="Submit">
                               <img src="{{ asset('/img/loading.gif') }}" id="imgloader" style="display:none;" height="20" width="20">
-    {{ Form::close() }}
+                            {{ Form::close() }}
                         </div>
 
                         </div>

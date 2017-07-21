@@ -34,7 +34,7 @@ class FrontendController extends Controller
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page'))->withClass('home');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page'))->withClass('interactive-body');
     }
 
     /**

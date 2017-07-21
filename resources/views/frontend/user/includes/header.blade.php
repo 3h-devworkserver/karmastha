@@ -6,6 +6,9 @@
                         <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo)}}" alt="@if(!empty($setting->title)) $setting->title @endif"></a>
                     @endif
               </div>
+              <?php $user = Auth::user(); 
+                    $extrainfo = Auth::user()->profile; 
+              ?>
               <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
               <div class="main-header col-xs-12 col-sm-9 col-md-9">
                    <section id="main-navigation-container">
@@ -19,10 +22,9 @@
                                          </a>
                                           <ul class="submenu">
                                           <li id="submenu-avatar">
-                                             <a href="#"><img src="{{asset('/images/avatar.png')}}"></a> 
+                                             <a href="#"><img src="{{asset('/images/logo/'.$extrainfo->image)}}"></a> 
                                           </li>
-                                          <?php $user = Auth::user(); 
-                                          ?>
+
                                           <li> Hello, <a href="#"><span>{{ $user->name }}</span><i class="fa fa-address-card" aria-hidden="true"></i></a></li>
                                           <li><a href="{{ URL::to('/dashboard/profile') }}"><span>my account</span></a><a href="{{ URL::to('/logout') }}"> <span>signout</span></a></li>
                                           
@@ -79,7 +81,7 @@
                                     <div class="list image-content">
                                       <div class="right-image-content full-width">
                                           <ul class="submenu">
-                                             <li><img src="assets/images/nav-brand/2.jpg"></li>
+                                             <li><img src="{{asset('front-images/nav-brand/2.jpg')}}"></li>
                                           </ul>
                                       </div>
                                       
