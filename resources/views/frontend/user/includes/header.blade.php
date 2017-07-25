@@ -22,7 +22,9 @@
                                          </a>
                                           <ul class="submenu">
                                           <li id="submenu-avatar">
+                                            @if(!empty($extrainfo->image))
                                              <a href="#"><img src="{{asset('/images/logo/'.$extrainfo->image)}}"></a> 
+                                             @endif
                                           </li>
 
                                           <li> Hello, <a href="#"><span>{{ $user->name }}</span><i class="fa fa-address-card" aria-hidden="true"></i></a></li>

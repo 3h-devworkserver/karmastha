@@ -163,6 +163,7 @@ class ProductController extends Controller
                 'release_note' => $request->release_note,
                 'featured' => $request->featured,
                 'hot' => $request->hot,
+                'trending' => $request->trending,
                 'tags' => $request->tags,
                 'status' => $request->status,
 
@@ -474,6 +475,7 @@ class ProductController extends Controller
                 'release_note' => $request->release_note,
                 'featured' => $request->featured,
                 'hot' => $request->hot,
+                'trending' => $request->trending,
                 'tags' => $request->tags,
                 'status' => $request->status,
 

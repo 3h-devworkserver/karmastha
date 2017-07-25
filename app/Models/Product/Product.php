@@ -68,6 +68,13 @@ class Product extends Model
         return $this->hasMany('App\Models\Product\ProductAttrCombination');
     }
 
+    public function increaseView(){
+        $product = $this;
+        $views = $product->total_views;
+        $product->total_views = ++$views;
+        $product->save();
+    }
+
 
     /**
      * @return string

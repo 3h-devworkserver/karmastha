@@ -93,6 +93,14 @@
                 </li>
             @endauth
 
+            @permission('view-ads-management')
+                <li class="{{ active_class(Active::checkUriPattern('admin/ads*')) }} treeview">
+                  <a href="{!! url('admin/ads') !!}">
+                    <i class="fa fa-handshake-o"></i><span> Ads Manangement</span>
+                  </a>
+                </li>
+            @endauth
+
             @permission('view-brands-management')
                 <li class="{{ active_class(Active::checkUriPattern('admin/brands*')) }} treeview">
                   <a href="{!! url('admin/brands') !!}">

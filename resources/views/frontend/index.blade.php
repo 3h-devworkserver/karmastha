@@ -621,29 +621,20 @@
     </div>
   </div>
 </section>
-
+@if( count( $brands) > 0 )
 <section class="brands-wrapper gray-bg pb10">
   <div class="container">
     <h2 class="section-title-1">Our Brands</h2>
     <div class="brand-list">
       <ul class="list-unstyled list-inline">
-        <li><a href="#"><img src="{{asset('front-images/brand1.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand2.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand3.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand4.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand5.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand6.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand7.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand8.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand9.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand10.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand5.jpg')}}" alt=""></a></li>
-        <li><a href="#"><img src="{{asset('front-images/brand6.jpg')}}" alt=""></a></li>
+        @foreach( $brands as $key => $brand)
+        <li><a href="#"><img src="{{ asset('/'.$brand->brand_logo) }}" alt=""></a></li>
+        @endforeach
       </ul>
     </div>
   </div>
 </section>
-
+@endif 
 <section class="steps-wrapper text-center">
   <div class="container">
     <div class="row">
@@ -683,46 +674,29 @@
     </div>
   </div>
 </section>
-
+@if( count($members) > 0 )
 <section class="brands-wrapper gray-bg">
   <div class="container">
     <h2 class="section-title-1">Business Member</h2>
     <div class="brand-list">
       <div class="owl-carousel">
+        @foreach( $members as $key => $member)
         <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand1.jpg')}}" alt=""></a>
+          @if( $member->url  != '#' || !empty( $member->url))
+          <a href="http://{{$member->url}}" target="_blank" alt="">
+          @else
+          <a href="#">
+            @endif
+            <img src="{{asset('/'.$member->logo)}}" alt="">
+          </a>
         </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand2.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand3.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand4.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand5.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand6.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand7.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand8.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand9.jpg')}}" alt=""></a>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{asset('front-images/brand10.jpg')}}" alt=""></a>
-        </div>
+        @endforeach
+        
       </div>
       
     </div>
   </div>
 </section>
+@endif
 
 @endsection

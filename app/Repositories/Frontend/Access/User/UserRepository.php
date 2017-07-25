@@ -233,7 +233,6 @@ class UserRepository extends BaseRepository
        
         $user = $this->find($id);
         $user->name = $input['fullname'];
-        //$user->email = $input['email'];
         if( $input['business_type'] != '0'){
             $user->roles()->update(['role_id'=>$input['business_type']]);
         }

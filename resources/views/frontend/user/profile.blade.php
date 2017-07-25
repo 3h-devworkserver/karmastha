@@ -98,8 +98,8 @@
                                 <div class="form-group">
                                     <label>Upload profile image<span>*</span></label>
                                     <input type="file" name="pimage" onchange="readfeatured10(this,'upload-img');" class="" />
-                                    @if($extrainfo->image != '')
-                                    <div class="bg-img upload-img" style="background-image:url('{{ asset('images/logo/'.$extrainfo->image) }}');">                                      
+                                    @if(!empty($extrainfo->image))
+                                    <div class="bg-img upload-img" style="background-image:url('{{ asset('/images/logo/'.$extrainfo->image) }}');">                                      
                                     </div>
                                     @else
                                     <div class="upload-img"></div>
@@ -132,11 +132,11 @@
                               
                               <div class="form-group radio">
                                 <label>Website</label>
-                                <input type="radio" id="website" name="website" class="have_one required" value="1" <?php if($info->website == 1){ echo 'checked';}?> > <label for="website" id="have_one"><span></span>I have one</label>
-                                <input type="radio" id="other" name="website" class="dont_have_one" value="0" <?php if($info->website == 0){ echo 'checked';}?>> <label for="other" id="tested"><span></span>I don't have one</label>
+                                <input type="radio" id="website" name="website" class="have_one required" value="1" <?php if(!empty($info->website) ){ if($info->website == 1){ echo 'checked';}}?> > <label for="website" id="have_one"><span></span>I have one</label>
+                                <input type="radio" id="other" name="website" class="dont_have_one" value="0" <?php if( !empty($info->website) ){ if( $info->website == 0){ echo 'checked';} }?>> <label for="other" id="tested"><span></span>I don't have one</label>
                               </div>
-                              <div class="form-group opentext" style="<?php if($info->website == 0){ echo 'display:none;';}?>" >
-                                <input type="text" name="website_url" placeholder="http://www.example.com" value="<?php if(!empty( $info ) && $info->website != 0 ){ echo $info->website_url; }?>" class="form-control website_url <?php if(!empty( $info ) && $info->website != 0 ){ echo 'required'; }?>">
+                              <div class="form-group opentext" style="<?php if( !empty( $info->website) ) { if( $info->website == 0){ echo 'display:none;'; } }?>" >
+                                <input type="text" name="website_url" placeholder="http://www.example.com" value="<?php if(!empty( $info ) ) { if($info->website != 0 ){ echo $info->website_url; } } ?>" class="form-control website_url <?php if(!empty( $info ) ) { if( $info->website != 0 ){ echo 'required'; } }?>">
                               </div>
 
 
@@ -153,7 +153,7 @@
                                 <textarea name="c_description" placeholder="Enter text" class="form-control"/><?php if(!empty( $info )){ echo $info->c_description; }?></textarea>
                                 <label>Logo</label>
                                 <input type="file" class="" name="c_logo" onchange="readfeatured10(this,'featured-img');"/>
-                                @if($info->c_logo != '')
+                                @if(!empty($info->c_logo ))
                                   <div class="bg-img featured-img" style="background-image:url('{{ asset('images/logo/'.$info->c_logo) }}');">
                                     
                                   </div>

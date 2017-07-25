@@ -30,6 +30,7 @@ class ProductController extends Controller
     	if(empty($product)){
     		abort(404);
     	}
+        $product->increaseView();
         $baseImage = $product->productBaseImage;
         return view('frontend.product.productdetail', compact('product', 'baseImage'))->withClass('inner-page product-detail-page');
     }

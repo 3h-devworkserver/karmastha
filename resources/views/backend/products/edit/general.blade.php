@@ -61,6 +61,11 @@
 		</div>
 
 		<div class="form-group">
+			<label class="control-label">Trending Product<em class="asterisk">*</em></label>
+			{{Form::select('trending',['0' => 'No', '1'=>'Yes'],null,['class'=>'form-control'])}}
+		</div>
+
+		<div class="form-group">
 			<label class="control-label">Tags</label>
 			{{Form::text('tags',null,['class'=>'form-control', 'placeholder'=>'Enter Tags'])}}
 		</div>

@@ -547,6 +547,8 @@ $('#productForm').validate({
     'detail': 'required',
     'return_policy': 'required',
     'featured': 'required',
+    'hot': 'required',
+    'trending': 'required',
     'status': 'required',
     'price': 'required',
     'manage_stock': 'required',
@@ -799,10 +801,24 @@ function getImageSrc(input,preview){
 }
 
 
-$('#logo_preview').hide();
+$('#logo_preview, #logo_preview1, #logo_preview2, #logo_preview3, #logo_preview4, #logo_preview5').hide();
 $('#logo').change(function(){
-	getImageSrc(this,'#logo_preview');
+  getImageSrc(this,'#logo_preview');
 });
+$('#logo1').change(function(){
+  getImageSrc(this,'#logo_preview1');
+});
+$('#logo2').change(function(){
+  getImageSrc(this,'#logo_preview2');
+});
+$('#logo3').change(function(){
+  getImageSrc(this,'#logo_preview3');
+});
+$('#logo4').change(function(){
+  getImageSrc(this,'#logo_preview4');
+});
+
+
 
 if ($('#logo_edit').val()==null) {
   $('#logo_preview_edit').hide();
@@ -810,6 +826,18 @@ if ($('#logo_edit').val()==null) {
 
 $('#logo_edit').change(function(){
   getImageSrc(this,'#logo_preview_edit');
+});
+$('#logo_edit1').change(function(){
+  getImageSrc(this,'#logo_preview_edit1');
+});
+$('#logo_edit2').change(function(){
+  getImageSrc(this,'#logo_preview_edit2');
+});
+$('#logo_edit3').change(function(){
+  getImageSrc(this,'#logo_preview_edit3');
+});
+$('#logo_edit4').change(function(){
+  getImageSrc(this,'#logo_preview_edit4');
 });
 
 
@@ -891,6 +919,7 @@ function readFaviconURL(input) {
     $('#previewFavicon').addClass('hide').attr('src', 'url(\'\')');
   }
 }
+
 
 
 

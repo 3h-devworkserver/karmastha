@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Member;
 use App\Models\Page;
 use App\Models\Slide;
+use App\Models\Ads;
 use Illuminate\Http\Request;
 use Session;
 
@@ -30,11 +31,12 @@ class FrontendController extends Controller
         $members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
         $page = Page::where('id',1)->where('status', 1)->first();
         $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
+        $ads= Ads::first();
         if (empty($page)) {
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page'))->withClass('interactive-body');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads'))->withClass('interactive-body');
     }
 
     /**
