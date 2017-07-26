@@ -19,6 +19,7 @@ use DB;
 use Datatables;
 use Illuminate\Http\Request;
 use Image;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -152,6 +153,7 @@ class ProductController extends Controller
             }
             $product = Product::create([
                 //general information
+                'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'slug' => $slug,
                 'sku' => $request->sku,
@@ -437,8 +439,6 @@ class ProductController extends Controller
     {
         // return $request->all();
         $this->validate($request,[
-
-
             'name' => 'required',            
             'sku' => 'required',            
             'short_desc' => 'required',            
@@ -464,6 +464,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $product->update([
                 //general information
+                'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'slug' => $slug,
                 'sku' => $request->sku,

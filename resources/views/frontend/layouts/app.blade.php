@@ -50,7 +50,11 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
   <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet">
-
+<script>
+        var base_url = '{{ URL::to("") }}';
+        var full_current_url = '{{ URL::full() }}';
+        var current_url = '{{ URL::current() }}';
+    </script>
 </head>
 
 <body id="{{!empty($class)? $class : ''}}">
@@ -72,6 +76,7 @@
 <script src="{{asset('js/frontend/ap-drilldown-menu.min.js')}}"></script>
 <script src="{{asset('js/frontend/zoom-setup.js')}}"></script>
 <script src="{{asset('js/frontend/xzoom.min.js')}}"></script>
+<script src="{{asset('js/frontend/custom.js')}}"></script>
 
 <script type="text/javascript">
   function openNav() {

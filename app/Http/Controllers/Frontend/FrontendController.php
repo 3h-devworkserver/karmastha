@@ -9,8 +9,10 @@ use App\Models\Member;
 use App\Models\Page;
 use App\Models\Slide;
 use App\Models\Ads;
+use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 
 /**
  * Class FrontendController.
@@ -32,11 +34,19 @@ class FrontendController extends Controller
         $page = Page::where('id',1)->where('status', 1)->first();
         $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
         $ads= Ads::first();
+
+        $tproducts = Product::
+        //->join('product_price','products.id','=','product_price.product_id')
+        //->select('products.name','product_price.price','products.total_views','product_price.special_price')
+         where('trending','=','1')
+        ->orderby('total_views','desc')
+        ->get();
+
         if (empty($page)) {
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads'))->withClass('interactive-body');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts'))->withClass('interactive-body');
     }
 
     /**
@@ -60,6 +70,10 @@ class FrontendController extends Controller
             $products = $category->products;
             return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
+    }
+
+    public function addWishlist(){
+        
     }
 
 

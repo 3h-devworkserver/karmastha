@@ -1208,7 +1208,7 @@ nav{
     color: #333;
 }
 
-.thumbnail .caption .price{
+.thumbnail .caption .old, .thumbnail .caption .price{
     font-size: 13px;
     color: #333;
 }
@@ -2106,7 +2106,7 @@ div.qty-section > div > input {
   color: #909090;
   font-size: 15px;
   position: relative;
-  line-height: 20px;
+  line-height: 18px;
   padding: 0 5px 0 0;
   margin-bottom: 0;
 }

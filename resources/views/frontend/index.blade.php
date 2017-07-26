@@ -23,6 +23,7 @@
 
 @include('frontend.includes.advertisement')
 
+@if( count($tproducts) > 0 )
 <section class="products-wrapper pb0">
   <div class="container">
     <div class="row">
@@ -33,19 +34,33 @@
         </div>
     </div>
     <div class="row products-fluid fluid-nosapce mt30">
+      @foreach( $tproducts as $key => $tproduct)
       <div class="col-md-3 col-sm-3">
         <div class="thumbnail">
-        <div class="ribbon"><span>25% dis</span></div>
+          <?php 
+                $price = $tproduct->productPrice;
+                $p = ( $price->price - $price->special_price);
+                $dis = round( ( $p / $price->price ) * 100 );
+                
+          ?>
+        <div class="ribbon"><span>{{ $dis }}% dis</span></div>
           <a href="#">
             <div class="product-img">
               <div class="img-wrap">
-                <img src="{{asset('front-images/cap.png')}}" alt="">
+                <img src="{{ asset('/images/product/'.$tproduct->id.'/base/'. $tproduct->productFirstListImage() ) }}" alt="">
               </div>
             </div>
             
           </a>
           <div class="action">
-            <a href="#" class="wishlist">
+            {{-- <form action="{{ url('/wishlist') }}" method="POST" class="side-by-side wishlist">
+                    {!! csrf_field() !!}
+                    <input type="hidden" name="id" value="{{ $product->id }}">
+                    <input type="hidden" name="name" value="{{ $product->name }}">
+                    <input type="hidden" name="price" value="{{ $product->price }}">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Add to Wishlist">
+                </form> --}}
+            <a href="javascript:;" class="wishlist" data-id="{{ $tproduct->id }}" data-price="{{ $price->price}}" data-name="{{ $tproduct->name}}">
               <i class="la-icon-heart-o"></i>                  
             </a>
           </div>
@@ -70,370 +85,17 @@
                 </span>
               </span>
             </p>
-            <h3><a href="#">product title</a></h3>
-            <sapn class="old">$900</sapn>
-            <span class="price">$34.95</span>
+            <h3><a href="#">{{ $tproduct->name }}</a></h3>
+            <sapn class="old">{{ $price->price}}</sapn>
+            <span class="price">{{ $price->special_price}}</span>
           </div>
         </div>
       </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/bag.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/bangle.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-        <div class="ribbon"><span>25% dis</span></div>
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/headphone.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <a href="#">
-            <div class="product-img">
-              <div class="img-wrap">
-                <img src="{{asset('front-images/cap.png')}}" alt="">
-              </div>
-            </div>
-            
-          </a>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-  
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <a href="#">
-            <div class="product-img">
-              <div class="img-wrap">
-                <img src="{{asset('front-images/cap.png')}}" alt="">
-              </div>
-            </div>
-            
-          </a>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-  
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/bag.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-        <div class="ribbon"><span>25% dis</span></div>
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/bangle.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <sapn class="old">$900</sapn>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <div class="product-img">
-            <div class="img-wrap">
-              <img src="{{asset('front-images/headphone.png')}}" alt="">
-              
-            </div>
-          </div>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <a href="#">
-            <div class="product-img">
-              <div class="img-wrap">
-                <img src="{{asset('front-images/cap.png')}}" alt="">
-              </div>
-            </div>
-            
-          </a>
-          <div class="action">
-            <a href="#" class="wishlist">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-  
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">product title</a></h3>
-            <span class="price">$34.95</span>
-          </div>
-        </div>
-      </div>
+      @endforeach
     </div>
   </div>
 </section>
-
+@endif
 <section class="products-wrapper four-col category-wrapper">
   <div class="container">
     <div class="row">

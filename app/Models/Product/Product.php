@@ -52,6 +52,15 @@ class Product extends Model
         return $this->hasMany('App\Models\Product\ProductGallery')->where('small_image', 1)->orderBy('image_order');
     }
 
+    public function productFirstListImage(){
+        $image = $this->productListImage;
+        if (count($image) == 0) {
+            return "empty";
+        }else{
+            return $image[0]->image;
+        }
+    }
+
     public function productBaseImage(){
         return $this->hasMany('App\Models\Product\ProductGallery')->where('base_image', 1)->orderBy('image_order');
     }

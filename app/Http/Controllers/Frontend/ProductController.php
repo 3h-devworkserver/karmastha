@@ -26,8 +26,9 @@ class ProductController extends Controller
     public function showProductDetail($slug){
     	// return $slug;
 
-    	$product = Product::where('slug', $slug)->where('status', 1)->first();
-    	if(empty($product)){
+        $product = Product::where('slug', $slug)->where('status', 1)->first();
+
+        if(empty($product)){
     		abort(404);
     	}
         $product->increaseView();

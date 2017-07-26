@@ -7,6 +7,32 @@ $(window).scroll(function(){
 });
 
 $(function() {
+
+$(document).on('click','.wishlist',function(e){
+   var id = $(this).attr('data-id')
+   var name = $(this).attr('data-name')
+   var price = $(this).attr('data-price')
+   data = {
+    id : id,
+    name:name,
+    price:price
+   };
+    $.ajax({
+                data: JSON.stringify(data),
+                dataType: 'application/json',
+                url: base_url + '/wishlist',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    alert(result);
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            })
+           
+
+})
     $('#slides').slidesjs({
         width: 940,
         height: 528,
@@ -163,8 +189,6 @@ $(document).ready(function(){
     });
 
     /** ====== end- register form validation  ===== **/
-
-
 
 
 
