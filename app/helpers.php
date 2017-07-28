@@ -422,6 +422,16 @@ if (! function_exists('getLogoUrl')) {
     }
 }
 
+if (! function_exists('getThumbImage')) {
+    /* 
+     * get logo url
+     */
+    function getThumbImage($id){
+        $image = Product::findOrFail($id);
+        return $image->productFirstThumbImage();
+    }
+}
+
 
 
 

@@ -19,7 +19,7 @@
                     <li><a href="{{url('/dashboard')}}">dashboard</a></li>
                     <li><a href="#">my orders</a></li>
                     <li><a href="profile.html">my account</a></li>
-                    <li><a href="#">my favorites</a></li>
+                    <li><a href="{{ URL::to('/wishlist') }}">my favorites  @if( !empty($wishlist)) ( {{  $wishlist }} ) @endif</a></li>
                   </ul>
               </li>            
               <li><a href="">Contact</a></li>

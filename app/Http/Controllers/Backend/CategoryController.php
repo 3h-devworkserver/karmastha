@@ -46,6 +46,7 @@ class CategoryController extends Controller {
             'title' => 'required',
             'status' => 'required',
             'cat_type' => 'required',
+            'homepage_display' => 'required',
             'upload' => 'image|max:2000',
             'url' => 'unique:categorys,url,'.$id,
         ]);
@@ -76,6 +77,23 @@ class CategoryController extends Controller {
 		    	$filename = $item->feat_img;
 		    }
 
+		    if ($request->hasFile('upload2')) {
+		        $file2 = $request->file('upload2');
+		        $destination_path2 = 'images/category/second';
+		        $filename2 = str_random(5) . '-' . $file2->getClientOriginalName();
+		            // $filename = time() . '-' . $file->getClientOriginalExtension();
+		        $move2 =$file2->move($destination_path2, $filename2);
+		        if($move2){
+		        	if(!empty($item->second_img)){
+			        	if(file_exists($destination_path2.'/'.$item->second_img)){
+		                    unlink($destination_path2.'/'.$item->second_img);
+		                }
+		            }
+		        }
+		    }else{
+		    	$filename2 = $item->second_img;
+		    }
+
 			// $item->title 	= e(Request::get('title','untitled'));
 			// $item->label 	= e(Request::get('label',''));	
 			// $item->url 		= e(Request::get('url',''));	
@@ -92,6 +110,7 @@ class CategoryController extends Controller {
 			$item->meta_keyword 		= Request::get('meta_keyword','');	
 			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;
+			$item->second_img 		= $filename2;
 			$item->cat_type 		= Request::get('cat_type','');		
 
 			$item->save();
@@ -238,6 +257,7 @@ class CategoryController extends Controller {
             'title' => 'required',
             'status' => 'required',
             'cat_type' => 'required',
+            'homepage_display' => 'required',
             'upload' => 'image|max:2000',
             'url' => 'unique:categorys,url',
         ]);
@@ -259,6 +279,16 @@ class CategoryController extends Controller {
 		    	$filename = '';
 		    }
 
+		    if ($request->hasFile('upload2')) {
+		        $file2 = $request->file('upload2');
+		        $destination_path2 = 'images/category/second';
+		        $filename2 = str_random(5) . '-' . $file2->getClientOriginalName();
+		            // $filename = time() . '-' . $file->getClientOriginalExtension();
+		        $file2->move($destination_path2, $filename2);
+		    }else{
+		    	$filename2 = '';
+		    }
+
 			// Create a new menu item and save it
 			$item = new Category;
 
@@ -273,7 +303,9 @@ class CategoryController extends Controller {
 			$item->meta_keyword 		= Request::get('meta_keyword','');	
 			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;	
+			$item->second_img 		= $filename2;	
 			$item->cat_type 		= Request::get('cat_type','');		
+			$item->homepage_display = Request::get('homepage_display','');		
 
 			$item->save();
 

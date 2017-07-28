@@ -1,5 +1,4 @@
-<?php //echo '<pre>'; print_r($sliders); ?>
-@if( count($sliders) > 0 )
+@if( !empty($sliders) && count($sliders) > 0 )
 <section class="banner-wrapper pb0">
   <div class="container">
     <div class="row">

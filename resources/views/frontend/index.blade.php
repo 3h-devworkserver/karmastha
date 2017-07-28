@@ -60,7 +60,7 @@
                     <input type="hidden" name="price" value="{{ $product->price }}">
                     <input type="submit" class="btn btn-primary btn-lg" value="Add to Wishlist">
                 </form> --}}
-            <a href="javascript:;" class="wishlist" data-id="{{ $tproduct->id }}" data-price="{{ $price->price}}" data-name="{{ $tproduct->name}}">
+            <a href="{{ URL::to('wishlist/store/?id='.$tproduct->id) }}" class="wishlist" data-id="{{ $tproduct->id }}" data-price="{{ $price->price}}" data-name="{{ $tproduct->name}}">
               <i class="la-icon-heart-o"></i>                  
             </a>
           </div>

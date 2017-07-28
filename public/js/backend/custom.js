@@ -698,12 +698,12 @@ $('#categoryForm').validate({
 /**
  * method used to show image preview when image is selected
  */
-function readURL(input, preview) {
+function readURL(input, preview, $parent = '#feat-img-preview') {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $('#feat-img-preview').hide();
+      $($parent).hide();
       $(preview).css('background-image', 'url('+e.target.result+')').show();
     }
 

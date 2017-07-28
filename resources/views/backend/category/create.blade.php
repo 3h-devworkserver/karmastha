@@ -167,22 +167,52 @@
 			</div><!-- /.box -->
 
 			<div class="box box-default">
-			<div class="box-header with-border">
-				<h3 class="box-title">Featured Image</h3>
-				<div class="box-tools pull-right">
-					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-				</div><!-- /.box-tools -->
-			</div><!-- /.box-header -->
-			<div class="box-body">
-				<div class="form-group">
-					<span class="btn btn-sm btn-karm btn-file ">
-						<i class="fa fa-folder-open"></i>Upload Featured Image
-						<input type="file" name="upload" class="form-control" onchange="readURL(this,'#preview');" accept="image/*">
-					</span>
-					<div id="preview" class="show-img-bg display-none" alt="Image Preview"></div>
-				</div>
-			</div><!-- /.box-body -->
-		</div><!-- /.box -->
+				<div class="box-header with-border">
+					<h3 class="box-title">Homepage Display<em class="asterisk">*</em></h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div><!-- /.box-tools -->
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					{{Form::select('homepage_display',['0' => 'No', '1'=>'Yes'],null,['class'=>'form-control'])}}
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<h3 class="box-title">Featured Image</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div><!-- /.box-tools -->
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<div class="form-group">
+						<span class="btn btn-sm btn-karm btn-file ">
+							<i class="fa fa-folder-open"></i>Upload Featured Image
+							<input type="file" name="upload" class="form-control" onchange="readURL(this,'#preview');" accept="image/*">
+						</span>
+						<div id="preview" class="show-img-bg display-none" alt="Image Preview"></div>
+					</div>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<h3 class="box-title">Second Image</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div><!-- /.box-tools -->
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<div class="form-group">
+						<span class="btn btn-sm btn-karm btn-file ">
+							<i class="fa fa-folder-open"></i>Upload Second Image
+							<input type="file" name="upload2" class="form-control" onchange="readURL(this,'#preview2');" accept="image/*">
+						</span>
+						<div id="preview2" class="show-img-bg display-none" alt="Image Preview"></div>
+					</div>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
 
 		   <div class="form-group">	
 			   	{{Form::submit('Save',['class'=>'btn btn-karm btn-sm'])}}

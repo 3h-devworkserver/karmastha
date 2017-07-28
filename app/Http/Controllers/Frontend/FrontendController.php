@@ -13,6 +13,7 @@ use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Auth;
 
 /**
  * Class FrontendController.
@@ -29,12 +30,17 @@ class FrontendController extends Controller
     public function index()
     {
         // Session::flush();
+        if( Auth::user()){
+           $user = Auth::user()->id;
+           $wishlist = DB::table('product_wishlist')->where('user_id',$user)->count();
+        }else{
+            $wishlist = '';
+        }
         $brands = Brand::where('status', 1)->where('topbrand', 1)->orderBy('b_order', 'asc')->get();
         $members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
         $page = Page::where('id',1)->where('status', 1)->first();
         $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
         $ads= Ads::first();
-
         $tproducts = Product::
         //->join('product_price','products.id','=','product_price.product_id')
         //->select('products.name','product_price.price','products.total_views','product_price.special_price')
@@ -46,7 +52,7 @@ class FrontendController extends Controller
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts'))->withClass('interactive-body');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist'))->withClass('interactive-body');
     }
 
     /**

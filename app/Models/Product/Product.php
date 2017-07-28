@@ -61,6 +61,8 @@ class Product extends Model
         }
     }
 
+
+
     public function productBaseImage(){
         return $this->hasMany('App\Models\Product\ProductGallery')->where('base_image', 1)->orderBy('image_order');
     }
@@ -69,6 +71,14 @@ class Product extends Model
         return $this->hasMany('App\Models\Product\ProductGallery')->where('thumbnail', 1)->orderBy('image_order');
     }
 
+public function productFirstThumbImage(){
+        $image = $this->productThumbnailImage;
+        if (count($image) == 0) {
+            return "empty";
+        }else{
+            return $image[0]->image;
+        }
+    }
     public function brand(){
         return $this->belongsTo('App\Models\Brand');
     }

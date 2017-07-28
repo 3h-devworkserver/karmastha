@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Frontend\Auth;
 use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
+use DB;
+use App\Models\Slide;
+use App\Models\Ads;
+use App\Models\Page;
+use Auth;
 
 //use App\Http\Requests;
 //use \Cart as Cart;
@@ -20,8 +25,15 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        die('here');
-        return view('wishlist');
+        if( Auth::user()){
+            $user = Auth::user()->id;
+        }
+        $page = Page::where('id',1)->where('status', 1)->first();
+        $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
+        $ads= Ads::first();
+        $wishlists = DB::table('product_wishlist')->where('user_id',$user)->get();
+        $wishlist = DB::table('product_wishlist')->where('user_id',$user)->count();
+        return view('frontend.wishlist',compact('sliders','ads','page','wishlists','wishlist'));
     }
 
     /**
@@ -32,18 +44,22 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        $duplicates = Cart::instance('wishlist')->search(function ($cartItem, $rowId) use ($request) {
-            return $cartItem->id === $request->id;
-        });
+        
+        if( Auth::user()){
+            $user = Auth::user()->id;
+        }
+        $duplicates = DB::table('product_wishlist')->where('product_id',$_GET['id'])->first();
 
-        if (!$duplicates->isEmpty()) {
-            return redirect('shop')->withSuccessMessage('Item is already in your wishlist!');
+        if (!empty($duplicates)) {
+            return redirect('/')->withSuccessMessage('Item is already in your wishlist!');
         }
 
-        Cart::instance('wishlist')->add($request->id, $request->name, 1, $request->price)
-                                  ->associate('App\Product');
+        DB::table('product_wishlist')->insert([
+            'user_id' => $user,
+            'product_id' => $_GET['id'],
+            ]);
 
-        return redirect('shop')->withSuccessMessage('Item was added to your wishlist!');
+        return redirect('/')->withSuccessMessage('Item was added to your wishlist!');
     }
 
     /**
@@ -66,7 +82,7 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
-        Cart::instance('wishlist')->remove($id);
+        DB::table('product_wishlist')->where('product_id',$id)->delete();
         return redirect('wishlist')->withSuccessMessage('Item has been removed!');
     }
 
@@ -77,7 +93,7 @@ class WishlistController extends Controller
      */
     public function emptyWishlist()
     {
-        Cart::instance('wishlist')->destroy();
+        DB::table('product_wishlist')->truncate();
         return redirect('wishlist')->withSuccessMessage('Your wishlist has been cleared!');
     }
 
