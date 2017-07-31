@@ -149,3 +149,29 @@ a:focus{
 .skin-orange.layout-top-nav .main-header > .logo:hover {
   background-color: #3b8ab8;
 }
+
+.box-orange .ads-section .form-group {
+  border-bottom: 1px solid #ddd;
+  display: inline-block;
+  padding-bottom: 26px;
+  width: 100%;
+}
+.box-orange .ads-section .form-group:last-child{
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.box-orange .ads-section .form-group .form-wrap {
+  float: left;
+  width: 35%;
+  padding-right: 20px;
+}
+.box-orange .ads-section .form-group .form-wrap input{
+  height: 40px;
+}
+.box-orange .ads-section .form-group .form-wrap img{
+  width: 100%;
+}
+.box-orange .ads-section .form-group .form-wrap:last-child{
+  width: 65%;
+  padding-right: 0;
+}

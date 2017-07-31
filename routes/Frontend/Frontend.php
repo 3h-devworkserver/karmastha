@@ -9,15 +9,18 @@ Route::get('macros', 'FrontendController@macros')->name('macros');
 
 Route::get('/category/{slug}', 'FrontendController@showCategoryPage')->where('slug','.*')->name('category.show');
 
-
-
+Route::group(['middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
+Route::get('dashboard/password', 'ChangePasswordController@formPassword')->name('password');
+});
+});
 
 /*
  * These frontend controllers require the user to be logged in
  * All route names are prefixed with 'frontend.'
  */
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
+Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
         /*
          * User Dashboard Specific
          */
@@ -34,5 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
          */
         //Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
         Route::patch('profile/update/{id}', 'ProfileController@userUpdate')->name('profile.update');
+        Route::patch('password/update/{id}', 'ProfileController@passwordUpdate')->name('password.update');
     });
 });

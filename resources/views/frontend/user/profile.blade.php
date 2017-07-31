@@ -35,6 +35,9 @@
                     <li>                
                         <a href="{{ URL::to('/dashboard/profile') }}"><i class="fa fa-home" aria-hidden="true"></i>My Profile</a>
                     </li> 
+                    <li>                
+                        <a href="{{ URL::to('/dashboard/password') }}"><i class="fa fa-home" aria-hidden="true"></i>Change Password</a>
+                    </li> 
                     
                 </ul>
             </li>

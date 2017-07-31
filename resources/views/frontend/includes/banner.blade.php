@@ -16,11 +16,11 @@
       @if( !empty($ads->first_image ))
       <div class="col-md-3 col-sm-3">
 
-        {{-- <a href="#"> --}}
+        <a href="{{ $ads->first_url }}">
           <div class="advertisement bg-img" style="background-image: url({{asset($ads->first_image)}});">
 
           </div>
-        {{-- </a> --}}
+        </a>
       </div>
       @endif
     </div>

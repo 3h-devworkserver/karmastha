@@ -96,7 +96,7 @@
             @permission('view-ads-management')
                 <li class="{{ active_class(Active::checkUriPattern('admin/ads*')) }} treeview">
                   <a href="{!! url('admin/ads') !!}">
-                    <i class="fa fa-handshake-o"></i><span> Ads Manangement</span>
+                    <i class="fa fa-bullhorn"></i><span> Ads Manangement</span>
                   </a>
                 </li>
             @endauth

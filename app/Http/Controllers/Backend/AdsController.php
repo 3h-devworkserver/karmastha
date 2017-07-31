@@ -124,6 +124,11 @@ class AdsController extends Controller
                 'third_image'=>$filepath2,
                 'fourth_image'=>$filepath3,
                 'fifth_image'=>$filepath4,
+                'first_url'=>$request->first_url,
+                'second_url'=>$request->second_url,
+                'third_url'=>$request->third_url,
+                'fourth_url'=>$request->fourth_url,
+                'fifth_url'=>$request->fifth_url,
                 ]);
             }else{ 
             $file= $request->file('logo');
@@ -151,6 +156,11 @@ class AdsController extends Controller
                 'third_image'=>$filepath2,
                 'fourth_image'=>$filepath3,
                 'fifth_image'=>$filepath4,
+                'first_url'=>$request->first_url,
+                'second_url'=>$request->second_url,
+                'third_url'=>$request->third_url,
+                'fourth_url'=>$request->fourth_url,
+                'fifth_url'=>$request->fifth_url,
                 ]);
 
                

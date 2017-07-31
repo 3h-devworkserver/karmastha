@@ -21,5 +21,10 @@ class DashboardController extends Controller
     {
         return view('frontend.user.profile')->withClass('profile-info');
     }
+
+    public function passwordchange()
+    {
+        return view('frontend.user.password')->withClass('password-info');
+    }
     
 }

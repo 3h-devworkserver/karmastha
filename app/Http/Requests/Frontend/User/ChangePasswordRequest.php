@@ -16,7 +16,7 @@ class ChangePasswordRequest extends Request
      */
     public function authorize()
     {
-        return access()->user()->canChangePassword();
+        return access()->user();
     }
 
     /**
@@ -29,6 +29,7 @@ class ChangePasswordRequest extends Request
         return [
             'old_password' => 'required',
             'password'     => 'required|min:6|confirmed',
+            'confirm_password'     => 'required|min:6|confirmed|same:password',
         ];
     }
 }

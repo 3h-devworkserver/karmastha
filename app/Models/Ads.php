@@ -21,6 +21,11 @@ class Ads extends Model
                 'third_image',
                 'fourth_image',
     			'fifth_image',
+                'first_url',
+                'second_url',
+                'third_url',
+                'fourth_url',
+                'fifth_url',
                 'created_at',
                 'updated_at',
     		];

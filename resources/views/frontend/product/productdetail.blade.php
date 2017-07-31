@@ -136,12 +136,17 @@
                     <p class="color-title">Color:</p>
                     <div class="widget-color">
                         <ul>
-                            <li class="red"><a href="#"></a></li>
-                            <li class="green"><a href="#"></a></li>
+                            <li class="red">{{ Form::radio('attr1', 'red') }}<label><span></span></label></li>
+                            <li class="green">{{ Form::radio('attr1', 'green') }}</li>
+                            <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
+                            <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
+                            <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
+                            <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li>
+                            {{-- <li class="green"><a href="#"></a></li>
                             <li class="yellow"><a href="#"></a></li>
                             <li class="blue"><a href="#"></a></li>
                             <li class="purple"><a href="#"></a></li>
-                            <li class="aqua"><a href="#"></a></li>
+                            <li class="aqua"><a href="#"></a></li> --}}
                         </ul>
                     </div>
                 </div>

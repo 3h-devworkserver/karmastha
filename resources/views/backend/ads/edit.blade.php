@@ -21,12 +21,12 @@
 	<div class="col-md-12">
 		<div class="box box-orange">
 			<div class="box-header">
-				<!-- <h3 class="box-title">Create Page</h3> -->
 			</div>
 			<!-- /.box-header -->
-			<div class="box-body">
+			<div class="box-body ads-section">
 
 				<div class="form-group">
+				<div class="form-wrap">
 					<label class="control-label">Slider Ad (dim: 341*479) <em class="asterisk">*</em></label>
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
@@ -35,9 +35,14 @@
 					</span>
 					<br><br>
 					<img class="img-center" width="341" height="479" id="logo_preview_edit" src="{{url($ads->first_image)}}" alt="logo preview">
-
+				</div>
+					<div class="form-wrap">
+						<label for="first_url">Slider Ad Url</label>
+						<input type="text" name="first_url" class="form-control" value="@if( !empty($ads->first_url)) {{ $ads->first_url }} @endif" placeholder="http://www.example.com">
+					</div>
 				</div>
 <div class="form-group">
+	<div class="form-wrap">
 					<label class="control-label">First Ad ( dim: 298*390)<em class="asterisk">*</em></label>
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
@@ -46,9 +51,14 @@
 					</span>
 					<br><br>
 					<img class="img-center" width="298" height="390" id="logo_preview_edit1" src="{{url($ads->second_image)}}" alt="logo preview">
-
+				</div>
+					<div class="form-wrap">
+						<label for="second_url">First Ad Url</label>
+						<input type="text" name="second_url" class="form-control" value="@if( !empty($ads->second_url)) {{ $ads->second_url }} @endif" placeholder="http://www.example.com">
+					</div>
 				</div>
 <div class="form-group">
+	<div class="form-wrap">
 					<label class="control-label">Second Ad (dim: 400*189)<em class="asterisk">*</em></label>
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
@@ -57,9 +67,14 @@
 					</span>
 					<br><br>
 					<img class="img-center" width="400" height="189" id="logo_preview_edit2" src="{{url($ads->third_image)}}" alt="logo preview">
-
+					</div>
+					<div class="form-wrap">
+						<label for="third_url">Second Ad Url</label>
+						<input type="text" name="third_url" class="form-control" value="@if( !empty($ads->third_url)) {{ $ads->third_url }} @endif" placeholder="http://www.example.com">
+					</div>
 				</div>
 <div class="form-group">
+	<div class="form-wrap">
 					<label class="control-label">Third Ad (dim: 400*189)<em class="asterisk">*</em></label>
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
@@ -68,9 +83,14 @@
 					</span>
 					<br><br>
 					<img class="img-center" width="400" height="189" id="logo_preview_edit3" src="{{url($ads->fourth_image)}}" alt="logo preview">
-
+					</div>
+					<div class="form-wrap">
+						<label for="fourth_url">Third Ad Url</label>
+						<input type="text" name="fourth_url" class="form-control" value="@if( !empty($ads->fourth_url)) {{ $ads->fourth_url }} @endif" placeholder="http://www.example.com">
+					</div>
 				</div>
 <div class="form-group">
+	<div class="form-wrap">
 					<label class="control-label">Fourth Ad (dim: 503*390)<em class="asterisk">*</em></label>
 					<br>
 					<span class="btn btn-sm btn-karm btn-file">
@@ -79,7 +99,11 @@
 					</span>
 					<br><br>
 					<img class="img-center" width="503" height="390" id="logo_preview_edit4" src="{{url($ads->fifth_image)}}" alt="logo preview">
-
+					</div>
+					<div class="form-wrap">
+						<label for="fifth_url">Fourth Ad Url</label>
+						<input type="text" name="fifth_url" class="form-control" value="@if( !empty($ads->fifth_url)) {{ $ads->fifth_url }} @endif" placeholder="http://www.example.com">
+					</div>
 				</div>
 		
 

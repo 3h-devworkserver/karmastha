@@ -2,9 +2,8 @@ div.ap-ddmenu {overflow: hidden; position: relative;}
 .ap-ddmenu-scroll {overflow: scroll; overflow-x: hidden;}
 ul.ap-ddmenu-top, ul.ap-ddmenu-top ul {list-style: none; margin: 0; padding: 0; width: 100%; position: absolute; top: 0; left: 0;}
 ul.ap-ddmenu-top ul {display: none;}
-ul.ap-ddmenu-top li {border-bottom: 1px solid #ccc;}
 
-ul.ap-ddmenu-top a {display: block; position: relative; color: #000; text-decoration: none; padding: 5px 20px 5px 10px;}
+ul.ap-ddmenu-top a {display: block; position: relative; line-height: 25px; color: #000; text-decoration: none; padding: 5px 20px 5px 10px;}
 ul.ap-ddmenu-top a span.ap-ddmenu-link-icon:before {
 	content: "\f105";
 	display: block;
@@ -13,8 +12,7 @@ ul.ap-ddmenu-top a span.ap-ddmenu-link-icon:before {
 	float: right;
 }
 .ap-ddmenu a:hover {
-	background: #742b96;
-	color: #fff !important;
+	color: #742b96 !important;
 }
 .ap-ddmenu a:hover span.ap-ddmenu-link-icon {background-image: url(images/arrow-hover.png);}
 

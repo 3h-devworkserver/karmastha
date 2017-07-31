@@ -225,7 +225,7 @@
       <div class="logo">
         @if(!empty($setting->logo))
         @endif
-        <a href="#"><img src="{{asset('front-images/logo.png')}}" alt=""></a>
+        <a href="{{ URL::to('/') }}"><img src="{{asset('front-images/logo.png')}}" alt=""></a>
       </div>
       <div class="search-box">
         <div class="dropdown">

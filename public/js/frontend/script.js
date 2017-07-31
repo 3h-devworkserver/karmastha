@@ -8,7 +8,36 @@
             $('body').removeClass('toggle-overflow');
         });
     }
-            
+
+    function headSearch() { 
+
+        $('a[href="#toggle-search"], .bootsnipp-search .input-group-btn > .btn[type="reset"]').on('click', function(event) {
+        event.preventDefault();
+            $('.bootsnipp-search .input-group > input').val('');
+            $('.bootsnipp-search').toggleClass('open');
+            $('a[href="#toggle-search"]').closest('a').toggleClass('active');
+
+            if ($('.bootsnipp-search').hasClass('open')) {
+              /* I think .focus dosen't like css animations, set timeout to make sure input gets focus */
+              setTimeout(function() { 
+                $('.bootsnipp-search .form-control').focus();
+              }, 100);
+            }     
+        });
+
+      $(document).on('keyup', function(event) {
+        if (event.which == 27 && $('.bootsnipp-search').hasClass('open')) {
+          $('a[href="#toggle-search"]').trigger('click');
+        }
+      });
+        
+    };
+
+    function slideheader(){
+        $("button.dropdown-toggle").click(function(){
+            $("topslide-header").slideToggle();
+        });
+    };
     
     function homeBanner(){
         $('.banner-wrapper .owl-carousel').owlCarousel({
@@ -118,6 +147,8 @@
     
     $(document).ready(function() {
        overflow();
+       headSearch();
+       slideheader();
        homeBanner();
        productCarousel();
        businessMemberCarousel();
