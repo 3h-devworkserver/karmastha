@@ -78,6 +78,7 @@ class AttributeController extends Controller
         $this->validate($request,[
             'name' => 'required',            
             'status' => 'required',            
+            'attr_type' => 'required',            
             'attr_order' => 'required',            
         ]);
 // return "here";
@@ -85,6 +86,7 @@ class AttributeController extends Controller
             $attribute = Attribute::create([
                 'name' => $request->name,
                 'short_desc' => $request->short_desc,
+                'attr_type' => $request->attr_type,
                 'attr_order' => $request->attr_order,
                 'status' => $request->status,
                 'user_id' => Auth::user()->id,
@@ -129,7 +131,8 @@ class AttributeController extends Controller
         // return $request->all();
         $this->validate($request,[
             'name' => 'required',            
-            'status' => 'required',            
+            'status' => 'required', 
+            'attr_type' => 'required',            
             'attr_order' => 'required', 
         ]);
 
@@ -139,6 +142,7 @@ class AttributeController extends Controller
             $attribute->update([
                 'name' => $request->name,
                 'short_desc' => $request->short_desc,
+                'attr_type' => $request->attr_type,
                 'attr_order' => $request->attr_order,
                 'status' => $request->status,
                 'user_id' => Auth::user()->id,

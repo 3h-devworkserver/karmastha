@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+  $(function() { $('#cp8').colorpicker({ colorSelectors: { 'black': '#000000', 'white': '#ffffff', 'red': '#FF0000', 'default': '#777777', 'primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e', 'danger': '#d9534f' } }); });
+
 /** --select all -- **/
 $(document).on('change', '.checkAll', function(){
   $(".bulkSelect").prop('checked', $(this).prop("checked"));
@@ -642,6 +644,10 @@ $('#categoryForm').validate({
  $(document).on('click', '.addValueBtn', function(){
   tmp = $('.addValue').html();
   $('.valueBlock').append(tmp);
+  $('.attributeForm .bgcolor').addClass('colorpicker-component');
+  $('.colorpicker-component').colorpicker({ colorSelectors: { 'black': '#000000', 'white': '#ffffff', 'red': '#FF0000',
+      'default': '#777777','primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',
+      'danger': '#d9534f' } }); 
  });
 
   $(document).on('click', '.removeValueBtn', function(){
@@ -665,6 +671,8 @@ $('#categoryForm').validate({
  /**
  *  end of js for attributes
  **/
+
+
 
 });
 

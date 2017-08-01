@@ -52,7 +52,10 @@
             </div>
             
           </a>
-          <div class="action">
+          <?php 
+          $wishlistadded = DB::table('product_wishlist')->where('product_id', $tproduct->id)->first(); 
+          ?>
+          <div class="action <?php if(!empty($wishlistadded)){ echo 'wishlist_add';} ?>">
             {{-- <form action="{{ url('/wishlist') }}" method="POST" class="side-by-side wishlist">
                     {!! csrf_field() !!}
                     <input type="hidden" name="id" value="{{ $product->id }}">
@@ -301,7 +304,8 @@
 @if(!empty($page->bottom_content))
 <section class="steps-wrapper text-center">
   <div class="container">
-      {!! $page->bottom_content !!}    
+    {!! $page->bottom_content !!}
+    
   </div>
 </section>
 @endif

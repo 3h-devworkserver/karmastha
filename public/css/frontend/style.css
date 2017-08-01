@@ -483,7 +483,7 @@ section {
 }
 .section-title h2{
     margin: 0;
-    background:url('../images/title-bg.jpg') repeat-x 0 0;
+    background:url('../../images/title-bg.jpg') repeat-x 0 0;
     display: inline-block;
     padding:0 50px 0 20px;
     height: 50px;

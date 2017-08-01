@@ -8,6 +8,8 @@ use App\Models\Product\Product;
 use Auth;
 use Illuminate\Http\Request;
 use Session;
+use DB;
+
 /**
  * Class ProductController.
  */
@@ -28,12 +30,47 @@ class ProductController extends Controller
 
         $product = Product::where('slug', $slug)->where('status', 1)->first();
 
+        $test = DB::table('products')->where('products.id', 2)
+                ->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
+                ->join('product_attr_combination_value', 'product_attr_combination.id', '=', 'product_attr_combination_value.product_attr_combination_id')
+                ->join('attribute_values', 'product_attr_combination_value.attribute_value_id', '=', 'attribute_values.id')
+                ->join('attributes', 'attribute_values.attribute_id', '=', 'attributes.id')
+        // $test = $product->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
+                ->select('products.id', 'product_attr_combination.identifier', 'product_attr_combination.quantity', 'product_attr_combination_value.attribute_value_id', 'attribute_values.value', 'attribute_values.attribute_id', 'attributes.name', 'attributes.attr_type')
+                ->get();
+                
+        // return $test;
+
+
+
+
+
+        $arrId = array();
+        $arrName = array();
+        if (count($product->productAttrCombination) > 0) {
+            foreach ($product->productAttrCombination as $comb) {
+                foreach ($comb->productAttrCombinationValue as $key => $combValue) {
+                    $tmp = $combValue->atrributeVal->attribute->id;
+                    $tmp2 = $combValue->atrributeVal->attribute->name;
+                    if (!in_array($tmp, $arrId)) {
+                        $arrId[]=$tmp;
+                    }
+                    if (!in_array($tmp2, $arrName)) {
+                        $arrName[]=$tmp2;
+                    }
+                }
+            }
+        }
+        
+        // return $arrId;
+        // return $arrName;
+
         if(empty($product)){
     		abort(404);
     	}
         $product->increaseView();
         $baseImage = $product->productBaseImage;
-        return view('frontend.product.productdetail', compact('product', 'baseImage'))->withClass('inner-page product-detail-page');
+        return view('frontend.product.productdetail', compact('product', 'baseImage', 'arrId', 'arrName'))->withClass('inner-page product-detail-page');
     }
 
 

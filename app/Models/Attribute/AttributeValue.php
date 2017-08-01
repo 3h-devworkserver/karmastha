@@ -20,9 +20,9 @@ class AttributeValue extends Model
      */
     protected $guarded = ['id'];
 
-    public function atrtibuteId(){
-        return $this->belongsTo('\App\Models\Attribute\Attribute'); 
-    }
+    // public function attributeId(){
+    //     return $this->belongsTo('\App\Models\Attribute\Attribute'); 
+    // }
 
     public function attribute(){
         return $this->belongsTo('App\Models\Attribute\Attribute');

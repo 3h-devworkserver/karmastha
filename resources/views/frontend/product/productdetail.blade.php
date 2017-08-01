@@ -132,6 +132,7 @@
                 </div>
 
                 <!-- single-pro-color -->
+                @if(count($arrName) > 0)
                 <div class="sin-pro-color product-info-item clearfix">
                     <p class="color-title">Color:</p>
                     <div class="widget-color">
@@ -150,6 +151,7 @@
                         </ul>
                     </div>
                 </div>
+                @endif
                                                 
                 <!-- product size detail -->
                 <div class="product-size-detail product-info-item clearfix">

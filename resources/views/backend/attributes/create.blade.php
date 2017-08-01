@@ -2,6 +2,10 @@
 
 @section ('title', 'Create Attribute')
 
+@section('after-styles')
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/css/bootstrap-colorpicker.css">
+@endsection
+
 @section('page-header')
 <h1>
 	Create Attribute
@@ -28,10 +32,17 @@
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
-			<div class="form-group">
+			<div class="form-group ">
+				<label class="control-label">Value<em class="asterisk">*</em></label>
+				<div data-format="alias" class="input-group bgcolor">
+					{{Form::text('value[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+					<span class="input-group-addon"><i></i></span> 
+				</div> 
+			</div>
+			{{-- <div class="form-group">
 				<label class="control-label">Value<em class="asterisk">*</em></label>
 				{{Form::text('value[]',null,['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
-			</div>
+			</div> --}}
 			<div class="form-group">
 				<label class="control-label">Value Order</label>
 				{{Form::number('value_order[]',0,['class'=>'form-control','min'=>'0'])}}
@@ -65,6 +76,11 @@
 					{{Form::text('short_desc',null,['class'=>'form-control', 'placeholder'=>'Enter Short Description'])}}
 				</div>
 
+	            <div class="form-group">
+	            	<label class="control-label">Type<em class="asterisk">*</em></label>
+	            		{!! Form::select('attr_type', ['normal' => 'Normal', 'color'=>'Color'], null, array('class'=>'form-control'))!!}
+	            </div>
+
 			</div>
 			<!-- /.box-body -->
 		</div>
@@ -76,9 +92,12 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<div class="form-group">
+					<div class="form-group ">
 						<label class="control-label">Value<em class="asterisk">*</em></label>
-						{{Form::text('value[]',null,['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+						<div data-format="alias" class="input-group bgcolor colorpicker-component">
+							{{Form::text('value[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+							<span class="input-group-addon"><i></i></span> 
+						</div> 
 					</div>
 					<div class="form-group">
 						<label class="control-label">Value Order</label>
@@ -130,5 +149,9 @@
 </div>
 {{Form::close()}}
 
+@endsection
 
+@section('after-scripts')
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/js/bootstrap-colorpicker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.4.0/js/bootstrap-colorpicker.min.js"></script>
 @endsection

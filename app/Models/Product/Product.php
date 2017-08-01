@@ -28,13 +28,13 @@ class Product extends Model
         return $this->hasOne('App\Models\Product\ProductInventory');
     }
 
-    public function productAttributes(){
-        return $this->hasMany('App\Models\Product\ProductAttribute', 'product_id');
-    }
+    // public function productAttributes(){
+    //     return $this->hasMany('App\Models\Product\ProductAttribute', 'product_id');
+    // }
 
-    public function productAttributesWithOrder(){
-        return $this->hasMany('App\Models\Product\ProductAttribute', 'product_id')->orderBy('attr_order');
-    }
+    // public function productAttributesWithOrder(){
+    //     return $this->hasMany('App\Models\Product\ProductAttribute', 'product_id')->orderBy('attr_order');
+    // }
 
     public function categorys(){
         return $this->belongsToMany('App\Models\Category');

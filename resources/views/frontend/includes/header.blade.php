@@ -1,5 +1,5 @@
 <header class="header-wrapper">
-  <div class="top-header" id="billingopt">
+  <div class="top-header" id="topslide-header">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -31,14 +31,14 @@
 
   </div>
   
-  <div class="responsive-top-header">
+   <div class="responsive-top-header">
     <div class="container">
       <div class="row">
         
           <div id="menu-wrapper">
           
             <div id="mySidenav" class="sidenav">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10005;</a>
               
             <div class="ap-ddmenu-header">
               <a class="ap-ddmenu-back" href="#"><i class="fa fa-angle-left"></i></a>
@@ -205,16 +205,49 @@
             </li>
           </ul>
         </div>
+      </div>  
         <div class="nav-toggle">
+          
           <div class="top-nav-toggle">
-            <a role="button" class="total-calculate" data-toggle="collapse" href="#billingopt" aria-expanded="false" aria-controls="collapseheadernav"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+            <a href="#toggle-search" class="top-search-iocn animate"><span class="fa fa-search"></span></a>
+            <a role="button" class="total-calculate" data-toggle="collapse" href="#topslide-header" aria-expanded="false" aria-controls="collapseheadernav"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+            <div id="hamburger" onclick="openNav()">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
           </div>
-          <div id="hamburger" onclick="openNav()">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="search-box">
+            <div class="dropdown">
+          
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="flaticon-bars"></i>
+              All categories
+              <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">Fashion</a></li>
+              <li><a href="#">Furniture</a></li>
+              <li><a href="#">Electronics</a></li>
+              <li><a href="#">Books</a></li>
+              <li><a href="#">Sports</a></li>
+              <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
+            </ul>
           </div>
-        </div>
+
+         <div class="bootsnipp-search animate">
+           <form action="#" method="GET" role="search">
+             <div class="input-group">
+               <input type="text" class="form-control" name="ressearch" placeholder="Search for item...">
+               <span class="input-group-btn">
+                 <button class="btn btn-danger" type="reset"><span class="fa fa-times"></span></button>
+               </span>
+             </div>
+           </form>
+         </div>
+        </div><!-- End Search-box -->
+
         </div>
       </div>
     </div>
