@@ -2155,7 +2155,13 @@ div.qty-section > div > input {
   display: block;
   position: relative;
 }
-.widget-color ul li::before {
+.widget-color ul li label span{
+  border: medium none;
+  height: 35px;
+  margin-top: 0;
+  width: 35px;
+}
+/* .widget-color ul li::before {
   background: #ff7f00 none repeat scroll 0 0;
   content: "";
   height: 35px;
@@ -2164,7 +2170,7 @@ div.qty-section > div > input {
   position: absolute;
   top: 50%;
   width: 35px;
-}
+} */
 .widget-color ul li a {
   display: inline-block;
   font-size: 13px;
@@ -2177,7 +2183,11 @@ div.qty-section > div > input {
 .widget-color ul li.blue:before {background: #0000FF;}
 .widget-color ul li.purple:before {background: #800080;}
 .widget-color ul li.aqua:before {background: #00FFFF;}
-
+.widget-color input[type="radio"]:checked + label span{
+  width: 15px;
+  height: 15px;
+  border-radius: 30px;
+}
 
 
 .nav-tabs { border-bottom: 1px solid #ccc; margin: 0 25px;}

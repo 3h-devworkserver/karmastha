@@ -70,8 +70,14 @@ class FrontendController extends Controller
      */
     public function showCategoryPage($slug){
         $category = Category::where('url', $slug)->where('status', 1)->first();
+        $products = DB::table('category_product')
+        ->join('products','products.id', '=', 'category_product.product_id')
+        ->join('product_price','products.id', '=', 'product_price.product_id')
+        ->where('category_product.category_id','=',$category->id)
+        ->select('products.*','product_price.price','product_price.special_price')
+        ->paginate(4);
         if ($category->isParent() == 'true') {
-            return view('frontend.category.categorypage', compact('category'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
         }else{
             $products = $category->products;
             return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');

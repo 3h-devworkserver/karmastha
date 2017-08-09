@@ -130,44 +130,70 @@
                   <div class="brand-stock-info"><img src="{{asset('images/success.png')}}">Mega Seller! 2,000+ sold in last month</div>
                   <div class="stock-available-detail pull-right"><span>In Stock:</span><b>Available</b></div>
                 </div>
+          
+                @if(count($tmp) > 0)
 
-                <!-- single-pro-color -->
-                @if(count($arrName) > 0)
-                <div class="sin-pro-color product-info-item clearfix">
-                    <p class="color-title">Color:</p>
-                    <div class="widget-color">
-                        <ul>
-                            <li class="red">{{ Form::radio('attr1', 'red') }}<label><span></span></label></li>
-                            <li class="green">{{ Form::radio('attr1', 'green') }}</li>
-                            <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
-                            <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
-                            <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
-                            <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li>
-                            {{-- <li class="green"><a href="#"></a></li>
-                            <li class="yellow"><a href="#"></a></li>
-                            <li class="blue"><a href="#"></a></li>
-                            <li class="purple"><a href="#"></a></li>
-                            <li class="aqua"><a href="#"></a></li> --}}
-                        </ul>
-                    </div>
-                </div>
-                @endif
-                                                
-                <!-- product size detail -->
-                <div class="product-size-detail product-info-item clearfix">
-                    <div class="product-size clearfix">
-                        <p class="color-title pull-left">Size:</p>
-                        <form class="size-list">
-                            <input type="text" name="p-size" class="size-list-info" value="28">
-                            <input type="text" name="p-size" class="size-list-info" value="30">
-                            <input type="text" name="p-size" class="size-list-info" value="32">
-                            <input type="text" name="p-size" class="size-list-info" value="40">
-                            <input type="text" name="p-size" class="size-list-info" value="26">
-                            <button class="btn btn-default pull-right">size chart</button>
-                        </form>   
-                    </div>
-                </div>
-                <!-- product size detail end -->                        
+                @foreach($tmp as $tm)
+                  @if($tm->attr_type == 'color')
+                  <!-- single-pro-color -->
+                  <div class="sin-pro-color product-info-item clearfix">
+                      <p class="color-title">{{$tm->name}}:</p>
+                      <div class="widget-color">
+                          @if(count($tmp2) > 0)
+                            <ul>
+                              @foreach($tmp2 as $tm2)
+                                @if($tm->id == $tm2->id)
+                                <?php $rand = str_random(4);  ?>
+                                <li class="" style="background-color:{{$tm2->value}};">{{ Form::radio('attr1', $tm2->value, false, ['id'=>'attr-'.$rand ]) }}<label for="attr-{{$rand}}"><span></span></label></li>
+                                @endif
+                              {{-- <li class="green">{{ Form::radio('attr1', 'green') }}</li>
+                              <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
+                              <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
+                              <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
+                              <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li> --}}
+                              {{-- <li class="green"><a href="#"></a></li>
+                              <li class="yellow"><a href="#"></a></li>
+                              <li class="blue"><a href="#"></a></li>
+                              <li class="purple"><a href="#"></a></li>
+                              <li class="aqua"><a href="#"></a></li> --}}
+                              @endforeach
+                            </ul>
+                          @endif
+                      </div>
+                  </div>
+                  @endif
+                
+                  @if($tm->attr_type == 'normal')
+                  <!-- product size detail -->
+                  <div class="product-size-detail product-info-item clearfix">
+                      <div class="product-size clearfix">
+                          <p class="color-title pull-left">{{$tm->name}}:</p>
+                          @if(count($tmp2) > 0)
+                            <form class="size-list">
+                              @foreach($tmp2 as $tm2)
+                                @if($tm->id == $tm2->id)
+                                <?php $rand = str_random(4);  ?>
+                                  {{ Form::radio('attr2', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand ]) }}<label for="attr-{{$rand}}"><span></span></label>
+                                  {{-- <input type="text" name="p-size" class="size-list-info" value="{{$tm2->value}}"> --}}
+                                @endif
+
+                                 {{--  <input type="text" name="p-size" class="size-list-info" value="30">
+                                  <input type="text" name="p-size" class="size-list-info" value="32">
+                                  <input type="text" name="p-size" class="size-list-info" value="40">
+                                  <input type="text" name="p-size" class="size-list-info" value="26"> --}}
+                                  @if ($loop->last)
+                                    <button class="btn btn-default pull-right">size chart</button>
+                                  @endif
+                              @endforeach
+                            </form>   
+                          @endif
+                      </div>
+                  </div>
+                  <!-- product size detail end --> 
+                  @endif
+
+                @endforeach
+                @endif                       
                                             
                 <!-- plus-minus-pro-action -->
                 <div class="plus-minus-pro-action product-info-item clearfix">

@@ -9,7 +9,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Session;
 use DB;
-
+    
 /**
  * Class ProductController.
  */
@@ -34,33 +34,47 @@ class ProductController extends Controller
                 ->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
                 ->join('product_attr_combination_value', 'product_attr_combination.id', '=', 'product_attr_combination_value.product_attr_combination_id')
                 ->join('attribute_values', 'product_attr_combination_value.attribute_value_id', '=', 'attribute_values.id')
-                ->join('attributes', 'attribute_values.attribute_id', '=', 'attributes.id')
+                ->join('attributes', 'attribute_values.attribute_id', '=', 'attributes.id');
         // $test = $product->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
-                ->select('products.id', 'product_attr_combination.identifier', 'product_attr_combination.quantity', 'product_attr_combination_value.attribute_value_id', 'attribute_values.value', 'attribute_values.attribute_id', 'attributes.name', 'attributes.attr_type')
+                // ->select('products.id', 'product_attr_combination.identifier', 'product_attr_combination.quantity', 'product_attr_combination_value.attribute_value_id', 'attribute_values.value', 'attribute_values.attribute_id', 'attributes.name', 'attributes.attr_type')
+
+
+                $tmp = $test->select('attributes.name', 'attributes.id', 'attributes.attr_type')
+                ->groupBy('attributes.name', 'attributes.id', 'attributes.attr_type')
+                ->get();
+
+                $tmp2 = $test->select('attributes.id', 'attribute_values.value')
+                ->orderBy('product_attr_combination_value.id')
+                ->groupBy('attributes.id', 'attribute_values.value')
                 ->get();
                 
-        // return $test;
+        // var_dump($tmp);
+        // echo "<pre>";
+        // var_dump($tmp2);
+                // foreach ($tmp as $key => $tm) {
+                //     echo $tm->name;
+                // }
+                // echo count($tmp);
+                // die();
+        // dd($tmp[0]);
+        // return ($tmp2);
 
-
-
-
-
-        $arrId = array();
-        $arrName = array();
-        if (count($product->productAttrCombination) > 0) {
-            foreach ($product->productAttrCombination as $comb) {
-                foreach ($comb->productAttrCombinationValue as $key => $combValue) {
-                    $tmp = $combValue->atrributeVal->attribute->id;
-                    $tmp2 = $combValue->atrributeVal->attribute->name;
-                    if (!in_array($tmp, $arrId)) {
-                        $arrId[]=$tmp;
-                    }
-                    if (!in_array($tmp2, $arrName)) {
-                        $arrName[]=$tmp2;
-                    }
-                }
-            }
-        }
+        // $arrId = array();
+        // $arrName = array();
+        // if (count($product->productAttrCombination) > 0) {
+        //     foreach ($product->productAttrCombination as $comb) {
+        //         foreach ($comb->productAttrCombinationValue as $key => $combValue) {
+        //             $tmp = $combValue->atrributeVal->attribute->id;
+        //             $tmp2 = $combValue->atrributeVal->attribute->name;
+        //             if (!in_array($tmp, $arrId)) {
+        //                 $arrId[]=$tmp;
+        //             }
+        //             if (!in_array($tmp2, $arrName)) {
+        //                 $arrName[]=$tmp2;
+        //             }
+        //         }
+        //     }
+        // }
         
         // return $arrId;
         // return $arrName;
@@ -70,7 +84,7 @@ class ProductController extends Controller
     	}
         $product->increaseView();
         $baseImage = $product->productBaseImage;
-        return view('frontend.product.productdetail', compact('product', 'baseImage', 'arrId', 'arrName'))->withClass('inner-page product-detail-page');
+        return view('frontend.product.productdetail', compact('product', 'baseImage',     'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
     }
 
 
