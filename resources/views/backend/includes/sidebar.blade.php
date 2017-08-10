@@ -81,6 +81,9 @@
                     <li class="{{ active_class(Active::checkUriPattern('admin/products')) }}">
                       <a href="{!! url('admin/attributes') !!}"><i class="fa fa-file-text-o"></i> Attributes Management</a>
                     </li>
+                    <li class="{{ active_class(Active::checkUriPattern('admin/products')) }}">
+                      <a href="{!! url('admin/productgroups') !!}"><i class="fa fa-file-text-o"></i> Product Group Management</a>
+                    </li>
                   </ul>
                 </li>
             @endauth

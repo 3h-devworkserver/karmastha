@@ -130,6 +130,24 @@ $(document).on('change', '.bulkSelect', function(){
     order: [[1, "asc"]]
   });
 
+    /**  Product Group table      **/
+  $('#productgroup-table').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "stateSave": true,
+    "ajax": base_url + "/data/table/productgroups",
+    columns: [
+    {data: 'bulk', name: 'bulk', orderable: false, searchable: false},
+    {data: 'id', name: 'id'},
+    {data: 'title', name: 'title'},
+    {data: 'created_at', name: 'created_at'},
+    {data: 'updated_at', name: 'updated_at'},
+    {data: 'status', name: 'status'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ],
+    order: [[1, "asc"]]
+  });
+
 
 
 

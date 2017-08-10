@@ -39,6 +39,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 	Route::get('/data/table/pages', 'Backend\PageController@load');
     Route::get('/data/table/members','Backend\MemberManagementController@load');
     Route::get('/data/table/products','Backend\ProductController@load');
+    Route::get('/data/table/productgroups','Backend\ProductGroupController@load');
     Route::get('/data/table/brands','Backend\BrandController@load');
     Route::get('/data/table/sliders','Backend\SliderController@load');
     Route::get('/data/table/staticblocks','Backend\StaticblockController@load');
