@@ -111,7 +111,9 @@ $(document).ready(function(){
         //     }
         // });
 
-        $('#productActionForm').validate();
+        $('#productActionForm').validate({
+            ignore: []
+        });
         $(document).on('click', '.addToCart', function(){
             if($('#productActionForm').valid()){
                 alert('her');
@@ -155,7 +157,7 @@ $(document).ready(function(){
 
         /** ====== add border while clicking attributes  ===== **/
         $(document).on('click', 'label.attribute', function(){
-            alert('asdfsd');
+            $(this).closest('div.attrParent').find('.attribute').removeClass('attributeSelected');
             $(this).addClass('attributeSelected');
         });
 
@@ -170,80 +172,80 @@ $(document).ready(function(){
 });
 
 
-$(function() {
-    $('#slides').slidesjs({
-            width: 940,
-            height: 528,
-            navigation: {
-              effect: "fade"
-            },
-            pagination: {
-              effect: "fade"
-            },
-            effect: {
-              fade: {
-                speed: 1800
-              }
-            },
-            play: {
-              effect: "fade",
-              auto: true
-            }
-        });
-});
+// $(function() {
+//     $('#slides').slidesjs({
+//             width: 940,
+//             height: 528,
+//             navigation: {
+//               effect: "fade"
+//             },
+//             pagination: {
+//               effect: "fade"
+//             },
+//             effect: {
+//               fade: {
+//                 speed: 1800
+//               }
+//             },
+//             play: {
+//               effect: "fade",
+//               auto: true
+//             }
+//         });
+// });
 
- $(window).load(function() {
-    $("#flexisel_slider").flexisel({
-        visibleItems: 4,
-        itemsToScroll: 3,
-        animationSpeed: 200,
-        infinite: false,
-        navigationTargetSelector: null,
-        autoPlay: {
-            enable: false,
-            interval: 5000,
-            pauseOnHover: true
-        },
-        responsiveBreakpoints: { 
-            portrait: { 
-                changePoint:480,
-                visibleItems: 1,
-                itemsToScroll: 1
-            }, 
-            landscape: { 
-                changePoint:640,
-                visibleItems: 2,
-                itemsToScroll: 2
-            },
-            tablet: { 
-                changePoint:768,
-                visibleItems: 3,
-                itemsToScroll: 3
-            }
-        },
-        loaded: function(object) {
-            console.log('Slider loaded...');
-        },
-        before: function(object){
-            console.log('Before transition...');
-        },
-        after: function(object) {
-            console.log('After transition...');
-        }
-    });
-});
+//  $(window).load(function() {
+//     $("#flexisel_slider").flexisel({
+//         visibleItems: 4,
+//         itemsToScroll: 3,
+//         animationSpeed: 200,
+//         infinite: false,
+//         navigationTargetSelector: null,
+//         autoPlay: {
+//             enable: false,
+//             interval: 5000,
+//             pauseOnHover: true
+//         },
+//         responsiveBreakpoints: { 
+//             portrait: { 
+//                 changePoint:480,
+//                 visibleItems: 1,
+//                 itemsToScroll: 1
+//             }, 
+//             landscape: { 
+//                 changePoint:640,
+//                 visibleItems: 2,
+//                 itemsToScroll: 2
+//             },
+//             tablet: { 
+//                 changePoint:768,
+//                 visibleItems: 3,
+//                 itemsToScroll: 3
+//             }
+//         },
+//         loaded: function(object) {
+//             console.log('Slider loaded...');
+//         },
+//         before: function(object){
+//             console.log('Before transition...');
+//         },
+//         after: function(object) {
+//             console.log('After transition...');
+//         }
+//     });
+// });
 
 
-$( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-} );
+// $( function() {
+//     $( "#slider-range" ).slider({
+//       range: true,
+//       min: 0,
+//       max: 500,
+//       values: [ 75, 300 ],
+//       slide: function( event, ui ) {
+//         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+//       }
+//     });
+//     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+//     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+// } );

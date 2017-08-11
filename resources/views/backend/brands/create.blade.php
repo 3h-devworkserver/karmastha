@@ -44,10 +44,13 @@
 					<br><br>
 					<img class="img-center" width="250" height="150" id="logo_preview" src="#" alt="logo preview">
 				</div>
-
+				
 				<div class="form-group">
-					<label class="control-label">Slug<em class="asterisk">*</em></label>
-					{!!Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter slug','required'=>'required']) !!}
+					<label class="control-label">Slug</label>
+					<div class="input-group">
+					  <span class="input-group-addon">{{url('/').'/brand/'}}</span>
+					  {{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter Slug','required'=>'required'])}}
+					</div>
 				</div>
 
 				<div class="form-group">

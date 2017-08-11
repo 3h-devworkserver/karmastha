@@ -5,6 +5,7 @@
  * All route names are prefixed with 'frontend.'.
  */
 Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/brand/{url}', 'FrontendController@brandpage')->where('slug','.*')->name('page');
 Route::get('macros', 'FrontendController@macros')->name('macros');
 
 Route::get('/category/{slug}', 'FrontendController@showCategoryPage')->where('slug','.*')->name('category.show');

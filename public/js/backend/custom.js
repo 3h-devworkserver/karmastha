@@ -508,7 +508,7 @@ $(document).on('click', '.attributeAdd', function(){
 $(document).on('click', '.attributeRemove', function(){
   $(this).closest('.attribute').remove();
   $('#productForm .attribute-block .attribute').each(function(index){
-    alert(index);
+    // alert(index);
     $(this).find('.attrValue').attr('name', 'attribute_select['+ index +'][]');
   });
 });

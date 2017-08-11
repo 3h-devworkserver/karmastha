@@ -8,6 +8,7 @@
                 <li><a href="">Hot News</a></li>
                 <li><a href="">Events</a></li>
                 <li><a href="">Services</a></li>
+                <li><a href="{{URL::to('/brand')}}">Brand</a></li>
             </ul>
           </div>
           <div class="col-md-6">

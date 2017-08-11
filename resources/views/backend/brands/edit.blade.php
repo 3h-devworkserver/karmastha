@@ -47,7 +47,10 @@
 
 				<div class="form-group">
 					<label class="control-label">Slug</label>
-					{{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter slug']) }}
+					<div class="input-group">
+					  <span class="input-group-addon">{{url('/').'/brand/'}}</span>
+					  {{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter Slug','required'=>'required'])}}
+					</div>
 				</div>
 
 				<div class="form-group">

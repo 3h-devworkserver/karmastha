@@ -17,19 +17,20 @@
 @endsection
 
 @section('content')
-
-	<div class="breadcrumbs">
-	    <div class="container">
-	        <div class="row">
-	            <div class="col-md-12 col-md-12">
-	                <ol class="breadcrumb">
+<section class="page-breadcrumbs pb0">
+  <div class="container"> 
+    <div class="row">
+      <div class="col-md-12">                
+       <ol class="breadcrumb">
 	                    <li><a href="{{url('/')}}">Home</a></li>
 	                    <li class="active">{{$category->title}}</li>
 	                </ol>
-	            </div>
-	        </div>
-	    </div>
-	</div> 
+
+      </div>  
+    </div>
+  </div>
+</section>
+
 
     <div class="product_cat_info">
         <div class="container">
@@ -61,51 +62,7 @@
 
 	                        </div>
 	                        @endif
-	                        {{-- <div class="sidebar_price">
-	                            <h4 class="title">price</h4 class="title">
-	                            <div class="price-slider">
-	                                <label for="amount">Price range:</label>
-	                              <input type="text" id="amount" disabled>
-	                            </div>
-	                            <div id="slider-range"></div>
-	                        </div> --}}
-	                        {{-- <div class="sidebar_brand">
-	                            <h4 class="title">brand</h4>
-	                            <div class="sidebar_search_form">
-	                                <form action="" class="form-horizontal">
-	                                    <div class="form-group">
-	                                        <button class="btn"><i class="fa fa-search"></i></button>
-	                                        <input class="form-control" id="" placeholder="search for brand" type="text">
-	                                    </div>
-	                                </form>
-	                            </div>
-	                            <div class="sidebar_checkbox">
-	                                <div class="checkbox">
-	                                    <input id="checkbox1" type="checkbox" name="check">
-	                                    <label for="checkbox1"><span></span>levi's</label>
-	                                </div>
-	                                <div class="checkbox">
-	                                    <input id="checkbox2" type="checkbox">
-	                                    <label for="checkbox2"><span></span>wrangler</label>
-	                                </div>
-	                                <div class="checkbox">
-	                                    <input id="checkbox3" type="checkbox">
-	                                    <label for="checkbox3"><span></span>united colors of benetton</label>
-	                                </div>
-	                                <div class="checkbox">
-	                                    <input id="checkbox4" type="checkbox">
-	                                    <label for="checkbox4"><span></span>peter england</label>
-	                                </div>
-	                                <div class="checkbox">
-	                                    <input id="checkbox5" type="checkbox">
-	                                    <label for="checkbox5"><span></span>lee</label>
-	                                </div>
-	                                <div class="checkbox">
-	                                    <input id="checkbox6" type="checkbox">
-	                                    <label for="checkbox6"><span></span>puma</label>
-	                                </div>
-	                            </div>
-	                        </div> --}}
+	                        
 	                    </div>
 	                </div><!--end side bar -->
 	                <div class="col-md-9 col-sm-9" id="cart_items">
@@ -129,14 +86,6 @@
 			                            </div>
 			                                </a>
 
-                                    <?php /* ?>
-
-		                               	<div>
-			                               	<a href="{{$banner->banner_url}}" title="{{$banner->banner_title}}">
-			                                 	<img src="{{asset('images/category/banner/'.$banner->banner_image)}}" alt="{{$banner->banner_desc}}">
-			                                </a>
-		                               	</div>
-		                            <?php */ ?>
 		                            @endforeach
                                     </div>
                                	@endif

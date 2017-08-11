@@ -143,13 +143,13 @@
                     <!-- single-pro-color -->
                     <div class="sin-pro-color product-info-item clearfix">
                         <p class="color-title">{{$tm->name}}:</p>
-                        <div class="widget-color">
+                        <div class="widget-color attrParent form-group">
                             @if(count($tmp2) > 0)
                               <ul>
                                 @foreach($tmp2 as $tm2)
                                   @if($tm->id == $tm2->id)
                                   <?php $rand = str_random(4);  ?>
-                                  <li style="background-color:{{$tm2->value}};">{{ Form::radio('attr1', $tm2->value, false, ['id'=>'attr-'.$rand, 'required' ]) }}<label class="attribute" for="attr-{{$rand}}"><span></span></label></li>
+                                  <li style="background-color:{{$tm2->value}};">{{ Form::radio('attr1[]', $tm2->value, false, ['id'=>'attr-'.$rand, 'required' ]) }}<label class="attribute" for="attr-{{$rand}}"><span></span></label></li>
                                   @endif
                                 {{-- <li class="green">{{ Form::radio('attr1', 'green') }}</li>
                                 <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
@@ -171,14 +171,14 @@
                     @if($tm->attr_type == 'normal')
                     <!-- product size detail -->
                     <div class="product-size-detail product-info-item clearfix">
-                        <div class="product-size clearfix">
+                        <div class="product-size clearfix attrParent form-group">
                             <p class="color-title pull-left">{{$tm->name}}:</p>
                             @if(count($tmp2) > 0)
                               {{-- <form class="size-list"> --}}
                                 @foreach($tmp2 as $tm2)
                                   @if($tm->id == $tm2->id)
                                   <?php $rand = str_random(4);  ?>
-                                    {{ Form::radio('attr2', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand, 'required']) }}<label for="attr-{{$rand}}" class="attribute"><span></span></label>
+                                    {{ Form::radio('attr2[]', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand, 'required']) }}<label for="attr-{{$rand}}" class="attribute"><span>{{$tm2->value}}</span></label>
                                     {{-- <input type="text" name="p-size" class="size-list-info" value="{{$tm2->value}}"> --}}
                                   @endif
 
@@ -198,6 +198,68 @@
                     @endif
 
                   @endforeach
+
+                  @foreach($tmp as $tm)
+                    @if($tm->attr_type == 'color')
+                    <!-- single-pro-color -->
+                    <div class="sin-pro-color product-info-item clearfix">
+                        <p class="color-title">{{$tm->name}}:</p>
+                        <div class="widget-color attrParent form-group">
+                            @if(count($tmp2) > 0)
+                              <ul>
+                                @foreach($tmp2 as $tm2)
+                                  @if($tm->id == $tm2->id)
+                                  <?php $rand = str_random(4);  ?>
+                                  <li style="background-color:{{$tm2->value}};">{{ Form::radio('attr1[]', $tm2->value, false, ['id'=>'attr-'.$rand, 'required' ]) }}<label class="attribute" for="attr-{{$rand}}"><span></span></label></li>
+                                  @endif
+                                {{-- <li class="green">{{ Form::radio('attr1', 'green') }}</li>
+                                <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
+                                <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
+                                <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
+                                <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li> --}}
+                                {{-- <li class="green"><a href="#"></a></li>
+                                <li class="yellow"><a href="#"></a></li>
+                                <li class="blue"><a href="#"></a></li>
+                                <li class="purple"><a href="#"></a></li>
+                                <li class="aqua"><a href="#"></a></li> --}}
+                                @endforeach
+                              </ul>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+                  
+                    @if($tm->attr_type == 'normal')
+                    <!-- product size detail -->
+                    <div class="product-size-detail product-info-item clearfix">
+                        <div class="product-size clearfix attrParent form-group">
+                            <p class="color-title pull-left">{{$tm->name}}:</p>
+                            @if(count($tmp2) > 0)
+                              {{-- <form class="size-list"> --}}
+                                @foreach($tmp2 as $tm2)
+                                  @if($tm->id == $tm2->id)
+                                  <?php $rand = str_random(4);  ?>
+                                    {{ Form::radio('attr2[]', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand, 'required']) }}<label for="attr-{{$rand}}" class="attribute"><span>{{$tm2->value}}</span></label>
+                                    {{-- <input type="text" name="p-size" class="size-list-info" value="{{$tm2->value}}"> --}}
+                                  @endif
+
+                                   {{--  <input type="text" name="p-size" class="size-list-info" value="30">
+                                    <input type="text" name="p-size" class="size-list-info" value="32">
+                                    <input type="text" name="p-size" class="size-list-info" value="40">
+                                    <input type="text" name="p-size" class="size-list-info" value="26"> --}}
+                                    @if ($loop->last)
+                                      <button class="btn btn-default pull-right">size chart</button>
+                                    @endif
+                                @endforeach
+                              {{-- </form>    --}}
+                            @endif
+                        </div>
+                    </div>
+                    <!-- product size detail end --> 
+                    @endif
+
+                  @endforeach
+                  
                   @endif                       
                                               
                   <!-- plus-minus-pro-action -->
@@ -232,13 +294,11 @@
                     <h3><i class="fa fa-share-alt"></i>share it:</h3>
                       <ul class="action-button list-unstyled">
                         <li>
-                            {{-- <a href="#" title="facebook" tabindex="0"><i class="fa fa-facebook"></i></a> --}}
                             <a title="facebook" tabindex="0" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)">
                               <i class="fa fa-facebook"></i>
                             </a>
                         </li>
                         <li>
-                            {{-- <a href="#" title="twitter" tabindex="0"><i class="fa fa-twitter"></i></a> --}}
                             <a title="twitter" tabindex="0" onclick="window.open('http://twitter.com/intent/tweet?status={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)">
                               <i class="fa fa-twitter"></i>
                             </a>
@@ -280,8 +340,10 @@
 
               <!-- Tab panes -->
               <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane active" id="home">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-                  <div role="tabpanel" class="tab-pane" id="profile">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                  {!! $product->detail !!}
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="profile">{!! $product->short_desc !!}</div>
                   <div role="tabpanel" class="tab-pane" id="messages">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
               </div>
 

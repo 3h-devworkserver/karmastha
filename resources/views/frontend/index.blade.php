@@ -293,7 +293,7 @@
     <div class="brand-list">
       <ul class="list-unstyled list-inline">
         @foreach( $brands as $key => $brand)
-        <li><a href="#"><img src="{{ asset('/'.$brand->brand_logo) }}" alt=""></a></li>
+        <li><a href="{{ URL::to('/brand/'.$brand->slug ) }}"><img src="{{ asset('/'.$brand->brand_logo) }}" alt=""></a></li>
         @endforeach
       </ul>
     </div>

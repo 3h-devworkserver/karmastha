@@ -54,6 +54,36 @@ class FrontendController extends Controller
         }
        
         return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist'))->withClass('interactive-body');
+    } 
+
+    public function brandpage($url)
+    {
+        // Session::flush();
+        if( Auth::user()){
+           $user = Auth::user()->id;
+           $wishlist = DB::table('product_wishlist')->where('user_id',$user)->count();
+        }else{
+            $wishlist = '';
+        }
+        $brands = Brand::where('status', 1)->where('slug', $url)->orderBy('b_order', 'asc')->first();
+        //echo '<pre>'; print_r($brands);
+       //$members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
+        //$page = Page::where('slug',$url)->where('status', 1)->first();
+        //$sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
+        //$ads= Ads::first();
+        // $tproducts = Product::
+        // //->join('product_price','products.id','=','product_price.product_id')
+        // //->select('products.name','product_price.price','products.total_views','product_price.special_price')
+        //  where('trending','=','1')
+        // ->orderby('total_views','desc')
+        // ->get();
+        $tproducts = array();
+
+        // if (empty($page)) {
+        //     abort(404);
+        // }
+       
+        return view('frontend.brandpage', compact('brands', 'members', 'ads','tproducts','wishlist'))->withClass('interactive-body');
     }
 
     /**
@@ -77,11 +107,12 @@ class FrontendController extends Controller
         ->where('category_product.category_id','=',$category->id)
         ->select('products.*','product_price.price','product_price.special_price')
         ->paginate(4);
+        $brands = Brand::where('status', 1)->where('topbrand', 1)->orderBy('b_order', 'asc')->get();
         if ($category->isParent() == 'true') {
-            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category','products','brands'))->withClass('inner-page product_cat');
         }else{
-            $products = $category->products;
-            return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
+            //$products = $category->products;
+            return view('frontend.category.categorydetailpage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
     }
 
