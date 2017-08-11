@@ -54,25 +54,142 @@ $(function() {
            
 
 // })
-    $('#slides').slidesjs({
-        width: 940,
-        height: 528,
-        navigation: {
-          effect: "fade"
+    
+});
+
+
+
+
+
+$("#slideshow > div:gt(0)").hide();
+
+    setInterval(function() { 
+      $('#slideshow > div:first')
+        .fadeOut(1000)
+        .next()
+        .fadeIn(2000)
+        .end()
+        .appendTo('#slideshow');
+    },  3000);
+
+
+$(document).ready(function(){
+
+    /** ====== generic anchor tag used to submit form ===== **/
+    $(document).on('click', 'a.submit', function(){
+        $(this).closest('form').submit();
+    });
+    /** ====== end - generic anchor tag used to submit form ===== **/
+
+    
+
+    /** ======== form validation default settings  ======= **/
+    $.validator.setDefaults({
+        errorElement: "span",
+        errorClass: "help-block",
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            
         },
-        pagination: {
-          effect: "fade"
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            
+
         },
-        effect: {
-          fade: {
-            speed: 1800
-          }
-        },
-        play: {
-          effect: "fade",
-          auto: true
+        errorPlacement: function (error, element) {
+            error.insertAfter($(element).closest('.form-group').children().last());
         }
     });
+
+    /** ========start-   product add to cart  ======= **/
+        // $('#productActionForm').validate();
+
+        // $(document).on('click', '.addToCart', function(){
+        //     $('#productActionForm input[name="action"]').val('addToCart');
+        //     if($('#productActionForm').valid()){
+        //         $('#productActionForm').submit();
+        //     }
+        // });
+
+        $('#productActionForm').validate();
+        $(document).on('click', '.addToCart', function(){
+            if($('#productActionForm').valid()){
+                alert('her');
+                $('#productActionForm input[name="action"]').val('addToCart');
+                $('#productActionForm').submit();
+            }
+        });
+    /** ========end-   product add to cart  ======= **/
+
+
+    /** ====== display <a> tag to update qty in cart ===== **/
+    $(document).on('change', '.qtyTextBox', function(){
+        $(this).next().removeClass('hide');
+    });
+    /** ====== end - display <a> tag to update qty in cart ===== **/
+
+
+    /** ====== register form validation  ===== **/
+    // $('.userRegisterForm').validate({
+    //     rules:{
+    //         'email': 'required',
+    //         'first_name': 'required',
+    //         'last_name': 'required',
+    //         'phone': 'required',
+    //         'user_type': 'required',
+    //         password: { 
+    //             required: true,
+    //             minlength: 6
+    //         },
+    //         password_confirmation: { 
+    //             equalTo: ".userRegisterForm #password",
+    //             minlength: 6
+    //         },
+    //     }
+    // });
+
+    /** ====== end- register form validation  ===== **/
+
+
+    /** ====== start - product detail page  ===== **/
+
+        /** ====== add border while clicking attributes  ===== **/
+        $(document).on('click', 'label.attribute', function(){
+            alert('asdfsd');
+            $(this).addClass('attributeSelected');
+        });
+
+    /** ====== end - product detail page  ===== **/
+
+
+
+
+
+// $('.selectBox').SumoSelect();
+
+});
+
+
+$(function() {
+    $('#slides').slidesjs({
+            width: 940,
+            height: 528,
+            navigation: {
+              effect: "fade"
+            },
+            pagination: {
+              effect: "fade"
+            },
+            effect: {
+              fade: {
+                speed: 1800
+              }
+            },
+            play: {
+              effect: "fade",
+              auto: true
+            }
+        });
 });
 
  $(window).load(function() {
@@ -116,6 +233,7 @@ $(function() {
     });
 });
 
+
 $( function() {
     $( "#slider-range" ).slider({
       range: true,
@@ -129,88 +247,3 @@ $( function() {
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 } );
-
-
-$("#slideshow > div:gt(0)").hide();
-
-    setInterval(function() { 
-      $('#slideshow > div:first')
-        .fadeOut(1000)
-        .next()
-        .fadeIn(2000)
-        .end()
-        .appendTo('#slideshow');
-    },  3000);
-
-
-$(document).ready(function(){
-
-    /** ====== generic anchor tag used to submit form ===== **/
-    $(document).on('click', 'a.submit', function(){
-        $(this).closest('form').submit();
-    });
-    /** ====== end - generic anchor tag used to submit form ===== **/
-
-    $('.selectBox').SumoSelect();
-
-/** ======== form validation default settings  ======= **/
-    $.validator.setDefaults({
-        errorElement: "span",
-        errorClass: "help-block",
-        highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error');
-            
-        },
-        unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error');
-            
-
-        },
-        errorPlacement: function (error, element) {
-            error.insertAfter($(element).closest('.form-group').children().last());
-        }
-    });
-
-/** ========start-   product add to cart  ======= **/
-    $('#productActionForm').validate();
-
-    $(document).on('click', '.addToCart', function(){
-        $('#productActionForm input[name="action"]').val('addToCart');
-        if($('#productActionForm').valid()){
-            $('#productActionForm').submit();
-        }
-    });
-/** ========end-   product add to cart  ======= **/
-
-
-    /** ====== display <a> tag to update qty in cart ===== **/
-    $(document).on('change', '.qtyTextBox', function(){
-        $(this).next().removeClass('hide');
-    });
-    /** ====== end - display <a> tag to update qty in cart ===== **/
-
-
-    /** ====== register form validation  ===== **/
-    $('.userRegisterForm').validate({
-        rules:{
-            'email': 'required',
-            'first_name': 'required',
-            'last_name': 'required',
-            'phone': 'required',
-            'user_type': 'required',
-            password: { 
-                required: true,
-                minlength: 6
-            },
-            password_confirmation: { 
-                equalTo: ".userRegisterForm #password",
-                minlength: 6
-            },
-        }
-    });
-
-    /** ====== end- register form validation  ===== **/
-
-
-
-});

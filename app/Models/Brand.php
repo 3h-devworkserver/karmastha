@@ -18,7 +18,8 @@ class Brand extends Model
     		[
     			'brand_name',
     			'brand_logo',
-    			'slug',
+                'slug',
+    			'description',
                 'b_order',
                 'topbrand',
     			'status',

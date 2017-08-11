@@ -51,7 +51,7 @@
 			{!!Form::textarea('detail',null,['class'=>'form-control', 'rows'=>'8', 'placeholder'=>'Enter Detail'])!!}
 		</div>
 
-		<div class="form-group">
+		{{-- <div class="form-group">
 			<label class="control-label">Featured Product<em class="asterisk">*</em></label>
 			{{Form::select('featured',['0' => 'No', '1'=>'Yes'],null,['class'=>'form-control'])}}
 		</div>
@@ -64,6 +64,11 @@
 		<div class="form-group">
 			<label class="control-label">Trending Product<em class="asterisk">*</em></label>
 			{{Form::select('trending',['0' => 'No', '1'=>'Yes'],null,['class'=>'form-control'])}}
+		</div> --}}
+
+		<div class="form-group">
+			<label class="control-label">Product Groups</label>
+			{{Form::select('productGroup[]',$productGroups,null,['class'=>'form-control', 'multiple'])}}
 		</div>
 
 		<div class="form-group">

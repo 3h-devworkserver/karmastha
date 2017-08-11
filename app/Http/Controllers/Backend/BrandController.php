@@ -99,6 +99,7 @@ class BrandController extends Controller
                 'brand_name'=>$request->brand_name,
                 'brand_logo'=>$filepath,
                 'slug'=>$request->slug,
+                'description'=>$request->description,
                 'status'=>$request->status,
                 'b_order'=>$request->b_order,
                 'topbrand'=>$request->topbrand,
@@ -180,6 +181,7 @@ class BrandController extends Controller
             $brand->update([
             'brand_name'=>$request->brand_name,
             'slug'=>$request->slug,
+            'description'=>$request->description,
             'status'=>$request->status,
             'b_order'=>$request->b_order,
             'topbrand'=>$request->topbrand,         

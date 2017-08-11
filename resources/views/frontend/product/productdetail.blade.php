@@ -130,103 +130,120 @@
                   <div class="brand-stock-info"><img src="{{asset('images/success.png')}}">Mega Seller! 2,000+ sold in last month</div>
                   <div class="stock-available-detail pull-right"><span>In Stock:</span><b>Available</b></div>
                 </div>
-          
-                @if(count($tmp) > 0)
 
-                @foreach($tmp as $tm)
-                  @if($tm->attr_type == 'color')
-                  <!-- single-pro-color -->
-                  <div class="sin-pro-color product-info-item clearfix">
-                      <p class="color-title">{{$tm->name}}:</p>
-                      <div class="widget-color">
-                          @if(count($tmp2) > 0)
-                            <ul>
-                              @foreach($tmp2 as $tm2)
-                                @if($tm->id == $tm2->id)
-                                <?php $rand = str_random(4);  ?>
-                                <li class="" style="background-color:{{$tm2->value}};">{{ Form::radio('attr1', $tm2->value, false, ['id'=>'attr-'.$rand ]) }}<label for="attr-{{$rand}}"><span></span></label></li>
-                                @endif
-                              {{-- <li class="green">{{ Form::radio('attr1', 'green') }}</li>
-                              <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
-                              <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
-                              <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
-                              <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li> --}}
-                              {{-- <li class="green"><a href="#"></a></li>
-                              <li class="yellow"><a href="#"></a></li>
-                              <li class="blue"><a href="#"></a></li>
-                              <li class="purple"><a href="#"></a></li>
-                              <li class="aqua"><a href="#"></a></li> --}}
-                              @endforeach
-                            </ul>
-                          @endif
-                      </div>
-                  </div>
-                  @endif
-                
-                  @if($tm->attr_type == 'normal')
-                  <!-- product size detail -->
-                  <div class="product-size-detail product-info-item clearfix">
-                      <div class="product-size clearfix">
-                          <p class="color-title pull-left">{{$tm->name}}:</p>
-                          @if(count($tmp2) > 0)
-                            <form class="size-list">
-                              @foreach($tmp2 as $tm2)
-                                @if($tm->id == $tm2->id)
-                                <?php $rand = str_random(4);  ?>
-                                  {{ Form::radio('attr2', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand ]) }}<label for="attr-{{$rand}}"><span></span></label>
-                                  {{-- <input type="text" name="p-size" class="size-list-info" value="{{$tm2->value}}"> --}}
-                                @endif
+                {{Form::open(['url'=>'addtocart', 'method'=>'post', 'id'=>'productActionForm'])}} 
 
-                                 {{--  <input type="text" name="p-size" class="size-list-info" value="30">
-                                  <input type="text" name="p-size" class="size-list-info" value="32">
-                                  <input type="text" name="p-size" class="size-list-info" value="40">
-                                  <input type="text" name="p-size" class="size-list-info" value="26"> --}}
-                                  @if ($loop->last)
-                                    <button class="btn btn-default pull-right">size chart</button>
+                  {{Form::hidden('action', '')}} 
+                  {{Form::hidden('product', $product->id)}} 
+
+                  @if(count($tmp) > 0)
+
+                  @foreach($tmp as $tm)
+                    @if($tm->attr_type == 'color')
+                    <!-- single-pro-color -->
+                    <div class="sin-pro-color product-info-item clearfix">
+                        <p class="color-title">{{$tm->name}}:</p>
+                        <div class="widget-color">
+                            @if(count($tmp2) > 0)
+                              <ul>
+                                @foreach($tmp2 as $tm2)
+                                  @if($tm->id == $tm2->id)
+                                  <?php $rand = str_random(4);  ?>
+                                  <li style="background-color:{{$tm2->value}};">{{ Form::radio('attr1', $tm2->value, false, ['id'=>'attr-'.$rand, 'required' ]) }}<label class="attribute" for="attr-{{$rand}}"><span></span></label></li>
                                   @endif
-                              @endforeach
-                            </form>   
-                          @endif
-                      </div>
-                  </div>
-                  <!-- product size detail end --> 
-                  @endif
-
-                @endforeach
-                @endif                       
-                                            
-                <!-- plus-minus-pro-action -->
-                <div class="plus-minus-pro-action product-info-item clearfix">
-                    <div class="sin-plus-minus cart-size clearfix">
-                        <p class="color-title pull-left">Qty:</p>
-                        <div class="qty-section">                   
-                        <div>
-                            <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                            <input value="1" />
-                            <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                {{-- <li class="green">{{ Form::radio('attr1', 'green') }}</li>
+                                <li class="yellow">{{ Form::radio('attr1', 'yellow') }}</li>
+                                <li class="blue">{{ Form::radio('attr1', 'blue') }}</li>
+                                <li class="purple">{{ Form::radio('attr1', 'purple') }}</li>
+                                <li class="aqua">{{ Form::radio('attr1', 'aqua') }}</li> --}}
+                                {{-- <li class="green"><a href="#"></a></li>
+                                <li class="yellow"><a href="#"></a></li>
+                                <li class="blue"><a href="#"></a></li>
+                                <li class="purple"><a href="#"></a></li>
+                                <li class="aqua"><a href="#"></a></li> --}}
+                                @endforeach
+                              </ul>
+                            @endif
                         </div>
-                    </div>        
-                        <div class="cart-btn">
-                          <a href="cart.html" class="btn btn-primary open-door" tabindex="-1">
-                            <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
-                          </a>
-                        </div>  
                     </div>
-                    
-                </div>
-                <!-- plus-minus-pro-action end -->
+                    @endif
+                  
+                    @if($tm->attr_type == 'normal')
+                    <!-- product size detail -->
+                    <div class="product-size-detail product-info-item clearfix">
+                        <div class="product-size clearfix">
+                            <p class="color-title pull-left">{{$tm->name}}:</p>
+                            @if(count($tmp2) > 0)
+                              {{-- <form class="size-list"> --}}
+                                @foreach($tmp2 as $tm2)
+                                  @if($tm->id == $tm2->id)
+                                  <?php $rand = str_random(4);  ?>
+                                    {{ Form::radio('attr2', $tm2->value, false, ['class'=>'size-list-info', 'id'=>'attr-'.$rand, 'required']) }}<label for="attr-{{$rand}}" class="attribute"><span></span></label>
+                                    {{-- <input type="text" name="p-size" class="size-list-info" value="{{$tm2->value}}"> --}}
+                                  @endif
+
+                                   {{--  <input type="text" name="p-size" class="size-list-info" value="30">
+                                    <input type="text" name="p-size" class="size-list-info" value="32">
+                                    <input type="text" name="p-size" class="size-list-info" value="40">
+                                    <input type="text" name="p-size" class="size-list-info" value="26"> --}}
+                                    @if ($loop->last)
+                                      <button class="btn btn-default pull-right">size chart</button>
+                                    @endif
+                                @endforeach
+                              {{-- </form>    --}}
+                            @endif
+                        </div>
+                    </div>
+                    <!-- product size detail end --> 
+                    @endif
+
+                  @endforeach
+                  @endif                       
+                                              
+                  <!-- plus-minus-pro-action -->
+                  <div class="plus-minus-pro-action product-info-item clearfix">
+                      <div class="sin-plus-minus cart-size clearfix">
+                          <p class="color-title pull-left">Qty:</p>
+                          <div class="qty-section">                   
+                          <div>
+                              <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                               @if($product->productInventory->manage_stock == 1)
+                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly', 'required'])}}
+                                @else
+                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>'1', 'readonly', 'required'])}}
+                                @endif
+                              <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                          </div>
+                      </div>        
+                          <div class="cart-btn">
+                            <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" tabindex="-1">
+                              <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
+                            </a>
+                          </div>  
+                      </div>
+                      
+                  </div>
+                  <!-- plus-minus-pro-action end -->
+
+                {{Form::close()}}
 
                 <!-- share it -->
                 <div class="sin-pro-action product-info-item clearfix">
                     <h3><i class="fa fa-share-alt"></i>share it:</h3>
-                    <ul class="action-button list-unstyled">
+                      <ul class="action-button list-unstyled">
                         <li>
-                            <a href="#" title="facebook" tabindex="0"><i class="fa fa-facebook"></i></a>
+                            {{-- <a href="#" title="facebook" tabindex="0"><i class="fa fa-facebook"></i></a> --}}
+                            <a title="facebook" tabindex="0" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)">
+                              <i class="fa fa-facebook"></i>
+                            </a>
                         </li>
                         <li>
-                            <a href="#" title="twitter" tabindex="0"><i class="fa fa-twitter"></i></a>
+                            {{-- <a href="#" title="twitter" tabindex="0"><i class="fa fa-twitter"></i></a> --}}
+                            <a title="twitter" tabindex="0" onclick="window.open('http://twitter.com/intent/tweet?status={{url()->current()}}', 'sharer', 'toolbar=0,width=620,height=280');" href="javascript: void(0)">
+                              <i class="fa fa-twitter"></i>
+                            </a>
                         </li>
-                        <li>
+                       {{--  <li>
                             <a href="#" title="google" tabindex="0"><i class="fa fa-google-plus-official"></i></a>
                         </li>
                         <li>
@@ -234,8 +251,8 @@
                         </li>
                         <li>
                             <a href="#" title="linkedIn" tabindex="0"><i class="fa fa-linkedin-square"></i></a>
-                        </li>
-                        </ul>
+                        </li> --}}
+                      </ul>
                 </div>
 
             </section>

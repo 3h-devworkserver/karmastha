@@ -67,7 +67,6 @@
 
 <!-- Scripts -->
 @yield('before-scripts')
-
 <script src="{{asset('js/frontend/jquery.min.js')}}"></script>
 <script src="{{asset('js/frontend/bootstrap.js')}}"></script>
 <script src="{{asset('js/frontend/owl.carousel.js')}}"></script>
@@ -76,6 +75,7 @@
 <script src="{{asset('js/frontend/ap-drilldown-menu.min.js')}}"></script>
 <script src="{{asset('js/frontend/zoom-setup.js')}}"></script>
 <script src="{{asset('js/frontend/xzoom.min.js')}}"></script>
+{{ Html::script('js/frontend/jquery.validate.js') }}
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 <script type="text/javascript">

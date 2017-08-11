@@ -84,7 +84,7 @@ class ProductController extends Controller
     	}
         $product->increaseView();
         $baseImage = $product->productBaseImage;
-        return view('frontend.product.productdetail', compact('product', 'baseImage',     'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
+        return view('frontend.product.productdetail', compact('product', 'baseImage', 'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
     }
 
 
@@ -94,6 +94,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ProductAction(Request $request){
+        return $request->all();
         // dd(Session::all());
         if ($request->action=='addToCart' || $request->action=='') {
             return $this->addToCart($request);

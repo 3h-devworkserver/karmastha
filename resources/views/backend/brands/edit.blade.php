@@ -49,6 +49,12 @@
 					<label class="control-label">Slug</label>
 					{{Form::text('slug',null,['class'=>'form-control', 'placeholder'=>'Enter slug']) }}
 				</div>
+
+				<div class="form-group">
+					<label class="control-label">Description<em class="asterisk">*</em></label>
+					{!!Form::textarea('description',null,['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
+				</div>
+
 			</div>
 			<!-- /.box-body -->
 		</div>
@@ -123,4 +129,5 @@
 	</div>
 </div>
 {{Form::close()}}
+@include('backend.includes.tinymce')
 @endsection

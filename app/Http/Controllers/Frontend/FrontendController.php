@@ -41,12 +41,13 @@ class FrontendController extends Controller
         $page = Page::where('id',1)->where('status', 1)->first();
         $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
         $ads= Ads::first();
-        $tproducts = Product::
-        //->join('product_price','products.id','=','product_price.product_id')
-        //->select('products.name','product_price.price','products.total_views','product_price.special_price')
-         where('trending','=','1')
-        ->orderby('total_views','desc')
-        ->get();
+        // $tproducts = Product::
+        // //->join('product_price','products.id','=','product_price.product_id')
+        // //->select('products.name','product_price.price','products.total_views','product_price.special_price')
+        //  where('trending','=','1')
+        // ->orderby('total_views','desc')
+        // ->get();
+        $tproducts = array();
 
         if (empty($page)) {
             abort(404);

@@ -24,6 +24,10 @@ class Product extends Model
         return $this->hasOne('App\Models\Product\ProductPrice');
     }
 
+    public function productGroups(){
+        return $this->belongsToMany('App\Models\ProductGroup\ProductGroup', 'product_productgroup', 'product_id', 'productgroup_id');
+    }
+
     public function productInventory(){
         return $this->hasOne('App\Models\Product\ProductInventory');
     }

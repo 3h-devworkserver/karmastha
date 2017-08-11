@@ -11,6 +11,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Member;
 use App\Models\Product\Product;
+use App\Models\ProductGroup\ProductGroup;
 use App\Models\Product\ProductGallery;
 use App\Models\Attribute\Attribute;
 use App\Models\Attribute\AttributeValue;
@@ -92,7 +93,8 @@ class ProductController extends Controller
         $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
         $attributes = Attribute::where('status', 1)->orderBy('attr_order', 'asc')->pluck('name', 'id');
         $attributeValues = AttributeValue::orderBy('value_order', 'asc')->get();
-        return view('backend.products.create', compact('brand', 'categorys', 'rand', 'attributes', 'attributeValues'));
+        $productGroups = ProductGroup::where('status', 1)->pluck('title', 'id');
+        return view('backend.products.create', compact('brand', 'categorys', 'rand', 'attributes', 'attributeValues', 'productGroups'));
     }
 
     /**
@@ -133,7 +135,7 @@ class ProductController extends Controller
             'short_desc' => 'required',            
             'detail' => 'required',            
             'return_policy' => 'required',            
-            'featured' => 'required',            
+            // 'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug',    
             // 'brand_id' => 'numeric|exists:members,id',    
@@ -163,9 +165,9 @@ class ProductController extends Controller
                 'return_policy' => $request->return_policy,
                 'offer' => $request->offer,
                 'release_note' => $request->release_note,
-                'featured' => $request->featured,
-                'hot' => $request->hot,
-                'trending' => $request->trending,
+                // 'featured' => $request->featured,
+                // 'hot' => $request->hot,
+                // 'trending' => $request->trending,
                 'tags' => $request->tags,
                 'status' => $request->status,
 
@@ -174,6 +176,9 @@ class ProductController extends Controller
                 'meta_keyword' => $request->meta_keyword,
                 'meta_desc' => $request->meta_desc,
             ]);
+
+            //product groups
+            $product->productGroups()->attach($request->productGroup);
 
             $product->productPrice()->create([
                 //price
@@ -425,7 +430,9 @@ class ProductController extends Controller
         $attributes = Attribute::where('status', 1)->orderBy('attr_order', 'asc')->pluck('name', 'id');
         $attributeValues = AttributeValue::orderBy('value_order', 'asc')->get();
 
-        return view('backend.products.edit',compact('product', 'brand', 'categorys', 'catSelected', 'rand', 'attributes', 'attributeValues'));
+        $productGroups = ProductGroup::where('status', 1)->pluck('title', 'id');
+
+        return view('backend.products.edit',compact('product', 'brand', 'categorys', 'catSelected', 'rand', 'attributes', 'attributeValues', 'productGroups'));
     }
 
     /**
@@ -444,7 +451,7 @@ class ProductController extends Controller
             'short_desc' => 'required',            
             'detail' => 'required',            
             'return_policy' => 'required',            
-            'featured' => 'required',            
+            // 'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug,'.$id,    
             // 'brand_id' => 'numeric|exists:members,id',    
@@ -474,9 +481,9 @@ class ProductController extends Controller
                 'return_policy' => $request->return_policy,
                 'offer' => $request->offer,
                 'release_note' => $request->release_note,
-                'featured' => $request->featured,
-                'hot' => $request->hot,
-                'trending' => $request->trending,
+                // 'featured' => $request->featured,
+                // 'hot' => $request->hot,
+                // 'trending' => $request->trending,
                 'tags' => $request->tags,
                 'status' => $request->status,
 
@@ -485,6 +492,9 @@ class ProductController extends Controller
                 'meta_keyword' => $request->meta_keyword,
                 'meta_desc' => $request->meta_desc,
             ]);
+
+            //product groups
+            $product->productGroups()->sync($request->productGroup);
 
             $product->productPrice()->update([
                 //price

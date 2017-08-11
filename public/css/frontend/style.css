@@ -2152,6 +2152,7 @@ div.qty-section > div > input {
   width: 35px;
 }
 .widget-color ul li {
+  border: 1px solid #ffffff;
   display: block;
   position: relative;
 }
@@ -2183,11 +2184,8 @@ div.qty-section > div > input {
 .widget-color ul li.blue:before {background: #0000FF;}
 .widget-color ul li.purple:before {background: #800080;}
 .widget-color ul li.aqua:before {background: #00FFFF;}
-.widget-color input[type="radio"]:checked + label span{
-  width: 15px;
-  height: 15px;
-  border-radius: 30px;
-}
+.widget-color ul li input[type="radio"]:checked + label{ border: 2px solid #ffffff; }
+.widget-color ul li input[type="radio"]:checked + label span::before{ visibility: hidden; }
 
 
 .nav-tabs { border-bottom: 1px solid #ccc; margin: 0 25px;}
