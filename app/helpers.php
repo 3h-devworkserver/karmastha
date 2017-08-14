@@ -3,6 +3,7 @@
 use App\Models\Cartitem\Cartitem;
 use App\Models\GeneralSetting;
 use App\Models\Product\Product;
+use App\Models\Access\User\User;
 
 
 /**
@@ -432,6 +433,16 @@ if (! function_exists('getThumbImage')) {
     }
 }
 
+
+if (! function_exists('getUser')) {
+    /* 
+     * get user object
+     */
+    function getUser($id){
+        $user = User::findOrFail($id);
+        return $user;
+    }
+}
 
 
 
