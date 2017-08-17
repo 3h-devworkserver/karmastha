@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use LaraCart;
     
 /**
  * Class ProductController.
@@ -30,7 +31,7 @@ class ProductController extends Controller
 
         $product = Product::where('slug', $slug)->where('status', 1)->first();
 
-        $test = DB::table('products')->where('products.id', 2)
+        $test = DB::table('products')->where('products.id', $product->id)
                 ->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
                 ->join('product_attr_combination_value', 'product_attr_combination.id', '=', 'product_attr_combination_value.product_attr_combination_id')
                 ->join('attribute_values', 'product_attr_combination_value.attribute_value_id', '=', 'attribute_values.id')
@@ -43,10 +44,13 @@ class ProductController extends Controller
                 ->groupBy('attributes.name', 'attributes.id', 'attributes.attr_type')
                 ->get();
 
-                $tmp2 = $test->select('attributes.id', 'attribute_values.value')
+                $tmp2 = $test->select('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value', 'product_attr_combination.identifier')
                 ->orderBy('product_attr_combination_value.id')
-                ->groupBy('attributes.id', 'attribute_values.value')
+                ->groupBy('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value', 'product_attr_combination.identifier')
                 ->get();
+                // return $tmp2;
+
+                // return $product->productAttrCombination[0]->productAttrCombinationValue;
                 
         // var_dump($tmp);
         // echo "<pre>";
@@ -87,6 +91,50 @@ class ProductController extends Controller
         return view('frontend.product.productdetail', compact('product', 'baseImage', 'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
     }
 
+     /**
+     * Get product quantity specific to its attribute combination
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getQuantity(Request $request){
+        // return $request->all();
+
+        $product = Product::findOrFail($request->productid);
+
+        $string = '';
+        if(count($request->values) > 0){
+            $arr = $request->values;
+            sort($arr);
+            $string = implode(',', $arr);
+        }
+
+        $table = DB::table('products')->where('products.id', $product->id)
+                ->join('product_inventory', 'products.id', '=', 'product_inventory.product_id')
+                ->join('product_attr_combination', 'products.id', '=', 'product_attr_combination.product_id')
+                ->join('product_attr_combination_value', 'product_attr_combination.id', '=', 'product_attr_combination_value.product_attr_combination_id')
+                ->where('product_attr_combination.combination', $string);
+                
+
+                // ->where('attribute_value_id', '=', $request->values[0]);
+
+        $rows = $table->select('products.id', 'products.name', 'product_inventory.manage_stock', 'product_inventory.availability', 'product_attr_combination.identifier', 'product_attr_combination.quantity')
+                ->groupBy('products.id', 'products.name', 'product_inventory.manage_stock', 'product_inventory.availability', 'product_attr_combination.identifier', 'product_attr_combination.quantity')
+                // ->toSql();
+                ->get();
+
+        $data = [];
+        if (count($rows) != 0) {
+            // $data['stat'] = 'success';
+            // $data['values'] = $rows;
+            return response()->json(['stat'=> 'success', 'values'=>$rows]);
+        }else{
+            // $data['stat'] = 'error';
+            // $data['values'] = '';
+            return response()->json(['stat'=> 'error', 'values'=>'']);
+        }
+    }
+
+
 
     /**
      * Product action form product detail page eg: add to cart, preorder
@@ -109,6 +157,18 @@ class ProductController extends Controller
     public function addToCart(Request $request){
 
         $product = Product::findOrFail($request->product);
+
+        // Adding an item to the cart
+        $item = LaraCart::add(2, $product->name, 200, 15.99, [
+                    'size' => 'XL'
+                ]);
+
+
+        foreach($items = LaraCart::getItems() as $item) {
+            // echo "<pre>"; dd($item);
+        }
+return $items;
+
         if (Auth::check()) {
             $cartItems = Cartitem::where('product_id',$request->product )->get();
 

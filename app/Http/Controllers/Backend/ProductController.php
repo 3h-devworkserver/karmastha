@@ -200,9 +200,16 @@ class ProductController extends Controller
             if (!empty($request->identifier)) {
                 $i = 0;
                 while($i < count($request->identifier)){
+                    $string = '';
+                    if(count($request->attribute_select[$i]) > 0){
+                        $arr = $request->attribute_select[$i];
+                        sort($arr);
+                        $string = implode(',', $arr);
+                    }
                     $productAttrCombination = $product->productAttrCombination()->create([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
+                        'combination' => $string ,
                     ]);
 
                     if(!empty(count($request->attribute_select))){
@@ -520,9 +527,16 @@ class ProductController extends Controller
             $i = 0;
             if ($prevAttrCombCount <= $attrCombCount) {
                 while ($i < $prevAttrCombCount) {
+                    $string = '';
+                    if(count($request->attribute_select[$i]) > 0){
+                        $arr = $request->attribute_select[$i];
+                        sort($arr);
+                        $string = implode(',', $arr);
+                    }
                     $prevAttributesCombSelected[$i]->update([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
+                        'combination' => $string ,
                     ]);
 
                     /**  ------ update, create or delete combination values ----  **/
@@ -559,9 +573,16 @@ class ProductController extends Controller
                     $i++;
                 }
                 while ($i < $attrCombCount) {
+                    $string = '';
+                    if(count($request->attribute_select[$i]) > 0){
+                        $arr = $request->attribute_select[$i];
+                        sort($arr);
+                        $string = implode(',', $arr);
+                    }
                     $productAttrCombination = $product->productAttrCombination()->create([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
+                        'combination' => $string ,
                     ]);
 
                     if(!empty(count($request->attribute_select))){

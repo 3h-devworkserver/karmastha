@@ -116,7 +116,6 @@ $(document).ready(function(){
         });
         $(document).on('click', '.addToCart', function(){
             if($('#productActionForm').valid()){
-                alert('her');
                 $('#productActionForm input[name="action"]').val('addToCart');
                 $('#productActionForm').submit();
             }
@@ -150,15 +149,96 @@ $(document).ready(function(){
     //     }
     // });
 
-    /** ====== end- register form validation  ===== **/
+    /** ====== end - register form validation  ===== **/
 
 
     /** ====== start - product detail page  ===== **/
 
         /** ====== add border while clicking attributes  ===== **/
         $(document).on('click', 'label.attribute', function(){
+            // alert($(this).prev().val());
             $(this).closest('div.attrParent').find('.attribute').removeClass('attributeSelected');
+            
             $(this).addClass('attributeSelected');
+            $(this).closest('.singleAttribute').find('.attrName').val($(this).prev().attr('data-name'));
+            $(this).closest('.singleAttribute').find('.attrValue').val($(this).prev().attr('data-value'));
+
+            // alert( $('.singleAttribute').length );
+            setTimeout(function(){
+                var ajaxCall = 0;
+                var checkedValues
+                $('.singleAttribute').each(function(){
+                    alert($(this).find('.attrVal:checked').attr('data-value'));
+                    // console.log($(this).find('.attrValue:checked'));
+
+                    if ( $('.singleAttribute').length == $('.attrVal:checked').length ) {
+                        // alert($('.attrVal:checked').length);
+                        checkedValues = $('.attrVal:checked').map(function() {
+                            return $(this).val();
+                        }).get();
+                        ajaxCall = 1;
+                        console.log(checkedValues);
+                        return false;
+                    }
+                    // if($('.attrVal:checked').attr('data-value') != null){
+                    //     alert('not empty');
+                    //     count++;
+                    //     alert(count);
+                    // }
+                });
+                    if(ajaxCall == 1){
+                        alert('ajax call');
+
+                        $.ajax({
+                            method: 'post',
+                            url: base_url + '/product/getquantity',
+                            headers:
+                                {
+                                 'X-CSRF-Token': $('input[name=_token]').val()
+                               },
+                            data: {productid: $('input[name=product]').val() , values: checkedValues},
+
+                            success:function(response){
+                                if (response.stat == 'success') {
+                                    // alert(response.values[0].id);
+                                    var manageStock = response.values[0].manage_stock;
+                                    var availability = response.values[0].availability;
+                                    var identifier = response.values[0].identifier;
+                                    var quantity = response.values[0].quantity;
+                                    if (manageStock == 1) {
+                                        if (availability === 'in stock') {
+                                            if (quantity == 0) {
+                                                alert('product combination not available');
+                                                $('.remainingQuantity span').text('Product combination not available');
+                                            }else{
+                                                alert('product combination available');
+                                                $('.remainingQuantity span').text(quantity+' items remaining');
+                                                $('.quantity').attr('max', quantity);
+                                            }
+                                        }else{
+                                            alert('product combination not available');
+                                            $('.remainingQuantity span').text('Product combination not available');
+                                        }
+                                    }else{
+                                        if (quantity == 0) {
+                                            alert('product combination available unlimited');
+                                            $('.quantity').removeAttr('max');
+                                        }else{
+                                            alert('product combination available');
+                                            $('.remainingQuantity span').text(quantity+' items remaining');
+                                            $('.quantity').attr('max', quantity);
+                                        }
+                                    }
+                                }else{
+                                    alert('Not availabile');
+                                    $('.remainingQuantity span').text('Product combination not available');
+                                }
+                            }
+
+                        });
+                    }
+            }, 1000);
+
         });
 
     /** ====== end - product detail page  ===== **/
