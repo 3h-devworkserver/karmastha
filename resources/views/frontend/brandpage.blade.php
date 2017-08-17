@@ -40,282 +40,76 @@
         <div class="col-md-3">
           <aside class="sidebar">
             <section class="sidebar-category gray-bg">
-              <h2 class="sidebar-title-1">men's clothing</h2>
+              <h2 class="sidebar-title-1">{{ $brands->brand_name}}</h2>
               <div class="left-category-list">
                 <ul class="list-unstyled">
-                  <li>
-                    <span>
-                      <a href="#">T-Shirts &amp; Polos</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Shirts </a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Jeans</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Trousers &amp; Chinos</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Innerwear &amp; Sleepwear </a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Sports Wear</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Shorts &amp; 3/4ths</a>
-                      <font class="c-number"><bdo>14690</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Kurtas, Pyjamas &amp; Sherwanis</a>
-                      <font class="c-number"><bdo>7775</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Suitings &amp; Shirtings </a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Sweatshirts</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Trackpants &amp; Tracksuits </a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Sweaters</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Suits &amp; Blazers</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Jackets</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#">Rain Wear</a>
-                      <font class="c-number"><bdo>74041</bdo></font>
-                    </span>
-                  </li>
+                  {{-- @if($key == 0 ) --}}
+                  @foreach($brands->categorys as $key => $cat)
+                      <?php $ids = DB::table('categorys')->select('parent_id')->where('id',$cat->id)->first();
+                        $sub = 'sub-child';
+                        ?>
+                        {{-- @if($cat->parent_id == 0 ) --}}
+                        @foreach($cat->childs as $key=>$t)
+                          @if(in_array($t->id,$brandids))
+                              <li class="dsjhbd">
+                                  <span>
+                                <a href="#">{{ $t->title }}</a>
+                                <font class="c-number"><bdo>11</bdo></font>
+                              </span>
+                            </li>
+                            <ul>
+                            @foreach($t->childs as $key=>$th)
+                                @if(in_array($th->id,$brandids))
+                                    <li class="test">
+                                        <span>
+                                      <a href="#">{{ $th->title }}</a>
+                                      <font class="c-number"><bdo>11</bdo></font>
+                                    </span>
+                                  </li>
+                                  <ul>
+                            @foreach($th->childs as $key=>$th1)
+                                @if(in_array($th1->id,$brandids))
+                                    <li class="test">
+                                        <span>
+                                      <a href="#">{{ $th1->title }}</a>
+                                      <font class="c-number"><bdo>11</bdo></font>
+                                    </span>
+                                  </li>
+                                   <ul>
+                            @foreach($th1->childs as $key=>$th2)
+                                @if(in_array($th2->id,$brandids))
+                                    <li class="test">
+                                        <span>
+                                      <a href="#">{{ $th2->title }}</a>
+                                      <font class="c-number"><bdo>11</bdo></font>
+                                    </span>
+                                  </li>
+                                  @endif
+                            @endforeach
+        </ul>
+                                  @endif
+                            @endforeach
+        </ul>
+                                  @endif
+                            @endforeach
+        </ul>
+                            @endif
+                            @endforeach
+                      {{-- @endif --}}
+                          
+                         {{--    @else
+                            <li class="sub-sub-child">
+                              <span>
+                          <a href="#">{{ $cat->title }}</a>
+                          <font class="c-number"><bdo>11</bdo></font>
+                        </span>
+                      </li> --}}
+                        
+                  @endforeach
+                 
                 </ul>
               </div>
             </section>
-
-            <section class="pricerange-slider gray-bg">
-              <h2 class="sidebar-title-1">price</h2>
-              <div class="filter-panel">
-                <div  class="range-slider" >
-                    
-                  <input data-addui='slider' data-min='-5' data-max='5' data-range='true' value='-2,2'>
-                </div>
-                <form class="rangerform">
-                  <input type="text" name="minprice" value="Rs 99">
-                  <input type="text" name="maxprice" value="Rs 9000">
-                  <input type="button" onclick="filterProducts()" value="Go" />
-                </form>
-                
-              </div>
-            </section>
-
-            <section class="sidebar-brand gray-bg">
-                <h2 class="sidebar-title-1">brands</h2>
-                <div class="sidebar_search_form">
-                  <form action="" class="form-horizontal">
-                      <div class="form-group">
-                          <button class="btn"><i class="la-icon-zoom"></i></button>
-                          <input class="form-control" id="" placeholder="Search for Brand" type="text">
-                        </div>
-                    </form>
-                </div>
-                <div class="sidebar_checkbox">
-                    <div class="checkbox">
-                        <input id="checkbox1" type="checkbox" name="check">
-                        <label for="checkbox1"><span></span>Levis</label>
-                        <font class="c-number">
-                           <bdo>800</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox2" type="checkbox" name="check">
-                        <label for="checkbox2"><span></span>Jack &amp; Jone</label>
-                        <font class="c-number">
-                           <bdo>123</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox3" type="checkbox" name="check">
-                        <label for="checkbox3"><span></span>united colors of benetton</label>
-                        <font class="c-number">
-                           <bdo>456</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox4" type="checkbox" name="check">
-                        <label for="checkbox4"><span></span>peter england</label>
-                        <font class="c-number">
-                           <bdo>980</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox5" type="checkbox" name="check">
-                        <label for="checkbox5"><span></span>lee</label>
-                        <font class="c-number">
-                           <bdo>400</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox6" type="checkbox" name="check">
-                        <label for="checkbox6"><span></span>puma</label>
-                        <font class="c-number">
-                           <bdo>250</bdo>
-                        </font>
-                    </div>
-                    <div class="viewmore-btn">
-                      <a href="#" class="btn-default btn">view more</a>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="sidebar-colors gray-bg">
-              <h2 class="sidebar-title-1">colors</h2>
-                
-                <div class="sidebar_checkbox">
-                    <div class="checkbox">
-                        <input id="checkbox7" type="checkbox" name="check">
-                        <label for="checkbox7"><span></span>black</label>
-                        <font class="c-number">
-                           <bdo>800</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox8" type="checkbox" name="check">
-                        <label for="checkbox8"><span></span>blue</label>
-                        <font class="c-number">
-                           <bdo>123</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox9" type="checkbox" name="check">
-                        <label for="checkbox9"><span></span>purple</label>
-                        <font class="c-number">
-                           <bdo>456</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox10" type="checkbox" name="check">
-                        <label for="checkbox10"><span></span>red</label>
-                        <font class="c-number">
-                           <bdo>980</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox11" type="checkbox" name="check">
-                        <label for="checkbox11"><span></span>orange</label>
-                        <font class="c-number">
-                           <bdo>400</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox12" type="checkbox" name="check">
-                        <label for="checkbox12"><span></span>yellow</label>
-                        <font class="c-number">
-                           <bdo>250</bdo>
-                        </font>
-                    </div>
-                    <div class="viewmore-btn">
-                      <a href="#" class="btn-default btn">view more</a>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="sidebar-size gray-bg">
-              <h2 class="sidebar-title-1">size</h2>
-                
-                <div class="sidebar_checkbox">
-                    <div class="checkbox">
-                        <input id="checkbox13" type="checkbox" name="check">
-                        <label for="checkbox13"><span></span>Large(L)</label>
-                        <font class="c-number">
-                           <bdo>800</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox14" type="checkbox" name="check">
-                        <label for="checkbox14"><span></span>Medium(M)</label>
-                        <font class="c-number">
-                           <bdo>123</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox15" type="checkbox" name="check">
-                        <label for="checkbox15"><span></span>Small(S)</label>
-                        <font class="c-number">
-                           <bdo>456</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox16" type="checkbox" name="check">
-                        <label for="checkbox16"><span></span>Extra Small(XS)</label>
-                        <font class="c-number">
-                           <bdo>980</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox17" type="checkbox" name="check">
-                        <label for="checkbox17"><span></span>Extra Large(XL)</label>
-                        <font class="c-number">
-                           <bdo>400</bdo>
-                        </font>
-                    </div>
-                    <div class="checkbox">
-                        <input id="checkbox18" type="checkbox" name="check">
-                        <label for="checkbox18"><span></span>double Extra Large(XXL)</label>
-                        <font class="c-number">
-                           <bdo>250</bdo>
-                        </font>
-                    </div>
-                    <div class="viewmore-btn">
-                      <a href="#" class="btn-default btn">view more</a>
-                    </div>
-                </div>
-            </section>
-
           </aside>
         </div>
         </div>

@@ -302,7 +302,14 @@ footer.footer-wrapper { text-align: center; }
 .content-circle img, .content-circle .img-wrap { width: 100%; }
 .content-circle .item:last-child .product-img { margin-bottom: 0; margin-right: 0; width: 130px; }
 
-
+/* cart */
+.xzoom{ width: auto !important; margin-left: 0; }
+.xzoom-thumbs{ display: inline-block; height: 65px; width: white-space: nowrap; overflow-x: auto; overflow-y: hidden; position: unset; text-align: center; width: 100%;}
+.xzoom-thumbs a{ display: inline-block; margin-right: 5px; }
+.xzoom-gallery{ height: 65px; }
+.qty-section { margin-bottom: 10px; }
+.product-info-item .btn-primary:last-child { display: table; float: none;}
+.nav-tabs li{ text-align: center; width: 100%; }
 }
 
 

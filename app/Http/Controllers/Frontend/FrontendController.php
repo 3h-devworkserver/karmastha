@@ -41,6 +41,7 @@ class FrontendController extends Controller
         $page = Page::where('id',1)->where('status', 1)->first();
         $sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
         $ads= Ads::first();
+        $categories = Category::where('parent_id','0')->get();
         // $tproducts = Product::
         // //->join('product_price','products.id','=','product_price.product_id')
         // //->select('products.name','product_price.price','products.total_views','product_price.special_price')
@@ -53,7 +54,7 @@ class FrontendController extends Controller
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist'))->withClass('interactive-body');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist','categories'))->withClass('interactive-body');
     } 
 
     public function brandpage($url)
@@ -66,8 +67,9 @@ class FrontendController extends Controller
             $wishlist = '';
         }
         $brands = Brand::where('status', 1)->where('slug', $url)->orderBy('b_order', 'asc')->first();
-        //echo '<pre>'; print_r($brands);
-       //$members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
+        $brandids = DB::table('brand_category')->select('category_id')->where('brand_id', $brands->id)->pluck('category_id')->toArray();
+        //return $brandids;
+         //$members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
         //$page = Page::where('slug',$url)->where('status', 1)->first();
         //$sliders= Slide::where('group_identifier', $page->slider_identifier)->get();
         //$ads= Ads::first();
@@ -83,7 +85,7 @@ class FrontendController extends Controller
         //     abort(404);
         // }
        
-        return view('frontend.brandpage', compact('brands', 'members', 'ads','tproducts','wishlist'))->withClass('interactive-body');
+        return view('frontend.brandpage', compact('brands', 'members', 'ads','tproducts','wishlist','brandids'))->withClass('interactive-body');
     }
 
     /**

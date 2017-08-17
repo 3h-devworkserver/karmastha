@@ -168,7 +168,7 @@ $(document).ready(function(){
                 var ajaxCall = 0;
                 var checkedValues
                 $('.singleAttribute').each(function(){
-                    alert($(this).find('.attrVal:checked').attr('data-value'));
+                    // alert($(this).find('.attrVal:checked').attr('data-value'));
                     // console.log($(this).find('.attrValue:checked'));
 
                     if ( $('.singleAttribute').length == $('.attrVal:checked').length ) {
@@ -177,14 +177,9 @@ $(document).ready(function(){
                             return $(this).val();
                         }).get();
                         ajaxCall = 1;
-                        console.log(checkedValues);
+                        // console.log(checkedValues);
                         return false;
                     }
-                    // if($('.attrVal:checked').attr('data-value') != null){
-                    //     alert('not empty');
-                    //     count++;
-                    //     alert(count);
-                    // }
                 });
                     if(ajaxCall == 1){
                         alert('ajax call');
@@ -200,7 +195,6 @@ $(document).ready(function(){
 
                             success:function(response){
                                 if (response.stat == 'success') {
-                                    // alert(response.values[0].id);
                                     var manageStock = response.values[0].manage_stock;
                                     var availability = response.values[0].availability;
                                     var identifier = response.values[0].identifier;
@@ -210,28 +204,34 @@ $(document).ready(function(){
                                             if (quantity == 0) {
                                                 alert('product combination not available');
                                                 $('.remainingQuantity span').text('Product combination not available');
+                                                $('.addToCart').attr('disabled', '');
                                             }else{
                                                 alert('product combination available');
                                                 $('.remainingQuantity span').text(quantity+' items remaining');
                                                 $('.quantity').attr('max', quantity);
+                                                $('.addToCart').removeAttr('disabled');
                                             }
                                         }else{
                                             alert('product combination not available');
                                             $('.remainingQuantity span').text('Product combination not available');
+                                            $('.addToCart').attr('disabled', '');
                                         }
                                     }else{
                                         if (quantity == 0) {
                                             alert('product combination available unlimited');
                                             $('.quantity').removeAttr('max');
+                                            $('.addToCart').removeAttr('disabled');
                                         }else{
                                             alert('product combination available');
                                             $('.remainingQuantity span').text(quantity+' items remaining');
                                             $('.quantity').attr('max', quantity);
+                                            $('.addToCart').removeAttr('disabled');
                                         }
                                     }
                                 }else{
                                     alert('Not availabile');
                                     $('.remainingQuantity span').text('Product combination not available');
+                                    $('.addToCart').attr('disabled', '');
                                 }
                             }
 

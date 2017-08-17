@@ -269,14 +269,20 @@
               All categories
               <i class="fa fa-angle-down"></i>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {{-- <select class="dropdown-menu" aria-labelledby="dropdownMenu1" name="catname">
+              <option value="">All Categories</option>
+              @foreach($categories as $key => $cats)
+              <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+              @endforeach
+            </select> --}}
+           {{--  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li><a href="#">Fashion</a></li>
               <li><a href="#">Furniture</a></li>
               <li><a href="#">Electronics</a></li>
               <li><a href="#">Books</a></li>
               <li><a href="#">Sports</a></li>
               <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
-            </ul>
+            </ul> --}}
           </div>
           <form action="#">
             <div class="input-group">

@@ -194,7 +194,7 @@
                                     @endif
 
                                       @if ($loop->last)
-                                        <button class="btn btn-default pull-right">size chart</button>
+                                        <a class="btn btn-default pull-right">size chart</a>
                                       @endif
                                   @endforeach
                               @endif
@@ -283,9 +283,9 @@
                             <div>
                               <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                               @if($product->productInventory->manage_stock == 1)
-                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}}
                               @else
-                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box', 'min'=>'1', 'readonly'])}}
+                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'readonly'])}}
                               @endif
                               <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                             </div>
@@ -350,7 +350,7 @@
               <ul class="nav nav-tabs" role="tablist">
                   <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
                   <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Additional information</a></li>
-                  <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Reviews (1)</a></li>
+                  <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Reviews (1)</a></li> -->
               </ul>
 
               <!-- Tab panes -->
@@ -359,7 +359,7 @@
                   {!! $product->detail !!}
                   </div>
                   <div role="tabpanel" class="tab-pane" id="profile">{!! $product->short_desc !!}</div>
-                  <div role="tabpanel" class="tab-pane" id="messages">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                  <!-- <div role="tabpanel" class="tab-pane" id="messages">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>  -->
               </div>
 
             </div>
@@ -369,6 +369,7 @@
   </div>
 </section>
 
+<!--
 <section class="products-wrapper four-col category-wrapper pt0">
   <div class="container">
     <div class="row">
@@ -542,5 +543,6 @@
     </div>
   </div>
 </section>
+-->
 
 @endsection
