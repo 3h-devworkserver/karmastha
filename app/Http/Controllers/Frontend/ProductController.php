@@ -40,13 +40,13 @@ class ProductController extends Controller
                 // ->select('products.id', 'product_attr_combination.identifier', 'product_attr_combination.quantity', 'product_attr_combination_value.attribute_value_id', 'attribute_values.value', 'attribute_values.attribute_id', 'attributes.name', 'attributes.attr_type')
 
 
-                $tmp = $test->select('attributes.name', 'attributes.id', 'attributes.attr_type')
-                ->groupBy('attributes.name', 'attributes.id', 'attributes.attr_type')
+                $tmp = $test->select('attributes.name', 'attributes.id', 'attributes.attr_type', 'attributes.short_desc', 'attributes.short_desc_title')
+                ->groupBy('attributes.name', 'attributes.id', 'attributes.attr_type', 'attributes.short_desc', 'attributes.short_desc_title')
                 ->get();
 
-                $tmp2 = $test->select('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value', 'product_attr_combination.identifier')
+                $tmp2 = $test->select('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value')
                 ->orderBy('product_attr_combination_value.id')
-                ->groupBy('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value', 'product_attr_combination.identifier')
+                ->groupBy('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value')
                 ->get();
                 // return $tmp2;
 
@@ -121,6 +121,7 @@ class ProductController extends Controller
                 ->groupBy('products.id', 'products.name', 'product_inventory.manage_stock', 'product_inventory.availability', 'product_attr_combination.identifier', 'product_attr_combination.quantity')
                 // ->toSql();
                 ->get();
+        // return $rows;
 
         $data = [];
         if (count($rows) != 0) {

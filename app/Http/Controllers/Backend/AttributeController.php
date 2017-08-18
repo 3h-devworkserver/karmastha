@@ -85,6 +85,7 @@ class AttributeController extends Controller
         DB::transaction(function() use ($request){
             $attribute = Attribute::create([
                 'name' => $request->name,
+                'short_desc_title' => $request->short_desc_title,
                 'short_desc' => $request->short_desc,
                 'attr_type' => $request->attr_type,
                 'attr_order' => $request->attr_order,
@@ -92,8 +93,9 @@ class AttributeController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
             for ($i=0; $i < count($request->value); $i++) { 
+                $value = ($request->attr_type == 'color')? $request->value_color[$i] : $request->value[$i];
                 $attribute->attributesValues()->create([
-                    'value' => $request->value[$i],
+                    'value' => $value,
                     'value_order' => $request->value_order[$i],
                     'value_status' => $request->value_status[$i],
                     'user_id' => Auth::user()->id,
@@ -141,6 +143,7 @@ class AttributeController extends Controller
             $attribute = Attribute::findOrFail($id);
             $attribute->update([
                 'name' => $request->name,
+                'short_desc_title' => $request->short_desc_title,
                 'short_desc' => $request->short_desc,
                 'attr_type' => $request->attr_type,
                 'attr_order' => $request->attr_order,
@@ -154,8 +157,9 @@ class AttributeController extends Controller
             $i = 0;
             if ($prevAttrValCount <= $attrValCount) {
                 while ($i < $prevAttrValCount) {
+                    $value = ($request->attr_type == 'color')? $request->value_color[$i] : $request->value[$i];
                     $prevAttrValues[$i]->update([
-                        'value' => $request->value[$i],
+                        'value' => $value,
                         'value_order' => $request->value_order[$i],
                         'value_status' => $request->value_status[$i],
                         'user_id' => Auth::user()->id,
@@ -163,8 +167,9 @@ class AttributeController extends Controller
                     $i++;
                 }
                 while ($i < $attrValCount) {
+                    $value = ($request->attr_type == 'color')? $request->value_color[$i] : $request->value[$i];
                     $attribute->attributesValues()->create([
-                        'value' => $request->value[$i],
+                        'value' => $value,
                         'value_order' => $request->value_order[$i],
                         'value_status' => $request->value_status[$i],
                         'user_id' => Auth::user()->id,
@@ -173,8 +178,9 @@ class AttributeController extends Controller
                 }
             }else{
                 while ($i < $attrValCount) {
+                    $value = ($request->attr_type == 'color')? $request->value_color[$i] : $request->value[$i];
                     $prevAttrValues[$i]->update([
-                        'value' => $request->value[$i],
+                        'value' => $value,
                         'value_order' => $request->value_order[$i],
                         'value_status' => $request->value_status[$i],
                         'user_id' => Auth::user()->id,

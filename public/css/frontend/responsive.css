@@ -310,6 +310,24 @@ footer.footer-wrapper { text-align: center; }
 .qty-section { margin-bottom: 10px; }
 .product-info-item .btn-primary:last-child { display: table; float: none;}
 .nav-tabs li{ text-align: center; width: 100%; }
+.tab-content .specifical > li{ display: inline-block; width: 100%; }
+.tab-content li.specify-heading > span{ font-weight: 600; width: 50%; }
+.tab-content .specify-heading > span, 
+.tab-content span{ float: left; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; width: 30%; }
+.tab-content span:last-child{ font-weight: normal; width: 70%; margin-bottom: 0; }
+
+
+
+/* Dashboard */
+
+.dashboard-header .main-header{ display: none; }
+.cd-main-content .page-container .col-md-8 { width: 100%; }
+.userdashboard .dashboard-content{ margin-top: 30px; padding: 0 10px; }
+.main-container.dashdb .row, 
+.userdashboard .dashboard-content .row { margin-left: -15px; margin-right: -15px }
+.cd-main-content .page-container [ class*="col" ]{ width: 100%; float: none; padding: 0 10px; }
+.oversea-user-profile-root{ height: auto; }
+
 }
 
 

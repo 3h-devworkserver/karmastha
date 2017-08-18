@@ -533,6 +533,7 @@ class ProductController extends Controller
                         sort($arr);
                         $string = implode(',', $arr);
                     }
+                    // echo $string.'<pre>';
                     $prevAttributesCombSelected[$i]->update([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
@@ -579,6 +580,7 @@ class ProductController extends Controller
                         sort($arr);
                         $string = implode(',', $arr);
                     }
+                    // echo $string.'<pre>';
                     $productAttrCombination = $product->productAttrCombination()->create([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
@@ -598,9 +600,17 @@ class ProductController extends Controller
                 }
             }else{
                 while ($i < $attrCombCount) {
+                    $string = '';
+                    if(count($request->attribute_select[$i]) > 0){
+                        $arr = $request->attribute_select[$i];
+                        sort($arr);
+                        $string = implode(',', $arr);
+                    }
+                    // echo $string.'<pre>';
                     $prevAttributesCombSelected[$i]->update([
                         'identifier' => $request->identifier[$i] ,
                         'quantity' => $request->comb_quantity[$i] ,
+                        'combination' => $string ,
                     ]);
 
                     /**  ------ update, create or delete combination values ----  **/
@@ -807,7 +817,7 @@ class ProductController extends Controller
             }
 
         });
-
+            // die();
         return redirect()->back()->withFlashSuccess('Product updated successfully.');
     }
 

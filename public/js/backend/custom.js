@@ -658,6 +658,14 @@ $('#categoryForm').validate({
  /**
  *  start of js for attributes
  **/
+  var check = $('.attributeForm .attrType').val();
+  if (check == 'color') {
+    $('form .bgcolor').show();
+    $('form .value').hide();
+  }else{
+    $('form .bgcolor').hide();
+    $('form .value').show();
+  }
 
  $(document).on('click', '.addValueBtn', function(){
   tmp = $('.addValue').html();
@@ -666,6 +674,25 @@ $('#categoryForm').validate({
   $('.colorpicker-component').colorpicker({ colorSelectors: { 'black': '#000000', 'white': '#ffffff', 'red': '#FF0000',
       'default': '#777777','primary': '#337ab7', 'success': '#5cb85c', 'info': '#5bc0de', 'warning': '#f0ad4e',
       'danger': '#d9534f' } }); 
+    var check = $('.attributeForm .attrType').val();
+    if (check == 'color') {
+      $('form .bgcolor').show();
+      $('form .value').hide();
+    }else{
+      $('form .bgcolor').hide();
+      $('form .value').show();
+    }
+ });
+
+ $(document).on('change', '.attributeForm .attrType', function(){
+  var check = $(this).val();
+  if (check == 'color') {
+    $('form .bgcolor').show();
+    $('form .value').hide();
+  }else{
+    $('form .bgcolor').hide();
+    $('form .value').show();
+  }
  });
 
   $(document).on('click', '.removeValueBtn', function(){
@@ -679,7 +706,7 @@ $('#categoryForm').validate({
     'name': 'required',
     'status': 'required',
     'attr_order': 'required',
-    'value[]': 'required',
+    // 'value[]': 'required',
     'value_order[]': 'required',
     'value_status[]': 'required',
   }

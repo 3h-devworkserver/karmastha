@@ -194,6 +194,8 @@ $(document).ready(function(){
                             data: {productid: $('input[name=product]').val() , values: checkedValues},
 
                             success:function(response){
+                                alert(response);
+                                console.log(response);
                                 if (response.stat == 'success') {
                                     var manageStock = response.values[0].manage_stock;
                                     var availability = response.values[0].availability;
@@ -237,7 +239,7 @@ $(document).ready(function(){
 
                         });
                     }
-            }, 1000);
+            }, 2000);
 
         });
 

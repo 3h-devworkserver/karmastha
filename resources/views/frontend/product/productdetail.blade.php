@@ -124,7 +124,7 @@
                     @endif
                     <span class="new">@if(!empty($product->productPrice->special_price)) NPR {{$product->productPrice->special_price}} @else NPR {{$product->productPrice->price}} @endif</span> 
                 	@if($product->productPrice->special_price)
-                    	<span class="incl-dis">{{custom_number_format(($product->productPrice->price - $product->productPrice->special_price)/$product->productPrice->price*100)}}% off</span>
+                    	<span class="incl-dis">{{round(($product->productPrice->price - $product->productPrice->special_price)/$product->productPrice->price*100)}}% off</span>
                     @endif
                 </div>
                 
@@ -194,7 +194,9 @@
                                     @endif
 
                                       @if ($loop->last)
-                                        <a class="btn btn-default pull-right">size chart</a>
+                                        @if(!empty($tmp->short_desc_title))
+                                          <a class="btn btn-default pull-right">{{$tmp->short_desc_title}}</a>
+                                        @endif
                                       @endif
                                   @endforeach
                               @endif

@@ -2011,9 +2011,9 @@ aside.sidebar .viewmore-btn .btn-default{
   margin: 0 auto;
 }
 div.qty-section > div {/* width:100%; */ display:inline-flex;}
-div.qty-section > div.remainingQuantity{ display: block; }
+div.qty-section > div.remainingQuantity{ display: block; margin-top: 5px; }
 div.qty-section > div > input {
-    border: 1px solid #aaaaaa;
+  border: 1px solid #aaaaaa;
   color: #aaaaaa;
   margin: 0;
   padding-left: 5px;
@@ -2229,6 +2229,9 @@ div.qty-section > div > input {
   margin-top: -2px;
   width: 37px;
 }
+.single-product-info .widget-color.form-group{ margin-bottom: 0; }
+.single-product-info .has-error label{ display: inline-block; float: none; }
+.single-product-info .has-error span{ margin-bottom: 0; line-height: 14px; }
 .product-size label{
   border: 2px solid #ccc;
   border-radius: 3px;
@@ -2257,13 +2260,14 @@ div.qty-section > div > input {
 .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
 .tab-nav > li > a::after { background: none; color: #742b96; }
 .tab-pane { padding: 15px 0; color: #aaaaaa;}
+.tab-pane p { color: #5d5f5d; }
 .tab-content{padding:20px;}
 .tab-content h4{ color: #575757; letter-spacing: .5px;}
 .tab-content .specifical{ padding-left: 0; }
 .tab-content .specifical > li { border-top: 1px solid #e6e4df; padding: 15px 0; width: 60%; list-style-type: none;}
 .tab-content .specifical > li:last-child{ border-bottom: 1px solid #e6e4df; }
 .tab-content .specify-heading > span,
-.tab-content span { color: #696763; display: inline-block; width: 35%; }
+.tab-content span { color: #5d5f5d; display: inline-block; width: 35%; }
 .tab-content .specify-heading > span{ color: #1e1e1e; font-size: 14px; font-weight: bold; letter-spacing: .5px;}
 .tab-content span:first-child { text-transform: capitalize; vertical-align: top; }
 .tab-content span:last-child{ width: 64%; }

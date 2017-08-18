@@ -35,9 +35,10 @@
 			<div class="form-group ">
 				<label class="control-label">Value<em class="asterisk">*</em></label>
 				<div data-format="alias" class="input-group bgcolor">
-					{{Form::text('value[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+					{{Form::text('value_color[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
 					<span class="input-group-addon"><i></i></span> 
 				</div> 
+				{{Form::text('value[]', null,['class'=>'form-control value', 'placeholder'=>'Enter Value'])}}
 			</div>
 			{{-- <div class="form-group">
 				<label class="control-label">Value<em class="asterisk">*</em></label>
@@ -47,7 +48,7 @@
 				<label class="control-label">Value Order</label>
 				{{Form::number('value_order[]',0,['class'=>'form-control','min'=>'0'])}}
 			</div>
-			<div class="form-group">
+			<div class="form-group hide">
 				<label class="control-label">Value Status</label>
 				{{Form::select('value_status[]',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
 			</div>
@@ -72,13 +73,18 @@
 				</div>
 
 				<div class="form-group">
+					<label class="control-label">Short Description Title</label>
+					{{Form::text('short_desc_title',null,['class'=>'form-control', 'placeholder'=>'Enter Short Description Title'])}}
+				</div>
+
+				<div class="form-group">
 					<label class="control-label">Short Description</label>
-					{{Form::text('short_desc',null,['class'=>'form-control', 'placeholder'=>'Enter Short Description'])}}
+					{{Form::textarea('short_desc',null,['class'=>'form-control', 'placeholder'=>'Enter Short Description'])}}
 				</div>
 
 	            <div class="form-group">
 	            	<label class="control-label">Type<em class="asterisk">*</em></label>
-	            		{!! Form::select('attr_type', ['normal' => 'Normal', 'color'=>'Color'], null, array('class'=>'form-control'))!!}
+	            		{!! Form::select('attr_type', ['normal' => 'Normal', 'color'=>'Color'], null, array('class'=>'form-control attrT'))!!}
 	            </div>
 
 			</div>
@@ -95,15 +101,18 @@
 					<div class="form-group ">
 						<label class="control-label">Value<em class="asterisk">*</em></label>
 						<div data-format="alias" class="input-group bgcolor colorpicker-component">
-							{{Form::text('value[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
+							{{Form::text('value_color[]','primary',['class'=>'form-control', 'placeholder'=>'Enter Value'])}}
 							<span class="input-group-addon"><i></i></span> 
 						</div> 
+
+							{{Form::text('value[]', null,['class'=>'form-control value', 'placeholder'=>'Enter Value'])}}
+
 					</div>
 					<div class="form-group">
 						<label class="control-label">Value Order</label>
 						{{Form::number('value_order[]',0,['class'=>'form-control','min'=>'0'])}}
 					</div>
-					<div class="form-group">
+					<div class="form-group hide">
 						<label class="control-label">Value Status</label>
 						{{Form::select('value_status[]',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
 					</div>
@@ -148,6 +157,7 @@
 	</div>
 </div>
 {{Form::close()}}
+@include('backend.includes.tinymce')
 
 @endsection
 
