@@ -318,15 +318,33 @@ footer.footer-wrapper { text-align: center; }
 
 
 
+
 /* Dashboard */
 
 .dashboard-header .main-header{ display: none; }
 .cd-main-content .page-container .col-md-8 { width: 100%; }
-.userdashboard .dashboard-content{ margin-top: 30px; padding: 0 10px; }
+.userdashboard .dashboard-content{ margin-top: 30px; padding: 0; }
 .main-container.dashdb .row, 
-.userdashboard .dashboard-content .row { margin-left: -15px; margin-right: -15px }
+.userdashboard .dashboard-content .row { margin-left: inherit; margin-right: inherit; }
 .cd-main-content .page-container [ class*="col" ]{ width: 100%; float: none; padding: 0 10px; }
 .oversea-user-profile-root{ height: auto; }
+.oversea-user-profile-root .mui-avatar-a, 
+.oversea-user-profile-root .mui-avatar{ width: 43px; height: 43px; }
+.oversea-user-profile-root .mui-personal-info .mui-user-name{ left: -17px; top: 44px; }
+.oversea-user-profile-root .mui-personal-info div.mui-basic-info {
+  margin-bottom: 10px;
+  margin-left: 43px;
+  margin-right: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+.oversea-user-profile-root .mui-personal-info div.mui-favorite {
+  clear: both;
+  margin-right: 0;
+  text-align: center;
+  width: 100%;
+}
 
 }
 

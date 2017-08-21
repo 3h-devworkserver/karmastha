@@ -7,254 +7,253 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
 @section('content')
 
-    <div class="container">
-            <div class="row">
-                <div class="table-responsive cart_info col-md-12 col-sm-12">
+<section class="shopping-cart">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="cart-review">
+            @foreach($cartItems as $cartItem)
+                <?php
+                    $product = \App\Models\Product\Product::findOrFail($cartItem->id); 
+                ?>
+                <div class="cart-review-content gray-bg">
+                    <div class="col-xs-2">
+                      <div class="product-cart-img">
+                        <a href="{{url('/product/'.$product->slug)}}" target="_blank">
+                        <img src="assets/images/headphone.png" alt="{{$product->name}}">
+                        </a>
+                      </div>
+                    </div>
 
-                    @if(Auth::check())
-                                
-                        <?php $i = 0;?>
-                            @foreach($cartItems as $cartItem)
-                                <?php $product = Product::findOrFail($cartItem->product_id);
-                                ?>
-                                <div class="cart-info">
-                                    <div class="table_header mdk10">
-                                        <div class="pull-left">
-                                            <div class="pull-left sel_info_row">Seller</div>
-                                            <div class="pull-left sel_info_row">
-                                               <span class="mbg-l" role="presentation"><a class="mbg-id" href="#">Pdonline</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pull-left table-body col-md-12 col-sm-12">
-                                        <div class="row">
-                                            <div id="pdonline-itemGroup1" class="">
-                                                <div id="pdonline-itemGroup1-item1">
-                                                    <div class="cart_product pull-left">
-                                                        <a href="{{url('/product/'.$product->slug)}}" target="_blank">
-                                                            <img src="{{asset('images/product/'.$product->id.'/thumbnail/'.$product->productThumbnailImage[0]->image)}}" alt="{{$product->name}}">
-                                                        </a>
-                                                    </div>
-                                                    <div class="pull-left cart_description">
-                                                        <div class="col-md-6 infocolcart">
-                                                            <div class="mdk5 infocart_des">
-                                                                <span id="product_title"><a href="#">{{$product->name}}</a></span>
-                                                            </div>
-                                                            <div class="table">
-                                                                <table class="ItemInfoTable">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>Price:</td>
-                                                                            <td class="keydesc">NPR {{custom_number_format(productPrice($product->id))}}</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>QTY:</td>
-                                                                            <td class="keydesc">{{$cartItem->qty}}</td>
-                                                                        </tr>
-
-                                                                        @if(!empty($cartItem->attributes))
-                                                                            @foreach($cartItem->attributes as $attr)
-                                                                                <tr>
-                                                                                    <td>{{$attr->attr_name}}:</td>
-                                                                                    <td class="keydesc">{{$attr->attr_value}}</td>
-                                                                                </tr>
-                                                                            @endforeach
-
-                                                                        @endif
-                                                                        
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 qtyColWrapper">
-                                                            <div class="qtyRow">
-                                                                <div class="qty-box pull-left">
-                                                                    <label class="quantity" for="quantity">Quantity</label>
-                                                                    {{Form::open(['url' => 'cart/updateqty/'.$cartItem->id, 'method'=>'patch'])}}
-                                                                        <input name="qty" class="qtyTextBox" type="number" value="{{$cartItem['qty']}}" maxlength="5" role="textbox" min="1" max="{{$product->productInventory->quantity}}">
-                                                                        <div class="update-qty hide">
-                                                                            <a href="javascript:void(0)" class="submit">Update</a>
-                                                                        </div>
-                                                                    {{Form::close()}}
-                                                                </div>
-                                
-                                                                <div class="price">NPR {{custom_number_format(floatval(productPrice($product->id) * $cartItem['qty']))}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="addndelete">
-                                                    <div class="pull-right">
-                                                        <a class="action actionLink" href="{{url('cart/removeitem/'.$cartItem->id)}}">Remove</a>
-                                                        <!--
-                                                        <a class="action" id="save-later" href="#">Save for later</a>  -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php $i++; ?>
+                    <div class="col-xs-4">
+                      <div class="product-cart-info">
+                        <h6 class="section-title-1"><a href="{{url('/product/'.$product->slug)}}" target="_blank">{{$product->name}}</a></h6>
+                        <span>Seller:<em>kathmandu_official_store</em></span>
+                        @if(count($cartItem->attr_name) > 0)
+                            <div class="productlist-info">
+                            @foreach($cartItem->attr_name as $key=>$name)
+                                <span>{{$name}}:<em>{{$cartItem->attr_value[$key]}}</em></span>
+                                {{-- <span>Size:<em>M</em></span> --}}
                             @endforeach
-
-
-                    @else
-                        @if(!empty($cartItems))
-                            <?php $i = 0; ?>
-                            @foreach($cartItems as $cartItem)
-                                <?php $product = \App\Models\Product\Product::findOrFail($cartItem['productId']); 
-                                ?>
-                                <div class="cart-info">
-                                    <div class="table_header mdk10">
-                                        <div class="pull-left">
-                                            <div class="pull-left sel_info_row">Seller</div>
-                                            <div class="pull-left sel_info_row">
-                                               <span class="mbg-l" role="presentation"><a class="mbg-id" href="#">Pdonline</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pull-left table-body col-md-12 col-sm-12">
-                                        <div class="row">
-                                            <div id="pdonline-itemGroup1" class="">
-                                                <div id="pdonline-itemGroup1-item1">
-                                                    <div class="cart_product pull-left">
-                                                        <a href="{{url('/product/'.$product->slug)}}" target="_blank">
-                                                            <img src="{{asset('images/product/'.$cartItem['productId'].'/thumbnail/'.$cartItem['img'])}}" alt="{{$product->name}}">
-                                                        </a>
-                                                    </div>
-                                                    <div class="pull-left cart_description">
-                                                        <div class="col-md-6 infocolcart">
-                                                            <div class="mdk5 infocart_des">
-                                                                <span id="product_title"><a href="#">{{$product->name}}</a></span>
-                                                            </div>
-                                                            <div class="table">
-                                                                <table class="ItemInfoTable">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>Price:</td>
-                                                                            <td class="keydesc">NPR {{custom_number_format(productPrice($cartItem['productId']))}}</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>QTY:</td>
-                                                                            <td class="keydesc">{{$cartItem['qty']}}</td>
-                                                                        </tr>
-                                                                        @if(is_array($cartItem['attributes']))
-                                                                        @foreach($cartItem['attributes'] as $key => $attr)
-                                                                            @foreach($attr as $key => $val)
-                                                                            <tr>
-                                                                                <td>{{$key}}:</td>
-                                                                                <td class="keydesc">{{$val}}</td>
-                                                                            </tr>
-                                                                            @endforeach
-                                                                        {{-- <tr>
-                                                                            <td>Size:</td>
-                                                                            <td class="keydesc">M</td>
-                                                                        </tr> --}}
-                                                                        @endforeach
-                                                                        @endif
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 qtyColWrapper">
-                                                            <div class="qtyRow">
-                                                                <div class="qty-box pull-left">
-                                                                    <label class="quantity" for="quantity">Quantity</label>
-
-
-                                                                    {{Form::open(['url' => 'cart/updateqty/'.$i, 'method'=>'patch'])}}
-                                                                        <input name="qty" class="qtyTextBox" type="number" value="{{$cartItem['qty']}}" maxlength="5" role="textbox" min="1" max="{{$product->productInventory->quantity}}">
-                                                                        <div class="update-qty hide">
-                                                                            <a href="javascript:void(0)" class="submit">Update</a>
-                                                                        </div>
-                                                                    {{Form::close()}}
-
-
-
-
-                                                                    {{-- <input class="qtyTextBox" type="number" value="{{$cartItem['qty']}}" maxlength="5" role="textbox" min="1" max="{{$product->productInventory->quantity}}"> --}}
-                                                                </div>
-                                                                <div class="price">NPR {{custom_number_format(floatval(productPrice($cartItem['productId']) * $cartItem['qty']))}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="addndelete">
-                                                    <div class="pull-right">
-                                                        <a class="action actionLink" href="{{url('cart/removeitem/'.$i)}}">Remove</a>
-                                                        <!--
-                                                        <a class="action" id="save-later" href="#">Save for later</a>  -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php $i++; ?>
-                            @endforeach
-                        @else
-                            <p>Cart Empty</p>
-                        @endif
-
-                    @endif
-
-                    @if(!empty($cartItems))
-                        <div id="CartSummary" class="col-md-7 col-sm-7 col-xs-12 pull-right">
-                            <div id="asynccartsummary" class="text-right">
-                                <div class="cart_total">
-                                    <table class="pull-right ralign cartSummaryTable">
-                                        <tbody>
-                                            <tr>
-                                                <td width="350px">
-                                                    <div class="text-right">Subtotal ({{countCartItems()}} item):</div>
-                                                </td>
-                                                <td>
-                                                    <div class="nowrap">NPR {{CartItemsTotalPrice()}}</div>
-                                                </td>
-                                            </tr>
-                                            <!--
-                                            <tr>
-                                                <td width="350px"><div class="tr"><span>
-                                                    Posting to <a id="guestZipLink" href="#">NP</a></span></div>
-                                                </td>                                                 <td>
-                                                    <div class="text-right nowrap"><a id="guestCartcalcLink" href="#">Calculate</a></div>
-                                                </td>
-                                            </tr>  -->
-
-                                            <tr>
-                                                <td colspan="2">
-                                                    <div class="sumSep mt5"></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="" width="350px">
-                                                    <div class="text-right fw-b">Total: </div>
-                                                </td>
-                                                <td class="nowrap ">
-                                                    <div class="text-right normal fw-b" id="asyncTotal">NPR {{CartItemsTotalPrice()}}</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <div class="sumSep mt5"></div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class=" col_100p tr mb10 mt10 clearfix">
-                                    <div class="pull-right ralign">        
-                                        <a id="ptcBtnBottom" class="btn btn-primary open-door" href="{{url('/checkout')}}" target="" role="button">Proceed to checkout</a>
-                                    </div>
-                                    <div class="pull-right ralign">
-                                        <a id="contShoppingBtn" class="btn btn-default" href="{{url('/')}}" target="">Continue shopping</a>
-                                    </div>
-                                </div>
                             </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                      <div class="cart-remark">
+                        <div class="cart-price fix-width">
+                          <h6>price</h6>
+                          <span>nrs<em>{{$cartItem->price}}</em></span>
                         </div>
-                    @endif
+
+                        <div class="cart-qty fix-width">
+                          
+                          <div class="sin-plus-minus cart-size clearfix">
+                            <h6>quantity:</h6>
+                            <div class="qty-section">                   
+                              <div>
+                                    <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                        @if($product->productInventory->manage_stock == 1)
+                                            <?php 
+                                                $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->attr_identifier)->first(); 
+                                            ?>
+                                            @if(!empty($productAttrCombination))
+                                                @if ($product->productInventory->availability == 'in stock') 
+                                                    @if ($productAttrCombination->quantity == 0)
+                                                        {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'max'=>'0', 'readonly'])}}
+                                                    @else
+                                                        {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                        {{-- alert('product combination available'); --}}
+                                                    @endif
+                                                @else
+                                                    {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'max'=>'0', 'readonly'])}}
+                                                    {{-- alert('product combination not available'); --}}
+                                                @endif
+                                            @else
+                                                {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'max'=>'0', 'readonly'])}}
+                                            @endif
+                                            {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
+                                        @else
+                                            @if($productAttrCombination->quantity == 0) 
+                                                {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'readonly'])}}
+                                                {{-- alert('product combination available unlimited'); --}}
+                                            @else
+                                                {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                {{-- alert('product combination available'); --}}
+                                            @endif
+                                            {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'readonly'])}}
+                                        @endif
+                                            {{-- <input value="1" /> --}}
+                                    <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                              </div>    
+                            </div>        
+                                
+                          </div>
+                        </div>
+
+                        <div class="sub-total fix-width">
+                          <h6>total</h6>
+                          <span>rs<em>499</em></span>
+                        </div>
+                      </div>
+                    </div>
+                    <a type="button" href="#" class="bagde-remove"><i class="fa fa-times"></i></a>
+                </div>
+            @endforeach
+          
+            <div class="cart-btn">
+                <div class="coupon-btn pull-left">
+                  <button class="btn btn-default"><img src="assets/images/coupon.png">coupon code<i class="fa fa-long-arrow-right"></i></button>
+                </div>
+                <div class="update_shopping pull-right">
+                  <div class="sub-total-sumarry">
+                    <button class="btn btn-default">continue shopping</button>
+                    <button class="btn btn-default">update cart</button>
+                  </div>
+                  <div class="text-right">
+                    <div class="right-grand-total">
+                      <div class="sumarry-total cart-totals">
+                        <span class="pull-left">sub total</span>
+                        <span class="grandprice">Rs<em>200</em></span>
+                      </div>
+                      <div class="total-calculate cart-totals">
+                        <span class="pull-left"><a type="button" href="#01" onclick="return menuslidedown();">calculate shipping<i class="fa fa-angle-down"></i></a></span>
+                        <div class="collapse" id="billingopt">
+                          <div class="box">
+                            <form method="post" action="">
+
+                              <div class="content">
+                                <div class="form-group">
+                                  <select class="form-control" id="country">
+                                    <option value="germany">kathmandu valley(inside ring road)</option>
+                                    <option value="austria">Österreich</option>
+                                    <option value="swiss">Schweiz</option>
+                                    <option value="usa">USA</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <select class="form-control" id="country">
+                                    <option value="germany">Deutschland</option>
+                                    <option value="austria">Österreich</option>
+                                    <option value="swiss">Schweiz</option>
+                                    <option value="usa">USA</option>
+                                  </select>
+                                </div>
+                              </div> 
+
+                            </form>
+                          </div>
+                          <div class="shipping-table-info">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>services</th>
+                                  <th>delivery</th>
+                                  <th>cost</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>standard delivery</td>
+                                  <td>2 days(s)</td>
+                                  <td>rs.50</td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grand-total cart-totals">
+                      <span>total:</span>
+                      <span class="grandprice">rs<em>300</em></span>
+                    </div>
+                    <div class="checkout-btn ">
+                      <button class="btn btn-primary bigwidth open-door">proceed to checkout</button>
+                    </div>
+
+                  </div><!-- End text-right -->
+
                 </div>
             </div>
-        </div> 
+
+        </div>
+
+      </div>
+      
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="cart-confirm gray-bg">
+          <h2>cart sumarry<span>(2 item)</span></h2>
+          <div class="cart-total">
+            <span class="pull-left">total</span>
+            <span class="pull-right">rs<em>2300.00</em></span>
+          </div>
+
+          <div class="cart-order-btn">
+            <button type="submit" class="btn btn-primary bigwidth open-door">Proceed to checkout</button>
+          </div>
+          <div class="cart-logo-dis">
+            <div class="cart-logo">
+              <img src="assets/images/cart-logo.png">
+              <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit aliquet.<a href="#">[read more]</a></p>
+            </div>
+          </div>
+          
+          <div class="cart-info accordion">
+            <h2>cart info</h2>
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                         <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Collapsible Group Item #1
+                    </a>
+                  </h4>
+
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.le VHS.</div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                         <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Collapsible Group Item #2
+                    </a>
+                  </h4>
+
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                         <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Collapsible Group Item #3
+                    </a>
+                  </h4>
+
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 @endsection

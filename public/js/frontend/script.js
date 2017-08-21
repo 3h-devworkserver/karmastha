@@ -142,25 +142,27 @@
     function cart(){
         //-- Click on QUANTITY
             $(".btn-minus").on("click",function(){
+                alert('minus');
                 var min =$(this).next().attr('min');
                 var max =$(this).next().attr('max');
-                var now = $(".qty-section > div > input").val();
+                var now = $(this).next().val();
                 if ($.isNumeric(now)){
                     if (parseInt(now) > min){ now--;}
-                    $(".qty-section > div > input").val(now);
+                    $(this).next().val(now);
                 }else{
-                    $(".qty-section > div > input").val(min);
+                    $(this).next().val(min);
                 }
             })            
             $(".btn-plus").on("click",function(){
+                alert('plus');
                 var min =$(this).prev().attr('min');
                 var max =$(this).prev().attr('max');
-                var now = $(".qty-section > div > input").val();
+                var now = $(this).prev().val();
                 if ($.isNumeric(now)){
                     if (parseInt(now) < max) { now++;}
-                    $(".qty-section > div > input").val(now);
+                    $(this).prev().val(now);
                 }else{
-                    $(".qty-section > div > input").val(min);
+                    $(this).prev().val(min);
                 }
             });       
     }

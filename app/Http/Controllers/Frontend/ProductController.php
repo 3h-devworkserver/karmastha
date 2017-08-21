@@ -160,7 +160,7 @@ class ProductController extends Controller
         $item = LaraCart::add(2, $product->name, (int)$request->qty, $product->productPrice->price, [
                     'attr_name' => $request->attr_name,
                     'attr_value' => $request->attr_value,
-                    'attr_vaule_id' => $request->attr,
+                    'attr_value_id' => $request->attr,
                     'attr_identifier' => $request->attr_identifier,
                 ]);
 
@@ -279,7 +279,7 @@ class ProductController extends Controller
 
      
 
-        dd(Session::all());
+        // dd(Session::all());
 
         return redirect()->route('frontend.cart.view');
     }
@@ -293,7 +293,11 @@ class ProductController extends Controller
            $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
         }
         else {
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            $cartItems = LaraCart::getItems();
+            // foreach ($cartItems as $key => $cartItem) {
+            //     return $cartItem->qty;
+            // }
+            // $cartItems = Session::has('cart') ? Session::get('cart') : null;
         }
         // return $cartItems;
 

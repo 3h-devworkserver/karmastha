@@ -190,7 +190,7 @@ $(document).ready(function(){
                             headers:
                                 {
                                  'X-CSRF-Token': $('input[name=_token]').val()
-                               },
+                                },
                             data: {productid: $('input[name=product]').val() , values: checkedValues},
 
                             success:function(response){

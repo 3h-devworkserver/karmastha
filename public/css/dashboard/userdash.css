@@ -1112,7 +1112,6 @@ Sidebar
   box-sizing: border-box;
   font-size: 13px;
   line-height: 40px;
-  padding: 0 20px;
   width: 100%;
   text-transform: capitalize;
 }
@@ -1120,6 +1119,7 @@ Sidebar
 .list-module-col {
   box-sizing: border-box;
   display: inline-block;
+  text-align: center;
   vertical-align: top;
 }
 
