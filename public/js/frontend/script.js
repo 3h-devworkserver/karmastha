@@ -117,23 +117,50 @@
         })
     }
 
+    // function cart(){
+    //     //-- Click on QUANTITY
+    //         $(".btn-minus").on("click",function(){
+    //             var now = $(".qty-section > div > input").val();
+    //             if ($.isNumeric(now)){
+    //                 if (parseInt(now) -1 > 0){ now--;}
+    //                 $(".qty-section > div > input").val(now);
+    //             }else{
+    //                 $(".qty-section > div > input").val("1");
+    //             }
+    //         })            
+    //         $(".btn-plus").on("click",function(){
+    //             var now = $(".qty-section > div > input").val();
+    //             if ($.isNumeric(now)){
+    //                 $(".qty-section > div > input").val(parseInt(now)+1);
+    //             }else{
+    //                 $(".qty-section > div > input").val("1");
+    //             }
+    //         });       
+    // }
+
+//method modified for quantity validation -- yojan
     function cart(){
         //-- Click on QUANTITY
             $(".btn-minus").on("click",function(){
+                var min =$(this).next().attr('min');
+                var max =$(this).next().attr('max');
                 var now = $(".qty-section > div > input").val();
                 if ($.isNumeric(now)){
-                    if (parseInt(now) -1 > 0){ now--;}
+                    if (parseInt(now) > min){ now--;}
                     $(".qty-section > div > input").val(now);
                 }else{
-                    $(".qty-section > div > input").val("1");
+                    $(".qty-section > div > input").val(min);
                 }
             })            
             $(".btn-plus").on("click",function(){
+                var min =$(this).prev().attr('min');
+                var max =$(this).prev().attr('max');
                 var now = $(".qty-section > div > input").val();
                 if ($.isNumeric(now)){
-                    $(".qty-section > div > input").val(parseInt(now)+1);
+                    if (parseInt(now) < max) { now++;}
+                    $(".qty-section > div > input").val(now);
                 }else{
-                    $(".qty-section > div > input").val("1");
+                    $(".qty-section > div > input").val(min);
                 }
             });       
     }

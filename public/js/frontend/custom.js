@@ -194,8 +194,6 @@ $(document).ready(function(){
                             data: {productid: $('input[name=product]').val() , values: checkedValues},
 
                             success:function(response){
-                                alert(response);
-                                console.log(response);
                                 if (response.stat == 'success') {
                                     var manageStock = response.values[0].manage_stock;
                                     var availability = response.values[0].availability;
@@ -206,33 +204,39 @@ $(document).ready(function(){
                                             if (quantity == 0) {
                                                 alert('product combination not available');
                                                 $('.remainingQuantity span').text('Product combination not available');
+                                                $('.attrIdentifier').val('');
                                                 $('.addToCart').attr('disabled', '');
                                             }else{
                                                 alert('product combination available');
                                                 $('.remainingQuantity span').text(quantity+' items remaining');
                                                 $('.quantity').attr('max', quantity);
+                                                $('.attrIdentifier').val(identifier);
                                                 $('.addToCart').removeAttr('disabled');
                                             }
                                         }else{
                                             alert('product combination not available');
                                             $('.remainingQuantity span').text('Product combination not available');
+                                            $('.attrIdentifier').val('');
                                             $('.addToCart').attr('disabled', '');
                                         }
                                     }else{
                                         if (quantity == 0) {
                                             alert('product combination available unlimited');
                                             $('.quantity').removeAttr('max');
+                                            $('.attrIdentifier').val(identifier);
                                             $('.addToCart').removeAttr('disabled');
                                         }else{
                                             alert('product combination available');
                                             $('.remainingQuantity span').text(quantity+' items remaining');
                                             $('.quantity').attr('max', quantity);
+                                            $('.attrIdentifier').val(identifier);
                                             $('.addToCart').removeAttr('disabled');
                                         }
                                     }
                                 }else{
                                     alert('Not availabile');
                                     $('.remainingQuantity span').text('Product combination not available');
+                                    $('.attrIdentifier').val('');
                                     $('.addToCart').attr('disabled', '');
                                 }
                             }

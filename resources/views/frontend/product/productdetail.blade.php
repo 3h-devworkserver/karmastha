@@ -127,7 +127,7 @@
                     	<span class="incl-dis">{{round(($product->productPrice->price - $product->productPrice->special_price)/$product->productPrice->price*100)}}% off</span>
                     @endif
                 </div>
-                
+
                 <!-- stock available -->
                 <div class="brand-logo-detail product-info-item text-center clearfix">
                   <div class="single-logo pull-left"><img src="{{asset($product->brand->brand_logo)}}"></div>
@@ -153,6 +153,7 @@
 
                   {{Form::hidden('action', '')}} 
                   {{Form::hidden('product', $product->id)}} 
+                  {{Form::hidden('attr_identifier', null, ['class'=>'attrIdentifier'])}}
 
                   @if(count($tmp) > 0)
 
@@ -194,8 +195,8 @@
                                     @endif
 
                                       @if ($loop->last)
-                                        @if(!empty($tmp->short_desc_title))
-                                          <a class="btn btn-default pull-right">{{$tmp->short_desc_title}}</a>
+                                        @if(!empty($tm->short_desc_title))
+                                          <a class="btn btn-default pull-right">{{$tm->short_desc_title}}</a>
                                         @endif
                                       @endif
                                   @endforeach
@@ -207,7 +208,6 @@
 
                       {{Form::hidden('attr_value['.$key.']', null, ['class'=>'attrValue'])}}
                       {{Form::hidden('attr_name['.$key.']', null, ['class'=>'attrName'])}}
-                      {{Form::hidden('attr_identifier['.$key.']', null, ['class'=>'attrIdentifier'])}}
                     </div>
                   @endforeach
 
@@ -236,6 +236,11 @@
                                 <li class="blue"><a href="#"></a></li>
                                 <li class="purple"><a href="#"></a></li>
                                 <li class="aqua"><a href="#"></a></li> --}}
+                                 <?php    
+                                    echo print_r($tm);
+                                    
+
+                                    ?>
                                 @endforeach
                               </ul>
                             @endif
@@ -262,8 +267,15 @@
                                     <input type="text" name="p-size" class="size-list-info" value="32">
                                     <input type="text" name="p-size" class="size-list-info" value="40">
                                     <input type="text" name="p-size" class="size-list-info" value="26"> --}}
+                                    <?php    
+                                    echo print_r($tm);
+
+
+                                    ?>
+                                      @if(!empty($tm->short_desc_title))
+                                        <button class="btn btn-default pull-right">{{$tm->short_desc_title}}</button>
+                                      @endif
                                     @if ($loop->last)
-                                      <button class="btn btn-default pull-right">size chart</button>
                                     @endif
                                 @endforeach
                               {{-- </form>    --}}

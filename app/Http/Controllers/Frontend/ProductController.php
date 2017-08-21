@@ -97,7 +97,6 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getQuantity(Request $request){
-        // return $request->all();
 
         $product = Product::findOrFail($request->productid);
 
@@ -114,23 +113,15 @@ class ProductController extends Controller
                 ->join('product_attr_combination_value', 'product_attr_combination.id', '=', 'product_attr_combination_value.product_attr_combination_id')
                 ->where('product_attr_combination.combination', $string);
                 
-
-                // ->where('attribute_value_id', '=', $request->values[0]);
-
         $rows = $table->select('products.id', 'products.name', 'product_inventory.manage_stock', 'product_inventory.availability', 'product_attr_combination.identifier', 'product_attr_combination.quantity')
                 ->groupBy('products.id', 'products.name', 'product_inventory.manage_stock', 'product_inventory.availability', 'product_attr_combination.identifier', 'product_attr_combination.quantity')
                 // ->toSql();
                 ->get();
-        // return $rows;
 
         $data = [];
         if (count($rows) != 0) {
-            // $data['stat'] = 'success';
-            // $data['values'] = $rows;
             return response()->json(['stat'=> 'success', 'values'=>$rows]);
         }else{
-            // $data['stat'] = 'error';
-            // $data['values'] = '';
             return response()->json(['stat'=> 'error', 'values'=>'']);
         }
     }
@@ -143,7 +134,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ProductAction(Request $request){
-        return $request->all();
+        // return $request->all();
         // dd(Session::all());
         if ($request->action=='addToCart' || $request->action=='') {
             return $this->addToCart($request);
@@ -159,126 +150,136 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($request->product);
 
+        // $option = [];
+        // foreach ($variable as $key => $value) {
+        //     # code...
+        // }
+        // $option['name'] = $request->attr_name;
+
         // Adding an item to the cart
-        $item = LaraCart::add(2, $product->name, 200, 15.99, [
-                    'size' => 'XL'
+        $item = LaraCart::add(2, $product->name, (int)$request->qty, $product->productPrice->price, [
+                    'attr_name' => $request->attr_name,
+                    'attr_value' => $request->attr_value,
+                    'attr_vaule_id' => $request->attr,
+                    'attr_identifier' => $request->attr_identifier,
                 ]);
 
 
-        foreach($items = LaraCart::getItems() as $item) {
-            // echo "<pre>"; dd($item);
-        }
-return $items;
+        // foreach($items = LaraCart::getItems() as $item) {
+        //     // echo "<pre>"; dd($item);
+        // }
+// return $items;
 
-        if (Auth::check()) {
-            $cartItems = Cartitem::where('product_id',$request->product )->get();
+        // if (Auth::check()) {
+        //     $cartItems = Cartitem::where('product_id',$request->product )->get();
 
-            if(!empty($cartItems)){
-                $mainCheck = 0;
-                foreach($cartItems as $cartItem){
-                    $attributes = $cartItem->attributes;
-                    if (!empty($attributes)) {
-                        $check = 1;
-                        foreach ($attributes as $key => $attr) {
-                            $secondCheck = 0;
-                            for ($i=0; $i < count($request->attr_name); $i++) {
-                            // echo $i; 
-                                // echo $attr->attr_name .'='.$request->attr_name[$i].' and'.$attr->attr_value.'='.$request->attr_val[$i];
-                                if ($attr->attr_name == $request->attr_name[$i] && $attr->attr_value == $request->attr_val[$i] ) {
-                                    $secondCheck = 1;
-                                }
-                            // echo $secondCheck; 
-                            }
-                            if ($secondCheck == 0) {
-                            // return $secondCheck;
-                                $check = 0;
-                                break;
-                            }
-                        }
-                        // return $check;
-                        if ($check == 1) {
-                            $cartItem->qty += $request->qty;
-                            $cartItem->save();
-                            $mainCheck = 1;
-                            break;
-                        }
-                    }else{
+        //     if(!empty($cartItems)){
+        //         $mainCheck = 0;
+        //         foreach($cartItems as $cartItem){
+        //             $attributes = $cartItem->attributes;
+        //             if (!empty($attributes)) {
+        //                 $check = 1;
+        //                 foreach ($attributes as $key => $attr) {
+        //                     $secondCheck = 0;
+        //                     for ($i=0; $i < count($request->attr_name); $i++) {
+        //                     // echo $i; 
+        //                         // echo $attr->attr_name .'='.$request->attr_name[$i].' and'.$attr->attr_value.'='.$request->attr_val[$i];
+        //                         if ($attr->attr_name == $request->attr_name[$i] && $attr->attr_value == $request->attr_val[$i] ) {
+        //                             $secondCheck = 1;
+        //                         }
+        //                     // echo $secondCheck; 
+        //                     }
+        //                     if ($secondCheck == 0) {
+        //                     // return $secondCheck;
+        //                         $check = 0;
+        //                         break;
+        //                     }
+        //                 }
+        //                 // return $check;
+        //                 if ($check == 1) {
+        //                     $cartItem->qty += $request->qty;
+        //                     $cartItem->save();
+        //                     $mainCheck = 1;
+        //                     break;
+        //                 }
+        //             }else{
 
-                    }
-                }
-                if($mainCheck == 0){
-                    $cartitem = Cartitem::create([
-                        'product_id' => $request->product ,
-                        'user_id' => Auth::user()->id,
-                        'qty' =>$request->qty,
-                    ]);
-                    if (!empty($request->attr_name)) {
-                        for ($i=0; $i < count($request->attr_name); $i++) { 
-                            $cartitem->attributes()->create([
-                                'attr_name'=>$request->attr_name[$i],
-                                'attr_value'=>$request->attr_val[$i],
-                            ]);
-                        }
-                    }
-                }
-            }else{
-                $cartitem = Cartitem::create([
-                    'product_id' => $request->product ,
-                    'user_id' => Auth::user()->id,
-                    'qty' =>$request->qty,
-                ]);
-                if (!empty($request->attr_name)) {
-                    for ($i=0; $i < count($request->attr_name); $i++) { 
-                        $cartitem->attributes()->create([
-                            'attr_name'=>$request->attr_name[$i],
-                            'attr_value'=>$request->attr_val[$i],
-                        ]);
-                    }
-                }
-            }
-        }else{
+        //             }
+        //         }
+        //         if($mainCheck == 0){
+        //             $cartitem = Cartitem::create([
+        //                 'product_id' => $request->product ,
+        //                 'user_id' => Auth::user()->id,
+        //                 'qty' =>$request->qty,
+        //             ]);
+        //             if (!empty($request->attr_name)) {
+        //                 for ($i=0; $i < count($request->attr_name); $i++) { 
+        //                     $cartitem->attributes()->create([
+        //                         'attr_name'=>$request->attr_name[$i],
+        //                         'attr_value'=>$request->attr_val[$i],
+        //                     ]);
+        //                 }
+        //             }
+        //         }
+        //     }else{
+        //         $cartitem = Cartitem::create([
+        //             'product_id' => $request->product ,
+        //             'user_id' => Auth::user()->id,
+        //             'qty' =>$request->qty,
+        //         ]);
+        //         if (!empty($request->attr_name)) {
+        //             for ($i=0; $i < count($request->attr_name); $i++) { 
+        //                 $cartitem->attributes()->create([
+        //                     'attr_name'=>$request->attr_name[$i],
+        //                     'attr_value'=>$request->attr_val[$i],
+        //                 ]);
+        //             }
+        //         }
+        //     }
+        // }else{
 
-            // $cartItems = array();
-            $cartItems = (Session::has('cart')) ? Session::get('cart') : array();
-            // dd($cartItems);
+        //     // $cartItems = array();
+        //     $cartItems = (Session::has('cart')) ? Session::get('cart') : array();
+        //     // dd($cartItems);
 
-            $attrArray = '';
-            for ($i=0; $i < count($request->attr_name) ; $i++) { 
-                $attrArray[] = [$request->attr_name[$i]=>$request->attr_val[$i]];
-            }
+        //     $attrArray = '';
+        //     for ($i=0; $i < count($request->attr_name) ; $i++) { 
+        //         $attrArray[] = [$request->attr_name[$i]=>$request->attr_val[$i]];
+        //     }
 
-            $cartItems2 = array();
-            $check = 0;
-            foreach ($cartItems as $key => $value) {
-                if($value['productId'] == $request->product ){
-                    if ($value['attributes'] == $attrArray) {
-                        $value['qty'] += $request->qty;
-                        $check = 1;
-                    }
-                }
-                array_push($cartItems2,$value);
-            }
-            if ($check == 0) {
-                $newItem = [
-                        'productId'=>$request->product,
-                        'qty'=>$request->qty,
-                        'img'=>$product->productThumbnailImage[0]->image,
-                        // 'price'=>$price,
-                        // 'totalPrice'=>$price*$request->qty,
-                        'attributes' =>$attrArray,
-                        ];
-                array_push($cartItems2,$newItem);
-            }
-            Session::flush();
-            Session::put('cart', $cartItems2);
-            $request->session()->save(); 
+        //     $cartItems2 = array();
+        //     $check = 0;
+        //     foreach ($cartItems as $key => $value) {
+        //         if($value['productId'] == $request->product ){
+        //             if ($value['attributes'] == $attrArray) {
+        //                 $value['qty'] += $request->qty;
+        //                 $check = 1;
+        //             }
+        //         }
+        //         array_push($cartItems2,$value);
+        //     }
+        //     if ($check == 0) {
+        //         $newItem = [
+        //                 'productId'=>$request->product,
+        //                 'qty'=>$request->qty,
+        //                 'img'=>$product->productThumbnailImage[0]->image,
+        //                 // 'price'=>$price,
+        //                 // 'totalPrice'=>$price*$request->qty,
+        //                 'attributes' =>$attrArray,
+        //                 ];
+        //         array_push($cartItems2,$newItem);
+        //     }
+        //     Session::flush();
+        //     Session::put('cart', $cartItems2);
+        //     $request->session()->save(); 
 
-        }
+        // }
 
         
 
      
 
+        dd(Session::all());
 
         return redirect()->route('frontend.cart.view');
     }
