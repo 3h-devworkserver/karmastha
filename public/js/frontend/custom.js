@@ -166,7 +166,7 @@ $(document).ready(function(){
             // alert( $('.singleAttribute').length );
             setTimeout(function(){
                 var ajaxCall = 0;
-                var checkedValues
+                var checkedValues;
                 $('.singleAttribute').each(function(){
                     // alert($(this).find('.attrVal:checked').attr('data-value'));
                     // console.log($(this).find('.attrValue:checked'));
@@ -182,8 +182,9 @@ $(document).ready(function(){
                     }
                 });
                     if(ajaxCall == 1){
-                        alert('ajax call');
-
+                        // alert('ajax call');
+                        NProgress.configure({ showSpinner: false });
+                        NProgress.start();
                         $.ajax({
                             method: 'post',
                             url: base_url + '/product/getquantity',
@@ -202,45 +203,50 @@ $(document).ready(function(){
                                     if (manageStock == 1) {
                                         if (availability === 'in stock') {
                                             if (quantity == 0) {
-                                                alert('product combination not available');
+                                                // alert('product combination not available');
                                                 $('.remainingQuantity span').text('Product combination not available');
                                                 $('.attrIdentifier').val('');
                                                 $('.addToCart').attr('disabled', '');
+                                                NProgress.done();
                                             }else{
-                                                alert('product combination available');
+                                                // alert('product combination available');
                                                 $('.remainingQuantity span').text(quantity+' items remaining');
                                                 $('.quantity').attr('max', quantity);
                                                 $('.attrIdentifier').val(identifier);
                                                 $('.addToCart').removeAttr('disabled');
+                                                NProgress.done();
                                             }
                                         }else{
-                                            alert('product combination not available');
+                                            // alert('product combination not available');
                                             $('.remainingQuantity span').text('Product combination not available');
                                             $('.attrIdentifier').val('');
                                             $('.addToCart').attr('disabled', '');
+                                            NProgress.done();
                                         }
                                     }else{
                                         if (quantity == 0) {
-                                            alert('product combination available unlimited');
+                                            // alert('product combination available unlimited');
                                             $('.quantity').removeAttr('max');
                                             $('.attrIdentifier').val(identifier);
                                             $('.addToCart').removeAttr('disabled');
+                                            NProgress.done();
                                         }else{
-                                            alert('product combination available');
+                                            // alert('product combination available');
                                             $('.remainingQuantity span').text(quantity+' items remaining');
                                             $('.quantity').attr('max', quantity);
                                             $('.attrIdentifier').val(identifier);
                                             $('.addToCart').removeAttr('disabled');
+                                            NProgress.done();
                                         }
                                     }
                                 }else{
-                                    alert('Not availabile');
+                                    // alert('Not availabile');
                                     $('.remainingQuantity span').text('Product combination not available');
                                     $('.attrIdentifier').val('');
                                     $('.addToCart').attr('disabled', '');
+                                    NProgress.done();
                                 }
                             }
-
                         });
                     }
             }, 2000);
@@ -249,6 +255,28 @@ $(document).ready(function(){
 
     /** ====== end - product detail page  ===== **/
 
+     /** ====== start - cart page  ===== **/
+
+        /** ====== delete item from cart  ===== **/
+        $(document).on('click', '.bagde-remove', function(){
+            var hash = $(this).attr('data-hash');
+            var tmp = confirm('Are you sure want to remove item from cart.');
+            if (tmp) {
+                $.ajax({
+                    method: 'get',
+                    url: base_url + '/cart/removeitem/'+hash,
+
+                    success:function(response){
+
+                    }
+
+                });
+            }
+        });
+
+
+     /** ====== end - cart page  ===== **/
+
 
 
 
@@ -256,82 +284,3 @@ $(document).ready(function(){
 // $('.selectBox').SumoSelect();
 
 });
-
-
-// $(function() {
-//     $('#slides').slidesjs({
-//             width: 940,
-//             height: 528,
-//             navigation: {
-//               effect: "fade"
-//             },
-//             pagination: {
-//               effect: "fade"
-//             },
-//             effect: {
-//               fade: {
-//                 speed: 1800
-//               }
-//             },
-//             play: {
-//               effect: "fade",
-//               auto: true
-//             }
-//         });
-// });
-
-//  $(window).load(function() {
-//     $("#flexisel_slider").flexisel({
-//         visibleItems: 4,
-//         itemsToScroll: 3,
-//         animationSpeed: 200,
-//         infinite: false,
-//         navigationTargetSelector: null,
-//         autoPlay: {
-//             enable: false,
-//             interval: 5000,
-//             pauseOnHover: true
-//         },
-//         responsiveBreakpoints: { 
-//             portrait: { 
-//                 changePoint:480,
-//                 visibleItems: 1,
-//                 itemsToScroll: 1
-//             }, 
-//             landscape: { 
-//                 changePoint:640,
-//                 visibleItems: 2,
-//                 itemsToScroll: 2
-//             },
-//             tablet: { 
-//                 changePoint:768,
-//                 visibleItems: 3,
-//                 itemsToScroll: 3
-//             }
-//         },
-//         loaded: function(object) {
-//             console.log('Slider loaded...');
-//         },
-//         before: function(object){
-//             console.log('Before transition...');
-//         },
-//         after: function(object) {
-//             console.log('After transition...');
-//         }
-//     });
-// });
-
-
-// $( function() {
-//     $( "#slider-range" ).slider({
-//       range: true,
-//       min: 0,
-//       max: 500,
-//       values: [ 75, 300 ],
-//       slide: function( event, ui ) {
-//         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-//       }
-//     });
-//     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-//     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-// } );

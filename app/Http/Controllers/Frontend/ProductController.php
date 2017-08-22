@@ -317,21 +317,28 @@ class ProductController extends Controller
             $cartItem = Cartitem::findOrFail($index);
             $cartItem->delete();
         }else{
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            if (!empty($cartItems)) {
-                Session::forget('cart.'.$index);
+            try {
+                $check = LaraCart::removeItem($index);
+                return response()->json(['stat'=> 'success']);
+            } catch (Exception $e) {
+                return response()->json(['stat'=> 'failed']);
             }
 
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            $cartItems2 = array();
-            foreach ($cartItems as $key => $value) {
-                array_push($cartItems2,$value);
-            }
-            Session::flush();
-            Session::put('cart', $cartItems2);
-            $request->session()->save();
+            // $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            // if (!empty($cartItems)) {
+            //     Session::forget('cart.'.$index);
+            // }
+
+            // $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            // $cartItems2 = array();
+            // foreach ($cartItems as $key => $value) {
+            //     array_push($cartItems2,$value);
+            // }
+            // Session::flush();
+            // Session::put('cart', $cartItems2);
+            // $request->session()->save();
         }
-        return redirect()->route('frontend.cart.view');
+        // return redirect()->route('frontend.cart.view');
     }
 
      /**
@@ -344,18 +351,19 @@ class ProductController extends Controller
             $cartItem->qty = $request->qty;
             $cartItem->save();
         }else{
+            LaraCart::updateItem($index, 'qty', $request->qty);
 
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            $cartItems2 = array();
-            foreach ($cartItems as $key => $value) {
-                if($key == $index ){
-                    $value['qty'] = $request->qty;
-                }
-                array_push($cartItems2,$value);
-            }
-            Session::flush();
-            Session::put('cart', $cartItems2);
-            $request->session()->save();
+            // $cartItems = Session::has('cart') ? Session::get('cart') : null;
+            // $cartItems2 = array();
+            // foreach ($cartItems as $key => $value) {
+            //     if($key == $index ){
+            //         $value['qty'] = $request->qty;
+            //     }
+            //     array_push($cartItems2,$value);
+            // }
+            // Session::flush();
+            // Session::put('cart', $cartItems2);
+            // $request->session()->save();
 
         }
         return redirect()->route('frontend.cart.view');

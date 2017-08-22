@@ -385,6 +385,24 @@ h1, h2, h3, h4, h5, h6{
   border: none !important;
   padding-bottom: 0 !important;
 }
+.nprogress-busy{ position: relative; }
+.nprogress-busy::before {
+  background: #ffffff none repeat scroll 0 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+#nprogress .bar{ background: #742b96; height: 3px; z-index: 10000; }
+#nprogress .peg{ box-shadow: none; }
 body {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
@@ -2300,10 +2318,13 @@ div.qty-section > div > input {
 .product-cart-info {
   margin-bottom: 10px;
 }
-.product-cart-info .section-title-1{
-    font-size: 14px;
-    margin-bottom: 5px;
+.product-cart-info .section-title-1,
+.product-cart-info .section-title-1 a{
+  color: #575757;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
+.product-cart-info .section-title-1 a:hover{ color: #742b96; }
 .cart-remark .fix-width {
   float: left;
   font-size: 14px;
@@ -2631,7 +2652,7 @@ input:checked + .slider:before {
 .cart-qty div.qty-section > div > input{
   background: none;
   height: 35px;
-  max-width: 42%;
+  max-width: 23%;
 }
 
 .cart-qty div.qty-section > div{
@@ -2640,36 +2661,31 @@ input:checked + .slider:before {
 
 .cart-qty .qty-section{
     float: none;
+    height: 35px;
 }
 
 .cart-qty .btn-minus, .cart-qty .btn-plus{
     width: 35px;
     height: 35px;
 }
+.cart-qty .update-qty a{ color: #742b96; margin-top: 5px; }
 .bagde-remove {
-    width: 0;
-    height: 0;
-    border-top: 50px solid #d22c2c;
-    border-left: 50px solid transparent;
-
-    
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0;
-    margin: 0;
-    
-    text-align: center;
-    font-size: 12px;
-    color: #fff;
-    
-    z-index: 1;
+  background: #d22c2c none repeat scroll 0 0;
+  clip-path: polygon(100% 0%, 100% 100%, 0 0%);
+  color: #fff;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 50px;
+  z-index: 1;
 }
 
 .bagde-remove i {
-  left: -20px;
+  left: 30px;
   position: absolute;
-  top: -42px;
+  top: 7px;
 }
 .bagde-remove i:hover{
     color: #ffffff;

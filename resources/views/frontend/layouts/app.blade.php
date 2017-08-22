@@ -43,6 +43,7 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/la-fonts.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/xzoom.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/nprogress.css')}}">
 
   <!-- Styles -->
   @yield('after-styles')
@@ -77,6 +78,7 @@
 <script src="{{asset('js/frontend/xzoom.min.js')}}"></script>
 {{-- {{ Html::script('js/frontend/jquery.validate.js') }} --}}
  {!! Html::script('jquery-validation-1.15.0/dist/jquery.validate.js') !!}
+<script src="{{asset('js/frontend/nprogress.js')}}"></script>
 <script src="{{asset('js/frontend/custom.js')}}"></script>
 
 <script type="text/javascript">

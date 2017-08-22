@@ -138,34 +138,44 @@
     //         });       
     // }
 
-//method modified for quantity validation -- yojan
+//start -- method modified for quantity validation -- yojan
     function cart(){
         //-- Click on QUANTITY
             $(".btn-minus").on("click",function(){
                 alert('minus');
-                var min =$(this).next().attr('min');
-                var max =$(this).next().attr('max');
-                var now = $(this).next().val();
+                var elem = $(this).next();
+                var min =elem.attr('min');
+                var max =elem.attr('max');
+                var now = elem.val();
                 if ($.isNumeric(now)){
                     if (parseInt(now) > min){ now--;}
-                    $(this).next().val(now);
+                    elem.val(now);
                 }else{
-                    $(this).next().val(min);
+                    elem.val(min);
                 }
+                if (elem.closest('.cart-qty').find('.update-qty').length == 1) {
+                    elem.closest('.cart-qty').find('.update-qty').removeClass('hide');
+                }
+
             })            
             $(".btn-plus").on("click",function(){
                 alert('plus');
-                var min =$(this).prev().attr('min');
-                var max =$(this).prev().attr('max');
-                var now = $(this).prev().val();
+                var elem = $(this).prev();
+                var min =elem.attr('min');
+                var max =elem.attr('max');
+                var now = elem.val();
                 if ($.isNumeric(now)){
                     if (parseInt(now) < max) { now++;}
-                    $(this).prev().val(now);
+                    elem.val(now);
                 }else{
-                    $(this).prev().val(min);
+                    elem.val(min);
+                }
+                if (elem.closest('.cart-qty').find('.update-qty').length == 1) {
+                    elem.closest('.cart-qty').find('.update-qty').removeClass('hide');
                 }
             });       
     }
+    //end --- method modified for quantity validation -- yojan
 
     function menuslidedown(){
 
