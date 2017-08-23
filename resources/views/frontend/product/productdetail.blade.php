@@ -72,7 +72,12 @@
             <section class="sidebar-category pt0">
               	@if(count($baseImage) > 0)
 	              	<div class="xzoom-container">
-		                <div class="add-wishlist"><a href="#" class="wish-list" data-toggle="tooltip" data-placement="left" data-original-title="Add To Wishlist"><i class="la-icon-heart-o"></i></a></div>
+		                <div class="add-wishlist">
+                      <!-- <a href="#" class="wish-list" data-toggle="tooltip" data-placement="left" data-original-title="Add To Wishlist"><i class="la-icon-heart-o"></i></a> -->
+                        <a href="{{ URL::to('wishlist/store/?id='.$product->id) }}" class="wishlist" data-id="{{ $product->id }}" data-price="{{ productPrice($product->id)}}" data-name="{{ $product->name}}">
+                          <i class="la-icon-heart-o"></i>                  
+                        </a>
+                    </div>
 
 		                <img class="xzoom" id="xzoom-default" src="{{asset('images/product/'.$product->id.'/original/'.$baseImage[0]->image)}}" xoriginal="{{asset('images/product/'.$product->id.'/original/'.$baseImage[0]->image)}}" />
 		                <div class="xzoom-thumbs">
@@ -306,7 +311,7 @@
                             <div class="remainingQuantity"><span class="text-danger"></span></div>
                           </div>        
                           <div class="cart-btn">
-                            <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" tabindex="-1">
+                            <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" disabled tabindex="-1">
                               <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
                             </a>
                           </div>  

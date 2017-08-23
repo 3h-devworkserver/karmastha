@@ -150,20 +150,13 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($request->product);
 
-        // $option = [];
-        // foreach ($variable as $key => $value) {
-        //     # code...
-        // }
-        // $option['name'] = $request->attr_name;
-
-        // Adding an item to the cart
-        $item = LaraCart::add(2, $product->name, (int)$request->qty, $product->productPrice->price, [
-                    'attr_name' => $request->attr_name,
-                    'attr_value' => $request->attr_value,
-                    'attr_value_id' => $request->attr,
-                    'attr_identifier' => $request->attr_identifier,
-                ]);
-
+            // Adding an item to the cart
+            $item = LaraCart::add(2, $product->name, (int)$request->qty, $product->productPrice->price, [
+                        'attr_name' => $request->attr_name,
+                        'attr_value' => $request->attr_value,
+                        'attr_value_id' => $request->attr,
+                        'attr_identifier' => $request->attr_identifier,
+                    ]);
 
         // foreach($items = LaraCart::getItems() as $item) {
         //     // echo "<pre>"; dd($item);
@@ -290,7 +283,8 @@ class ProductController extends Controller
      */
     public function viewCart(){
         if (Auth::check()) {
-           $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
+           // $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
+            $cartItems = LaraCart::getItems();
         }
         else {
             $cartItems = LaraCart::getItems();
@@ -318,10 +312,14 @@ class ProductController extends Controller
             $cartItem->delete();
         }else{
             try {
-                $check = LaraCart::removeItem($index);
-                return response()->json(['stat'=> 'success']);
+                $cartItem = LaraCart::find(['itemHash' => $index]) ;
+                if(empty($cartItem)){
+                return response()->json(['stat'=> 'failed', 'msg'=> '<div class="alert alert-danger"><span>'. '<i class="fa fa-times-circle" aria-hidden="true"></i> Item not found.' .'</span></div>']);
+                }
+                LaraCart::removeItem($index);
+                return response()->json(['stat'=> 'success', 'msg'=> '<div class="alert alert-success"><span>'. '<i class="fa fa-check-circle" aria-hidden="true"></i> Item is removed from cart.' .'</span></div>']);
             } catch (Exception $e) {
-                return response()->json(['stat'=> 'failed']);
+                return response()->json(['stat'=> 'failed', 'msg'=> '<div class="alert alert-danger"><span>'. '<i class="fa fa-times-circle" aria-hidden="true"></i> Error occurred.' .'</span></div>']);
             }
 
             // $cartItems = Session::has('cart') ? Session::get('cart') : null;
@@ -351,6 +349,7 @@ class ProductController extends Controller
             $cartItem->qty = $request->qty;
             $cartItem->save();
         }else{
+            // dd( LaraCart::find(['itemHash' => $index]) );
             LaraCart::updateItem($index, 'qty', $request->qty);
 
             // $cartItems = Session::has('cart') ? Session::get('cart') : null;
@@ -366,7 +365,7 @@ class ProductController extends Controller
             // $request->session()->save();
 
         }
-        return redirect()->route('frontend.cart.view');
+        return redirect()->route('frontend.cart.view')->withSuccessQtyUpdate('Quantity updated.');
     }
 
 

@@ -9,6 +9,20 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
 <section class="shopping-cart">
   <div class="container">
+
+  <div class="message"></div>
+  <div class="qty-update">
+    @if (session()->get('success_qty_update'))
+      <div class="alert alert-success">
+          @if(is_array(json_decode(session()->get('flash_success'), true)))
+              {!! implode('', session()->get('flash_success')->all(':message<br/>')) !!}
+          @else
+              {!! session()->get('flash_success') !!}
+          @endif
+      </div>
+    @endif
+  </div>
+
     <div class="row">
       
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -113,8 +127,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                 </div>
                 <div class="update_shopping pull-right">
                   <div class="sub-total-sumarry">
-                    <button class="btn btn-default">continue shopping</button>
-                    <button class="btn btn-default">update cart</button>
+                    <a href="{{url('/')}}" class="btn btn-default">continue shopping</a>
+                    <a href="#" class="btn btn-default">update cart</a>
                   </div>
                   <div class="text-right">
                     <div class="right-grand-total">

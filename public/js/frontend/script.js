@@ -142,7 +142,7 @@
     function cart(){
         //-- Click on QUANTITY
             $(".btn-minus").on("click",function(){
-                alert('minus');
+                // alert('minus');
                 var elem = $(this).next();
                 var min =elem.attr('min');
                 var max =elem.attr('max');
@@ -159,7 +159,7 @@
 
             })            
             $(".btn-plus").on("click",function(){
-                alert('plus');
+                // alert('plus');
                 var elem = $(this).prev();
                 var min =elem.attr('min');
                 var max =elem.attr('max');

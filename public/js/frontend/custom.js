@@ -75,6 +75,8 @@ $("#slideshow > div:gt(0)").hide();
 
 $(document).ready(function(){
 
+    NProgress.configure({ showSpinner: false }); // removes spinner from progress
+
     /** ====== generic anchor tag used to submit form ===== **/
     $(document).on('click', 'a.submit', function(){
         $(this).closest('form').submit();
@@ -183,7 +185,6 @@ $(document).ready(function(){
                 });
                     if(ajaxCall == 1){
                         // alert('ajax call');
-                        NProgress.configure({ showSpinner: false });
                         NProgress.start();
                         $.ajax({
                             method: 'post',
@@ -260,19 +261,31 @@ $(document).ready(function(){
         /** ====== delete item from cart  ===== **/
         $(document).on('click', '.bagde-remove', function(){
             var hash = $(this).attr('data-hash');
+            var elem = $(this).closest('.cart-review-content');
             var tmp = confirm('Are you sure want to remove item from cart.');
             if (tmp) {
+                NProgress.start();
                 $.ajax({
                     method: 'get',
                     url: base_url + '/cart/removeitem/'+hash,
 
                     success:function(response){
-
+                        console.log(response);
+                        if (response.stat == 'success') {
+                            elem.remove();
+                            $('.message').html(response.msg).show().delay(3000).slideUp("slow");
+                            // NProgress.done();
+                        }else{
+                            $('.message').html(response.msg).show().delay(3000).slideUp("slow");
+                        }
+                            NProgress.done();
                     }
 
                 });
             }
         });
+
+        $('.qty-update').delay(3000).slideUp();
 
 
      /** ====== end - cart page  ===== **/
