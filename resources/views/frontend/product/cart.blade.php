@@ -27,6 +27,104 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
       
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="cart-review">
+          @if(Auth::check())
+
+            @foreach($cartItems as $cartItem)
+                <?php
+                    $product = \App\Models\Product\Product::findOrFail($cartItem->product_id); 
+                    $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->identifier)->first(); 
+                ?>
+                <div class="cart-review-content gray-bg">
+                    <div class="col-xs-2">
+                      <div class="product-cart-img">
+                        <a href="{{url('/product/'.$product->slug)}}" target="_blank">
+                        <img src="{{asset('images/product/'.$product->id.'/thumbnail/'.$product->productFirstThumbImage() ) }}" alt="{{$product->name}}">
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-4">
+                      <div class="product-cart-info">
+                        <h6 class="section-title-1"><a href="{{url('/product/'.$product->slug)}}" target="_blank">{{$product->name}}</a></h6>
+                        <span>Seller:<em>kathmandu_official_store</em></span>
+                        @if(count($productAttrCombination) > 0)
+                          @if(count($productAttrCombination->productAttrCombinationValue) > 0)
+                            <div class="productlist-info">
+                            @foreach($productAttrCombination->productAttrCombinationValue as $key=>$comb)
+                                <span>{{$comb->atrributeVal->attribute->name}}:<em>{$comb->atrributeVal->value}}</em></span>
+                                {{-- <span>Size:<em>M</em></span> --}}
+                            @endforeach
+                            </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                      <div class="cart-remark">
+                        <div class="cart-price fix-width">
+                          <h6>price</h6>
+                          <span>NPR<em>{{productPrice($product->id)}}</em></span>
+                        </div>
+
+                        {{Form::open(['url' => 'cart/updateqty/'.$productAttrCombination->id, 'method'=>'patch'])}}
+                        <div class="cart-qty fix-width">
+                          <div class="sin-plus-minus cart-size clearfix">
+                            <h6>quantity:</h6>
+                            <div class="qty-section">                   
+                              <div>
+                                    <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                        @if($product->productInventory->manage_stock == 1)
+                                            
+                                            @if(!empty($productAttrCombination))
+                                                @if ($product->productInventory->availability == 'in stock') 
+                                                    @if ($productAttrCombination->quantity == 0)
+                                                        {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                    @else
+                                                        {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                        {{-- alert('product combination available'); --}}
+                                                    @endif
+                                                @else
+                                                    {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                    {{-- alert('product combination not available'); --}}
+                                                @endif
+                                            @else
+                                                {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                            @endif
+                                            {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
+                                        @else
+                                            @if($productAttrCombination->quantity == 0) 
+                                                {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                                {{-- alert('product combination available unlimited'); --}}
+                                            @else
+                                                {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                {{-- alert('product combination available'); --}}
+                                            @endif
+                                            {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                        @endif
+                                            {{-- <input value="1" /> --}}
+                                    <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                              </div>    
+                            </div> 
+                             <div class="update-qty hide">
+                                <a href="javascript:void(0)" class="submit">Update</a>
+                            </div>       
+                                
+                          </div>
+                        </div>
+                        {{Form::close()}}
+
+                        <div class="sub-total fix-width">
+                          <h6>total</h6>
+                          <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
+                        </div>
+                      </div>
+                    </div>
+                    <a type="button" href="#" class="bagde-remove" data-hash="" ><i class="fa fa-times"></i></a>
+                </div>
+            @endforeach
+
+          @else
+
             @foreach($cartItems as $cartItem)
                 <?php
                     $product = \App\Models\Product\Product::findOrFail($cartItem->id); 
@@ -120,6 +218,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                     <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a>
                 </div>
             @endforeach
+
+          @endif
           
             <div class="cart-btn">
                 <div class="coupon-btn pull-left">

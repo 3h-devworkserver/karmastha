@@ -150,13 +150,29 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($request->product);
 
+        if (Auth::check()) {
+            $cartItem = Cartitem::where('user_id', Auth::user()->id)->where('product_id',$request->product)->where('identifier', $request->attr_identifier)->first();
+            if (!empty($cartItem) ) {
+                $cartItem->quantity += (int)$request->qty;
+                $cartItem ->save();
+            }else{
+                Cartitem::create([
+                    'user_id' => Auth::user()->id,
+                    'product_id' => $request->product,
+                    'identifier' => $request->attr_identifier,
+                    'qty' => (int)$request->qty,
+                ]);
+            }
+            
+        }else{
             // Adding an item to the cart
             $item = LaraCart::add(2, $product->name, (int)$request->qty, $product->productPrice->price, [
-                        'attr_name' => $request->attr_name,
-                        'attr_value' => $request->attr_value,
-                        'attr_value_id' => $request->attr,
-                        'attr_identifier' => $request->attr_identifier,
-                    ]);
+                'attr_name' => $request->attr_name,
+                'attr_value' => $request->attr_value,
+                'attr_value_id' => $request->attr,
+                'attr_identifier' => $request->attr_identifier,
+            ]);
+        }
 
         // foreach($items = LaraCart::getItems() as $item) {
         //     // echo "<pre>"; dd($item);
@@ -283,8 +299,8 @@ class ProductController extends Controller
      */
     public function viewCart(){
         if (Auth::check()) {
-           // $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
-            $cartItems = LaraCart::getItems();
+            $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
+
         }
         else {
             $cartItems = LaraCart::getItems();
