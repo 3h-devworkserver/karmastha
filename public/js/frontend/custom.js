@@ -81,6 +81,14 @@ $(document).ready(function(){
     $(document).on('click', 'a.submit', function(){
         $(this).closest('form').submit();
     });
+
+    $(document).on('click', 'a.submitConfirm', function(){
+        var check = confirm('Are you sure want to remove item from cart !! ');
+        if (check) {
+            $(this).closest('form').submit();
+        }
+        return false;
+    });
     /** ====== end - generic anchor tag used to submit form ===== **/
 
     
@@ -227,7 +235,7 @@ $(document).ready(function(){
                                     }else{
                                         if (quantity == 0) {
                                             // alert('product combination available unlimited');
-                                            $('.quantity').removeAttr('max');
+                                            $('.quantity').attr('max', 99999999);
                                             $('.attrIdentifier').val(identifier);
                                             $('.addToCart').removeAttr('disabled');
                                             NProgress.done();
@@ -247,6 +255,13 @@ $(document).ready(function(){
                                     $('.addToCart').attr('disabled', '');
                                     NProgress.done();
                                 }
+                            },
+
+                            error:function(response){
+                                $('.remainingQuantity span').text('Error, please try in a while.');
+                                $('.attrIdentifier').val('');
+                                $('.addToCart').attr('disabled', '');
+                                NProgress.done();
                             }
                         });
                     }
@@ -258,34 +273,40 @@ $(document).ready(function(){
 
      /** ====== start - cart page  ===== **/
 
-        /** ====== delete item from cart  ===== **/
-        $(document).on('click', '.bagde-remove', function(){
-            var hash = $(this).attr('data-hash');
-            var elem = $(this).closest('.cart-review-content');
-            var tmp = confirm('Are you sure want to remove item from cart.');
-            if (tmp) {
-                NProgress.start();
-                $.ajax({
-                    method: 'get',
-                    url: base_url + '/cart/removeitem/'+hash,
-
-                    success:function(response){
-                        console.log(response);
-                        if (response.stat == 'success') {
-                            elem.remove();
-                            $('.message').html(response.msg).show().delay(3000).slideUp("slow");
-                            // NProgress.done();
-                        }else{
-                            $('.message').html(response.msg).show().delay(3000).slideUp("slow");
-                        }
-                            NProgress.done();
-                    }
-
-                });
-            }
-        });
-
         $('.qty-update').delay(3000).slideUp();
+
+        /** ====== delete item from cart  ===== **/
+        // $(document).on('click', '.bagde-remove', function(){
+        //     var hash = $(this).attr('data-hash');
+        //     var elem = $(this).closest('.cart-review-content');
+        //     var tmp = confirm('Are you sure want to remove item from cart.');
+        //     if (tmp) {
+        //         NProgress.start();
+        //         $.ajax({
+        //             method: 'get',
+        //             url: base_url + '/cart/removeitem/'+hash,
+
+        //             success:function(response){
+        //                 // console.log(response);
+        //                 if (response.stat == 'success') {
+        //                     elem.remove();
+        //                     $('.message').html(response.msg).show().delay(3000).slideUp("slow");
+        //                     // NProgress.done();
+        //                 }else{
+        //                     $('.message').html(response.msg).show().delay(3000).slideUp("slow");
+        //                 }
+        //                     NProgress.done();
+        //             },
+        //             error:function(response){
+        //                 $('.message').html('<div class="alert alert-danger"><span>'+ '<i class="fa fa-times-circle" aria-hidden="true"></i> Error occurred.' +'</span></div>').show().delay(3000).slideUp("slow");
+        //                 NProgress.done();
+
+        //             }
+
+        //         });
+        //     }
+        // });
+
 
 
      /** ====== end - cart page  ===== **/

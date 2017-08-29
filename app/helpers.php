@@ -372,44 +372,146 @@ if (! function_exists('countCartItems')) {
         $totalCartItems = 0;
 
         if (Auth::check()) {
-           $cartitems = Cartitem::where('user_id', Auth::user()->id)->get();
-           foreach ($cartitems as $key => $cartitem) {
-                $totalCartItems += $cartitem->qty;
-            }
-            return $totalCartItems;
+           $count  = Cartitem::where('user_id', Auth::user()->id)->sum('qty');
+            return $count;
         }else {
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            if (!empty($cartItems)) {
-                foreach ($cartItems as $key => $cartItem) {
-                    $totalCartItems += $cartItem['qty'];
-                }
-            }
-            return $totalCartItems;
+            return LaraCart::count($withItemQty = true);;
         }
     }
 }
 
-if (! function_exists('CartItemsTotalPrice')) {
+if (! function_exists('CartItemsSubTotalPrice')) {
     /* 
      * total price of cartitems
      */
-    function CartItemsTotalPrice(){
-        $total = 0;
+    function CartItemsSubTotalPrice(){
         if (Auth::check()) {
-           $cartitems = Cartitem::where('user_id', Auth::user()->id)->get();
-           foreach ($cartitems as $key => $cartitem) {
-                $total += productPrice($cartitem->product_id) * $cartitem->qty;
-            }
-            return custom_number_format($total);
-        }else {
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            if (!empty($cartItems)) {
-                foreach ($cartItems as $key => $cartItem) {
-                    $total += productPrice($cartItem['productId']) * $cartItem['qty'];
+            $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
+
+            $total = 0;
+            foreach($cartItems as $cartItem){
+
+                $product = \App\Models\Product\Product::findOrFail($cartItem->product_id); 
+                $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->identifier)->first(); 
+
+                if($product->productInventory->manage_stock == 1){
+                    if(!empty($productAttrCombination)){
+                        if ($product->productInventory->availability == 'in stock'){ 
+                            if ($productAttrCombination->quantity == 0){
+                                
+                            }else{
+                                $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                                 // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                            }
+                        }else{
+                           
+                        }
+                    }else{
+                      if( count($product->productAttrCombination) > 0 ){
+                        
+                      }else{
+                        if ($product->productInventory->availability != 'in stock'){
+                            
+                        }else{
+                            $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                          // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                        }
+                      }
+                    }
+                }else{
+                    if(!empty($productAttrCombination)){
+                        $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                        // if($productAttrCombination->quantity == 0) {
+                        //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                        // }else{
+                        //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                        // }
+                    }
+                  else{
+                    if( count($product->productAttrCombination) > 0 ) {
+                      
+                    }else{
+                        $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                       // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}} 
+                    }
+                  }
                 }
             }
-            return custom_number_format($total);
         }
+        else {
+            $cartItems = LaraCart::getItems();
+
+            $total = 0;
+            foreach($cartItems as $cartItem){
+                $product = \App\Models\Product\Product::findOrFail($cartItem->id); 
+                $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->attr_identifier)->first(); 
+
+                if($product->productInventory->manage_stock == 1){
+                    if(!empty($productAttrCombination)){
+                        if ($product->productInventory->availability == 'in stock'){ 
+                            if ($productAttrCombination->quantity == 0){
+                                
+                            }else{
+                                $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                                 // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                            }
+                        }else{
+                           
+                        }
+                    }else{
+                      if( count($product->productAttrCombination) > 0 ){
+                        
+                      }else{
+                        if ($product->productInventory->availability != 'in stock'){
+                            
+                        }else{
+                            $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                          // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                        }
+                      }
+                    }
+                }else{
+                    if(!empty($productAttrCombination)){
+                        $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                        // if($productAttrCombination->quantity == 0) {
+                        //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                        // }else{
+                        //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                        // }
+                    }
+                  else{
+                    if( count($product->productAttrCombination) > 0 ) {
+                      
+                    }else{
+                        $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                       // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}} 
+                    }
+                  }
+                }
+            }
+
+        }
+            return $total;
+
+
+
+
+        // $total = 0;
+        // if (Auth::check()) {
+        //    $cartitems = Cartitem::where('user_id', Auth::user()->id)->get();
+        //    foreach ($cartitems as $key => $cartitem) {
+        //         $total += productPrice($cartitem->product_id) * $cartitem->qty;
+        //     }
+        //     return custom_number_format($total);
+        // }else {
+        //     $cartItems = Session::has('cart') ? Session::get('cart') : null;
+        //     if (!empty($cartItems)) {
+        //         foreach ($cartItems as $key => $cartItem) {
+        //             $total += productPrice($cartItem['productId']) * $cartItem['qty'];
+        //         }
+        //     }
+        //     return custom_number_format($total);
+        // }
     }
 }
 

@@ -83,8 +83,13 @@ public function productFirstThumbImage(){
             return $image[0]->image;
         }
     }
+
     public function brand(){
         return $this->belongsTo('App\Models\Brand');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\Access\User\User');
     }
 
     public function productAttrCombination(){

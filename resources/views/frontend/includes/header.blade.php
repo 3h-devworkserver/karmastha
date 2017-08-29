@@ -295,9 +295,9 @@
       </div>
       <div class="mid-right-block">
         <div class="cart-block">
-          <a href="#">
+          <a href="{{url('/cart')}}">
             <i class="flaticon-online-shopping-cart"></i>
-            <span class="badge">0</span>
+            <span class="badge"> @if( !empty(countCartItems()) ) {{countCartItems()}} @endif</span>
             
           </a>
         </div>
@@ -326,9 +326,7 @@
                                         <section class="submenu-container">
                                           @if(count($category->topChilds) > 0)
                                             <div class="list">
-                                              <a href="#" class="category-title">
-                                                <h2>top Categories <i class="fa fa-caret-right"></i></h2>
-                                              </a>
+                                                <h2 class="category-title">Top Categories <i class="fa fa-caret-right"></i></h2>
                                               <ul class="submenu">
                                                 @foreach($category->topChilds as $child)
                                                   <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
@@ -339,9 +337,7 @@
 
                                           @if(count($category->moreChilds) > 0)
                                             <div class="list">
-                                              <a href="#" class="category-title">
-                                                <h2>More Categories <i class="fa fa-caret-right"></i></h2>
-                                              </a> 
+                                                <h2 class="category-title">More Categories <i class="fa fa-caret-right"></i></h2>
                                               <ul class="submenu">
                                                 @foreach($category->moreChilds as $child)
                                                   <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>

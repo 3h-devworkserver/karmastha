@@ -10,15 +10,25 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 <section class="shopping-cart">
   <div class="container">
 
-  <div class="message"></div>
+  <div class="message">
+    @if (session()->get('flash_delete'))
+          @if(is_array(json_decode(session()->get('flash_delete'), true)))
+              {!! implode('', session()->get('flash_delete')->all(':message<br/>')) !!}
+          @else
+              {!! session()->get('flash_delete') !!}
+          @endif
+          <?php  session()->forget('flash_delete')  ?>
+    @endif
+  </div>
   <div class="qty-update">
     @if (session()->get('success_qty_update'))
       <div class="alert alert-success">
-          @if(is_array(json_decode(session()->get('flash_success'), true)))
-              {!! implode('', session()->get('flash_success')->all(':message<br/>')) !!}
+          @if(is_array(json_decode(session()->get('success_qty_update'), true)))
+              {!! implode('', session()->get('success_qty_update')->all(':message<br/>')) !!}
           @else
-              {!! session()->get('flash_success') !!}
+              {!! session()->get('success_qty_update') !!}
           @endif
+          <?php  session()->forget('success_qty_update')  ?>
       </div>
     @endif
   </div>
@@ -31,6 +41,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
             @foreach($cartItems as $cartItem)
                 <?php
+                    $stock = '';
                     $product = \App\Models\Product\Product::findOrFail($cartItem->product_id); 
                     $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->identifier)->first(); 
                 ?>
@@ -46,15 +57,18 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                     <div class="col-xs-4">
                       <div class="product-cart-info">
                         <h6 class="section-title-1"><a href="{{url('/product/'.$product->slug)}}" target="_blank">{{$product->name}}</a></h6>
-                        <span>Seller:<em>kathmandu_official_store</em></span>
+                        @if(!empty($product->user_id))
+                          <span>Seller:<em>{{$product->user->name}}</em></span>
+                        @endif
                         @if(count($productAttrCombination) > 0)
                           @if(count($productAttrCombination->productAttrCombinationValue) > 0)
                             <div class="productlist-info">
                             @foreach($productAttrCombination->productAttrCombinationValue as $key=>$comb)
-                                <span>{{$comb->atrributeVal->attribute->name}}:<em>{$comb->atrributeVal->value}}</em></span>
+                                <span>{{$comb->atrributeVal->attribute->name}}:<em>{{$comb->atrributeVal->value}}</em></span>
                                 {{-- <span>Size:<em>M</em></span> --}}
                             @endforeach
                             </div>
+                          @endif
                         @endif
                       </div>
                     </div>
@@ -66,32 +80,52 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                           <span>NPR<em>{{productPrice($product->id)}}</em></span>
                         </div>
 
-                        {{Form::open(['url' => 'cart/updateqty/'.$productAttrCombination->id, 'method'=>'patch'])}}
+                        {{Form::open(['url' => 'cart/updateqty/'.$cartItem->id, 'method'=>'patch'])}}
                         <div class="cart-qty fix-width">
                           <div class="sin-plus-minus cart-size clearfix">
                             <h6>quantity:</h6>
                             <div class="qty-section">                   
                               <div>
-                                    <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                         @if($product->productInventory->manage_stock == 1)
                                             
                                             @if(!empty($productAttrCombination))
                                                 @if ($product->productInventory->availability == 'in stock') 
                                                     @if ($productAttrCombination->quantity == 0)
-                                                        {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                        <?php $stock = 'out of stock'; ?>
+                                                        {{$stock}}
+                                                        {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                     @else
+                                                      <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                         {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                      <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                                         {{-- alert('product combination available'); --}}
                                                     @endif
                                                 @else
-                                                    {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                    <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                    {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                     {{-- alert('product combination not available'); --}}
                                                 @endif
                                             @else
-                                                {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                              @if( count($product->productAttrCombination) > 0 )
+                                                <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                              @else
+                                                @if ($product->productInventory->availability != 'in stock') 
+                                                    <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                @else
+                                                  <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                                  {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                                  <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                                @endif
+                                              @endif
                                             @endif
                                             {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
                                         @else
+                                          @if(!empty($productAttrCombination))
+                                            <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                             @if($productAttrCombination->quantity == 0) 
                                                 {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
                                                 {{-- alert('product combination available unlimited'); --}}
@@ -99,10 +133,21 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                 {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
                                                 {{-- alert('product combination available'); --}}
                                             @endif
-                                            {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                            <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                            {{-- {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}} --}}
+                                          @else
+                                            @if( count($product->productAttrCombination) > 0 )
+                                              <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                              {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                            @else
+                                              <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                              {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                              <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                            @endif
+                                          @endif
                                         @endif
                                             {{-- <input value="1" /> --}}
-                                    <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                               </div>    
                             </div> 
                              <div class="update-qty hide">
@@ -115,11 +160,16 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
                         <div class="sub-total fix-width">
                           <h6>total</h6>
-                          <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
+                          @if($stock != 'out of stock')
+                            <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
+                          @endif
                         </div>
                       </div>
                     </div>
-                    <a type="button" href="#" class="bagde-remove" data-hash="" ><i class="fa fa-times"></i></a>
+                    {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->id, 'method'=>'get'])}}
+                        <a type="button" href="#" class="bagde-remove submitConfirm" data-hash="{{$cartItem->id}}" ><i class="fa fa-times"></i></a>
+                    {{Form::close()}}
+                    {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->id}}" ><i class="fa fa-times"></i></a> --}}
                 </div>
             @endforeach
 
@@ -127,6 +177,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
             @foreach($cartItems as $cartItem)
                 <?php
+                $stock = '';
                     $product = \App\Models\Product\Product::findOrFail($cartItem->id); 
                 ?>
                 <div class="cart-review-content gray-bg">
@@ -141,7 +192,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                     <div class="col-xs-4">
                       <div class="product-cart-info">
                         <h6 class="section-title-1"><a href="{{url('/product/'.$product->slug)}}" target="_blank">{{$product->name}}</a></h6>
-                        <span>Seller:<em>kathmandu_official_store</em></span>
+                        @if(!empty($product->user_id))
+                          <span>Seller:<em>{{$product->user->name}}</em></span>
+                        @endif
                         @if(count($cartItem->attr_name) > 0)
                             <div class="productlist-info">
                             @foreach($cartItem->attr_name as $key=>$name)
@@ -166,28 +219,48 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                             <h6>quantity:</h6>
                             <div class="qty-section">                   
                               <div>
-                                    <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                                        @if($product->productInventory->manage_stock == 1)
                                             <?php 
                                                 $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->attr_identifier)->first(); 
                                             ?>
+                                        @if($product->productInventory->manage_stock == 1)
                                             @if(!empty($productAttrCombination))
                                                 @if ($product->productInventory->availability == 'in stock') 
                                                     @if ($productAttrCombination->quantity == 0)
-                                                        {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                        <?php $stock = 'out of stock'; ?>
+                                                        {{$stock}}
+                                                        {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                     @else
+                                                      <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                         {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
                                                         {{-- alert('product combination available'); --}}
+                                                      <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                                     @endif
                                                 @else
-                                                    {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                                    <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                    {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                     {{-- alert('product combination not available'); --}}
                                                 @endif
                                             @else
-                                                {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}}
+                                              @if( count($product->productAttrCombination) > 0 )
+                                                <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                              @else
+                                                @if ($product->productInventory->availability != 'in stock') 
+                                                    <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                                @else
+                                                  <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                                  {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                                  <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                                @endif
+                                              @endif
                                             @endif
                                             {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
                                         @else
+                                          @if(!empty($productAttrCombination))
+                                            <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                             @if($productAttrCombination->quantity == 0) 
                                                 {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
                                                 {{-- alert('product combination available unlimited'); --}}
@@ -195,13 +268,26 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                 {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
                                                 {{-- alert('product combination available'); --}}
                                             @endif
-                                            {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                            <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                          @else
+                                            @if( count($product->productAttrCombination) > 0 )
+                                              <?php $stock = 'out of stock'; ?>
+                                                    {{$stock}}
+                                              {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                            @else
+                                              <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                              {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                              <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                            @endif
+                                          @endif
                                         @endif
                                             {{-- <input value="1" /> --}}
-                                    <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                               </div>    
                             </div> 
-                             <div class="update-qty hide">
+                            {{-- <div class="outOfStock @if( empty($stock) || $stock != 'out of stock') hide @endif">
+                              Out of Stock
+                            </div> --}}
+                            <div class="update-qty hide">
                                 <a href="javascript:void(0)" class="submit">Update</a>
                             </div>       
                                 
@@ -211,24 +297,31 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
                         <div class="sub-total fix-width">
                           <h6>total</h6>
-                          <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * $cartItem->price ))}}</em></span>
+                          @if($stock != 'out of stock')
+                            <span>NPR<em>
+                            {{custom_number_format(floatval($cartItem->qty * $cartItem->price ))}}</em></span>
+                          @endif
                         </div>
                       </div>
                     </div>
-                    <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a>
+                    {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->getHash(), 'method'=>'get' ])}}
+                        <a type="button" href="#" class="bagde-remove submitConfirm" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a>
+                    {{Form::close()}}
+                    {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a> --}}
                 </div>
             @endforeach
 
           @endif
           
             <div class="cart-btn">
+            <!--
                 <div class="coupon-btn pull-left">
                   <button class="btn btn-default"><img src="assets/images/coupon.png">coupon code<i class="fa fa-long-arrow-right"></i></button>
-                </div>
+                </div>  -->
                 <div class="update_shopping pull-right">
                   <div class="sub-total-sumarry">
                     <a href="{{url('/')}}" class="btn btn-default">continue shopping</a>
-                    <a href="#" class="btn btn-default">update cart</a>
+                    <!-- <a href="#" class="btn btn-default">update cart</a>  -->
                   </div>
                   <div class="text-right">
                     <div class="right-grand-total">
@@ -288,7 +381,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                     </div>
                     <div class="grand-total cart-totals">
                       <span>total:</span>
-                      <span class="grandprice">NPR <em>{{LaraCart::total()}}</em></span>
+                      {{-- <span class="grandprice">NPR <em>{{LaraCart::total()}}</em></span> --}}
+                      <span class="grandprice">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
                     </div>
                     <div class="checkout-btn ">
                       <button class="btn btn-primary bigwidth open-door">proceed to checkout</button>
@@ -305,10 +399,11 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
       
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div class="cart-confirm gray-bg">
-          <h2>cart sumarry<span>(2 item)</span></h2>
+          <h2>cart sumarry<span>({{countCartItems()}} items)</span></h2>
           <div class="cart-total">
             <span class="pull-left">total</span>
-            <span class="pull-right">NPR <em>{{LaraCart::total()}}</em></span>
+            {{-- <span class="pull-right">NPR <em>{{LaraCart::total()}}</em></span> --}}
+            <span class="pull-right">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
           </div>
 
           <div class="cart-order-btn">

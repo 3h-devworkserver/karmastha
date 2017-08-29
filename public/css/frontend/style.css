@@ -955,12 +955,12 @@ nav{
     width: 13%;
     padding: 0 15px;
 }
-.category-title h2{
+h2.category-title{
   border-bottom: 1px solid #5d5f5d;
-    color:#555;
-    display: inline-block;
-    margin: 0 0 10px;
-    font-size: 14px;
+  color:#555;
+  display: inline-block;
+  margin: 0 0 10px;
+  font-size: 14px;
 }
 .category-title h2 i{
   margin-left: 3px;

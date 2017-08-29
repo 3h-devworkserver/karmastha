@@ -304,14 +304,14 @@
                               @if($product->productInventory->manage_stock == 1)
                                 {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}}
                               @else
-                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'readonly'])}}
+                                {{Form::text('qty', 1 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
                               @endif
                               <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                             </div>
                             <div class="remainingQuantity"><span class="text-danger"></span></div>
                           </div>        
                           <div class="cart-btn">
-                            <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" disabled tabindex="-1">
+                            <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" {{(count($product->productAttrCombination) > 0) ? 'disabled' : '' }} tabindex="-1">
                               <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> add to cart</span>
                             </a>
                           </div>  

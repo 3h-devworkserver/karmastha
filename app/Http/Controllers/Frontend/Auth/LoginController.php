@@ -13,6 +13,9 @@ use App\Models\Product\Product;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Session;
+use LaraCart;
+use SuperClosure\Serializer;
+
 
 /**
  * Class LoginController.
@@ -85,102 +88,46 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
 
-            //transfering add cartitems from session to db after login
-            $cartItems = Session::has('cart') ? Session::get('cart') : null;
-            if (!empty($cartItems)) {
-                foreach($cartItems as $key=>$cartItem){
-                    $product = Product::findOrFail($cartItem['productId']); 
+            // //transfering add cartitems from session to db after login
 
-                    $prevItem = Cartitem::where('user_id', access()->user()->id)
-                                        ->where('product_id', $product->id )->first();
-                    if (!empty($prevItem)) {
-                        $prevItemAttr = $prevItem->attributes;
-                        if(is_array($cartItem['attributes'])){
-                            foreach($cartItem['attributes'] as $key => $attr){
+            $cartItems = LaraCart::getItems();
+            $dbItems = Cartitem::where('user_id',access()->user()->id)->get();
+            if (count($cartItems)>0) {
+                foreach ($cartItems as $key => $cartItem) {
+                    if (count($dbItems)>0) {
+                        $check = 0;
+                        foreach ($dbItems as $key => $dbItem) {
+                            if ($cartItem->attr_identifier == $dbItem->identifier) {
+                               $dbItem->qty += $cartItem->qty;
+                               $dbItem->save();
+                                LaraCart::removeItem($cartItem->getHash());
                                 $check = 1;
-                                foreach($attr as $key => $val){
-                                        $secondCheck =0;
-                                    foreach ($prevItemAttr as $dbval) {
-                                        if ($key == $dbval->attr_name && $val == $dbval->attr_value) {
-                                            $secondCheck = 1;
-                                        }
-                                    }
-                                    if ($secondCheck == 0) {
-                                        $check = 0;
-                                        break;
-                                    }
-                                   
-                                }
+                                break;
                             }
-                                if ($check == 1) {
-                                    $prevItem->qty += $cartItem['qty'];
-                                    $prevItem->save();
-                                }else{
-                                    $cartitem = Cartitem::create([
-                                        'product_id' => $product->id ,
-                                        'user_id' => access()->user()->id,
-                                        'qty' =>$cartItem['qty'] ,
-                                    ]);
-                                    
-                                    if(is_array($cartItem['attributes'])){
-                                        foreach($cartItem['attributes'] as $key => $attr){
-                                            foreach($attr as $key => $val){
-                                                $cartitem->attributes()->create([
-                                                    'attr_name' => $key,
-                                                    'attr_value' => $val,
-                                                ]);
-                                            }
-                                        }
-                                    }
-                                }
-                        }else{
-                            $prevItem->qty += $cartItem['qty'];
-                            $prevItem->save();
                         }
+                        if ($check == 0) {
+                            Cartitem::create([
+                                'user_id' => access()->user()->id,
+                                'product_id' => $cartItem->id,
+                                'identifier' => $cartItem->attr_identifier,
+                                'qty' => (int)$cartItem->qty,
+                            ]);
+                            LaraCart::removeItem($cartItem->getHash());
+                        }
+
                     }else{
-                        $cartitem = Cartitem::create([
-                            'product_id' => $product->id ,
+                        Cartitem::create([
                             'user_id' => access()->user()->id,
-                            'qty' =>$cartItem['qty'] ,
+                            'product_id' => $cartItem->id,
+                            'identifier' => $cartItem->attr_identifier,
+                            'qty' => (int)$cartItem->qty,
                         ]);
-                        
-                        if(is_array($cartItem['attributes'])){
-                            foreach($cartItem['attributes'] as $key => $attr){
-                                foreach($attr as $key => $val){
-                                    $cartitem->attributes()->create([
-                                        'attr_name' => $key,
-                                        'attr_value' => $val,
-                                    ]);
-                                }
-                            }
-                        }
+                        LaraCart::removeItem($cartItem->getHash());
                     }
-
-
-
-                    // $cartitem = Cartitem::create([
-                    //     'product_id' => $product->id ,
-                    //     'user_id' => access()->user()->id,
-                    //     'qty' =>$cartItem['qty'] ,
-                    // ]);
-                    
-                    // if(is_array($cartItem['attributes'])){
-                    //     foreach($cartItem['attributes'] as $key => $attr){
-                    //         foreach($attr as $key => $val){
-                    //             $cartitem->attributes()->create([
-                    //                 'attr_name' => $key,
-                    //                 'attr_value' => $val,
-                    //             ]);
-                    //         }
-                    //     }
-                    // }
-                    
-
                 }
-                Session::flush();
             }
-
-
+            // $cartItems2 = LaraCart::getItems();
+            // dd($cartItems2);
 
             return $this->sendLoginResponse($request);
         }

@@ -1,5 +1,5 @@
 <div class="attribute-block">
-	<div class="attribute">
+	{{-- <div class="attribute">
 		<div class="box">
 			<div class="box-header with-border">
 				<h3 class="box-title">Attribute</h3>
@@ -52,7 +52,7 @@
 			</div>
 			<!-- /.box-body -->
 		</div>
-	</div>
+	</div> --}}
 </div>
 <div class="form-group">
 	<a href="javascript:void(0);" class="attributeAdd btn btn-sm btn-primary"><i class="fa fa-plus"></i>  Add more</a>
