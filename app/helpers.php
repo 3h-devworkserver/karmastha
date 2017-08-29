@@ -131,11 +131,17 @@ if (! function_exists('crudOps')) {
      * @param $id 
      * @return $string
      */
-    function crudOps($resource, $id)
+    function crudOps($resource, $id, $del = null)
     {
         $ops = '<ul class="list-inline no-margin-bottom">';
         $ops .= '<li><a href="'.route('admin.'.$resource.'.edit', $id).'" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a></li>';
-        $ops .= '<li><a href="'.route('admin.'.$resource.'.destroy', $id).'" data-method="delete" name="delete_item" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a></li>';
+        if (!empty($del)) {
+            if (!in_array($id, $del)) {
+                $ops .= '<li><a href="'.route('admin.'.$resource.'.destroy', $id).'" data-method="delete" name="delete_item" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a></li>';
+            }
+        }else{
+            $ops .= '<li><a href="'.route('admin.'.$resource.'.destroy', $id).'" data-method="delete" name="delete_item" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a></li>';
+        }
         $ops .= '</ul>';
         return $ops;
     }

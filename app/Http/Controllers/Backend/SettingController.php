@@ -39,7 +39,8 @@ class SettingController extends Controller
             'meta_title' => 'required',
             'meta_keyword' => 'required',
             'meta_desc' => 'required',
-            'uploadLogo' => 'image',
+            'uploadLogo' => 'image|max:2000',
+            'uploadLogo2' => 'image|max:2000',
             'uploadFavicon' => 'mimes:jpeg,bmp,png,ico',
             ]);
 
@@ -49,9 +50,11 @@ class SettingController extends Controller
             $exists = 'false';
             $setting = new GeneralSetting;
             $filenameLogo = '';
+            $filenameLogo2 = '';
             $filenameFavicon = '';
         }
         $filenameLogo = $setting->logo;
+        $filenameLogo2 = $setting->logo2;
         $filenameFavicon = $setting->favicon;
 
         if ($request->hasFile('uploadLogo')) {
@@ -66,8 +69,22 @@ class SettingController extends Controller
 			      	}
 			  	}            
 			}
-
         }
+
+        if ($request->hasFile('uploadLogo2')) {
+            $file2= $request->file('uploadLogo2');
+            $destination_path2 = 'images/logo';
+            $filenameLogo2 = str_random(5).'-'.$file2->getClientOriginalName();
+            $move2 = $file2->move($destination_path2, $filenameLogo2);
+            if ($move2) {
+                if (!empty($setting->logo2)) {
+                    if (File::exists('images/logo/'. $setting->logo2)) {
+                      unlink('images/logo/'.$setting->logo2);
+                    }
+                }            
+            }
+        }
+
         if ($request->hasFile('uploadFavicon')) {
         	$file= $request->file('uploadFavicon');
         	$destination_path = 'images/logo/favicon';
@@ -82,7 +99,7 @@ class SettingController extends Controller
 			}
         }
 
-		DB::transaction(function () use ($exists, $request, $setting, $filenameLogo, $filenameFavicon) {
+		DB::transaction(function () use ($exists, $request, $setting, $filenameLogo, $filenameLogo2, $filenameFavicon) {
 	        if($exists == 'false'){
                 GeneralSetting::create([
                     'title' => $request->title,
@@ -98,6 +115,7 @@ class SettingController extends Controller
                     'google_plus' => $request->google_plus,
                     'pinterest' => $request->pinterest,
                     'logo' => $filenameLogo,
+                    'logo2' => $filenameLogo2,
                     'favicon' => $filenameFavicon,
                 ]);
             }else{
@@ -114,7 +132,8 @@ class SettingController extends Controller
     	        	'youtube' => $request->youtube,
     	        	'google_plus' => $request->google_plus,
     	        	'pinterest' => $request->pinterest,
-    	        	'logo' => $filenameLogo,
+                    'logo' => $filenameLogo,
+    	        	'logo2' => $filenameLogo2,
     	        	'favicon' => $filenameFavicon,
     	        ]);
             }

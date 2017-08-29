@@ -22,7 +22,10 @@
 @include('frontend.includes.banner')
 
 @include('frontend.includes.advertisement')
+<?php 
+$tproducts = App\Models\Product\Product::where('status', 1)->get();
 
+?>
 @if( count($tproducts) > 0 )
 <section class="products-wrapper pb0">
   <div class="container">

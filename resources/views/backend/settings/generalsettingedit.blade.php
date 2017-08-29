@@ -93,13 +93,24 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">Logo</label>
+						<label class="control-label">Logo (White Logo)</label>
 							<input type="file" name="uploadLogo" id="imgLogo" accept="image/*" class="image-upload" onchange="readLogoURL(this);">
 					</div>
 					<img class="hide" width="194" height="77" id="previewLogo" src="#" alt="Logo" />
 					@if(!empty($setting->logo))
 						<div class="" id="img-preview">
 							<img class="img-center" width="194" height="77" src="{{url('images/logo/'.$setting->logo)}}"  alt = "image preview" title="image preview">
+						</div>
+					@endif
+
+					<div class="form-group">
+						<label class="control-label">Logo (Non-white logo)</label>
+							<input type="file" name="uploadLogo2" id="imgLogo2" accept="image/*" class="image-upload" onchange="readLogoURL2(this);">
+					</div>
+					<img class="hide" width="194" height="77" id="previewLogo2" src="#" alt="Logo" />
+					@if(!empty($setting->logo2))
+						<div class="" id="img-preview2">
+							<img class="img-center" width="194" height="77" src="{{url('images/logo/'.$setting->logo2)}}"  alt = "image preview" title="image preview">
 						</div>
 					@endif
 

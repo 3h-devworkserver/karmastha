@@ -18,7 +18,7 @@
 @section('content')
 <!-- Main content -->
 	<div class="row">
-		{{Form::open(['url'=>'admin/productgroups'])}}
+		{{Form::open(['url'=>'admin/productgroups', 'files'=>true])}}
 		<div class="col-md-9">
 			<div class="box box-orange">
 				<div class="box-header">
@@ -53,6 +53,24 @@
 				</div><!-- /.box-header -->
 				<div class="box-body">
 					{{Form::select('status',['0' => 'Inactive', '1'=>'Active'],null,['class'=>'form-control'])}}
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<h3 class="box-title">Featured Image</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div><!-- /.box-tools -->
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<div class="form-group">
+						<span class="btn btn-sm btn-karm btn-file ">
+							<i class="fa fa-folder-open"></i>Upload Featured Image
+							<input type="file" name="upload" class="form-control" onchange="readURL(this,'#preview');" accept="image/*">
+						</span>
+						<div id="preview" class="show-img-bg display-none" alt="Image Preview"></div>
+					</div>
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 

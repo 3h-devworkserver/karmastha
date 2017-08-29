@@ -297,7 +297,7 @@
         <div class="cart-block">
           <a href="{{url('/cart')}}">
             <i class="flaticon-online-shopping-cart"></i>
-            <span class="badge"> @if( !empty(countCartItems()) ) {{countCartItems()}} @endif</span>
+            <span class="badge"> @if( !empty(countCartItems()) ) {{countCartItems()}} @else 0 @endif</span>
             
           </a>
         </div>

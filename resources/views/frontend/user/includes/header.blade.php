@@ -2,8 +2,8 @@
   <div class="dashboard-header">
           <div class="row">
               <div class="nav-logo col-xs-12 col-sm-3 col-md-3">
-                  @if(!empty($setting->logo))
-                        <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo)}}" alt="@if(!empty($setting->title)) $setting->title @endif"></a>
+                  @if(!empty($setting->logo2))
+                        <a href="{{url('/')}}"><img src="{{asset('images/logo/'.$setting->logo2)}}" alt="@if(!empty($setting->title)) $setting->title @endif"></a>
                     @endif
               </div>
               <?php $user = Auth::user(); 

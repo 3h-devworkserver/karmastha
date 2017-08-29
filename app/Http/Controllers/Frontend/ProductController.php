@@ -306,12 +306,7 @@ class ProductController extends Controller
         }
         else {
             $cartItems = LaraCart::getItems();
-            // foreach ($cartItems as $key => $cartItem) {
-            //     return $cartItem->qty;
-            // }
-            // $cartItems = Session::has('cart') ? Session::get('cart') : null;
         }
-        // return $cartItems;
 
         if(!empty($cartItems)){
             return view('frontend.product.cart', compact('cartItems'))->withClass('inner-page cart-page');

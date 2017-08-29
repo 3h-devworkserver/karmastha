@@ -944,7 +944,8 @@ function elFinderBrowser(callback, value, meta) {
         });
         return false;
     }
-    function readLogoURL(input) {
+
+  function readLogoURL(input) {
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -956,6 +957,21 @@ function elFinderBrowser(callback, value, meta) {
     reader.readAsDataURL(input.files[0]);
   }else{
     $('#previewLogo').addClass('hide').attr('src', 'url(\'\')');
+  }
+}
+
+function readLogoURL2(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#previewLogo2').attr('src', e.target.result).removeClass('hide');
+      $("#img-preview2").hide();
+    }
+    reader.readAsDataURL(input.files[0]);
+  }else{
+    $('#previewLogo2').addClass('hide').attr('src', 'url(\'\')');
   }
 }
 

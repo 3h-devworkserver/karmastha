@@ -43,8 +43,7 @@ class ProductGroupController extends Controller
                 return $data->status_label;
             })
             ->addColumn('action', function($data){
-                return crudOps('productgroups', $data->id);
-                // return '<ul class="list-inline no-margin-bottom"><li><a href="'.route('admin.pages.edit', $data->id).'" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a></li><li><a href="'.route('admin.pages.destroy', $data->id).'" data-method="delete" name="delete_item" class="btn btn-danger"><i class="fa fa-pencil-square-o"></i> Delete</a></li></ul>';
+                return crudOps('productgroups', $data->id, [1,2,3]);
             })
             ->make(true);
     }
@@ -58,13 +57,25 @@ class ProductGroupController extends Controller
         $this->validate($request,[
             'title' => 'required|unique:productgroups,title',
             'status' => 'required',
+            'upload' => 'image',
             ]);
         DB::transaction(function () use ($request) {
+
+            if ($request->hasFile('upload')) {
+                $file = $request->file('upload');
+                $destination_path = 'images/productgroup';
+                $filename = str_random(5) . '-' . $file->getClientOriginalName();
+                    // $filename = time() . '-' . $file->getClientOriginalExtension();
+                $file->move($destination_path, $filename);
+            }else{
+                $filename = '';
+            }
             
             ProductGroup::create([
                 'title' => $request->title,    
                 'short_desc' => $request->short_desc,    
                 'status' => $request->status,    
+                'feat_img' => $filename,    
                 ]);
         });
 
@@ -80,13 +91,34 @@ class ProductGroupController extends Controller
         $this->validate($request,[
             'title' => 'required||unique:productgroups,title,'.$id,
             'status' => 'required',
+            'upload' => 'image',
             ]);
         $productGroup = ProductGroup::findOrFail($id);
         DB::transaction(function () use ($request, $productGroup) {
+
+            if ($request->hasFile('upload')) {
+                $file = $request->file('upload');
+                $destination_path = 'images/productgroup';
+                $filename = str_random(5) . '-' . $file->getClientOriginalName();
+                    // $filename = time() . '-' . $file->getClientOriginalExtension();
+                $move =$file->move($destination_path, $filename);
+                if($move){
+                    if(!empty($productGroup->feat_img)){
+                        deleteFile($destination_path.'/'.$productGroup->feat_img);
+                        // if(file_exists($destination_path.'/'.$productGroup->feat_img)){
+                        //     unlink($destination_path.'/'.$productGroup->feat_img);
+                        // }
+                    }
+                }
+            }else{
+                $filename = $productGroup->feat_img;
+            }
+
             $productGroup->update([
                 'title' => $request->title,    
                 'short_desc' => $request->short_desc,    
                 'status' => $request->status, 
+                'feat_img' => $filename,    
                 ]);
         });
         return redirect()->back()->withFlashSuccess('Product Group updated successfully.');
@@ -94,7 +126,9 @@ class ProductGroupController extends Controller
 
     public function destroy($id, DeleteProductGroupRequest $request){
         DB::transaction(function () use ($id) {
-            ProductGroup::destroy($id);
+            $productgroup = ProductGroup::findOrFail($id);
+            // ProductGroup::destroy($id);
+            deleteFile('images/productgroup/'.$productgroup->feat_img);
         });
         return redirect()->back()->withFlashSuccess('Product Group deleted successfully.');
     }
