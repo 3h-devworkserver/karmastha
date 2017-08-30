@@ -274,6 +274,11 @@ $(document).ready(function(){
      /** ====== start - cart page  ===== **/
 
         $('.qty-update').delay(3000).slideUp();
+        $('.message').delay(3000).slideUp();
+
+        $('.outOfStock').each(function(){
+            $(this).closest('.cart-remark').addClass('stockout');
+        });
 
         /** ====== delete item from cart  ===== **/
         // $(document).on('click', '.bagde-remove', function(){

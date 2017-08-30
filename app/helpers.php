@@ -3,6 +3,7 @@
 use App\Models\Cartitem\Cartitem;
 use App\Models\GeneralSetting;
 use App\Models\Product\Product;
+use App\Models\ProductGroup\ProductGroup;
 use App\Models\Access\User\User;
 
 
@@ -323,6 +324,22 @@ if (! function_exists('delete_files')) {
         } elseif(is_file($target)) {
             unlink( $target );  
         }
+    }
+}
+
+if (! function_exists('product_group')) {
+    /* 
+     * function that populate featured products
+     */
+    function product_group($id = '', $limit = '') {
+        $productGroup = ProductGroup::where('id', $id)->where('status', 1)->first();
+        $html = '';
+        if(count($productGroup) > 0){
+            if ( !empty($productGroup->feat_img) || (count($productGroup->products) > 0) ) {
+                $html = view('frontend.includes.productgroup')->with('productGroup', $productGroup)->render();
+            }
+        }
+        return $html;
     }
 }
 

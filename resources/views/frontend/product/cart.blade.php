@@ -94,7 +94,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                   @if ($product->productInventory->availability == 'in stock') 
                                                       @if ($productAttrCombination->quantity == 0)
                                                           <?php $stock = 'out of stock'; ?>
-                                                          {{$stock}}
+                                                          <span class="outOfStock">{{$stock}}</span>
                                                           {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                       @else
                                                         <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
@@ -104,19 +104,19 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                       @endif
                                                   @else
                                                       <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                       {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                       {{-- alert('product combination not available'); --}}
                                                   @endif
                                               @else
                                                 @if( count($product->productAttrCombination) > 0 )
                                                   <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                   {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                 @else
                                                   @if ($product->productInventory->availability != 'in stock') 
                                                       <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                   @else
                                                     <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
@@ -140,7 +140,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                             @else
                                               @if( count($product->productAttrCombination) > 0 )
                                                 <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                 {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                               @else
                                                 <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
@@ -229,7 +229,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                   @if ($product->productInventory->availability == 'in stock') 
                                                       @if ($productAttrCombination->quantity == 0)
                                                           <?php $stock = 'out of stock'; ?>
-                                                          {{$stock}}
+                                                          <span class="outOfStock">{{$stock}}</span>
                                                           {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                       @else
                                                         <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
@@ -239,19 +239,19 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                       @endif
                                                   @else
                                                       <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                       {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                       {{-- alert('product combination not available'); --}}
                                                   @endif
                                               @else
                                                 @if( count($product->productAttrCombination) > 0 )
                                                   <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                   {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                                 @else
                                                   @if ($product->productInventory->availability != 'in stock') 
                                                       <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                   @else
                                                     <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
@@ -274,7 +274,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                             @else
                                               @if( count($product->productAttrCombination) > 0 )
                                                 <?php $stock = 'out of stock'; ?>
-                                                      {{$stock}}
+                                                      <span class="outOfStock">{{$stock}}</span>
                                                 {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                               @else
                                                 <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>

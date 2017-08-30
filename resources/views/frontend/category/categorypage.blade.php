@@ -60,7 +60,7 @@
 	                        </section>
 	                        @endif
          
-        <div class="category-circle text-center mt30">
+        <div class="category-circle text-center">
           <div class="content-circle">
 									
           	@foreach($category->topChilds as $key => $child)
@@ -85,8 +85,13 @@
            <div class="item">
               <div class="thumbnail cursor" type="button" data-toggle="collapse" data-target="#viewall-dropdown">
                 <div class="category-img">
-                  <div class="img-wrap">
+                  {{-- <div class="img-wrap">
                     <span>see more</span>
+                  </div> --}}
+                  <div class="img-wrap">
+                    <div>
+                      <span style="display: table-cell; vertical-align: middle;">see more</span>
+                    </div>
                   </div>
                 </div>
                 <div class="caption viewall">

@@ -102,6 +102,7 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
   </div>
 </section>
 @endif
+
 <section class="products-wrapper four-col category-wrapper">
   <div class="container">
     <div class="row">
@@ -289,6 +290,15 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
     </div>
   </div>
 </section>
+
+@if(!empty($page->top_content))
+  <?php   
+    file_put_contents(base_path() . '/resources/views/frontend/tmp.blade.php', $page->top_content);
+        $html = view('frontend.tmp')->render();
+    echo $html;
+  ?> 
+@endif
+
 @if( count( $brands) > 0 )
 <section class="brands-wrapper gray-bg pb10">
   <div class="container">
@@ -308,7 +318,6 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
 <section class="steps-wrapper text-center">
   <div class="container">
     {!! $page->bottom_content !!}
-    
   </div>
 </section>
 @endif

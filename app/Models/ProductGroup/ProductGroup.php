@@ -21,6 +21,10 @@ class ProductGroup extends Model
     
     protected $guarded = ['id'];
 
+     public function products(){
+        return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id');
+    }
+
      /**
      * @return string
      */

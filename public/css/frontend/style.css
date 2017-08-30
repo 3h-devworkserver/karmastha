@@ -804,6 +804,37 @@ section {
     width: 20%;
     text-align: right;
 }
+
+/* .cart-block {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-block .shopcart-hover {
+    background: #ffffff;
+    position: absolute;
+    top: 100%;
+    display: none;
+    margin: 0;
+
+    ***************
+     ** NEW STYLES **
+     ***************
+
+    list-style: none; * Remove list bullets
+    text-align: center;
+    width: 200px; * Set the width to 100% of it's parent
+    padding: 20px;
+    z-index: 999;
+}
+
+.cart-block:hover .shopcart-hover {
+    display: block;
+}
+ */
+
+
+
 .cart-block,
 .rentshop-block {
     display: inline-block;
@@ -1040,7 +1071,7 @@ h2.category-title{
 -------------------------------*/
 .banner-wrapper .item,
 .advertisement {
-    min-height: 445px;
+    min-height: 390px;
 }
 .banner-wrapper .owl-dots {
   left: 0;
@@ -1112,6 +1143,7 @@ h2.category-title{
 }
 .products-wrapper .owl-carousel .owl-item img {
   margin: 0 auto;
+  height: auto;
   width: auto;
 }
 .products-wrapper.no-scroll .thumbnail .caption h3{
@@ -1168,6 +1200,10 @@ h2.category-title{
 .product-img .img-wrap{
     display: table-cell;
     vertical-align: middle;
+}
+.products-wrapper .img-wrap > img {
+  height: 269px;
+  width: 100%;
 }
 .row.products-fluid{
     margin-left: 0;
@@ -1283,7 +1319,7 @@ custom owl controls
     padding-right: 0;
 }
 .featured-category {
-  height: 298px;
+  height: 310px;
   overflow: hidden;
 }
 .featured-category img {
@@ -1309,6 +1345,7 @@ custom owl controls
 }
 .brand-list li a{
     display: block;
+    line-height: 150px;
 }
 
 /*-------------------------------
@@ -1460,12 +1497,16 @@ padding-bottom: 8px;
 
 .content-circle .item {
   display: inline-block;
-  width: 16%;
+  width: 14%;
 }
 .category-circle .thumbnail{
   border: none;
-  padding: 0;
-  margin-bottom: 0;
+  padding: 15px 0;
+  margin: 0 3px;
+}
+.category-circle .thumbnail:hover {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
 }
 .category-circle .thumbnail .caption{
   -moz-user-select: none;
@@ -1489,25 +1530,26 @@ padding-bottom: 8px;
 }
 
 .content-circle img, .content-circle .img-wrap {
-  border-radius: 100%;
-  display: block;
-  height: 125px;
-  -webkit-transition: opacity 0.7s ease-out 0.3s;
-  -o-transition: opacity 0.7s ease-out 0.3s;
-  transition: opacity 0.7s ease-out 0.3s;
-
-  width: 125px;
-  margin-right: 10px;
+  background-color: #e6d9d0;
+  border: 0.5px solid #e5e5e5;
+  border-radius: 100px;
+  height: 85px;
+  width: 85px;
 }
 
 .content-circle .img-wrap{
   background: #742b96;
+  border: none;
   color: #ffffff;
   font-weight: 600;
   display: inline-block;
-  line-height: 125px;
 }
-
+.img-wrap > div {
+  display: table;
+  height: 85px;
+  vertical-align: middle;
+  width: 85px;
+}
 #viewall-dropdown {
   position: relative;
   float: left;
@@ -2349,7 +2391,7 @@ div.qty-section > div > input {
   margin-top: 10px;
 }
 .productlist-info span em, .delivery-remark span em{
-   color: #ff7d0d; 
+   color: #000; 
 }
 .cart-remark .fix-width em{
     font-style: normal;
@@ -2416,6 +2458,20 @@ div.qty-section > div > input {
   
 }
 
+.empty-cart-page .shopping-cart p {
+  background: #fff none repeat scroll 0 0;
+  padding: 50px 0;
+  text-align: center;
+  margin-bottom: 0;
+}
+.empty-cart-page .shopping-cart p::before {
+  content: "\f071";
+  font-family: "fontawesome";
+  margin-right: 7px;
+}
+.empty-cart-page .shopping-cart {
+  background: #f2f3f7 none repeat scroll 0 0;
+}
 
 /* -------------------------------------
     Global Form Control
@@ -2663,7 +2719,11 @@ input:checked + .slider:before {
     float: none;
     height: 35px;
 }
-
+.stockout .qty-section {
+  background: #ddd none repeat scroll 0 0;
+  color: #999;
+  height: auto;
+}
 .cart-qty .btn-minus, .cart-qty .btn-plus{
     width: 35px;
     height: 35px;
@@ -2683,11 +2743,16 @@ input:checked + .slider:before {
 }
 
 .bagde-remove i {
-  left: 30px;
+  left: 27px;
   position: absolute;
-  top: 7px;
+  top: 9px;
 }
-.bagde-remove i:hover{
+.bagde-remove.submitConfirm i::before {
+  content: "\f1f8";
+  display: block;
+  width: 20px;
+}
+.bagde-remove:hover{
     color: #ffffff;
 }
 .cart-review {
@@ -2698,7 +2763,9 @@ input:checked + .slider:before {
   display: inline-block;
   width: 100%;
 }
-
+.sub-total-sumarry .btn.btn-default {
+  float: right;
+}
 .bigwidth{
   width: 100%;
 }

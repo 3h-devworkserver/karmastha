@@ -58,7 +58,7 @@
     </script>
 </head>
 
-<body id="{{!empty($class)? $class : ''}}">
+<body id="{{!empty($class)? $class : ''}}" class="{{!empty($class)? $class : ''}}">
 
 @include('frontend.includes.header')
 

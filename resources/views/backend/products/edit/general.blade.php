@@ -30,7 +30,7 @@
 			{!!Form::textarea('short_desc',null,['class'=>'form-control', 'rows'=>'8', 'placeholder'=>'Enter Short Description'])!!}
 		</div>
 
-		<div class="form-group">
+		{{-- <div class="form-group">
 			<label class="control-label">Offer</label>
 			{!!Form::textarea('offer',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Offer Detail'])!!}
 		</div>
@@ -43,7 +43,7 @@
 		<div class="form-group">
 			<label class="control-label">Return Policy<em class="asterisk">*</em></label>
 			{!!Form::textarea('return_policy',null,['class'=>'form-control', 'rows'=>'5', 'placeholder'=>'Enter Return Policy'])!!}
-		</div>
+		</div> --}}
 
 		<div class="form-group">
 			<label class="control-label">Product Detail<em class="asterisk">*</em></label>
