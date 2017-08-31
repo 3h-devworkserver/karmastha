@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 protected $table = 'categorys';
+private $productLimit = 15;
+private $childLimit = 4;
 
 	// Recursive function that builds the menu from an array or object of items
 	// In a perfect world some parts of this function would be in a custom Macro or a View
@@ -51,6 +53,14 @@ protected $table = 'categorys';
 		return $this->hasMany('App\Models\Category', 'parent_id', 'id')->where('status', 1);
 	}
 
+	public function childsWithOrder(){
+		return $this->hasMany('App\Models\Category', 'parent_id', 'id')->where('status', 1)->orderBy('total_views', 'desc');
+	}
+
+	public function childsLimitWithOrder(){
+		return $this->hasMany('App\Models\Category', 'parent_id', 'id')->where('status', 1)->orderBy('total_views', 'desc')->limit($this->childLimit);
+	}
+
 	public function topChilds(){
 		return $this->hasMany('App\Models\Category', 'parent_id', 'id')->where('status', 1)->where('cat_type', 'top');
 	}
@@ -79,7 +89,11 @@ protected $table = 'categorys';
     }
 
     public function products(){
-    	return $this->belongsToMany('App\Models\Product\Product')->where('status', 1);
+    	return $this->belongsToMany('App\Models\Product\Product')->where('status', 1)->orderBy('total_views', 'desc');
+    }
+
+    public function productsLimit(){
+    	return $this->belongsToMany('App\Models\Product\Product')->where('status', 1)->orderBy('total_views', 'desc')->limit($this->productLimit);
     }
 
 }

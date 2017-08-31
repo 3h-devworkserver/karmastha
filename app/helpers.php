@@ -331,12 +331,12 @@ if (! function_exists('product_group')) {
     /* 
      * function that populate featured products
      */
-    function product_group($id = '', $limit = '') {
+    function product_group($id = '', $limit = 15) {
         $productGroup = ProductGroup::where('id', $id)->where('status', 1)->first();
         $html = '';
         if(count($productGroup) > 0){
             if ( !empty($productGroup->feat_img) || (count($productGroup->products) > 0) ) {
-                $html = view('frontend.includes.productgroup')->with('productGroup', $productGroup)->render();
+                $html = view('frontend.includes.productgroup.productgroup')->with('productGroup', $productGroup)->with('limit', $limit)->render();
             }
         }
         return $html;

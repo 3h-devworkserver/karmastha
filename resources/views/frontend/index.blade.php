@@ -22,11 +22,9 @@
 @include('frontend.includes.banner')
 
 @include('frontend.includes.advertisement')
-<?php 
-$tproducts = App\Models\Product\Product::where('status', 1)->get();
 
-?>
 @if( count($tproducts) > 0 )
+
 <section class="products-wrapper pb0">
   <div class="container">
     <div class="row">
@@ -39,63 +37,8 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
     <div class="row products-fluid fluid-nosapce mt30">
       @foreach( $tproducts as $key => $tproduct)
       <div class="col-md-3 col-sm-3">
-        <div class="thumbnail">
-          <?php 
-                $price = $tproduct->productPrice;
-                $p = ( $price->price - $price->special_price);
-                $dis = round( ( $p / $price->price ) * 100 );
-                
-          ?>
-        <div class="ribbon"><span>{{ $dis }}% dis</span></div>
-          <a href="#">
-            <div class="product-img">
-              <div class="img-wrap">
-                <img src="{{ asset('/images/product/'.$tproduct->id.'/base/'. $tproduct->productFirstListImage() ) }}" alt="">
-              </div>
-            </div>
-            
-          </a>
-          <?php 
-          $wishlistadded = DB::table('product_wishlist')->where('product_id', $tproduct->id)->first(); 
-          ?>
-          <div class="action <?php if(!empty($wishlistadded)){ echo 'wishlist_add';} ?>">
-            {{-- <form action="{{ url('/wishlist') }}" method="POST" class="side-by-side wishlist">
-                    {!! csrf_field() !!}
-                    <input type="hidden" name="id" value="{{ $product->id }}">
-                    <input type="hidden" name="name" value="{{ $product->name }}">
-                    <input type="hidden" name="price" value="{{ $product->price }}">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Add to Wishlist">
-                </form> --}}
-            <a href="{{ URL::to('wishlist/store/?id='.$tproduct->id) }}" class="wishlist" data-id="{{ $tproduct->id }}" data-price="{{ $price->price}}" data-name="{{ $tproduct->name}}">
-              <i class="la-icon-heart-o"></i>                  
-            </a>
-          </div>
-  
-          <div class="caption">
-            <p class="card-text" data-test-info-type="productRating">
-              <span class="rating--small">
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-                <span class="icon-star icon--ratingEmpty">
-                  <i class="la-icon-star"></i>
-                </span>
-              </span>
-            </p>
-            <h3><a href="#">{{ $tproduct->name }}</a></h3>
-            <sapn class="old">{{ $price->price}}</sapn>
-            <span class="price">{{ $price->special_price}}</span>
-          </div>
-        </div>
+        <?php  $product = $tproduct; ?>
+        @include('frontend.includes.productgroup.singleproduct')
       </div>
       @endforeach
     </div>
@@ -103,186 +46,47 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
 </section>
 @endif
 
-<section class="products-wrapper four-col category-wrapper">
+@if(count($categoryDisplays) > 0)
+@foreach($categoryDisplays as $categoryDisplay)
+<section class="products-wrapper {{ !empty($categoryDisplay->second_img) ? 'four-col' : 'five-col' }} category-wrapper">
   <div class="container">
     <div class="row">
         <div class="col-md-12">
           <div class="section-title">
-              <h2>Fashion</h2>
+              <h2>{{$categoryDisplay->title}}</h2>
               <ul class="list-unstyled list-inline">
-                <li><a href="#">Jeans</a></li>
-                <li><a href="#">Wedding</a></li>
-                <li><a href="#">T-shirt</a></li>
-                <li><a href="#">Vestons</a></li>
+              @foreach($categoryDisplay->childsLimitWithOrder as $cat)
+                <li class="catChild" data-id="{{$cat->id}}"><a href="javascript::void(0)">{{$cat->title}}</a></li>
+              @endforeach
               </ul>
-              <a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a>
+              @if( count($categoryDisplay->childs) > 4 )
+                <a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a>
+              @endif
           </div>
         </div>
     </div>
     <div class="row mt30">
-      <div class="col-md-3 col-sm-3">
-        <div class="featured-category">
-            <a href="#">
-              <img src="{{asset('front-images/addbanner1.jpg')}}" alt="">
-            </a>
+      @if(!empty($categoryDisplay->second_img))
+        <div class="col-md-3 col-sm-3">
+          <div class="featured-category">
+              @if(!empty($categoryDisplay->url))
+              <a href="{{url($categoryDisplay->url)}}">
+              @endif
+                <img src="{{asset('images/category/second/'.$categoryDisplay->second_img)}}" alt="Image">
+              @if(!empty($categoryDisplay->url))
+              </a>
+              @endif
+          </div>
         </div>
-      </div>
-      <div class="col-md-9 col-sm-9">
-        <div class="owl-carousel">
-          <div class="item">
-            <div class="thumbnail">
-              <div class="product-img">
-                <div class="img-wrap">
-                  <img src="{{asset('front-images/bag.png')}}" alt="">
-                  
-                </div>
-              </div>
-              <div class="action">
-                <a href="#" class="wishlist">
-                  <i class="la-icon-heart-o"></i>                  
-                </a>
-              </div>
-              <div class="caption">
-                <p class="card-text" data-test-info-type="productRating">
-                  <span class="rating--small">
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                  </span>
-                </p>
-                <h3><a href="#">product title</a></h3>
-                <span class="price">$34.95</span>
-              </div>
+      @endif
+    
+      <div class="{{ !empty($categoryDisplay->second_img) ? 'col-md-9 col-sm-9' : 'col-md-12 col-sm-12' }}">
+        <div class="owl-carousel productgroup-section">
+          @foreach($categoryDisplay->productsLimit as $product)
+            <div class="item">
+              @include('frontend.includes.productgroup.singleproduct')
             </div>
-            
-          </div>
-          <div class="item">
-            <div class="thumbnail">
-              <div class="product-img">
-                <div class="img-wrap">
-                  <img src="{{asset('front-images/bangle.png')}}" alt="">
-                  
-                </div>
-              </div>
-              <div class="action">
-                <a href="#" class="wishlist">
-                  <i class="la-icon-heart-o"></i>                  
-                </a>
-              </div>
-              <div class="caption">
-                <p class="card-text" data-test-info-type="productRating">
-                  <span class="rating--small">
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                  </span>
-                </p>
-                <h3><a href="#">product title</a></h3>
-                <span class="price">$34.95</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumbnail">
-              <div class="product-img">
-                <div class="img-wrap">
-                  <img src="{{asset('front-images/bangle.png')}}" alt="">
-                  
-                </div>
-              </div>
-              <div class="action">
-                <a href="#" class="wishlist">
-                  <i class="la-icon-heart-o"></i>                  
-                </a>
-              </div>
-              <div class="caption">
-                <p class="card-text" data-test-info-type="productRating">
-                  <span class="rating--small">
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                    <span class="icon-star icon--ratingEmpty">
-                      <i class="la-icon-star"></i>
-                    </span>
-                  </span>
-                </p>
-                <h3><a href="#">product title</a></h3>
-                <sapn class="old">$900</sapn>
-                <span class="price">$34.95</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-              <div class="thumbnail">
-                  <div class="product-img">
-                      <div class="img-wrap">
-                          <img src="{{asset('front-images/headphone.png')}}" alt="">
-                      </div>
-                  </div>
-                  <div class="action">
-                      <a href="#" class="wishlist">
-                          <i class="la-icon-heart-o"></i>
-                      </a>
-                  </div>
-                  <div class="caption">
-                    <p class="card-text" data-test-info-type="productRating">
-                      <span class="rating--small">
-                        <span class="icon-star icon--ratingEmpty">
-                          <i class="la-icon-star"></i>
-                        </span>
-                        <span class="icon-star icon--ratingEmpty">
-                          <i class="la-icon-star"></i>
-                        </span>
-                        <span class="icon-star icon--ratingEmpty">
-                          <i class="la-icon-star"></i>
-                        </span>
-                        <span class="icon-star icon--ratingEmpty">
-                          <i class="la-icon-star"></i>
-                        </span>
-                        <span class="icon-star icon--ratingEmpty">
-                          <i class="la-icon-star"></i>
-                        </span>
-                      </span>
-                    </p>
-                      <h3><a href="#">product title</a></h3>
-                      <span class="price">$34.95</span>
-                  </div>
-              </div>
-          </div>
-
+          @endforeach
         </div>
       </div>
 
@@ -290,6 +94,8 @@ $tproducts = App\Models\Product\Product::where('status', 1)->get();
     </div>
   </div>
 </section>
+@endforeach
+@endif
 
 @if(!empty($page->top_content))
   <?php   

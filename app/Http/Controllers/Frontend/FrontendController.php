@@ -10,6 +10,7 @@ use App\Models\Page;
 use App\Models\Slide;
 use App\Models\Ads;
 use App\Models\Product\Product;
+use App\Models\ProductGroup\ProductGroup;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -48,13 +49,17 @@ class FrontendController extends Controller
         //  where('trending','=','1')
         // ->orderby('total_views','desc')
         // ->get();
-        $tproducts = array();
+        // $tproducts = array();
+        $productGroup = ProductGroup::where('id', 1)->where('status', 1)->first();
+        $tproducts = $productGroup->trendingProductsLimit;
+
+        $categoryDisplays = Category::where('parent_id','0')->where('homepage_display', 1)->where('status', 1)->get();
 
         if (empty($page)) {
             abort(404);
         }
        
-        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist','categories'))->withClass('interactive-body');
+        return view('frontend.index', compact('brands', 'members', 'sliders', 'page', 'ads','tproducts','wishlist','categories', 'categoryDisplays'))->withClass('interactive-body');
     } 
 
     public function brandpage($url)

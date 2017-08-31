@@ -983,22 +983,24 @@ nav{
 }
 .list{
     float: left;
-    width: 13%;
+    width: 19%;
     padding: 0 15px;
 }
-h2.category-title{
+.category-title h2, h2.category-title{
   border-bottom: 1px solid #5d5f5d;
   color:#555;
-  display: inline-block;
   margin: 0 0 10px;
-  font-size: 14px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding-bottom: 7px;
 }
 .category-title h2 i{
   margin-left: 3px;
 }
 .submenu li a{
   color: #5d5f5d;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.8;
   text-transform: capitalize;
 }
@@ -1023,19 +1025,19 @@ h2.category-title{
 }
 
 .list:nth-child(2) + .list.image-content {
-  width: 74%;
+  width: 62%;
 }
 
 .list:nth-child(3) + .list.image-content {
-  width: 61%;
+  width: 49%;
 }
 
 .list:nth-child(4) + .list.image-content {
-  width: 48%;
+  width: 36%;
 }
 
 .list:nth-child(5) + .list.image-content {
-  width: 35%;
+  width: 23%;
 }
 
 .image-content .submenu > li {
@@ -1145,6 +1147,9 @@ h2.category-title{
   margin: 0 auto;
   height: auto;
   width: auto;
+}
+.products-wrapper .productgroup-section.owl-carousel .owl-item img {
+  height: 232px;
 }
 .products-wrapper.no-scroll .thumbnail .caption h3{
     margin-bottom: 0;
@@ -1323,6 +1328,7 @@ custom owl controls
   overflow: hidden;
 }
 .featured-category img {
+  height: 310px;
   width: 100%;
 }
 /*-------------------------------
@@ -1497,12 +1503,12 @@ padding-bottom: 8px;
 
 .content-circle .item {
   display: inline-block;
-  width: 14%;
+  width: 12%;
 }
 .category-circle .thumbnail{
   border: none;
   padding: 15px 0;
-  margin: 0 3px;
+  margin: 0 5px;
 }
 .category-circle .thumbnail:hover {
   background: #fff none repeat scroll 0 0;

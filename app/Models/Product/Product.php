@@ -101,6 +101,12 @@ public function productFirstThumbImage(){
         $views = $product->total_views;
         $product->total_views = ++$views;
         $product->save();
+
+        foreach($product->categorys as $cat){
+            $views = $cat->total_views;
+            $cat->total_views = ++$views;
+            $cat->save();
+        }
     }
 
 

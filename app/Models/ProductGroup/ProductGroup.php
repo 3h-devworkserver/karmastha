@@ -20,9 +20,19 @@ class ProductGroup extends Model
      */
     
     protected $guarded = ['id'];
+    private $limit = 15;
+    private $trendingLimit = 8;
 
-     public function products(){
-        return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id');
+    public function products(){
+        return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id')->orderBy('total_views', 'desc');
+    }
+
+    public function productsLimit(){
+        return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id')->orderBy('total_views', 'desc')->limit($this->limit);
+    }
+
+    public function trendingProductsLimit(){
+        return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id')->orderBy('total_views', 'desc')->limit($this->trendingLimit);
     }
 
      /**

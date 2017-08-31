@@ -315,6 +315,13 @@ footer.footer-wrapper { text-align: center; }
 /* Dashboard */
 
 .dashboard-header .main-header{ display: none; }
+.cd-nav-trigger {
+  background: #ccc none repeat scroll 0 0;
+  height: 25px;
+  margin-bottom: 10px;
+  text-indent: -99999px;
+  width: 35px;
+}
 .cd-main-content .page-container .col-md-8 { width: 100%; }
 .userdashboard .dashboard-content{ margin-top: 30px; padding: 0; }
 .main-container.dashdb .row, 
@@ -324,7 +331,7 @@ footer.footer-wrapper { text-align: center; }
 .oversea-user-profile-root .mui-avatar-a, 
 .oversea-user-profile-root .mui-avatar{ width: 43px; height: 43px; }
 .oversea-user-profile-root .mui-personal-info .mui-user-name{ left: -17px; top: 44px; }
-.oversea-user-profile-root .mui-personal-info .mui-col-normal{ margin-bottom: 0; text-align: center;}
+.oversea-user-profile-root .mui-personal-info .mui-col-normal{ margin-bottom: 15px; text-align: center;}
 .oversea-user-profile-root .mui-personal-info div.mui-basic-info {
   margin-left: 0;
   margin-right: 0;
@@ -342,6 +349,8 @@ footer.footer-wrapper { text-align: center; }
   margin-right: 0; 
   text-align: center; 
 }
+.mh-notice-board{ padding: 0; }
+.mh-notice-board h2{ margin-top: 0; }
 
 }
 

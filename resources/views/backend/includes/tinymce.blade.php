@@ -9,7 +9,7 @@
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
         relative_urls: true,
-        extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
+        extended_valid_elements : "span,i[class],script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag
         plugins: [
@@ -78,7 +78,7 @@
         // elements : ["content","short_desc","statcontent"],
         menubar : false,
         relative_urls: true,
-        extended_valid_elements : "span,script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
+        extended_valid_elements : "span,i[class],script[type|src|async],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
         
         forced_root_block: false, // Start tinyMCE without any paragraph tag
         plugins: [

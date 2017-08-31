@@ -1,1 +1,1 @@
-{!! product_group(1) !!} {!! product_group(2) !!}
+{!! product_group(2) !!} {!! product_group(3) !!}

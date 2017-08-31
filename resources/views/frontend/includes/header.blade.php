@@ -326,7 +326,7 @@
                                         <section class="submenu-container">
                                           @if(count($category->topChilds) > 0)
                                             <div class="list">
-                                                <h2 class="category-title">Top Categories <i class="fa fa-caret-right"></i></h2>
+                                                <h2 class="category-title">Top Categories</h2>
                                               <ul class="submenu">
                                                 @foreach($category->topChilds as $child)
                                                   <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
@@ -337,7 +337,7 @@
 
                                           @if(count($category->moreChilds) > 0)
                                             <div class="list">
-                                                <h2 class="category-title">More Categories <i class="fa fa-caret-right"></i></h2>
+                                                <h2 class="category-title">More Categories</h2>
                                               <ul class="submenu">
                                                 @foreach($category->moreChilds as $child)
                                                   <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
