@@ -211,6 +211,13 @@
 						</span>
 						<div id="preview2" class="show-img-bg display-none" alt="Image Preview"></div>
 					</div>
+					<div class="form-group">
+						<label class="control-label">URL</label>
+						<div class="input-group">
+						  	<span class="input-group-addon">{{url('/').'/'}}</span>
+							{{Form::text('img_url',null,['class'=>'form-control', 'placeholder'=>'Enter URL'])}}
+						</div>
+					</div>
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 

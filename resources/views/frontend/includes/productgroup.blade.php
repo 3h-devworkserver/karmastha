@@ -11,9 +11,13 @@
       @if(!empty($productGroup->feat_img))
         <div class="col-md-3 col-sm-3">
           <div class="featured-category">
-              <a href="#">
+              @if(!empty($productGroup->url))
+              <a href="{{url($productGroup->url)}}">
+              @endif
                 <img src="{{asset('images/productgroup/'.$productGroup->feat_img)}}" alt="Image">
+              @if(!empty($productGroup->url))
               </a>
+              @endif
           </div>
         </div>
       @endif

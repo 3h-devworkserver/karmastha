@@ -75,6 +75,7 @@ class ProductGroupController extends Controller
                 'title' => $request->title,    
                 'short_desc' => $request->short_desc,    
                 'status' => $request->status,    
+                'img_url' => $request->img_url,    
                 'feat_img' => $filename,    
                 ]);
         });
@@ -118,6 +119,7 @@ class ProductGroupController extends Controller
                 'title' => $request->title,    
                 'short_desc' => $request->short_desc,    
                 'status' => $request->status, 
+                'img_url' => $request->img_url,    
                 'feat_img' => $filename,    
                 ]);
         });

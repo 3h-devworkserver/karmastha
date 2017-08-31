@@ -74,9 +74,16 @@
 						<div style="background-image:url({{url('images/productgroup/'.$productGroup->feat_img)}})" alt = "image preview" title="image preview" class="show-img-bg">
 						</div>
 					</div>
-					<br>
 					@endif
 					<div id="preview" class="show-img-bg display-none" alt="Image Preview"></div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label">URL</label>
+					<div class="input-group">
+					  	<span class="input-group-addon">{{url('/').'/'}}</span>
+						{{Form::text('img_url',null,['class'=>'form-control', 'placeholder'=>'Enter URL'])}}
+					</div>
 				</div>
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->

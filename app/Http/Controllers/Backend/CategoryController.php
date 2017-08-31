@@ -111,6 +111,8 @@ class CategoryController extends Controller {
 			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;
 			$item->second_img 		= $filename2;
+			$item->second_img 		= $filename2;
+			$item->img_url 		= Request::get('img_url','');		
 			$item->cat_type 		= Request::get('cat_type','');		
 
 			$item->save();
@@ -304,6 +306,7 @@ class CategoryController extends Controller {
 			$item->meta_desc 		= Request::get('meta_desc','');	
 			$item->feat_img 		= $filename;	
 			$item->second_img 		= $filename2;	
+			$item->img_url 		= Request::get('img_url','');		
 			$item->cat_type 		= Request::get('cat_type','');		
 			$item->homepage_display = Request::get('homepage_display','');		
 
