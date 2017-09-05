@@ -114,12 +114,20 @@ class FrontendController extends Controller
         ->where('category_product.category_id','=',$category->id)
         ->select('products.*','product_price.price','product_price.special_price')
         ->paginate(4);
-        $brands = Brand::where('status', 1)->where('topbrand', 1)->orderBy('b_order', 'asc')->get();
+
+        $subParent = 'false';
+        if (!empty($category->immediateParent)) {
+            if ($category->immediateParent->isParent() == 'true') {
+                $subParent = 'true';
+            }
+        }
         if ($category->isParent() == 'true') {
-            return view('frontend.category.categorypage', compact('category','products','brands'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
+        }elseif($subParent == 'true'){
+            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
         }else{
-            //$products = $category->products;
-            return view('frontend.category.categorydetailpage', compact('category', 'products'))->withClass('inner-page product_cat');
+            $products = $category->products;
+            return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
         }
     }
 

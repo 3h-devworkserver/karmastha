@@ -39,7 +39,7 @@
     </p> -->
     <h3>{{$product->name}}</h3>
     @if(!empty($product->productPrice->special_price))
-    <span class="old">NPR {{ $product->productPrice->price}}</span>
+    <span class="old">NPR {{ custom_number_format($product->productPrice->price)}}</span>
     @endif
     <span class="price">NPR {{ productPrice($product->id)}}</span>
   </div>

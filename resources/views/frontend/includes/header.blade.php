@@ -2,7 +2,7 @@
   <div class="top-header" id="topslide-header">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 col-sm-6">
             <ul class="list-unstyled list-inline hover-dropdown">
                 <li><a href="">Job Vacancy </a></li>
                 <li><a href="">Hot News</a></li>
@@ -11,7 +11,7 @@
                 <li><a href="{{URL::to('/brand')}}">Brand</a></li>
             </ul>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 col-sm-6">
             <ul class="list-unstyled list-inline text-right hover-dropdown">
               <li class="dropdown topnav-rgt">
                <!--  <a href="#" class="dropbtn">My Karmastha <i class="fa fa-angle-down"></i></a> -->
@@ -322,7 +322,7 @@
                                 <div class="navigation-items">
                                   <ul>
                                     @foreach($categorys as $category)
-                                      <li><a href="{{url('category/'.$category->url)}}">{{$category->title}} <i class="fa fa-angle-down"></i></a>
+                                      <li><a href="javascript:void(0);">{{$category->title}} <i class="fa fa-angle-down"></i></a>
                                         <section class="submenu-container">
                                           @if(count($category->topChilds) > 0)
                                             <div class="list">

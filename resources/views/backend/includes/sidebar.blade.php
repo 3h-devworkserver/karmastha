@@ -125,6 +125,10 @@
                         <a href="{!! url('admin/settings/general') !!}"><i class="fa fa-cog"></i> General</a>
                     </li>
 
+                    {{-- <li class="{{ Active::checkUriPattern('admin/settings/cart') }}">
+                        <a href="{!! url('admin/settings/cart') !!}"><i class="fa fa-shopping-cart"></i> Cart Sidebar</a>
+                    </li> --}}
+
                     <li class="{{ active_class(Active::checkUriPattern('admin/settings/Emails')) }} treeview">
                         <a href="#">
                             <i class="fa fa-envelope"></i><span>Email templates</span>

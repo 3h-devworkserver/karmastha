@@ -151,10 +151,11 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                           @endif
                                               {{-- <input value="1" /> --}}
                                 </div>    
+                                <div class="QtyValidation"><span class="text-danger"></span></div>
+                                <div class="update-qty hide">
+                                    <a href="javascript:void(0)" class="submit">Update</a>
+                                </div>       
                               </div> 
-                               <div class="update-qty hide">
-                                  <a href="javascript:void(0)" class="submit">Update</a>
-                              </div>       
                                   
                             </div>
                           </div>
@@ -221,78 +222,80 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                               <h6>quantity:</h6>
                               <div class="qty-section">                   
                                 <div>
-                                              <?php 
-                                                  $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->attr_identifier)->first(); 
-                                              ?>
-                                          @if($product->productInventory->manage_stock == 1)
-                                              @if(!empty($productAttrCombination))
-                                                  @if ($product->productInventory->availability == 'in stock') 
-                                                      @if ($productAttrCombination->quantity == 0)
-                                                          <?php $stock = 'out of stock'; ?>
-                                                          <span class="outOfStock">{{$stock}}</span>
-                                                          {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
-                                                      @else
-                                                        <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                                                          {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
-                                                          {{-- alert('product combination available'); --}}
-                                                        <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
-                                                      @endif
-                                                  @else
-                                                      <?php $stock = 'out of stock'; ?>
-                                                      <span class="outOfStock">{{$stock}}</span>
-                                                      {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
-                                                      {{-- alert('product combination not available'); --}}
-                                                  @endif
-                                              @else
-                                                @if( count($product->productAttrCombination) > 0 )
+                                  <?php 
+                                      $productAttrCombination = \App\Models\Product\ProductAttrCombination::where('identifier', $cartItem->attr_identifier)->first(); 
+                                  ?>
+                                  @if($product->productInventory->manage_stock == 1)
+                                      @if(!empty($productAttrCombination))
+                                          @if ($product->productInventory->availability == 'in stock') 
+                                              @if ($productAttrCombination->quantity == 0)
                                                   <?php $stock = 'out of stock'; ?>
-                                                      <span class="outOfStock">{{$stock}}</span>
+                                                  <span class="outOfStock">{{$stock}}</span>
                                                   {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
-                                                @else
-                                                  @if ($product->productInventory->availability != 'in stock') 
-                                                      <?php $stock = 'out of stock'; ?>
-                                                      <span class="outOfStock">{{$stock}}</span>
-                                                  @else
-                                                    <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                                                    {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
-                                                    <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
-                                                  @endif
-                                                @endif
-                                              @endif
-                                              {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
-                                          @else
-                                            @if(!empty($productAttrCombination))
-                                              <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                                              @if($productAttrCombination->quantity == 0) 
-                                                  {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
-                                                  {{-- alert('product combination available unlimited'); --}}
-                                              @else
-                                                  {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
-                                                  {{-- alert('product combination available'); --}}
-                                              @endif
-                                              <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
-                                            @else
-                                              @if( count($product->productAttrCombination) > 0 )
-                                                <?php $stock = 'out of stock'; ?>
-                                                      <span class="outOfStock">{{$stock}}</span>
-                                                {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
                                               @else
                                                 <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
-                                                {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                                  {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                  {{-- alert('product combination available'); --}}
                                                 <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                               @endif
-                                            @endif
+                                          @else
+                                              <?php $stock = 'out of stock'; ?>
+                                              <span class="outOfStock">{{$stock}}</span>
+                                              {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                              {{-- alert('product combination not available'); --}}
                                           @endif
-                                              {{-- <input value="1" /> --}}
-                                </div>    
+                                      @else
+                                        @if( count($product->productAttrCombination) > 0 )
+                                          <?php $stock = 'out of stock'; ?>
+                                              <span class="outOfStock">{{$stock}}</span>
+                                          {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                        @else
+                                          @if ($product->productInventory->availability != 'in stock') 
+                                              <?php $stock = 'out of stock'; ?>
+                                              <span class="outOfStock">{{$stock}}</span>
+                                          @else
+                                            <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                            {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                            <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                          @endif
+                                        @endif
+                                      @endif
+                                      {{-- {{Form::text('qty', $cartItem->qty,['class'=>'cart-plus-minus-box quantity', 'min'=>"1", 'max'=>$product->productInventory->quantity, 'readonly'])}} --}}
+                                  @else
+                                    @if(!empty($productAttrCombination))
+                                      <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                      @if($productAttrCombination->quantity == 0) 
+                                          {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                          {{-- alert('product combination available unlimited'); --}}
+                                      @else
+                                          {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                          {{-- alert('product combination available'); --}}
+                                      @endif
+                                      <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                    @else
+                                      @if( count($product->productAttrCombination) > 0 )
+                                        <?php $stock = 'out of stock'; ?>
+                                              <span class="outOfStock">{{$stock}}</span>
+                                        {{-- {{Form::text('qty', 0 ,['class'=>'cart-plus-minus-box quantity', 'min'=>'0', 'max'=>'0', 'readonly'])}} --}}
+                                      @else
+                                        <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
+                                        {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                        <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
+                                      @endif
+                                    @endif
+                                  @endif
+                                  {{-- <input value="1" /> --}}
+                                </div>
+
+                                <div class="QtyValidation"><span class="text-danger"></span></div>
+                                <div class="update-qty hide">
+                                    <a href="javascript:void(0)" class="submit">Update</a>
+                                </div> 
+
                               </div> 
                               {{-- <div class="outOfStock @if( empty($stock) || $stock != 'out of stock') hide @endif">
                                 Out of Stock
                               </div> --}}
-                              <div class="update-qty hide">
-                                  <a href="javascript:void(0)" class="submit">Update</a>
-                              </div>       
-                                  
                             </div>
                           </div>
                           {{Form::close()}}
@@ -329,15 +332,15 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                       <div class="right-grand-total">
                         <div class="sumarry-total cart-totals">
                           <span class="pull-left">sub total</span>
-                          <span class="grandprice">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
+                          <span class="grandprice subTotal" data-subtotal="{{CartItemsSubTotalPrice()}}">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
                         </div>
                         <div class="total-calculate cart-totals">
-                          <span class="pull-left"><a type="button" href="#01" onclick="return menuslidedown();">calculate shipping<i class="fa fa-angle-down"></i></a></span>
-                          <div class="collapse" id="billingopt">
+                          <span class="pull-left"><a type="button" href="javascript:void(0)" onclick="return menuslidedown();">calculate Delivery Charge<i class="fa fa-angle-down"></i></a></span>
+                          <div class="" id="billingopt">
                             <div class="box">
-                              <form method="post" action="">
+                              {{-- <form method="post" action=""> --}}
 
-                                <div class="content">
+                                {{-- <div class="content">
                                   <div class="form-group">
                                     <select class="form-control" id="country">
                                       <option value="germany">kathmandu valley(inside ring road)</option>
@@ -354,9 +357,31 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                       <option value="usa">USA</option>
                                     </select>
                                   </div>
+                                </div>  --}}
+
+                                <div class="content">
+                                  <div class="form-group">
+                                    <select class="form-control" id="shipping">
+                                      <option value="ktm-in">kathmandu (inside ring road)</option>
+                                      <option value="ktm-out">kathmandu (outside ring road)</option>
+                                      <option value="ltp-in">lalitpur (inside ring road)</option>
+                                      <option value="ltp-out">lalitpur (outside ring road)</option>
+                                      <option value="bkp">Bhaktapur</option>
+                                    </select>
+                                  </div>
+                                  {{-- <div class="form-group">
+                                    <select class="form-control" id="country">
+                                      <option value="germany">Deutschland</option>
+                                      <option value="austria">Österreich</option>
+                                      <option value="swiss">Schweiz</option>
+                                      <option value="usa">USA</option>
+                                    </select>
+                                  </div> --}}
                                 </div> 
 
-                              </form>
+
+
+                              {{-- </form> --}}
                             </div>
                             <div class="shipping-table-info">
                               <table class="table">
@@ -371,7 +396,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                   <tr>
                                     <td>standard delivery</td>
                                     <td>2 days(s)</td>
-                                    <td>rs.50</td>
+                                    <td class="cost">NPR 50</td>
                                   </tr>
                                   
                                 </tbody>
@@ -384,7 +409,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                       <div class="grand-total cart-totals">
                         <span>total:</span>
                         {{-- <span class="grandprice">NPR <em>{{LaraCart::total()}}</em></span> --}}
-                        <span class="grandprice">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
+                        {{-- <span class="grandprice total">NPR <em>{{CartItemsSubTotalPrice()}}</em></span> --}}
+                        <span class="grandprice total">NPR <em></em></span>
                       </div>
                       <div class="checkout-btn ">
                         <button class="btn btn-primary bigwidth open-door">proceed to checkout</button>
@@ -405,7 +431,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
             <div class="cart-total">
               <span class="pull-left">total</span>
               {{-- <span class="pull-right">NPR <em>{{LaraCart::total()}}</em></span> --}}
-              <span class="pull-right">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
+              {{-- <span class="pull-right total">NPR <em>{{CartItemsSubTotalPrice()}}</em></span> --}}
+              <span class="pull-right total">NPR <em></em></span>
             </div>
 
             <div class="cart-order-btn">

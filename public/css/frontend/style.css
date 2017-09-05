@@ -205,6 +205,7 @@ input[type="radio"]:checked + label span::before {
 .owl-carousel .owl-item img {
     display: block;
     width: 100%;
+    height: 105px;
     -webkit-transform-style: preserve-3d;
 }
 .owl-carousel.owl-text-select-on .owl-item {
@@ -440,6 +441,7 @@ section {
     background: #742b96;
     color: #ffffff;
 }
+.btn.btn-default.no-border, .btn.btn-default.no-border:hover{ border: none; padding: 0; }
 .btn.btn-default{
   color: #aaaaaa;
   font-size: 14px;
@@ -502,12 +504,13 @@ section {
 .section-title h2{
     margin: 0;
     background:url('../../images/title-bg.jpg') repeat-x 0 0;
+    font-family: 'Roboto', sans-serif;
     display: inline-block;
     padding:0 50px 0 20px;
     height: 50px;
     line-height: 50px;
     color: #fff;
-    font-size: 17px;
+    font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
     position: relative;
@@ -542,6 +545,9 @@ section {
     color: #636262;
     padding-right: 15px;
     font-size: 15px;
+}
+.section-title ul li.active a {
+  color: #742b96;
 }
 .section-title ul li a:hover{
     color: #742b96;
@@ -987,7 +993,7 @@ nav{
     padding: 0 15px;
 }
 .category-title h2, h2.category-title{
-  border-bottom: 1px solid #5d5f5d;
+  border-bottom: 1px solid #ddd;
   color:#555;
   margin: 0 0 10px;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -1127,10 +1133,13 @@ nav{
 -------------------------------*/
 
 .products-wrapper.no-scroll .thumbnail{
-    margin-bottom: 20px;
+  background: none;
+  margin-bottom: 15px;
+  padding: 20px 0;
 }
+.products-wrapper.no-scroll .thumbnail:hover{ box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25); }
 .products-wrapper.viewall-dropdown-content .img-wrap{
-    vertical-align: top;
+  vertical-align: top;
 }
 #viewall-dropdown .products-wrapper.viewall-dropdown-content .product-img,
 #viewall-dropdown .products-wrapper.viewall-dropdown-content .product-img img {
@@ -1210,6 +1219,13 @@ nav{
   height: 269px;
   width: 100%;
 }
+.products-wrapper.viewall-dropdown-content .img-wrap > img {
+  background-color: #e6d9d0;
+  border: 0.5px solid #e5e5e5;
+  border-radius: 100%;
+  height: 130px;
+  width: 130px;
+}
 .row.products-fluid{
     margin-left: 0;
     margin-right: 0;
@@ -1230,7 +1246,10 @@ nav{
   font-size: 10px;
 }
 .thumbnail .caption {
-  padding: 15px 10px;
+  padding: 15px 0;
+}
+.viewall-dropdown-content .thumbnail .caption {
+  padding: 15px 10px 0;
 }
 .caption .card-text {
   margin-bottom: 5px;
@@ -1351,7 +1370,10 @@ custom owl controls
 }
 .brand-list li a{
     display: block;
-    line-height: 150px;
+    line-height: 105px;
+}
+.brand-list ul li img {
+  height: 105px;
 }
 
 /*-------------------------------
@@ -1477,8 +1499,9 @@ padding-bottom: 8px;
   font-size: 13px;
 }
 
-.breadcrumb li, .breadcrumb li a:hover{
+.breadcrumb li.active, .breadcrumb li, .breadcrumb li a:hover{
   color: #742b96;
+  text-transform: capitalize;
 }
 
 .page-breadcrumbs + section {
@@ -1559,6 +1582,7 @@ padding-bottom: 8px;
 #viewall-dropdown {
   position: relative;
   float: left;
+  padding-bottom: 15px;
   width: 100%;
 }
 #viewall-dropdown .row{
@@ -1569,7 +1593,7 @@ padding-bottom: 8px;
 #viewall-dropdown .products-wrapper.no-scroll.viewall-dropdown-content [class^="col-"]{
     padding-right: 10px;
     padding-left: 10px;
-    width: 25%;
+    /* width: 20%; */
 }
 .collapse-small .viewall-dropdown-content {
   padding: 0 25px;
@@ -1588,7 +1612,7 @@ padding-bottom: 8px;
   display: block;
   height: 0;
   position: absolute;
-  right: 244px;
+  right: 205px;
   top: -25px;
   width: 0;
   z-index: 999;
@@ -1832,6 +1856,7 @@ padding-bottom: 8px;
 .rangerform > input[type="text"] {
   border: 1px solid #ccc;
   width: 40%;
+  margin-right: 3px;
   padding: 2px 3px;
   height: 40px;
 }
@@ -1905,7 +1930,11 @@ aside.sidebar .viewmore-btn .btn-default{
   margin-top: 5px;
   padding: 5px 13px; 
 }
-
+.right-sidebar .banner-wrapper #slides .item { min-height: 325px; }
+.right-sidebar .products-wrapper .list-filter .dataTables_length { padding: 5px 0 0; }
+.right-sidebar .products-wrapper .brands-list [class*="col-"],
+.right-sidebar .products-wrapper .brands-list [class*="col-"] { padding-right: 0; }
+.right-sidebar .products-wrapper .brands-list .img-wrap > img { height: 231px; }
 .brand-detail.gray-bg{
   padding: 25px 15px;
   border: 1px solid #ccc;
@@ -1944,7 +1973,7 @@ aside.sidebar .viewmore-btn .btn-default{
 }
 
 .brands-list .item {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 /*-------------------------------
@@ -2039,7 +2068,12 @@ aside.sidebar .viewmore-btn .btn-default{
     border: none;
     color: #742b96;
 }
-
+.product-size-detail .modal-header h4.modal-title {
+  text-transform: capitalize;
+}
+.product-size-detail .modal-body .sidebarin-content table td {
+  width: 19%;
+}
 /* -------------------------------------
     Product Cart plus minus
 ------------------------------------- */
@@ -2295,6 +2329,8 @@ div.qty-section > div > input {
   margin-top: -2px;
   width: 37px;
 }
+.widget-color ul a.btn.btn-default, 
+.widget-color ul a.btn.btn-default:hover{ border: none; padding: 0; }
 .single-product-info .widget-color.form-group{ margin-bottom: 0; }
 .single-product-info .has-error label{ display: inline-block; float: none; }
 .single-product-info .has-error span{ margin-bottom: 0; line-height: 14px; }
@@ -2672,11 +2708,13 @@ input:checked + .slider:before {
 .dataTables_length select {
   border: 1px solid #ccc;
   padding: 3px 5px;
+  text-transform: capitalize;
 }
 
 .data-pegination {
   text-align: right;
   width: 100%;
+  margin-top: 10px;
 }
 
 .pagination{
@@ -2718,7 +2756,7 @@ input:checked + .slider:before {
 }
 
 .cart-qty div.qty-section > div{
-    height: 25px;
+    height: 35px;
 }
 
 .cart-qty .qty-section{
@@ -2735,6 +2773,12 @@ input:checked + .slider:before {
     height: 35px;
 }
 .cart-qty .update-qty a{ color: #742b96; margin-top: 5px; }
+.cart-qty .qty-section .QtyValidation + .update-qty a{ margin-top: 12px; }
+.cart-qty .qty-section .QtyValidation span {
+  display: inline-block;
+  line-height: 15px;
+  margin-top: 11px;
+}
 .bagde-remove {
   background: #d22c2c none repeat scroll 0 0;
   clip-path: polygon(100% 0%, 100% 100%, 0 0%);
@@ -2946,9 +2990,156 @@ input:checked + .slider:before {
 }
 
 
+/* -------------------------------------
+    Login Section
+------------------------------------- */
+
+.login_page {
+  background: rgba(0, 0, 0, 0) url("http://192.168.0.23/karmastha/public/images/bg-login.jpg") no-repeat fixed center center / cover ;
+  font-size: 14px;
+}
 
 
+.login_page .col-md-8.col-sm-8.col-xs-12.pull-left{
+    text-align: center;
+}
 
+.login-txt-left {
+  /* background: white none repeat scroll 0 0; */
+  display: inline-block;
+  font-size: 40px;
+  font-weight: bolder;
+  margin: 50px 0;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.login-txt-left a, .login-txt-left a p{
+    color: #fff;
+}
+
+.login-txt-left .trade {
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.login-txt-left .protect_order {
+  font-weight: normal;
+}
+
+.login-txt-left .learn-more {
+  border: medium none;
+  box-shadow: none;
+  color: #fff;
+  line-height: 25px;
+  outline: medium none;
+  width: auto;
+}
+.login-txt-left .learn-more:active, .login-txt-left .learn-more:focus{ outline: none; }
+.panel-heading{
+    background: none !important;
+    border-bottom: none !important;
+}
+
+.join-form.panel-default {
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 10px #ddd;
+    margin: 30px 0 50px;
+    width: 100%;
+}
+.join-form .panel-body{
+    padding: 15px;
+}
+.join-form .form-horizontal{
+    /* margin-top: 30px; */
+}
+.join-form .input-group-addon i {
+  font-size: 16px;
+}
+.join-form .form-control{
+    font-size: 15px;
+    height: 40px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.join-form .input[type="checkbox"]:checked + label span::before {
+  content: "\f00c";
+  left: 2px;
+  top: 1px;
+}
+.join-form .form-control:hover, .join-form .form-control:active, .join-form .form-control:focus{
+    border: 1px solid #742b96;
+    box-shadow: none;
+}
+.join-form .form-group.last { padding-bottom:0px; }
+.join-form .form-horizontal .checkbox, .join-form .form-horizontal .radio{ padding-top: 0; }
+.learn-more, .join-form .form-group button.login_reg{
+    background: #742b96 none repeat scroll 0 0;
+    color: #fff;
+    font-size: 15px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+}
+input[type="checkbox"] + label, input[type="radio"] + label{
+    font-size: 14px;
+}
+
+.log_info_pass a{
+    font-size: 13px;
+    color: #696763;
+    display: block;
+    text-align: right;
+}
+.log_info_pass a:hover{
+    color: #742b96;
+}
+.login-info span{
+    font-size: 14px;
+}
+
+.login-info span a{
+    color: #742b96;
+}
+
+.centered-form{
+    margin-bottom: 60px;
+    margin-top: 30px;
+}
+.centered-form .panel-default{
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 10px #ddd;
+    margin:0;
+    width: 100%;
+}
+
+.form-horizontal .join_reg_left .form-group{
+    margin-right 0;
+}
+
+.form-horizontal .join_reg_right .form-group{
+    margin-left: 0;
+}
+
+.panel-footer{
+    background: none;
+    font-size: 14px;
+}
+.panel-footer a{
+    color: #742b96;
+    margin-left: 5px;
+}
+
+.panel_find_psw{
+    float: none !important;
+    margin: 0 auto;
+}
+
+.find_psw .join-form.panel-default{
+    padding-top: 30px;
+}
 
 
 

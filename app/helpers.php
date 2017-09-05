@@ -5,6 +5,7 @@ use App\Models\GeneralSetting;
 use App\Models\Product\Product;
 use App\Models\ProductGroup\ProductGroup;
 use App\Models\Access\User\User;
+use App\Models\Brand;
 
 
 /**
@@ -327,6 +328,20 @@ if (! function_exists('delete_files')) {
     }
 }
 
+if (! function_exists('top_brand_list')) {
+    /* 
+     * function that populate brands
+     */
+    function top_brand_list() {
+        $brands = Brand::where('status', 1)->where('topbrand', 1)->orderBy('b_order', 'asc')->get();
+        $html = '';
+        if(count($brands) > 0){
+            $html = view('frontend.includes.brandlist')->with('brands', $brands)->render();
+        }
+        return $html;
+    }
+}
+
 if (! function_exists('product_group')) {
     /* 
      * function that populate featured products
@@ -343,27 +358,27 @@ if (! function_exists('product_group')) {
     }
 }
 
-if (! function_exists('featured_products')) {
-    /* 
-     * function that populate featured products
-     */
-    function featured_products($title = 'Products', $limit=NULL) {
-        $products = Product::where('featured', 1)->where('status', 1)->get();
-        $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
-        return $html;
-    }
-}
+// if (! function_exists('featured_products')) {
+//     /* 
+//      * function that populate featured products
+//      */
+//     function featured_products($title = 'Products', $limit=NULL) {
+//         $products = Product::where('featured', 1)->where('status', 1)->get();
+//         $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
+//         return $html;
+//     }
+// }
 
-if (! function_exists('hot_products')) {
-    /* 
-     * function that populate featured products
-     */
-    function hot_products($title = 'Products', $limit=NULL) {
-        $products = Product::where('hot', 1)->where('status', 1)->get();
-        $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
-        return $html;
-    }
-}
+// if (! function_exists('hot_products')) {
+//     /* 
+//      * function that populate featured products
+//      */
+//     function hot_products($title = 'Products', $limit=NULL) {
+//         $products = Product::where('hot', 1)->where('status', 1)->get();
+//         $html = view('frontend.includes.productssliderlist')->with('products', $products)->with('title', $title)->render();
+//         return $html;
+//     }
+// }
 
 if (! function_exists('productPrice')) {
     /* 
@@ -372,7 +387,7 @@ if (! function_exists('productPrice')) {
     function productPrice($id) {
         $product = Product::findOrFail($id);
         $price = (empty($product->productPrice->special_price)) ? $product->productPrice->price : $product->productPrice->special_price;
-        return $price;
+        return custom_number_format($price);
     }
 }
 

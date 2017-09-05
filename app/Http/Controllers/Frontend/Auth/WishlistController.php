@@ -51,7 +51,7 @@ class WishlistController extends Controller
         $duplicates = DB::table('product_wishlist')->where('product_id',$_GET['id'])->first();
 
         if (!empty($duplicates)) {
-            return redirect('/')->withSuccessMessage('Item is already in your wishlist!');
+            return redirect()->back()->withSuccessMessage('Item is already in your wishlist!');
         }
 
         DB::table('product_wishlist')->insert([
@@ -59,7 +59,7 @@ class WishlistController extends Controller
             'product_id' => $_GET['id'],
             ]);
 
-        return redirect('/')->withSuccessMessage('Item was added to your wishlist!');
+        return redirect()->back()->withSuccessMessage('Item was added to your wishlist!');
     }
 
     /**

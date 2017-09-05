@@ -312,8 +312,8 @@
 				</div>
 				<div class="form-group">
 						<label class="control-label">URL</label>
-						<div class="input-group">
-						  	<span class="input-group-addon">{{url('/').'/'}}</span>
+						<div>
+						  	<span>{{url('/').'/'}}</span>
 							{{Form::text('img_url',null,['class'=>'form-control', 'placeholder'=>'Enter URL'])}}
 						</div>
 					</div>

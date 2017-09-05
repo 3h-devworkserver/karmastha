@@ -12,7 +12,7 @@
         <div class="col-md-3 col-sm-3">
           <div class="featured-category">
               @if(!empty($productGroup->url))
-              <a href="{{url($productGroup->url)}}">
+              <a href="{{url($productGroup->url)}}" target="_blank">
               @endif
                 <img src="{{asset('images/productgroup/'.$productGroup->feat_img)}}" alt="Image">
               @if(!empty($productGroup->url))

@@ -148,7 +148,15 @@
                 var max =elem.attr('max');
                 var now = elem.val();
                 if ($.isNumeric(now)){
-                    if (parseInt(now) > min){ now--;}
+                    if (parseInt(now) > min){ 
+                        now--;
+                         elem.closest('.qty-section').find('.QtyValidation span').addClass('hide');
+                        // $('.QtyValidation span').addClass('hide');
+                    }else{
+                         elem.closest('.qty-section').find('.QtyValidation span').text('Minimum quantity selected.').removeClass('hide');
+                        // $('.QtyValidation span').text('Minimum quantity selected.').removeClass('hide');
+
+                    }
                     elem.val(now);
                 }else{
                     elem.val(min);
@@ -165,7 +173,14 @@
                 var max =elem.attr('max');
                 var now = elem.val();
                 if ($.isNumeric(now)){
-                    if (parseInt(now) < max) { now++;}
+                    if (parseInt(now) < max) { 
+                        now++;
+                        elem.closest('.qty-section').find('.QtyValidation span').addClass('hide');
+                        // $('.QtyValidation span').addClass('hide');
+                    }else{
+                       elem.closest('.qty-section').find('.QtyValidation span').text('Maximum quatity selected.').removeClass('hide');
+                        // $('.QtyValidation span').text('Maximum quatity selected.').removeClass('hide');
+                    }
                     elem.val(now);
                 }else{
                     elem.val(min);
@@ -193,7 +208,7 @@
        businessMemberCarousel();
        trendingCarousel();
        cart();
-       menuslidedown();
+       // menuslidedown();
     });
     $(window).resize(function() {
     });

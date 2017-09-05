@@ -74,7 +74,7 @@ $("#slideshow > div:gt(0)").hide();
 
 
 $(document).ready(function(){
-
+    shipping(); // for cart page
     NProgress.configure({ showSpinner: false }); // removes spinner from progress
 
     /** ====== generic anchor tag used to submit form ===== **/
@@ -91,6 +91,21 @@ $(document).ready(function(){
     });
     /** ====== end - generic anchor tag used to submit form ===== **/
 
+    /** ======== start-   home page  ======= **/
+    $(document).on('click', '.catChild', function(){
+        var id = $(this).attr('data-id');
+        $(this).closest('ul').find('.catChild').removeClass('active');
+        $(this).addClass('active');        
+        // var tmps = $(this).closest('.products-wrapper');
+        // tmps.find('li.catChild.active').not(this).removeClass('active');
+        // $(this).addClass('active');
+        //alert(id);
+        var tmp = $(this).closest('.products-wrapper');
+        tmp.find('.catSelect').hide();
+        $('.'+id).show();
+    });
+
+    /** ======== end-   home page  ======= **/
     
 
     /** ======== form validation default settings  ======= **/
@@ -215,6 +230,7 @@ $(document).ready(function(){
                                                 // alert('product combination not available');
                                                 $('.remainingQuantity span').text('Product combination not available');
                                                 $('.attrIdentifier').val('');
+                                                $('.QtyValidation span').addClass('hide');
                                                 $('.addToCart').attr('disabled', '');
                                                 NProgress.done();
                                             }else{
@@ -222,6 +238,8 @@ $(document).ready(function(){
                                                 $('.remainingQuantity span').text(quantity+' items remaining');
                                                 $('.quantity').attr('max', quantity);
                                                 $('.attrIdentifier').val(identifier);
+                                                $('.quantity').val($('.quantity').attr('min'));
+                                                $('.QtyValidation span').addClass('hide');
                                                 $('.addToCart').removeAttr('disabled');
                                                 NProgress.done();
                                             }
@@ -229,6 +247,7 @@ $(document).ready(function(){
                                             // alert('product combination not available');
                                             $('.remainingQuantity span').text('Product combination not available');
                                             $('.attrIdentifier').val('');
+                                            $('.QtyValidation span').addClass('hide');
                                             $('.addToCart').attr('disabled', '');
                                             NProgress.done();
                                         }
@@ -237,6 +256,7 @@ $(document).ready(function(){
                                             // alert('product combination available unlimited');
                                             $('.quantity').attr('max', 99999999);
                                             $('.attrIdentifier').val(identifier);
+                                            $('.QtyValidation span').addClass('hide');
                                             $('.addToCart').removeAttr('disabled');
                                             NProgress.done();
                                         }else{
@@ -244,6 +264,8 @@ $(document).ready(function(){
                                             $('.remainingQuantity span').text(quantity+' items remaining');
                                             $('.quantity').attr('max', quantity);
                                             $('.attrIdentifier').val(identifier);
+                                            $('.quantity').val($('.quantity').attr('min'));
+                                            $('.QtyValidation span').addClass('hide');
                                             $('.addToCart').removeAttr('disabled');
                                             NProgress.done();
                                         }
@@ -252,6 +274,7 @@ $(document).ready(function(){
                                     // alert('Not availabile');
                                     $('.remainingQuantity span').text('Product combination not available');
                                     $('.attrIdentifier').val('');
+                                    $('.QtyValidation span').addClass('hide');
                                     $('.addToCart').attr('disabled', '');
                                     NProgress.done();
                                 }
@@ -260,6 +283,7 @@ $(document).ready(function(){
                             error:function(response){
                                 $('.remainingQuantity span').text('Error, please try in a while.');
                                 $('.attrIdentifier').val('');
+                                $('.QtyValidation span').addClass('hide');
                                 $('.addToCart').attr('disabled', '');
                                 NProgress.done();
                             }
@@ -271,13 +295,17 @@ $(document).ready(function(){
 
     /** ====== end - product detail page  ===== **/
 
-     /** ====== start - cart page  ===== **/
+    /** ====== start - cart page  ===== **/
 
         $('.qty-update').delay(3000).slideUp();
         $('.message').delay(3000).slideUp();
 
         $('.outOfStock').each(function(){
             $(this).closest('.cart-remark').addClass('stockout');
+        });
+
+        $(document).on('change', '#shipping', function(){
+            shipping();
         });
 
         /** ====== delete item from cart  ===== **/
@@ -316,10 +344,29 @@ $(document).ready(function(){
 
      /** ====== end - cart page  ===== **/
 
-
-
-
-
 // $('.selectBox').SumoSelect();
 
 });
+
+//calculate shipping charge and generate total price
+function shipping(){
+    var value = $('#shipping').val();
+    var subTotal = parseFloat($('span.subTotal').attr('data-subtotal'));
+    if (value == 'ktm-in') {
+        $('.cost').text('50');
+        // $('span.total em').text((subTotal + 50).toFixed(12));
+        $('span.total em').text((+((+subTotal) + (+50)).toFixed(12)));
+    }else if (value == 'ktm-out') {
+        $('.cost').text('100');
+        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+    }else if (value == 'ltp-in') {
+        $('.cost').text('50');
+        $('span.total em').text((+((+subTotal) + (+50)).toFixed(12)));
+    }else if (value == 'ltp-out') {
+        $('.cost').text('100');
+        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+    }else if (value == 'bkp') {
+        $('.cost').text('100');
+        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+    }
+}

@@ -56,7 +56,7 @@
               <h2>{{$categoryDisplay->title}}</h2>
               <ul class="list-unstyled list-inline">
               @foreach($categoryDisplay->childsLimitWithOrder as $cat)
-                <li class="catChild" data-id="{{$cat->id}}"><a href="javascript::void(0)">{{$cat->title}}</a></li>
+                <li class="catChild" data-id="cat-{{$cat->id}}"><a href="javascript:void(0)">{{$cat->title}}</a></li>
               @endforeach
               </ul>
               @if( count($categoryDisplay->childs) > 4 )
@@ -69,11 +69,11 @@
       @if(!empty($categoryDisplay->second_img))
         <div class="col-md-3 col-sm-3">
           <div class="featured-category">
-              @if(!empty($categoryDisplay->url))
-              <a href="{{url($categoryDisplay->url)}}">
+              @if(!empty($categoryDisplay->img_url))
+              <a href="{{url($categoryDisplay->img_url)}}" target="_blank">
               @endif
                 <img src="{{asset('images/category/second/'.$categoryDisplay->second_img)}}" alt="Image">
-              @if(!empty($categoryDisplay->url))
+              @if(!empty($categoryDisplay->img_url))
               </a>
               @endif
           </div>
@@ -81,13 +81,23 @@
       @endif
     
       <div class="{{ !empty($categoryDisplay->second_img) ? 'col-md-9 col-sm-9' : 'col-md-12 col-sm-12' }}">
-        <div class="owl-carousel productgroup-section">
+        <div class="owl-carousel catSelect productgroup-section cat-{{$categoryDisplay->id}}">
           @foreach($categoryDisplay->productsLimit as $product)
             <div class="item">
               @include('frontend.includes.productgroup.singleproduct')
             </div>
           @endforeach
         </div>
+
+        @foreach($categoryDisplay->childsLimitWithOrder as $cat)
+        <div class="owl-carousel catSelect productgroup-section cat-{{$cat->id}}" style="display: none;">
+          @foreach($cat->productsLimit as $product)
+            <div class="item">
+              @include('frontend.includes.productgroup.singleproduct')
+            </div>
+          @endforeach
+        </div>
+        @endforeach
       </div>
 
       

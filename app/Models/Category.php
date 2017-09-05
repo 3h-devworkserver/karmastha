@@ -88,6 +88,10 @@ private $childLimit = 4;
     	return ($this->parent_id == 0) ? 'true': 'false';
     }
 
+    public function immediateParent(){
+    	return $this->belongsTo('App\Models\Category', 'parent_id')->where('status', 1);
+    }
+
     public function products(){
     	return $this->belongsToMany('App\Models\Product\Product')->where('status', 1)->orderBy('total_views', 'desc');
     }

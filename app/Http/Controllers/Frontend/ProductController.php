@@ -48,7 +48,7 @@ class ProductController extends Controller
                 ->get();
 
                 $tmp2 = $test->select('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value')
-                ->orderBy('product_attr_combination_value.id')
+                // ->orderBy('product_attr_combination_value.id')
                 ->groupBy('attribute_values.id', 'attribute_values.attribute_id', 'attribute_values.value')
                 ->get();
                 // return $tmp2;

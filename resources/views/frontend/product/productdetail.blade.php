@@ -51,11 +51,22 @@
 <section class="page-breadcrumbs pb0">
   <div class="container"> 
     <div class="row">
-      <div class="col-md-12">                
+      <div class="col-md-12"> 
+      <?php
+        $main = '';
+        foreach($product->categorys as $cat){
+          if ($cat->parent_id == 0) {
+              $main = $cat;
+              break;
+          }
+        }
+      ?>               
         <ol class="breadcrumb">
           <li><a href="#">Home</a></li>
-          <li><a href="#">Categories</a></li>
-          <li>Headphones</li>       
+          @if(!empty($main))
+          <li><a href="{{$main->url}}">{{$main->title}}</a></li>
+          @endif
+          <li>{{$product->name}}</li>       
         </ol>
 
       </div>  
@@ -179,6 +190,27 @@
                                     <?php  */ ?>
                                     <li style="background-color:{{$tm2->value}};">{{ Form::radio('attr['.$key.']', $tm2->id, false, ['id'=>'attr-'.$rand, 'class'=>'attrVal','data-value'=>$tm2->value, 'data-name'=>$tm->name, 'required']) }}<label class="attribute" for="attr-{{$rand}}"><span></span></label></li>
                                     @endif
+                                    @if ($loop->last)
+                                      @if(!empty($tm->short_desc_title))
+                                        <a class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal-{{$tm->id}}">{!!$tm->short_desc_title!!}</a>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal-{{$tm->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">{{$tm->short_desc_title}}</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                {!! $tm->short_desc !!}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      @endif
+                                    @endif
                                   @endforeach
                                 </ul>
                               @endif
@@ -201,7 +233,23 @@
 
                                       @if ($loop->last)
                                         @if(!empty($tm->short_desc_title))
-                                          <a class="btn btn-default pull-right">{{$tm->short_desc_title}}</a>
+                                          <a class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal-{{$tm->id}}">{{$tm->short_desc_title}}</a>
+
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="myModal-{{$tm->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                  <h4 class="modal-title" id="myModalLabel">{{$tm->short_desc_title}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  {!!$tm->short_desc!!}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
                                         @endif
                                       @endif
                                   @endforeach
@@ -309,6 +357,7 @@
                               <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                             </div>
                             <div class="remainingQuantity"><span class="text-danger"></span></div>
+                            <div class="QtyValidation"><span class="text-danger"></span></div>
                           </div>        
                           <div class="cart-btn">
                             <a href="javascript:void(0)" class="btn btn-primary open-door addToCart" {{(count($product->productAttrCombination) > 0) ? 'disabled' : '' }} tabindex="-1">
