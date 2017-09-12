@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function create(CreateProductRequest $request)
     {
         $rand = str_random(20);
-        $brand = Brand::where('status', 1)->pluck('brand_name', 'id');
+        $brand = Brand::where('status', 1)->orderBy('b_order', 'asc')->pluck('brand_name', 'id');
         $brand->prepend('--Select--', '');
         $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
         $attributes = Attribute::where('status', 1)->orderBy('attr_order', 'asc')->pluck('name', 'id');
@@ -138,7 +138,7 @@ class ProductController extends Controller
             // 'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug',    
-            // 'brand_id' => 'numeric|exists:members,id',    
+            'brand_id' => 'numeric|exists:brands,id',    
 
             'price' => 'required|numeric', 
 
@@ -430,7 +430,7 @@ class ProductController extends Controller
         $catSelected = $product->categorys;
         $catSelected = $catSelected->pluck('id');
         $rand = str_random(20);
-        $brand = Brand::where('status', 1)->pluck('brand_name', 'id');
+        $brand = Brand::where('status', 1)->orderBy('b_order', 'asc')->pluck('brand_name', 'id');
         $brand->prepend('--Select--', '');
         $categorys = Category::where('parent_id', 0)->where('status', 1)->orderBy('order', 'asc')->get();
 
@@ -461,7 +461,7 @@ class ProductController extends Controller
             // 'featured' => 'required',            
             'status' => 'required',  
             'slug' => 'unique:products,slug,'.$id,    
-            // 'brand_id' => 'numeric|exists:members,id',    
+            'brand_id' => 'numeric|exists:brands,id',    
 
             'price' => 'required|numeric', 
 

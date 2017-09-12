@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Brand</label>
+			<label class="control-label">Brand<em class="asterisk">*</em></label>
 			{{Form::select('brand_id',$brand,null,['class'=>'form-control'])}}
 		</div>
 

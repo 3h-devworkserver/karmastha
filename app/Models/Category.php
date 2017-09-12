@@ -80,6 +80,10 @@ private $childLimit = 4;
 		return $this->hasMany('App\Models\CategoryBanner')->where('banner_position', 'middle')->orderBy('banner_order', 'asc');
 	}
 
+	public function brands(){
+        return $this->belongsToMany('App\Models\Brand')->where('status', 1)->orderBy('b_order', 'asc');
+    }
+
 	public function topBrands(){
         return $this->belongsToMany('App\Models\Brand')->where('topbrand', 1)->where('status', 1)->orderBy('b_order', 'asc');
     }

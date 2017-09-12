@@ -115,6 +115,14 @@ class FrontendController extends Controller
         ->select('products.*','product_price.price','product_price.special_price')
         ->paginate(4);
 
+        $catArray = array();
+        $cat = $category;
+        while(count($cat->immediateParent) > 0){
+            $cat = $cat->immediateParent;
+            $catArray[] = $cat;
+        }
+        // return $catArray;
+
         $subParent = 'false';
         if (!empty($category->immediateParent)) {
             if ($category->immediateParent->isParent() == 'true') {
@@ -122,17 +130,114 @@ class FrontendController extends Controller
             }
         }
         if ($category->isParent() == 'true') {
-            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category','products', 'catArray'))->withClass('inner-page product_cat');
         }elseif($subParent == 'true'){
-            return view('frontend.category.categorypage', compact('category','products'))->withClass('inner-page product_cat');
+            return view('frontend.category.categorypage', compact('category','products', 'catArray'))->withClass('inner-page product_cat');
         }else{
             $products = $category->products;
-            return view('frontend.category.subcategorypage', compact('category', 'products'))->withClass('inner-page product_cat');
+            return view('frontend.category.subcategorypage', compact('category', 'products', 'catArray'))->withClass('inner-page product_cat');
         }
     }
 
     public function addWishlist(){
         
+    }
+
+    /**
+     * product sorting in category page
+     */
+    public function productSorting(Request $request){
+        $popularity = $request->popularity;
+        $brands = $request->brand;
+        $minprice = $request->minprice;
+        $maxprice = $request->maxprice;
+        // $pricerange = $request->pricerange;
+
+        $products = Product::leftJoin('brands', 'products.brand_id', '=', 'brands.id')
+                            ->join('category_product','products.id', '=', 'category_product.product_id')
+                            ->join('product_price','products.id', '=', 'product_price.product_id')
+                            ->where('products.status', 1)
+                            ->where('brands.status', 1);
+
+        if (!empty($popularity)) {
+            if($popularity == 'new'){
+                $products = $products->orderBy('products.created_at', 'desc');
+            }elseif($popularity == 'old'){
+                $products = $products->orderBy('products.created_at', 'asc');
+            }elseif($popularity == 'fromLowToHigh'){
+                $products= $products->where(function ($q) use ($minprice) {
+                    $q->orwhere(function ($q1) use ($minprice) {
+                        $q1->orWhere('product_price.special_price', '==', 0);
+                        $q1->orWhereNull('product_price.special_price');
+                        $q1->where(function ($q2) use ($minprice) {
+                            $q2->orderBy('product_price.price', 'asc');
+                        });
+                    });
+                    $q->orwhere(function ($q1) use ($minprice) {
+                        $q1->where('product_price.special_price', '!=', 0);
+                        $q1->whereNotNull('product_price.special_price');
+                        $q1->where('product_price.special_price', 'asc');
+                    });
+                });
+            }elseif($popularity == 'fromHighToLow'){
+                $products = $products->orderBy('products.created_at', 'asc');
+            }else{
+                $products = $products->orderBy('products.total_views', 'desc');
+            }
+        }
+        // dd($products);
+
+        if (count($brands) != 0  ) {
+            $products= $products->where(function ($q) use ($brands) {
+                foreach ($brands as $key => $brand) {
+                        $q->orWhere("products.brand_id", $brand);
+                }
+            });
+        }
+
+        if (!empty($maxprice)) {
+            $products = $products->where('product_price.price', '<=', $maxprice);
+            $products= $products->where(function ($q) use ($maxprice) {
+                    $q->orWhere('product_price.special_price', '<=', $maxprice);
+                    $q->orWhere('product_price.special_price', '==', 0);
+                    $q->orWhereNull('product_price.special_price');
+            });
+        }
+
+         if (!empty($minprice)) {
+            $products= $products->where(function ($q) use ($minprice) {
+
+                $q->orwhere(function ($q1) use ($minprice) {
+                    $q1->orWhere('product_price.special_price', '==', 0);
+                    $q1->orWhereNull('product_price.special_price');
+                    $q1->where(function ($q2) use ($minprice) {
+                        $q2->where('product_price.price', '>=', $minprice);
+                    });
+                });
+
+                $q->orwhere(function ($q1) use ($minprice) {
+                    $q1->where('product_price.special_price', '!=', 0);
+                    $q1->whereNotNull('product_price.special_price');
+                    $q1->where('product_price.special_price', '>=', $minprice);
+                });
+            });
+        }
+
+        $products = $products->select('products.id', 'name')
+                            ->groupBy('products.id', 'name')
+                            ->get();
+
+        // $products = $products->select('products.id', 'name')
+        //                     ->groupBy('products.id', 'name')
+        //                     ->toSql();
+        //                     return $products;
+
+        if (count($products) > 0) {
+            $html = view('frontend.includes.categoryproductlist')->with('products', $products)->render();
+            return response()->json(['stat'=> 'success', 'html'=>$html]);
+        }else{
+            return response()->json(['stat'=> 'error', 'html'=>'']);
+        }
     }
 
 

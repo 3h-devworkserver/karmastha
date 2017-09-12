@@ -60,7 +60,7 @@
               @endforeach
               </ul>
               @if( count($categoryDisplay->childs) > 4 )
-                <a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a>
+                <a href="{{url('category/'.$categoryDisplay->url)}}" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a>
               @endif
           </div>
         </div>
@@ -149,8 +149,9 @@
           <a href="http://{{$member->url}}" target="_blank" alt="">
           @else
           <a href="#">
-            @endif
-            <img src="{{asset('/'.$member->logo)}}" alt="">
+          @endif
+          <div class="member-img" style="background-image: url({{str_replace(' ', '%20', asset('/'.$member->logo))}});"></div>
+            {{-- <img src="{{asset('/'.$member->logo)}}" alt=""> --}}
           </a>
         </div>
         @endforeach

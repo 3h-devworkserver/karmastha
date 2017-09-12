@@ -23,9 +23,12 @@
       <div class="col-md-12">                
         <ol class="breadcrumb">
           <li><a href="{{url('/')}}">Home</a></li>
+          <?php  $i = count($catArray); ?>
+          @while($i > 0)
+          <li><a href="{{url('/'.$catArray[--$i]->url)}}">{{$catArray[$i]->title}}</a></li>
+          @endwhile
           <li class="active">{{$category->title}}</li>
         </ol>
-
       </div>  
     </div>
   </div>

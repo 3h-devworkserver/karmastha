@@ -150,12 +150,12 @@
                 if ($.isNumeric(now)){
                     if (parseInt(now) > min){ 
                         now--;
-                         elem.closest('.qty-section').find('.QtyValidation span').addClass('hide');
                         // $('.QtyValidation span').addClass('hide');
+                        elem.closest('.qty-section').find('.QtyValidation span').addClass('hide');
                     }else{
-                         elem.closest('.qty-section').find('.QtyValidation span').text('Minimum quantity selected.').removeClass('hide');
+                        //console.log(elem.closest('div.cart-review-content').find('.QtyValidation span'))
+                        elem.closest('.qty-section').find('.QtyValidation span').text('Minimum quantity selected.').removeClass('hide');
                         // $('.QtyValidation span').text('Minimum quantity selected.').removeClass('hide');
-
                     }
                     elem.val(now);
                 }else{
@@ -176,10 +176,8 @@
                     if (parseInt(now) < max) { 
                         now++;
                         elem.closest('.qty-section').find('.QtyValidation span').addClass('hide');
-                        // $('.QtyValidation span').addClass('hide');
                     }else{
-                       elem.closest('.qty-section').find('.QtyValidation span').text('Maximum quatity selected.').removeClass('hide');
-                        // $('.QtyValidation span').text('Maximum quatity selected.').removeClass('hide');
+                        elem.closest('.qty-section').find('.QtyValidation span').text('Maximum quatity selected.').removeClass('hide');
                     }
                     elem.val(now);
                 }else{

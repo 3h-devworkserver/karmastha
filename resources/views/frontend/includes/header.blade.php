@@ -3,13 +3,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-sm-6">
-            <ul class="list-unstyled list-inline hover-dropdown">
+              <ul class="list-unstyled list-inline hover-dropdown">
                 <li><a href="">Job Vacancy </a></li>
                 <li><a href="">Hot News</a></li>
                 <li><a href="">Events</a></li>
                 <li><a href="">Services</a></li>
-                <li><a href="{{URL::to('/brand')}}">Brand</a></li>
-            </ul>
+                <li><a href="">Brand</a></li>
+            </ul> 
           </div>
           <div class="col-md-6 col-sm-6">
             <ul class="list-unstyled list-inline text-right hover-dropdown">
@@ -221,8 +221,13 @@
           </div>
           <div class="search-box">
             <div class="dropdown">
-          
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <select class="dropdown-menu selectBox" aria-labelledby="dropdownMenu1" name="catname">
+              <option value=""></i> All Categories </option>
+              @foreach($categorys as $key => $cat)
+              <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
+              @endforeach
+            </select>
+            {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <i class="flaticon-bars"></i>
               All categories
               <i class="fa fa-angle-down"></i>
@@ -235,7 +240,7 @@
               <li><a href="#">Sports</a></li>
               <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
             </ul>
-          </div>
+ --}}          </div>
 
          <div class="bootsnipp-search animate">
            <form action="#" method="GET" role="search">
@@ -264,18 +269,24 @@
       <div class="search-box">
         <div class="dropdown">
           
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <i class="flaticon-bars"></i>
               All categories
               <i class="fa fa-angle-down"></i>
-            </button>
-            {{-- <select class="dropdown-menu" aria-labelledby="dropdownMenu1" name="catname">
-              <option value="">All Categories</option>
-              @foreach($categories as $key => $cats)
-              <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+            </button> --}}
+            <select class="dropdown-menu selectBox" aria-labelledby="dropdownMenu1" name="catname">
+              <option value=""></i> All Categories </option>
+              @foreach($categorys as $key => $cat)
+              <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
               @endforeach
-            </select> --}}
-           {{--  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            </select>
+            {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              @foreach($categorys as $key => $cat)
+              <li><a href="#">{{ $cat->title }}</a></li>
+              @endforeach
+            </ul> --}}
+
+            {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li><a href="#">Fashion</a></li>
               <li><a href="#">Furniture</a></li>
               <li><a href="#">Electronics</a></li>
@@ -283,6 +294,7 @@
               <li><a href="#">Sports</a></li>
               <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
             </ul> --}}
+
           </div>
           <form action="#">
             <div class="input-group">
@@ -302,7 +314,7 @@
           </a>
         </div>
         <div class="rentshop-block">
-          <a href="#">
+          <a href="{{url('/login')}}">
             <i class="flaticon-money-bag"></i>
             <span>Rent a Shop</span>
             

@@ -39,8 +39,11 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/bootstrap.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/jquery-ui.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/sumoselect.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('font/flaticon.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/la-fonts.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/addSlider.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/xzoom.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/nprogress.css')}}">
@@ -71,12 +74,18 @@
 @yield('before-scripts')
 <script src="{{asset('js/frontend/jquery.min.js')}}"></script>
 <script src="{{asset('js/frontend/bootstrap.js')}}"></script>
+<script src="{{asset('js/frontend/jquery-ui.min.js')}}"></script>
+<script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
 <script src="{{asset('js/frontend/owl.carousel.js')}}"></script>
 <script src="{{asset('js/frontend/script.js')}}"></script>
+<script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
+<script src="{{asset('js/frontend/addSlider.js')}}"></script>
+<script src="{{asset('js/frontend/Obj.min.js')}}"></script>
 <script src="{{asset('js/frontend/slider-menu.jquery.js')}}"></script>
 <script src="{{asset('js/frontend/ap-drilldown-menu.min.js')}}"></script>
 <script src="{{asset('js/frontend/zoom-setup.js')}}"></script>
 <script src="{{asset('js/frontend/xzoom.min.js')}}"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 {{-- {{ Html::script('js/frontend/jquery.validate.js') }} --}}
  {!! Html::script('jquery-validation-1.15.0/dist/jquery.validate.js') !!}
 <script src="{{asset('js/frontend/nprogress.js')}}"></script>

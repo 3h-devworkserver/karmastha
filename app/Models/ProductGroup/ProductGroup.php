@@ -21,7 +21,7 @@ class ProductGroup extends Model
     
     protected $guarded = ['id'];
     private $limit = 15;
-    private $trendingLimit = 8;
+    private $trendingLimit = 10;
 
     public function products(){
         return $this->belongsToMany('App\Models\Product\Product', 'product_productgroup', 'productgroup_id', 'product_id')->orderBy('total_views', 'desc');

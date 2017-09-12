@@ -64,7 +64,7 @@
             <h4>Contact Us</h4>
             <ul class="list-unstyled contact-info">
                 <li><i class="fa fa-phone"></i>01-4564488</li>
-                <li><a href="mailto:dkarmastha@gmail.com"><i class="fa fa-envelope"></i>dkarmastha@gmail.com</a></li>
+                <li><a href="mailto:dkarmastha@gmail.com"><i class="fa fa-envelope"></i>dkarmastha@<span>gmail.com</span></a></li>
                 <li><i class="fa fa-map-marker"></i>New Road, Kathmandu</li>
                
             </ul>

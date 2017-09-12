@@ -167,12 +167,14 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                               <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
                             @endif
                           </div>
+                          {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->id, 'method'=>'get'])}}
+                              <div class="cart-delete fix-width">
+                                <a type="button" href="#" class="submitConfirm" data-hash="{{$cartItem->id}}" >Delete</a>
+                              </div>
+                          {{Form::close()}}
+                          {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->id}}" ><i class="fa fa-times"></i></a> --}}
                         </div>
                       </div>
-                      {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->id, 'method'=>'get'])}}
-                          <a type="button" href="#" class="bagde-remove submitConfirm" data-hash="{{$cartItem->id}}" ><i class="fa fa-times"></i></a>
-                      {{Form::close()}}
-                      {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->id}}" ><i class="fa fa-times"></i></a> --}}
                   </div>
               @endforeach
 
@@ -307,12 +309,14 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                               {{custom_number_format(floatval($cartItem->qty * $cartItem->price ))}}</em></span>
                             @endif
                           </div>
+                          {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->getHash(), 'method'=>'get' ])}}
+                              <div class="cart-delete fix-width">
+                                <a type="button" href="#" class="submitConfirm" data-hash="{{$cartItem->getHash()}}" >Delete</i></a>
+                              </div>
+                          {{Form::close()}}
+                          {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a> --}}
                         </div>
                       </div>
-                      {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->getHash(), 'method'=>'get' ])}}
-                          <a type="button" href="#" class="bagde-remove submitConfirm" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a>
-                      {{Form::close()}}
-                      {{-- <a type="button" href="#" class="bagde-remove" data-hash="{{$cartItem->getHash()}}" ><i class="fa fa-times"></i></a> --}}
                   </div>
               @endforeach
 

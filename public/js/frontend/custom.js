@@ -74,6 +74,7 @@ $("#slideshow > div:gt(0)").hide();
 
 
 $(document).ready(function(){
+    $('.selectBox').SumoSelect(); //activate sumoselect
     shipping(); // for cart page
     NProgress.configure({ showSpinner: false }); // removes spinner from progress
 
@@ -340,11 +341,172 @@ $(document).ready(function(){
         //     }
         // });
 
+    /** ====== end - cart page  ===== **/
 
 
-     /** ====== end - cart page  ===== **/
+    /** ====== start - subcategory page  ===== **/
 
-// $('.selectBox').SumoSelect();
+       // price range slider 
+    var filter_url = '';
+    var ids = [];
+    // var min_price = parseFloat('100');
+    var min_price = parseFloat($('#price-from').val());
+    // var max_price = parseFloat('2000');
+    var max_price = parseFloat($('#price-to').attr('data-max'));
+    var step = parseFloat($('#price-to').attr('data-step'));
+    var current_min_price = parseFloat($('#price-from').val());
+    var current_max_price = parseFloat($('#price-to').val());
+
+    $('#slider-price').slider({
+        range   : true,
+        min     : min_price,
+        max     : max_price,
+        step    : step,
+        values  : [ current_min_price, current_max_price ],
+        slide   : function (event, ui) {
+            $('#price-from').val(ui.values[0]);
+            $('#price-to').val(ui.values[1]);
+            current_min_price = ui.values[0];
+            current_max_price = ui.values[1];
+        },
+        stop    : function (event, ui) {
+            filter_url = $('.price-url').val();
+            filter_url += '&price=' + current_min_price + ',' + current_max_price;
+            $('.sortingProcess').click();
+            // oclayerednavigationajax.filter(filter_url);
+        }
+    });
+
+    $('.a-filter').click(function () {
+        var id = $(this).attr('name');
+        var filter_ids = '';
+        filter_url = $('.filter-url').val();
+        if($(this).hasClass('add-filter') == true) {
+            ids.push(id);
+        } else if($(this).hasClass('remove-filter') == true) {
+            ids = $.grep(ids, function (value) {
+                return value != id;
+            });
+        }
+        filter_ids = ids.join(',');
+        filter_url += '&filter=' + filter_ids;
+        // oclayerednavigationajax.filter(filter_url);
+    });
+
+    $('.clear-filter').click(function () {
+        ids = [];
+    });
+
+    $(document).ajaxComplete(function () {
+        var current_min_price = parseFloat($('#price-from').val());
+        var current_max_price = parseFloat($('#price-to').val());
+
+        $('#slider-price').slider({
+            range   : true,
+            min     : min_price,
+            max     : max_price,
+            step    : step,
+            values  : [ current_min_price, current_max_price ],
+            slide   : function (event, ui) {
+                $('#price-from').val(ui.values[0]);
+                $('#price-to').val(ui.values[1]);
+                current_min_price = ui.values[0];
+                current_max_price = ui.values[1];
+            },
+            stop    : function (event, ui) {
+                filter_url = $('.price-url').val();
+                filter_url += '&price=' + current_min_price + ',' + current_max_price;
+                $('.sortingProcess').click();
+                // oclayerednavigationajax.filter(filter_url);
+            }
+        });
+        $('.a-filter').click(function () {
+            var id = $(this).attr('name');
+            var filter_ids = '';
+            filter_url = $('.filter-url').val();
+
+            if($(this).hasClass('add-filter') == true) {
+                ids.push(id);
+            } else if($(this).hasClass('remove-filter') == true) {
+                ids = $.grep(ids, function (value) {
+                    return value != id;
+                });
+            }
+            filter_ids = ids.join(',');
+            filter_url += '&filter=' + filter_ids;
+            // oclayerednavigationajax.filter(filter_url);
+        });
+
+        $('.clear-filter').click(function () {
+            ids = [];
+        });
+    });
+    $('.layered .filter-attribute-container label').click(function(){
+        $(this).next().slideToggle();
+    });
+
+    $(document).on('click', '.left-category-list .catViewAll', function(){
+        $(this).closest('.left-category-list').find('ul li.hide').removeClass('hide');
+        $(this).hide();
+    });
+
+    $(document).on('click', '.viewAll', function(){
+        $(this).closest('.parent').find('.child.hide').removeClass('hide');
+        $(this).hide();
+    });
+
+
+    // $(document).on('click', '.ui-slider-handle', function(){
+    //     alert('her');
+    //     // var tmp = $('input[name="pricerange"]').val();
+    //     // var items = tmp.split(',');
+    //     // // alert(items[0]);
+    //     // $('input[name="minprice"]').val(items[0]);
+    //     // $('input[name="maxprice"]').val(items[1]);
+    //     $('.sortingProcess').click();
+    // });
+
+    // $(document).on('change', 'input[name="minprice"]', function(){
+    //     var tmp = $('input[name="minprice"]').val();
+    //     var items = tmp.split(',');
+    //     // alert(items[0]);
+    //     $('input[name="minprice"]').val(items[0]);
+    //     $('input[name="maxprice"]').val(items[1]);
+    //     $('.sortingProcess').click();
+    // });
+
+    $(document).on('change', '.sortChange', function(){
+        $('.sortingProcess').click();
+    });
+
+    $(document).on("click",".sortingProcess",function(e){
+        NProgress.start();
+        $(this).parents("form").ajaxForm(options);
+        NProgress.done();
+    });
+
+    var options = { 
+      complete: function(response) 
+        {
+          if($.isEmptyObject(response.responseJSON.error)){
+            // $("input[name='title']").val('');
+            // console.log(response.responseText);
+            // alert('sucess');
+            var obj = jQuery.parseJSON(response.responseText);
+            $(".brands-list").html(obj.html);
+            console.log(obj.html);
+          }else{
+            alert('error');
+            // printErrorMsg(response.responseJSON.error);
+          }
+        }
+    };
+
+ 
+
+    /** ====== end - subcategory page ===== **/
+
+    
 
 });
 

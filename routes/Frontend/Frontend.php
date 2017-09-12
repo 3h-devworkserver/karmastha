@@ -9,6 +9,7 @@ Route::get('/brand/{url}', 'FrontendController@brandpage')->where('slug','.*')->
 Route::get('macros', 'FrontendController@macros')->name('macros');
 
 Route::get('/category/{slug}', 'FrontendController@showCategoryPage')->where('slug','.*')->name('category.show');
+Route::get('/productsorting', 'FrontendController@productSorting')->name('productsorting');
 
 Route::group(['middleware' => 'auth'], function () {
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {

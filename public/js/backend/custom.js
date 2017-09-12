@@ -313,18 +313,18 @@ $(document).on('change', 'input[type="checkbox"]', function(){
 
  var options = { 
   complete: function(response) 
-  {
-    if($.isEmptyObject(response.responseJSON.error)){
-      $("input[name='title']").val('');
-      var obj = jQuery.parseJSON(response.responseText);
-            // alert('Image Upload Successfully.');
-            $(".selectedFiles").append(obj.html);
-            countProductImageRowAndDisplayText();
-          }else{
-            printErrorMsg(response.responseJSON.error);
-          }
-        }
-      };
+    {
+      if($.isEmptyObject(response.responseJSON.error)){
+        $("input[name='title']").val('');
+        var obj = jQuery.parseJSON(response.responseText);
+        // alert('Image Upload Successfully.');
+        $(".selectedFiles").append(obj.html);
+        countProductImageRowAndDisplayText();
+      }else{
+        printErrorMsg(response.responseJSON.error);
+      }
+    }
+  };
 
       function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');
@@ -564,6 +564,7 @@ $('#productForm').validate({
     'name': 'required',
     'sku': 'required',
     'short_desc': 'required',
+    'brand_id': 'required',
     'detail': 'required',
     'return_policy': 'required',
     'featured': 'required',
