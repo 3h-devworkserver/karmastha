@@ -183,7 +183,8 @@ class ProductController extends Controller
             $product->productPrice()->create([
                 //price
                 'price'=> $request->price,  
-                'special_price'=> $request->special_price,  
+                'special_price'=> $request->special_price,
+                'main_price' => (empty($request->special_price))? $request->price : $request->special_price,
             ]);
 
             $product->productInventory()->create([
@@ -506,7 +507,8 @@ class ProductController extends Controller
             $product->productPrice()->update([
                 //price
                 'price'=> $request->price,  
-                'special_price'=> $request->special_price,  
+                'special_price'=> $request->special_price, 
+                'main_price' => (empty($request->special_price))? $request->price : $request->special_price,
             ]);
 
             $product->productInventory()->update([

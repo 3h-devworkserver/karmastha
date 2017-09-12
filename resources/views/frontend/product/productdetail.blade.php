@@ -28,7 +28,9 @@
 {{url()->current()}}
 @endsection
 
-@section('og_image'){{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}}@endsection
+@section('og_image')
+@if(count($baseImage) > 0){{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}} @endif 
+@endsection
 
 @section('tw_title')
 {{$product->name}}
@@ -43,7 +45,7 @@
 @endsection
 
 @section('tw_image')
-{{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}}
+@if(count($baseImage) > 0) {{url('images/product/'.$product->id.'/base/'.$baseImage[0]->image)}} @endif
 @endsection
 
 @section('content')

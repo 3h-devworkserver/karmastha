@@ -73,7 +73,7 @@
                     <div class="thumbnail">
                       <div class="product-img">
                         <div class="img-wrap">
-                          <img src="{{asset('images/category/'.$child->feat_img)}}" alt="">
+                          <img src="{{getImageUrl('images/category/',$child->feat_img)}}" alt="">
                         </div>
                       </div>
                       <div class="caption">
@@ -126,7 +126,7 @@
                 <div class="thumbnail">
                   <div class="category-img">
                     <div class="img-wrap">
-                      <img src="{{asset('images/category/'.$cat->feat_img)}}" alt="">
+                      <img src="{{getImageUrl('images/category/',$cat->feat_img)}}" alt="">
                     </div>
                   </div>
                   

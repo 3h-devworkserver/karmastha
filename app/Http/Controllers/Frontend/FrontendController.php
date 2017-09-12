@@ -165,22 +165,23 @@ class FrontendController extends Controller
             }elseif($popularity == 'old'){
                 $products = $products->orderBy('products.created_at', 'asc');
             }elseif($popularity == 'fromLowToHigh'){
-                $products= $products->where(function ($q) use ($minprice) {
-                    $q->orwhere(function ($q1) use ($minprice) {
-                        $q1->orWhere('product_price.special_price', '==', 0);
-                        $q1->orWhereNull('product_price.special_price');
-                        $q1->where(function ($q2) use ($minprice) {
-                            $q2->orderBy('product_price.price', 'asc');
-                        });
-                    });
-                    $q->orwhere(function ($q1) use ($minprice) {
-                        $q1->where('product_price.special_price', '!=', 0);
-                        $q1->whereNotNull('product_price.special_price');
-                        $q1->where('product_price.special_price', 'asc');
-                    });
-                });
+                $products = $products->orderBy('product_price.main_price', 'asc');
+                // $products= $products->where(function ($q) use ($minprice) {
+                //     $q->orwhere(function ($q1) use ($minprice) {
+                //         $q1->orWhere('product_price.special_price', '==', 0);
+                //         $q1->orWhereNull('product_price.special_price');
+                //         $q1->where(function ($q2) use ($minprice) {
+                //             $q2->orderBy('product_price.price', 'asc');
+                //         });
+                //     });
+                //     $q->orwhere(function ($q1) use ($minprice) {
+                //         $q1->where('product_price.special_price', '!=', 0);
+                //         $q1->whereNotNull('product_price.special_price');
+                //         $q1->where('product_price.special_price', 'asc');
+                //     });
+                // });
             }elseif($popularity == 'fromHighToLow'){
-                $products = $products->orderBy('products.created_at', 'asc');
+                $products = $products->orderBy('product_price.main_price', 'desc');
             }else{
                 $products = $products->orderBy('products.total_views', 'desc');
             }

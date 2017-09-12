@@ -85,7 +85,7 @@
 								                            </div>
 									                		<div class="slider-price-to">
 									                            <span>NPR</span>
-									                            <input id="price-to" class="input-price sortChange" type="text" value="2000" data-step="100" data-max="12000" placeholder="Max" name="maxprice" />
+									                            <input id="price-to" class="input-price sortChange" type="text" value="{{(empty($category->max_price))? 10000 : $category->max_price }}" data-step="100" data-max="{{(empty($category->max_price))? 10000 : $category->max_price }}" placeholder="Max" name="maxprice" />
 								                            </div>
 								                        </div>
 									                    

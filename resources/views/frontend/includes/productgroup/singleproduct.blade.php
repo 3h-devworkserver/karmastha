@@ -5,7 +5,8 @@
   <div class="product-img">
     <a href="{{url('/product/'.$product->slug)}}" target="_blank">
       <div class="img-wrap">
-        <img src="{{asset('images/product/'.$product->id.'/small/'.$product->productFirstListImage())}}" alt="{{$product->name}}">
+        <img src="{{getImageUrl('images/product/'.$product->id.'/small/', $product->productFirstListImage() )}}" alt="{{$product->name}}">
+        {{-- <img src="{{asset('/images/product/'.$product->id.'/small/'.$product->productFirstListImage() )}}" alt="{{$product->name}}"> --}}
         
       </div>
     </a>

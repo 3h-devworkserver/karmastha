@@ -72,7 +72,7 @@
               @if(!empty($categoryDisplay->img_url))
               <a href="{{url($categoryDisplay->img_url)}}" target="_blank">
               @endif
-                <img src="{{asset('images/category/second/'.$categoryDisplay->second_img)}}" alt="Image">
+                <img src="{{getImageUrl('images/category/second/', $categoryDisplay->second_img)}}" alt="Image">
               @if(!empty($categoryDisplay->img_url))
               </a>
               @endif
@@ -122,7 +122,7 @@
     <div class="brand-list">
       <ul class="list-unstyled list-inline">
         @foreach( $brands as $key => $brand)
-        <li><a href="{{ URL::to('/brand/'.$brand->slug ) }}"><img src="{{ asset('/'.$brand->brand_logo) }}" alt=""></a></li>
+        <li><a href="{{ URL::to('/brand/'.$brand->slug ) }}"><img src="{{ getImageUrl('',$brand->brand_logo) }}" alt=""></a></li>
         @endforeach
       </ul>
     </div>
@@ -150,7 +150,7 @@
           @else
           <a href="#">
           @endif
-          <div class="member-img" style="background-image: url({{str_replace(' ', '%20', asset('/'.$member->logo))}});"></div>
+          <div class="member-img" style="background-image: url({{str_replace(' ', '%20', getImageUrl('', $member->logo))}});"></div>
             {{-- <img src="{{asset('/'.$member->logo)}}" alt=""> --}}
           </a>
         </div>

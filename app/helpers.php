@@ -584,6 +584,22 @@ if (! function_exists('getUser')) {
     }
 }
 
+if (! function_exists('getImageUrl')) {
+    /* 
+     * get user object
+     */
+    function getImageUrl($path='', $filename){
+        if (!empty($filename)) {
+            if(File::exists($path.$filename)){
+                return asset($path.$filename);
+            }            else{
+                return asset('images/no-image.png');
+            }
+        }
+        return asset('images/no-image.png');
+    }
+}
+
 
 
 

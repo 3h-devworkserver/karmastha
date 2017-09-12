@@ -14,7 +14,8 @@
               @if(!empty($productGroup->url))
               <a href="{{url($productGroup->url)}}" target="_blank">
               @endif
-                <img src="{{asset('images/productgroup/'.$productGroup->feat_img)}}" alt="Image">
+                {{-- <img src="{{asset('images/productgroup/'.$productGroup->feat_img)}}" alt="Image"> --}}
+                <img src="{{getImageUrl('images/productgroup/',$productGroup->feat_img)}}" alt="Image">
               @if(!empty($productGroup->url))
               </a>
               @endif

@@ -115,6 +115,7 @@ class CategoryController extends Controller {
 			$item->img_url 		= Request::get('img_url','');		
 			$item->cat_type 		= Request::get('cat_type','');		
 			$item->homepage_display = Request::get('homepage_display','');		
+			$item->max_price = Request::get('max_price','');		
 
 			$item->save();
 
@@ -310,6 +311,7 @@ class CategoryController extends Controller {
 			$item->img_url 		= Request::get('img_url','');		
 			$item->cat_type 		= Request::get('cat_type','');		
 			$item->homepage_display = Request::get('homepage_display','');		
+			$item->max_price = Request::get('max_price','');		
 
 			$item->save();
 
