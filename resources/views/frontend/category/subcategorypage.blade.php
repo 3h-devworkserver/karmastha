@@ -43,7 +43,7 @@
 					        <aside class="sidebar">
 					            <section class="sidebar-category gray-bg">
 					            	<?php $count = count($catArray); --$count; ?>
-					              <h2 class="sidebar-title-1">{{$catArray[--$count]->title}}</h2>
+					              <h2 class="sidebar-title-1 sidebar-heading">{{$catArray[--$count]->title}}</h2>
 					              <div class="left-category-list">
 					              	@if(count($catArray[$count]->childsWithOrder) > 0)
 						                <ul class="list-unstyled">
@@ -81,7 +81,7 @@
 									                	<div class="slider-values">
 									                		<div class="slider-price-from">
 									                            <span>NPR</span>
-									                            <input id="price-from" class="input-price sortChange" type="text" value="0" placeholder="Min" name="minprice"/> 
+									                            <input id="price-from" class="input-price sortChange" type="text" value="0" data-min="0" placeholder="Min" name="minprice"/> 
 								                            </div>
 									                		<div class="slider-price-to">
 									                            <span>NPR</span>
@@ -114,7 +114,7 @@
 						                          	<div class="sidebar_checkbox parent">
 														@foreach($category->brands as $key=>$brand)
 									                    <div class="checkbox child @if($key > 4) hide @endif">
-									                        <input id="checkbox{{$key}}" type="checkbox" name="brand[]" value="{{$brand->id}}" class="sortChange">
+									                        <input id="checkbox{{$key}}" type="checkbox" name="brand[]" value="{{$brand->id}}" class="sortChange brand-{{$brand->id}}" data-name="{{$brand->brand_name}}">
 									                        <label for="checkbox{{$key}}"><span></span>{{$brand->brand_name}}</label>
 									                        <!--
 									                        <font class="c-number">
@@ -306,24 +306,33 @@
 				            @endif
 
 				            <section class="products-wrapper pt0">
-				              <div class="title-header-list">
-				                <div class="pull-left">
-				                  <h2 class="section-title-2">{{$category->title}}</h2>
-				                </div>
-				                <div class="list-filter pull-right">
-				                  <div class="dataTables_length" id="myTable_length">
-				                    <label>Sort by:
-					                    <select name="popularity" aria-controls="myTable" class="sortChange">
-					                        <option value="popular">popularity</option>
-					                        <option value="new">newest</option>
-					                        <option value="fromLowToHigh">Price Low to High</option>
-					                        <option value="fromHighToLow">Price High to Low</option>
-					                    </select>
-				                    </label>
-				                  </div>
+					            <div class="title-header-list">
+					                <div class="pull-left">
+					                  <h2 class="section-title-2">{{$category->title}}</h2>
+					                </div>
+					                <div class="list-filter pull-right">
+					                  <div class="dataTables_length" id="myTable_length">
+					                    <label>Sort by:
+						                    <select name="popularity" aria-controls="myTable" class="sortChange selectBox">
+						                        <option value="popular">popularity</option>
+						                        <option value="new">newest</option>
+						                        <option value="fromLowToHigh">Price Low to High</option>
+						                        <option value="fromHighToLow">Price High to Low</option>
+						                    </select>
+					                    </label>
+					                  </div>
 
-				                </div>
-				              </div>
+					                </div>
+					            </div>
+
+					            <div class="sortingCriteria">
+					            	<div class="sortingCriterion criteriaBrand hide">
+					            		<span>Brand</span>
+					            	</div>
+					            	<div class="sortingCriterion criteriaPrice hide">
+					            		<span>Price</span>
+					            	</div>
+					            </div>
 							
 								<div class="brands-list clearfix">
 						      		@include('frontend.includes.categoryproductlist')

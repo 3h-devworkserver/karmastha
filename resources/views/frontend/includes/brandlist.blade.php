@@ -1,4 +1,4 @@
-<section class="brands-wrapper gray-bg">
+<section class="brands-wrapper gray-bg pb10">
   <div class="container">
     <h2 class="section-title-1">Our Brands</h2>
     <div class="brand-list">

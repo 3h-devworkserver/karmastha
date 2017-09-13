@@ -78,6 +78,9 @@ $(document).ready(function(){
     shipping(); // for cart page
     NProgress.configure({ showSpinner: false }); // removes spinner from progress
 
+    // adding down arrow in sumoselect in search
+    $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
+
     /** ====== generic anchor tag used to submit form ===== **/
     $(document).on('click', 'a.submit', function(){
         $(this).closest('form').submit();
@@ -350,7 +353,7 @@ $(document).ready(function(){
     var filter_url = '';
     var ids = [];
     // var min_price = parseFloat('100');
-    var min_price = parseFloat($('#price-from').val());
+    var min_price = parseFloat($('#price-from').attr('data-min'));
     // var max_price = parseFloat('2000');
     var max_price = parseFloat($('#price-to').attr('data-max'));
     var step = parseFloat($('#price-to').attr('data-step'));
@@ -372,6 +375,10 @@ $(document).ready(function(){
         stop    : function (event, ui) {
             filter_url = $('.price-url').val();
             filter_url += '&price=' + current_min_price + ',' + current_max_price;
+
+            $('.criteriaPrice a').remove();
+            $('.criteriaPrice').removeClass('hide');
+            $('.criteriaPrice').append('<a>NPR '+current_min_price+' - NPR '+current_max_price+'<span class="sortingRemove"></span></a>');
             $('.sortingProcess').click();
             // oclayerednavigationajax.filter(filter_url);
         }
@@ -416,6 +423,10 @@ $(document).ready(function(){
             stop    : function (event, ui) {
                 filter_url = $('.price-url').val();
                 filter_url += '&price=' + current_min_price + ',' + current_max_price;
+
+                $('.criteriaPrice a').remove();
+                $('.criteriaPrice').removeClass('hide');
+                $('.criteriaPrice').append('<a>NPR '+current_min_price+' - NPR '+current_max_price+'<span class="sortingRemove"></span></a>');
                 $('.sortingProcess').click();
                 // oclayerednavigationajax.filter(filter_url);
             }
@@ -494,7 +505,28 @@ $(document).ready(function(){
             // alert('sucess');
             var obj = jQuery.parseJSON(response.responseText);
             $(".brands-list").html(obj.html);
-            console.log(obj.html);
+
+            //populating sorting criteria
+            var checkedBrandIds = $('input[name="brand[]"]:checked').map(function() {
+                return $(this).val();
+            }).get();
+            if (checkedBrandIds.length == 0) {
+                $('.criteriaBrand').addClass('hide');
+            }
+            var checkedBrandNames = $('input[name="brand[]"]:checked').map(function() {
+                return $(this).attr('data-name');
+            }).get();
+            // console.log(checkedBrandIds);
+            // console.log(checkedBrandNames);
+            $('.criteriaBrand a').remove();
+            $.each(checkedBrandIds, function( key, value ) {
+                $('.criteriaBrand').removeClass('hide');
+                $('.criteriaBrand').append('<a>'+checkedBrandNames[key]+'<span data-id="'+value+'" class="sortingRemove"></span></a>');
+            });
+
+            //end of sorting criteria
+
+            // console.log(obj.html);
           }else{
             alert('error');
             // printErrorMsg(response.responseJSON.error);
@@ -502,6 +534,23 @@ $(document).ready(function(){
         }
     };
 
+    $(document).on('click', '.criteriaBrand .sortingRemove', function(){
+        var tmp = $(this).attr('data-id');
+        $('.brand-'+tmp).attr('checked', false);
+        $('.sortingProcess').click();
+        $(this).closest('a').remove();
+        if ($('.criteriaBrand a').length == 0) {
+            $('.criteriaBrand').addClass('hide');
+        }
+    });
+
+    $(document).on('click', '.criteriaPrice .sortingRemove', function(){
+        $('.criteriaPrice a').remove();
+        $('.criteriaPrice').addClass('hide');
+        $('#price-from').val($('#price-from').attr('data-min'));
+        $('#price-to').val($('#price-to').attr('data-max'));
+        $('.sortingProcess').click();
+    });
  
 
     /** ====== end - subcategory page ===== **/

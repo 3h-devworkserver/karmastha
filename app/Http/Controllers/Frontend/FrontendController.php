@@ -224,8 +224,8 @@ class FrontendController extends Controller
             });
         }
 
-        $products = $products->select('products.id', 'name')
-                            ->groupBy('products.id', 'name')
+        $products = $products->select('products.id', 'products.name', 'product_price.main_price', 'products.total_views', 'products.created_at')
+                            ->groupBy('products.id', 'products.name', 'product_price.main_price', 'products.total_views', 'products.created_at')
                             ->get();
 
         // $products = $products->select('products.id', 'name')

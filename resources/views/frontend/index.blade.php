@@ -115,52 +115,15 @@
   ?> 
 @endif
 
-@if( count( $brands) > 0 )
-<section class="brands-wrapper gray-bg pb10">
-  <div class="container">
-    <h2 class="section-title-1">Our Brands</h2>
-    <div class="brand-list">
-      <ul class="list-unstyled list-inline">
-        @foreach( $brands as $key => $brand)
-        <li><a href="{{ URL::to('/brand/'.$brand->slug ) }}"><img src="{{ getImageUrl('',$brand->brand_logo) }}" alt=""></a></li>
-        @endforeach
-      </ul>
-    </div>
-  </div>
-</section>
-@endif 
+{{-- <!-- top brands -->
+{!! top_brand_list() !!} --}}
 
 @if(!empty($page->bottom_content))
-<section class="steps-wrapper text-center">
-  <div class="container">
-    {!! $page->bottom_content !!}
-  </div>
-</section>
-@endif
-@if( count($members) > 0 )
-<section class="brands-wrapper gray-bg">
-  <div class="container">
-    <h2 class="section-title-1">Business Member</h2>
-    <div class="brand-list">
-      <div class="owl-carousel">
-        @foreach( $members as $key => $member)
-        <div class="item">
-          @if( $member->url  != '#' || !empty( $member->url))
-          <a href="http://{{$member->url}}" target="_blank" alt="">
-          @else
-          <a href="#">
-          @endif
-          <div class="member-img" style="background-image: url({{str_replace(' ', '%20', getImageUrl('', $member->logo))}});"></div>
-            {{-- <img src="{{asset('/'.$member->logo)}}" alt=""> --}}
-          </a>
-        </div>
-        @endforeach
-        
-      </div>
-      
-    </div>
-  </div>
-</section>
+  <?php   
+    file_put_contents(base_path() . '/resources/views/frontend/tmp.blade.php', $page->bottom_content);
+        $html = view('frontend.tmp')->render();
+    echo $html;
+  ?> 
 @endif
 
 @endsection

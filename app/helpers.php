@@ -6,6 +6,7 @@ use App\Models\Product\Product;
 use App\Models\ProductGroup\ProductGroup;
 use App\Models\Access\User\User;
 use App\Models\Brand;
+use App\Models\Member;
 
 
 /**
@@ -337,6 +338,20 @@ if (! function_exists('top_brand_list')) {
         $html = '';
         if(count($brands) > 0){
             $html = view('frontend.includes.brandlist')->with('brands', $brands)->render();
+        }
+        return $html;
+    }
+}
+
+if (! function_exists('member_list')) {
+    /* 
+     * function that populate members
+     */
+    function member_list() {
+        $members = Member::where('status', 1)->orderBy('m_order', 'asc')->get();
+        $html = '';
+        if(count($members) > 0){
+            $html = view('frontend.includes.memberlist')->with('members', $members)->render();
         }
         return $html;
     }

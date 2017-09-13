@@ -664,39 +664,34 @@ section {
   box-shadow: none;
   height: 40px;
 }
-
-.SumoSelect:focus > .CaptionCont, 
-.SumoSelect:hover > .CaptionCont, 
-.SumoSelect.open > .CaptionCont{ border-color: unset; }
+.mid-header .search-box .form-control[type="text"]:focus, 
+.mid-header .search-box .form-control[type="text"]:active { border: none; }
+.search-box .SumoSelect:focus > .CaptionCont, 
+.search-box .SumoSelect:hover > .CaptionCont, 
+.search-box .SumoSelect.open > .CaptionCont{ border-color: unset; }
 .search-box .dropdown .SumoSelect{ border-right: 1px solid #ddd; }
-.SumoSelect > .CaptionCont{ 
+.search-box .SumoSelect > .CaptionCont{ 
   border: none;
   border-radius: 3px 0 0 3px; 
   cursor: pointer;
   height: 40px; 
   color: #d5d5d5; 
 }
-.SumoSelect > .CaptionCont::after {
+.search-box .SumoSelect > .CaptionCont::after {
   content: "\f100";
   font-family: "Flaticon";
   font-size: 22px;
 }
-.SumoSelect > .CaptionCont > span{ 
+.search-box .SumoSelect > .CaptionCont > span{ 
   font-size: 15px; 
   float: right; cursor: 
   pointer; 
   line-height: 30px; 
   text-transform: uppercase;
 }
-.SumoSelect > .CaptionCont > label{ margin-bottom: 0; }
-.SumoSelect > .CaptionCont > label > i{ background-image: none; margin-top: 10px; }
-.SumoSelect > .CaptionCont > label > i:before{ 
-  content: "\f107";
-  color: #742b96;
-  font-family: "fontawesome";
-  font-size: 15px; 
-}
-.SumoSelect > .CaptionCont > label > i.fa-angle-down{ display: block; }
+.search-box .SumoSelect > .CaptionCont > label{ margin-bottom: 0; }
+.search-box .SumoSelect > .CaptionCont > label > i{ background-image: none; margin-top: 10px; }
+.search-box .SumoSelect > .CaptionCont > label > i.fa-angle-down{ display: block; width: 10px; line-height: 20px; }
 .mid-header .search-box .dropdown .btn:hover,
 .mid-header .search-box .dropdown .btn:focus {
     background: #ffffff;
@@ -1226,7 +1221,8 @@ nav{
 }
 .product-img .img-wrap{
     display: table-cell;
-    vertical-align: middle;
+    /* vertical-align: middle; */
+    height: 231px;
 }
 .products-wrapper .img-wrap > img {
   height: 269px;
@@ -1581,7 +1577,7 @@ padding-bottom: 8px;
 }
 
 .content-circle img, .content-circle .img-wrap {
-  background-color: #e6d9d0;
+  background-color: #fff;
   border: 0.5px solid #e5e5e5;
   border-radius: 100px;
   height: 85px;
@@ -1690,9 +1686,11 @@ padding-bottom: 8px;
 .sidebar-title-1{
   color: #742b96;
   font-size: 20px;
+  line-height: 15px;
   text-transform: capitalize;
-  margin: 0 0 15px;
+  margin: 0;
 }
+.sidebar-title-1.sidebar-heading{ margin-bottom: 15px; }
 .sidebar .panel-default{ border: none; margin-bottom: 20px; }
 .sidebar .panel-heading{ padding: 0; }
 .sidebar .panel-title > a::before{ color: #999; font-size: 10px; line-height: 22px; }
@@ -2126,10 +2124,10 @@ div.qty-section > div > input {
   background: #909090;
   content: "";
   height: 1px;
-  left: 0;
+  left: -1px;
   position: absolute;
   top: 8px;
-  width: 90%;
+  width: 95%;
 }
 .single-product-info .pro-price .incl-dis{
     border: 1px solid #ccc;
@@ -2607,7 +2605,7 @@ input:checked + .slider:before {
 }
 
 .dataTables_length label{
-    margin-left: 30px;
+    margin-left: 0;
     margin-bottom: 0;
 }
 
@@ -2616,7 +2614,46 @@ input:checked + .slider:before {
   padding: 3px 5px;
   text-transform: capitalize;
 }
-
+.sortingCriteria {
+  display: inline-block;
+  height: auto;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.sortingCriterion {
+  border-right: medium none;
+  color: #999;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  margin-right: 12px;
+}
+.sortingCriterion a {
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  color: #5a5a59;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 10px;
+  margin: 0 6px 8px 5px;
+  padding: 8px 15px 7px;
+  position: relative;
+}
+.sortingCriterion .sortingRemove {
+  font-size: 11px;
+  margin-left: 5px;
+  text-decoration: none;
+  vertical-align: bottom;
+  opacity: 0.7;
+}
+.sortingCriterion .sortingRemove:before{
+  content: "\f00d";
+  font-family: "fontawesome";
+}
+.sortingCriterion a:hover {
+  color: #dbdbdb;
+  text-decoration: line-through;
+}
 .data-pegination {
   text-align: right;
   width: 100%;
