@@ -108,6 +108,9 @@ class FrontendController extends Controller
      */
     public function showCategoryPage($slug){
         $category = Category::where('url', $slug)->where('status', 1)->first();
+        if (empty($category)) {
+           return redirect()->route('frontend.index');
+        }
         $products = DB::table('category_product')
         ->join('products','products.id', '=', 'category_product.product_id')
         ->join('product_price','products.id', '=', 'product_price.product_id')
@@ -157,7 +160,8 @@ class FrontendController extends Controller
                             ->join('category_product','products.id', '=', 'category_product.product_id')
                             ->join('product_price','products.id', '=', 'product_price.product_id')
                             ->where('products.status', 1)
-                            ->where('brands.status', 1);
+                            ->where('brands.status', 1)
+                            ->where('category_product.category_id', $request->cat_id);
 
         if (!empty($popularity)) {
             if($popularity == 'new'){
@@ -224,8 +228,8 @@ class FrontendController extends Controller
             });
         }
 
-        $products = $products->select('products.id', 'products.name', 'product_price.main_price', 'products.total_views', 'products.created_at')
-                            ->groupBy('products.id', 'products.name', 'product_price.main_price', 'products.total_views', 'products.created_at')
+        $products = $products->select('products.id', 'products.name', 'products.slug', 'product_price.main_price', 'products.total_views', 'products.created_at')
+                            ->groupBy('products.id', 'products.name', 'products.slug', 'product_price.main_price', 'products.total_views', 'products.created_at')
                             ->get();
 
         // $products = $products->select('products.id', 'name')
@@ -240,6 +244,295 @@ class FrontendController extends Controller
             return response()->json(['stat'=> 'error', 'html'=>'']);
         }
     }
+
+    /**
+     * autocomplete search data populating
+     */
+    public function autocompleteSearch(Request $request){
+        // $selectedCategory = Category::where('id', $request->cat_id)->where('status', 1)->first();
+        // $selectedCategory = '';
+        if (empty($request->searchCategoryId)) {
+            $categorys = Category::where('title', 'LIKE', '%'.$request->searchText.'%')->where('status', 1)->orderBy('total_views', 'desc')->get();
+            // $category = Category::where('title', 'LIKE', '%'.$request->searchText.'%')->where('status', 1)->orderBy('total_views', 'desc')->first();
+            $cateArray = [];
+                        $cateArray[] = [
+                            'title' => $request->searchText,
+                            'url' => url('search?cat_id='.$request->searchCategoryId.'&keyword='.$request->searchText),
+                            'parent' => ''
+                        ];
+            if (count($categorys) > 0) {
+                foreach($categorys as $key=>$cat){
+                // $cat = $category;
+                    if ($cat->parent_id == 0) {
+                        $cateArray[] = [
+                            'title' => $cat->title. ' in '. '<span class="parentCategory">'.$cat->title.'</span>',
+                            'url' => url('category/'.$cat->url),
+                            'parent' => ''
+                        ];
+                    }else{
+                        if ($cat->immediateParent->parent_id == 0) {
+                            // $cateArray[] = [
+                            //     'title' => $cat->title. ' in '. $cat->immediateParent->title,
+                            //     'url' => url('category/'.$cat->url)
+                            // ];
+                            $cateArray[] = [
+                                'title' => $cat->title,
+                                'url' => url('category/'.$cat->url),
+                                'parent' => ' in '. '<span class="parentCategory">'.$cat->title.'</span>'
+                            ];
+                        }else{
+                            $cate = $cat;
+                            while(1){
+                                $cate = $cate->immediateParent;
+                                $cateArray[] = [
+                                    'title' => $cat->title,
+                                    'url' => url('category/'.$cat->url),
+                                    'parent' => ' in '. '<span class="parentCategory">'.$cate->title.'</span>'
+                                ];
+                                if ($cate->immediateParent->parent_id == 0) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    // $cateArray[] = [
+                    //             'title' => $cat->title,
+                    //             'url' => 'category/'.$cat->url
+                    //         ];
+
+                }
+            }
+        }else{
+            $categorys = Category::where('title', 'LIKE', '%'.$request->searchText.'%')->where('status', 1)->orderBy('total_views', 'desc')->get();
+            // $category = Category::where('title', 'LIKE', '%'.$request->searchText.'%')->where('status', 1)->orderBy('total_views', 'desc')->first();
+            $cateArray = [];
+                        $cateArray[] = [
+                            'title' => $request->searchText,
+                            'url' => url('search?cat_id='.$request->searchCategoryId.'&keyword='.$request->searchText),
+                            'parent' => ''
+                        ];
+            if (count($categorys) > 0) {
+                foreach($categorys as $key=>$cat){
+                // $cat = $category;
+                    if ($cat->parent_id == 0) {
+                        if ($cat->id == $request->searchCategoryId) {
+                            $cateArray[] = [
+                                'title' => $cat->title. ' in '. '<span class="parentCategory">'.$cat->title.'</span>',
+                                'url' => url('category/'.$cat->url),
+                                'parent' => ''
+                            ];
+                        }
+                    }else{
+                        if ($cat->immediateParent->parent_id == 0) {
+                            // $cateArray[] = [
+                            //     'title' => $cat->title. ' in '. $cat->immediateParent->title,
+                            //     'url' => url('category/'.$cat->url)
+                            // ];
+                            if ($cat->immediateParent->id == $request->searchCategoryId) {
+                                $cateArray[] = [
+                                    'title' => $cat->title,
+                                    'url' => url('category/'.$cat->url),
+                                    'parent' => ' in '. '<span class="parentCategory">'.$cat->title.'</span>'
+                                ];
+                            }
+                        }else{
+                            $cate = $cat;
+                            $cate2 = $cat;
+                            $check = 'false';
+                            while(1){
+                                $cate2 = $cate2->immediateParent;
+                                if ($cate2->immediateParent->parent_id == 0) {
+                                    if ($cate2->immediateParent->id == $request->searchCategoryId) {
+                                       $check = 'true';
+                                    }
+                                    break;
+                                }
+                            }
+                            if ($check == 'true') {
+                                while(1){
+                                    $cate = $cate->immediateParent;
+                                    $cateArray[] = [
+                                        'title' => $cat->title,
+                                        'url' => url('category/'.$cat->url),
+                                        'parent' => ' in '. '<span class="parentCategory">'.$cate->title.'</span>'
+                                    ];
+                                    if ($cate->immediateParent->parent_id == 0) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // $cateArray[] = [
+                    //             'title' => $cat->title,
+                    //             'url' => 'category/'.$cat->url
+                    //         ];
+
+                }
+            }
+        }
+        // return json_encode($i);
+        // return json_encode($selectedCategory);
+        return json_encode($cateArray);
+
+    }
+
+    /**
+     * frontend search
+     */
+    public function search(Request $request){
+        if (empty($request->cat_id)) {
+            $category = Category::where('title', 'LIKE', '%'.$request->keyword.'%')->where('status', 1)->orderBy('total_views', 'desc')->first();
+            if (count($category) > 0) {
+                $categories = Category::where('title', 'LIKE', '%'.$request->keyword.'%')->where('status', 1)->orderBy('total_views', 'desc')->get();
+                if (count($categories) == 0) {
+                    $categories = [];
+                }
+                // $products = DB::table('category_product')
+                //     ->join('products','products.id', '=', 'category_product.product_id')
+                //     ->join('product_price','products.id', '=', 'product_price.product_id')
+                //     ->where('category_product.category_id','=',$category->id)
+                //     ->select('products.*','product_price.price','product_price.special_price')
+                //     ->paginate(4);
+
+                    $catArray = array();
+                    $cat = $category;
+                    while(count($cat->immediateParent) > 0){
+                        $cat = $cat->immediateParent;
+                        $catArray[] = $cat;
+                    }
+                    // return $catArray;
+
+                    $subParent = 'false';
+                    if (!empty($category->immediateParent)) {
+                        if ($category->immediateParent->isParent() == 'true') {
+                            $subParent = 'true';
+                        }
+                    }
+                    if ($category->isParent() == 'true') {
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }elseif($subParent == 'true'){
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }else{
+                        $products = $category->products;
+                        return view('frontend.category.subcategorypage', compact('category', 'products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }
+            }else{
+                // searching for products
+
+                    //end of searching for products
+            }
+        }else{
+
+            $categoryAll = Category::where('title', 'LIKE', '%'.$request->keyword.'%')->where('status', 1)->orderBy('total_views', 'desc')->get();
+            $categorysId = [];
+            if (count($categoryAll) > 0) {
+                foreach ($categoryAll as $key => $cat) {
+                    if ($cat->parent_id == 0) {
+                        if ($cat->id == $request->cat_id) {
+                            $categorysId[] = $cat->id;
+                        }
+                    }else{
+                        if ($cat->immediateParent->parent_id == 0) {
+                            if ($cat->immediateParent->id == $request->cat_id) {
+                                $categorysId[] = $cat->id;
+                            }
+                        }else{
+                            $cate2 = $cat;
+                            $check = 'false';
+                            while(1){
+                                $cate2 = $cate2->immediateParent;
+                                if ($cate2->immediateParent->parent_id == 0) {
+                                    if ($cate2->immediateParent->id == $request->cat_id) {
+                                        $categorysId[] = $cat->id;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (count($categorysId) > 0) {
+                    $categories = Category::where(function ($q) use ($categorysId) {
+                        foreach($categorysId as $id){
+                            $q->orWhere('id', $id);
+                        }
+                    });
+                    $categories = $categories->get();
+                    $category = $categories->first();
+
+                    $catArray = array();
+                    $cat = $category;
+                    while(count($cat->immediateParent) > 0){
+                        $cat = $cat->immediateParent;
+                            $catArray[] = $cat;
+                    }
+                    // return $catArray;
+
+                    $subParent = 'false';
+                    if (!empty($category->immediateParent)) {
+                        if ($category->immediateParent->isParent() == 'true') {
+                            $subParent = 'true';
+                        }
+                    }
+                    if ($category->isParent() == 'true') {
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }elseif($subParent == 'true'){
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }else{
+                        $products = $category->products;
+                        return view('frontend.category.subcategorypage', compact('category', 'products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }
+                }else{
+                    // searching for products
+
+                    //end of searching for products
+                }
+            }
+
+
+
+
+            $category = Category::where('title', 'LIKE', '%'.$request->keyword.'%')->where('status', 1)->orderBy('total_views', 'desc')->first();
+            if (count($category) > 0) {
+                $categories = Category::where('title', 'LIKE', '%'.$request->keyword.'%')->where('status', 1)->orderBy('total_views', 'desc')->get();
+                if (count($categories) == 0) {
+                    $categories = [];
+                }
+                // $products = DB::table('category_product')
+                //     ->join('products','products.id', '=', 'category_product.product_id')
+                //     ->join('product_price','products.id', '=', 'product_price.product_id')
+                //     ->where('category_product.category_id','=',$category->id)
+                //     ->select('products.*','product_price.price','product_price.special_price')
+                //     ->paginate(4);
+
+                    $catArray = array();
+                    $cat = $category;
+                    while(count($cat->immediateParent) > 0){
+                        $cat = $cat->immediateParent;
+                        $catArray[] = $cat;
+                    }
+                    // return $catArray;
+
+                    $subParent = 'false';
+                    if (!empty($category->immediateParent)) {
+                        if ($category->immediateParent->isParent() == 'true') {
+                            $subParent = 'true';
+                        }
+                    }
+                    if ($category->isParent() == 'true') {
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }elseif($subParent == 'true'){
+                        return view('frontend.category.categorypage', compact('category','products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }else{
+                        $products = $category->products;
+                        return view('frontend.category.subcategorypage', compact('category', 'products', 'catArray', 'categories'))->withClass('inner-page product_cat');
+                    }
+            }
+        }
+
+    }
+
 
 
 

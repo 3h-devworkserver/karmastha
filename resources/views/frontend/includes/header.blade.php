@@ -46,165 +46,22 @@
               <div class="ap-ddmenu-current-text"></div>
             </div>
             <ul id="menu">
-              <li><a href="#">Breaking News</a>
+              @foreach($categorys as $category)
+              <li><a href="#">{{$category->title}}</a>
+                @if(count($category->topChilds) > 0)
                 <ul>
-                  <li><a href="#">Entertainment</a></li>
-                  <li><a href="#">Politics</a></li>
-                  <li><a href="#">A&amp;E</a></li>
-                  <li><a href="#">Sports</a>
-                <ul>
-                  <li><a href="#">Baseball</a></li>
-                  <li><a href="#">Basketball</a></li>
-                  <li><a href="#">A really long label would wrap nicely as you can see</a></li>
-                  <li><a href="#">Swimming</a>
-                <ul>
-                  <li><a href="#">High School</a></li>
-                  <li><a href="#">College</a></li>
-                  <li><a href="#">Professional</a>
-                <ul>
-                  <li><a href="#">Mens Swimming</a>
-                    <ul>
-                      <li><a href="#">News</a></li>
-                      <li><a href="#">Events</a></li>
-                      <li><a href="#">Awards</a></li>
-                      <li><a href="#">Schedule</a></li>
-                      <li><a href="#">Team Members</a></li>
-                      <li><a href="#">Fan Site</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Womens Swimming</a>
-                    <ul>
-                      <li><a href="#">News</a></li>
-                      <li><a href="#">Events</a></li>
-                      <li><a href="#">Awards</a></li>
-                      <li><a href="#">Schedule</a></li>
-                      <li><a href="#">Team Members</a></li>
-                      <li><a href="#">Fan Site</a></li>
-                    </ul>
-                  </li>
+                  @foreach($category->topChilds as $child)
+                  <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
+                  @endforeach
+                  @foreach($category->moreChilds as $child)
+                  <li><a href="{{url('category/'.$child->url)}}">{{$child->title}}</a></li>
+                  @endforeach
                 </ul>
+                @endif
               </li>
-              <li><a href="#">Adult Recreational</a></li>
-              <li><a href="#">Youth Recreational</a></li>
-              <li><a href="#">Senior Recreational</a></li>
+              @endforeach
             </ul>
-            </li>
-              <li><a href="#">Tennis</a></li>
-              <li><a href="#">Ice Skating</a></li>
-              <li><a href="#">Javascript Programming</a></li>
-              <li><a href="#">Running</a></li>
-              <li><a href="#">Walking</a></li>
-            </ul>
-            </li>
-              <li><a href="#">Local</a></li>
-              <li><a href="#">Health</a></li>
-            </ul>
-            </li>
-          <li><a href="#">Entertainment</a>
-          <ul>
-            <li><a href="#">Celebrity news</a></li>
-            <li><a href="#">Gossip</a></li>
-            <li><a href="#">Movies</a></li>
-            <li><a href="#">Music</a>
-            <ul>
-              <li><a href="#">Alternative</a></li>
-              <li><a href="#">Country</a></li>
-              <li><a href="#">Dance</a></li>
-              <li><a href="#">Electronica</a></li>
-              <li><a href="#">Metal</a></li>
-              <li><a href="#">Pop</a></li>
-              <li><a href="#">Rock</a>
-                <ul>
-                  <li><a href="#">Bands</a>
-                    <ul>
-                      <li><a href="#">Dokken</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Fan Clubs</a></li>
-                  <li><a href="#">Songs</a></li>
-                </ul>
-              </li>
-            </ul>
-            </li>
-            <li><a href="#">Slide shows</a></li>
-            <li><a href="#">Red carpet</a></li>
-          </ul>
-          </li>
-          <li><a href="#">Finance</a>
-          <ul>
-            <li><a href="#">Personal</a>
-            <ul>
-              <li><a href="#">Loans</a></li>
-              <li><a href="#">Savings</a></li>
-              <li><a href="#">Mortgage</a></li>
-              <li><a href="#">Debt</a></li>
-            </ul>
-            </li>
-            <li><a href="#">Business</a></li>
-          </ul>
-          </li>
-          <li><a href="#">Food &#38; Cooking</a>
-          <ul>
-            <li><a href="#">Breakfast</a></li>
-            <li><a href="#">Lunch</a></li>
-            <li><a href="#">Dinner</a></li>
-            <li><a href="#">Dessert</a>
-              <ul>
-                <li><a href="#">Dump Cake</a></li>
-                <li><a href="#">Doritos</a></li>
-                <li><a href="#">Both please.</a></li>
-              </ul>
-            </li>
-          </ul>
-          </li>
-          <li><a href="#">Lifestyle</a></li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Politics</a></li>
-          <li><a href="#">Sports</a>
-            <ul>
-              <li><a href="#">Baseball</a></li>
-              <li><a href="#">Basketball</a></li>
-              <li><a href="#">Swimming</a>
-              <ul>
-                <li><a href="#">High School</a></li>
-                <li><a href="#">College</a></li>
-                <li><a href="#">Professional</a>
-                <ul>
-                  <li><a href="#">Mens Swimming</a>
-                  <ul>
-                      <li><a href="#">News</a></li>
-                      <li><a href="#">Events</a></li>
-                      <li><a href="#">Awards</a></li>
-                      <li><a href="#">Schedule</a></li>
-                      <li><a href="#">Team Members</a></li>
-                      <li><a href="#">Fan Site</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Womens Swimming</a>
-                  <ul>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Awards</a></li>
-                    <li><a href="#">Schedule</a></li>
-                    <li><a href="#">Team Members</a></li>
-                    <li><a href="#">Fan Site</a></li>
-                  </ul>
-                  </li>
-                </ul>
-                </li>
-                <li><a href="#">Adult Recreational</a></li>
-                <li><a href="#">Youth Recreational</a></li>
-                <li><a href="#">Senior Recreational</a></li>
-              </ul>
-              </li>
-                <li><a href="#">Tennis</a></li>
-                <li><a href="#">Ice Skating</a></li>
-                <li><a href="#">Javascript Programming</a></li>
-                <li><a href="#">Running</a></li>
-                <li><a href="#">Walking</a></li>
-            </ul>
-            </li>
-          </ul>
+      
         </div>
       </div>  
         <div class="nav-toggle">
@@ -219,40 +76,44 @@
             </div>
 
           </div>
+
+          {{Form::open(['url' => '/search', 'method' => 'get'])}}
           <div class="search-box">
             <div class="dropdown">
-            <select class="dropdown-menu selectBox" aria-labelledby="dropdownMenu1" name="catname">
-              <option value=""></i> All Categories </option>
-              @foreach($categorys as $key => $cat)
-              <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
-              @endforeach
-            </select>
-            {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <i class="flaticon-bars"></i>
-              All categories
-              <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Furniture</a></li>
-              <li><a href="#">Electronics</a></li>
-              <li><a href="#">Books</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
-            </ul>
- --}}          </div>
+              <select class="dropdown-menu selectBox catIdSmall" aria-labelledby="dropdownMenu1" name="cat_id">
+                <option value=""></i> All Categories </option>
+                @foreach($categorys as $key => $cat)
+                <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
+                @endforeach
+              </select>
+              {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <i class="flaticon-bars"></i>
+                All categories
+                <i class="fa fa-angle-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Furniture</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
+              </ul>
+                --}}          
+            </div>
 
-         <div class="bootsnipp-search animate">
-           <form action="#" method="GET" role="search">
-             <div class="input-group">
-               <input type="text" class="form-control" name="ressearch" placeholder="Search for item...">
-               <span class="input-group-btn">
-                 <button class="btn btn-danger" type="reset"><span class="fa fa-times"></span></button>
-               </span>
-             </div>
-           </form>
-         </div>
-        </div><!-- End Search-box -->
+            <div class="bootsnipp-search animate">
+              <div class="input-group">
+                {{-- <input name="_token" value="u5rouN6YJeXfSyt1bIElfxUDCDMOmS7zKZCoW5s5" type="hidden" disabled> --}}
+                <input id="autosuggest2" name="keyword" class="form-control" placeholder="Search for item..." />
+                {{-- <input type="text" class="form-control" name="ressearch" placeholder="Search for item..."> --}}
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="reset"><span class="fa fa-times"></span></button>
+                </span>
+              </div>
+            </div>
+          </div><!-- End Search-box -->
+          {{Form::close()}}
 
         </div>
       </div>
@@ -266,58 +127,57 @@
         @endif
         <a href="{{ URL::to('/') }}"><img src="{{asset('front-images/logo.png')}}" alt=""></a>
       </div>
+      
+      {{Form::open(['url' => '/search', 'method' => 'get'])}}
       <div class="search-box">
         <div class="dropdown">
-          
-            {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <i class="flaticon-bars"></i>
-              All categories
-              <i class="fa fa-angle-down"></i>
-            </button> --}}
-            <select class="dropdown-menu selectBox" aria-labelledby="dropdownMenu1" name="catname">
-              <option value=""></i> All Categories </option>
-              @foreach($categorys as $key => $cat)
-              <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
-              @endforeach
-            </select>
-            {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              @foreach($categorys as $key => $cat)
-              <li><a href="#">{{ $cat->title }}</a></li>
-              @endforeach
-            </ul> --}}
-
-            {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Furniture</a></li>
-              <li><a href="#">Electronics</a></li>
-              <li><a href="#">Books</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
-            </ul> --}}
-
-          </div>
-          <form action="#">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for item...">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
-              </span>
-            </div><!-- /input-group -->
-          </form>
+          {{-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <i class="flaticon-bars"></i>
+            All categories
+            <i class="fa fa-angle-down"></i>
+          </button> --}}
+          <select class="dropdown-menu selectBox catId" aria-labelledby="dropdownMenu1" name="cat_id">
+            <option value=""></i> All Categories </option>
+            @foreach($categorys as $key => $cat)
+            <option value="{{ $cat->id }}"> {{ $cat->title }}</option>
+            @endforeach
+          </select>
+          {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            @foreach($categorys as $key => $cat)
+            <li><a href="#">{{ $cat->title }}</a></li>
+            @endforeach
+          </ul> --}}
+          {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Fashion</a></li>
+            <li><a href="#">Furniture</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Books</a></li>
+            <li><a href="#">Sports</a></li>
+            <li><a href="#" class="viewmore"><i class="fa fa-plus-circle"></i>More Categories</a></li>
+          </ul> --}}
+        </div>
+        <div class="input-group">
+          {{-- <input name="_token" value="u5rouN6YJeXfSyt1bIElfxUDCDMOmS7zKZCoW5s5" type="hidden" disabled> --}}
+          <input id="autosuggest" name="keyword" class="form-control" placeholder="Search for item..." />
+          {{-- <input type="text" class="form-control" placeholder="Search for item..."> --}}
+          <span class="input-group-btn">
+            <button class="btn btn-default"><span class="fa fa-search"></span></button>
+          </span>
+        </div><!-- /input-group -->
       </div>
+      {{Form::close()}}
+      
       <div class="mid-right-block">
         <div class="cart-block">
           <a href="{{url('/cart')}}">
             <i class="flaticon-online-shopping-cart"></i>
             <span class="badge"> @if( !empty(countCartItems()) ) {{countCartItems()}} @else 0 @endif</span>
-            
           </a>
         </div>
         <div class="rentshop-block">
           <a href="{{url('/login')}}">
             <i class="flaticon-money-bag"></i>
             <span>Rent a Shop</span>
-            
           </a>
         </div>
       </div>

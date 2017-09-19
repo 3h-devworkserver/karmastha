@@ -95,6 +95,85 @@ $(document).ready(function(){
     });
     /** ====== end - generic anchor tag used to submit form ===== **/
 
+    /** ======== start - autocomplete search in header  ======= **/
+    $( function() {
+        $( "#autosuggest" ).autocomplete({
+            source : function(request, response) {
+                $.ajax({
+                    url: base_url+'/autocomplete/search',
+                    data: { 
+                        searchCategoryId: $('.catId').val(),
+                        searchText: $( "#autosuggest" ).val()
+                    },
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) { 
+                        // alert(data);
+                        // console.log(data);
+                        response($.map(data, function(obj) {
+                            return {
+                                label: obj.title,
+                                value: obj.url,
+                                parent: obj.parent
+                            };
+                        }));
+                    }
+                });
+            },
+            select: function( event, ui ) {
+                event.preventDefault();
+                $( "#autosuggest" ).val(ui.item.label);
+                window.location.href = ui.item.value;
+            }
+        })
+        .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                // .append( "<div>" + item.label + "<br>" + item.url + "</div>" )
+                .append( "<div><span>" + item.label + "</span>"+ item.parent +"</div>" )
+                .appendTo( ul );
+        };
+
+        $( "#autosuggest2" ).autocomplete({
+            source : function(request, response) {
+                $.ajax({
+                    url: base_url+'/autocomplete/search',
+                    data: { 
+                        searchCategoryId: $('select[name="cat_id"]').val(),
+                        searchText: $( "#autosuggest2" ).val()
+                    },
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) { 
+                        // alert(data);
+                        // console.log(data);
+                        response($.map(data, function(obj) {
+                            return {
+                                label: obj.title,
+                                value: obj.url,
+                                parent: obj.parent
+                            };
+                        }));
+                    }
+                });
+            },
+            select: function( event, ui ) {
+                event.preventDefault();
+                $( "#autosuggest2" ).val(ui.item.label);
+                window.location.href = ui.item.value;
+            }
+        })
+        .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                // .append( "<div>" + item.label + "<br>" + item.url + "</div>" )
+                .append( "<div><span>" + item.label + "</span>"+ item.parent +"</div>" )
+                .appendTo( ul );
+        };
+
+    });
+
+    /** ======== end - autocomplete search in header  ======= **/
+
+
     /** ======== start-   home page  ======= **/
     $(document).on('click', '.catChild', function(){
         var id = $(this).attr('data-id');
@@ -493,7 +572,6 @@ $(document).ready(function(){
     $(document).on("click",".sortingProcess",function(e){
         NProgress.start();
         $(this).parents("form").ajaxForm(options);
-        NProgress.done();
     });
 
     var options = { 
@@ -527,8 +605,10 @@ $(document).ready(function(){
             //end of sorting criteria
 
             // console.log(obj.html);
+            NProgress.done();
           }else{
             alert('error');
+            NProgress.done();
             // printErrorMsg(response.responseJSON.error);
           }
         }
@@ -550,6 +630,10 @@ $(document).ready(function(){
         $('#price-from').val($('#price-from').attr('data-min'));
         $('#price-to').val($('#price-to').attr('data-max'));
         $('.sortingProcess').click();
+    });
+
+    $(document).on('click', '.sortingCriteria .sortingCriterion a', function(){
+        $(this).find('.sortingRemove').click();
     });
  
 

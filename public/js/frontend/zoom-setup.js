@@ -1,6 +1,7 @@
 (function ($) {
     $(document).ready(function() {
         $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 300, zoomheight: 200, title: true, tint: '#333', Xoffset: 15});
+        // $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 500, zoomheight: 200, title: true, tint: '#333', Xoffset: 15});
         $('.xzoom2, .xzoom-gallery2').xzoom({position: '#xzoom2-id', tint: '#ffa200'});
         $('.xzoom3, .xzoom-gallery3').xzoom({position: 'lens', lensShape: 'circle', sourceClass: 'xzoom-hidden'});
         $('.xzoom4, .xzoom-gallery4').xzoom({tint: '#006699', Xoffset: 15});

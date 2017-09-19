@@ -76,7 +76,7 @@
 <script src="{{asset('js/frontend/bootstrap.js')}}"></script>
 <script src="{{asset('js/frontend/jquery-ui.min.js')}}"></script>
 <script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
-<script src="{{asset('js/frontend/owl.carousel.js')}}"></script>
+<script src="{{asset('js/frontend/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/frontend/script.js')}}"></script>
 <script src="{{asset('js/frontend/jquery-ui.js')}}"></script>
 <script src="{{asset('js/frontend/addSlider.js')}}"></script>
@@ -89,7 +89,6 @@
 {{-- {{ Html::script('js/frontend/jquery.validate.js') }} --}}
  {!! Html::script('jquery-validation-1.15.0/dist/jquery.validate.js') !!}
 <script src="{{asset('js/frontend/nprogress.js')}}"></script>
-<script src="{{asset('js/frontend/custom.js')}}"></script>
 
 <script type="text/javascript">
   function openNav() {
@@ -109,6 +108,7 @@ function closeNav() {
 </script>
 
 @yield('after-scripts')
+<script src="{{asset('js/frontend/custom.js')}}"></script>
 
 
 

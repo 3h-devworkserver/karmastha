@@ -17,29 +17,48 @@
 @endsection
 
 @section('content')
-<section class="page-breadcrumbs pb0">
-  <div class="container"> 
-    <div class="row">
-      <div class="col-md-12">                
-        <ol class="breadcrumb">
-          <li><a href="{{url('/')}}">Home</a></li>
-          <?php  $i = count($catArray); ?>
-          @while($i > 0)
-          <li><a href="{{url('/'.$catArray[--$i]->url)}}">{{$catArray[$i]->title}}</a></li>
-          @endwhile
-          <li class="active">{{$category->title}}</li>
-        </ol>
-      </div>  
+@if(!empty($categories) && count($categories) > 1)
+  <section class="relatedSearch">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="related-keyword">
+              <span>Related searches:</span>
+              @foreach($categories as $cat)
+                @if($cat->id != $category->id)
+                <a class="related-keyword-links" href="{{asset('category/'.$cat->url)}}">{{$cat->title}}</a>
+                @endif
+              @endforeach
+            </div>
+          </div>
+        </div>
     </div>
-  </div>
-</section>
+  </section>
+@else
+  <section class="page-breadcrumbs pb0">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-12">                
+          <ol class="breadcrumb">
+            <li><a href="{{url('/')}}">Home</a></li>
+            <?php  $i = count($catArray); ?>
+            @while($i > 0)
+            <li><a href="{{url('/'.$catArray[--$i]->url)}}">{{$catArray[$i]->title}}</a></li>
+            @endwhile
+            <li class="active">{{$category->title}}</li>
+          </ol>
+        </div>  
+      </div>
+    </div>
+  </section>
+@endif
 
 
 <section class="category-content">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="section-title-2">categories</h2>
+        <h2 class="section-title-2">{{$category->title}}</h2>
     	  @if(count($category->topBanners) > 0 )
           <section class="brand-content pt0 banner-wrapper">
                           	

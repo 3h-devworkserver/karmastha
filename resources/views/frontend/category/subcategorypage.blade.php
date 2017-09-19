@@ -18,23 +18,45 @@
 
 @section('content')
 
-	<section class="page-breadcrumbs pb0">
-	  	<div class="container"> 
-		    <div class="row">
-		      	<div class="col-md-12">                
-		        	<ol class="breadcrumb">
-		                <li><a href="{{url('/')}}">Home</a></li>
-		                <?php  $i = count($catArray); ?>
-		                @while($i > 0)
-		                <li><a href="{{url('/'.$catArray[--$i]->url)}}">{{$catArray[$i]->title}}</a></li>
-		                @endwhile
-		                <li class="active">{{$category->title}}</li>
-	            	</ol>
-		      	</div>  
-		    </div>
-	  	</div>
-	</section>
+
+	@if(!empty($categories) && count($categories) > 1)
+		<section class="relatedSearch">
+		 	<div class="container">
+		  		<div class="row">
+			      	<div class="col-md-12">                
+			   			<div class="related-keyword">
+			    			<span>Related searches:</span>
+			    			@foreach($categories as $cat)
+				    			@if($cat->id != $category->id)
+							    <a class="related-keyword-links" href="{{asset('category/'.$cat->url)}}">{{$cat->title}}</a>
+							    @endif
+							@endforeach
+			   			</div>
+			   		</div>
+		  		</div>
+		 	</div>
+		</section>
+	@else
+		<section class="page-breadcrumbs pb0">
+		  	<div class="container"> 
+			    <div class="row">
+			      	<div class="col-md-12">                
+			        	<ol class="breadcrumb">
+			                <li><a href="{{url('/')}}">Home</a></li>
+			                <?php  $i = count($catArray); ?>
+			                @while($i > 0)
+			                <li><a href="{{url('/'.$catArray[--$i]->url)}}">{{$catArray[$i]->title}}</a></li>
+			                @endwhile
+			                <li class="active">{{$category->title}}</li>
+		            	</ol>
+			      	</div>  
+			    </div>
+		  	</div>
+		</section>
+	@endif
+
 	{{Form::open(['url'=>'/productsorting', 'method'=>'get'])}}
+		{{Form::hidden('cat_id', $category->id)}}
 		<div class="twocol-sidebar">
 			<div class="container">
 			    <div class="row">
@@ -284,6 +306,9 @@
 			        </div>
 			        <div class="right-sidebar">
 			          	<div class="col-md-9">
+
+			          		
+
 				          	@if(count($category->topBanners) > 0 )
 				            <section class="brand-content pt0 banner-wrapper">
 				               	@if(count($category->topBanners) == 1 )
@@ -312,7 +337,7 @@
 					                </div>
 					                <div class="list-filter pull-right">
 					                  <div class="dataTables_length" id="myTable_length">
-					                    <label>Sort by:
+					                    <label><span>Sort by:</span>
 						                    <select name="popularity" aria-controls="myTable" class="sortChange selectBox">
 						                        <option value="popular">popularity</option>
 						                        <option value="new">newest</option>
@@ -327,10 +352,10 @@
 
 					            <div class="sortingCriteria">
 					            	<div class="sortingCriterion criteriaBrand hide">
-					            		<span>Brand</span>
+					            		<span>Brand:</span>
 					            	</div>
 					            	<div class="sortingCriterion criteriaPrice hide">
-					            		<span>Price</span>
+					            		<span>Price:</span>
 					            	</div>
 					            </div>
 							
