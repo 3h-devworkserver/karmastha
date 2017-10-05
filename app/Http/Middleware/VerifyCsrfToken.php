@@ -14,6 +14,8 @@ class VerifyCsrfToken extends BaseVerifier
     
     protected $except = [
          'admin/menu',
+         'payment/success',
+         'payment/cancel',
         
     ];
 }

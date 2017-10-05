@@ -192,7 +192,7 @@
 
     function menuslidedown(){
 
-        $(".total-calculate").click(function(){
+        $(".switch .total-calculate").click(function(){
         $("#billingopt").slideToggle();
     }); 
     }
@@ -206,7 +206,7 @@
        businessMemberCarousel();
        trendingCarousel();
        cart();
-       // menuslidedown();
+       menuslidedown();
     });
     $(window).resize(function() {
     });

@@ -78,6 +78,8 @@ $(document).ready(function(){
     shipping(); // for cart page
     NProgress.configure({ showSpinner: false }); // removes spinner from progress
 
+    $('#paymentSuccessModal').modal('show');
+
     // adding down arrow in sumoselect in search
     $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
 
@@ -391,6 +393,10 @@ $(document).ready(function(){
             shipping();
         });
 
+        $(document).on('click', '.checkoutBtn2', function(){
+            $('.checkoutBtn').click();
+        });
+
         /** ====== delete item from cart  ===== **/
         // $(document).on('click', '.bagde-remove', function(){
         //     var hash = $(this).attr('data-hash');
@@ -639,6 +645,181 @@ $(document).ready(function(){
 
     /** ====== end - subcategory page ===== **/
 
+        $('#billingDetail').validate({
+            rules:{
+                'fname': 'required',
+                'lname': 'required',
+                'zone': 'required',
+                'district': 'required',
+                'city': 'required',
+                'st_address': 'required',
+                'phone': 'required',
+                email: {
+                  required: true,
+                  email: true
+                }
+            }
+        });
+
+        $('#shippingDetail').validate({
+            rules:{
+                'ship_fname': 'required',
+                'ship_lname': 'required',
+                'ship_zone': 'required',
+                'ship_district': 'required',
+                'ship_city': 'required',
+                'ship_st_address': 'required',
+                'ship_phone': 'required',
+                ship_email: {
+                  required: true,
+                  email: true
+                }
+            }
+        });
+
+    /** ====== start - checkout page ===== **/
+
+    /** ==== Display district according to zone ==== **/
+    $(document).on('change', '.zone', function(){
+        var zone_id = $(this).val();
+        $('.district option').removeClass('hide');
+        $('.district option').each(function(){
+            if (zone_id != $(this).attr('data-attr')) {
+                $(this).addClass('hide');
+            }
+            $('.district option').first().removeClass('hide');
+           $('.district').val('');
+        });
+    });
+
+    var zone_id = $('.zone').val();
+    if(zone_id != ''){
+        $('.district option').removeClass('hide');
+        $('.district option').each(function(){
+            if (zone_id != $(this).attr('data-attr')) {
+                $(this).addClass('hide');
+            }
+        });
+        $('.district').val($('.district').attr('data-district'));
+    }
+
+    $(document).on('change', '.cZone', function(){
+        var zone_id = $(this).val();
+        $('.cDistrict option').removeClass('hide');
+        $('.cDistrict option').each(function(){
+            if (zone_id != $(this).attr('data-attr')) {
+                $(this).addClass('hide');
+            }
+            $('.cDistrict option').first().removeClass('hide');
+           $('.cDistrict').val('');
+        });
+    });
+
+    // var zone_id = $('.cZone').val();
+    // if(zone_id != ''){
+    //     $('.cDistrict option').removeClass('hide');
+    //     $('.cDistrict option').each(function(){
+    //         if (zone_id != $(this).attr('data-attr')) {
+    //             $(this).addClass('hide');
+    //         }
+    //     });
+    //     $('.cDistrict').val($('.cDistrict').attr('data-district'));
+    // }
+/** ==== end - Display district according to zone ==== **/
+
+    //showing only products that are in stock
+    $('.cart-review-content').each(function(){
+        if($(this).find('span.outOfStock').length == 0){
+            $(this).removeClass('hide');
+        }
+    });
+
+    $(document).on('click','.billingBtn',function(){
+        if ( $('#billingDetail').valid() ) {
+            $('.total-calculate').removeAttr('disabled');
+            $('.pannel-payment-option').addClass('showOptions');
+            $('input[name="payment_method"]').removeAttr('disabled');
+            $('.placeOrder').removeClass('disabled');
+        }
+    });
+    $(document).on('click','.shippingBtn',function(){
+        if ( $('#shippingDetail').valid() ) {
+            // alert('shipvalid');
+            $('.pannel-payment-option').addClass('showOptions');
+            $('input[name="payment_method"]').removeAttr('disabled');
+            $('.placeOrder').removeClass('disabled');
+        }else{
+            // alert('shipinvalid');
+            $('.pannel-payment-option').removeClass('showOptions');
+            $('input[name="payment_method"]').attr('disabled', '');
+            $('.placeOrder').addClass('disabled');
+        }
+    });
+
+    $(document).on('change','.total-calculate',function(){
+        // alert($(this).is(":checked"));
+            // $('.pannel-payment-option').toggleClass('showOptions');
+        if($(this).is(":checked")){
+                // alert('no');
+            $('.pannel-payment-option').removeClass('showOptions');
+            $('.placeOrder').addClass('disabled');
+        }else{
+                // alert('yes');
+            $('.pannel-payment-option').addClass('showOptions');
+            $('.placeOrder').removeClass('disabled');
+        }
+    });
+
+    $(document).on('change', 'input[name="payment_method"]',function(){
+        $('.placeOrder').removeClass('disabled');
+    });
+
+     $(document).on('click', '.placeOrder',function(){
+        // alert('submit');
+        
+        // alert($('#billingDetail').serialize());
+        // alert($(this).is(":checked"));
+        $.ajax({
+            type: 'post',
+            // dataType: "json",
+            url: base_url + '/checkoutdetails',
+            headers:
+                {
+                 'X-CSRF-Token': $('#billingDetail input[name=_token]').val()
+                },
+            data: {
+                billingDetail: $('#billingDetail').serialize(),
+                anotherShipping: $('.total-calculate').is(":checked"),
+                shippingDetail: $('#shippingDetail').serialize(),
+                paymentSelectionForm: $('#paymentSelectionForm').serialize()
+            },
+            success:function(response){
+                // alert(response);
+                // console.log(response);
+
+                if (response.stat == 'success') {
+                    // alert('sucess');
+                    var form = $('#form-'+response.method);
+                    form.find('input[name="OrderNo"]').val(response.orderno);
+                    form.find('input[name="customer_email"]').val(response.email);
+                    form.find('input[name="Session_Key"]').val(response.sessionkey);
+                    form.submit();
+                }else{
+                    alert('error1');
+                }
+            },
+            error:function(data){
+                // alert(data);
+                alert('error2');
+            }
+        });
+
+        // alert($('#shippingDetail').serialize());
+        // alert($('#paymentSelectionForm').serialize());
+    });
+
+    /** ====== end - checkout page ===== **/
+
     
 
 });
@@ -647,21 +828,33 @@ $(document).ready(function(){
 function shipping(){
     var value = $('#shipping').val();
     var subTotal = parseFloat($('span.subTotal').attr('data-subtotal'));
+    var delivery = 100;
     if (value == 'ktm-in') {
-        $('.cost').text('50');
+        delivery = 50;
+        $('.cost').text(delivery);
         // $('span.total em').text((subTotal + 50).toFixed(12));
-        $('span.total em').text((+((+subTotal) + (+50)).toFixed(12)));
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
     }else if (value == 'ktm-out') {
-        $('.cost').text('100');
-        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+        delivery = 100;
+        $('.cost').text(delivery);
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
     }else if (value == 'ltp-in') {
-        $('.cost').text('50');
-        $('span.total em').text((+((+subTotal) + (+50)).toFixed(12)));
+        delivery = 50;
+        $('.cost').text(delivery);
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
     }else if (value == 'ltp-out') {
-        $('.cost').text('100');
-        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+        delivery = 100;
+        $('.cost').text(delivery);
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
     }else if (value == 'bkp') {
+        delivery = 100;
         $('.cost').text('100');
-        $('span.total em').text((+((+subTotal) + (+100)).toFixed(12)));
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
+    }else{
+        delivery = 100;
+        $('.cost').text('100');
+        $('span.total em').text((+((+subTotal) + (+delivery)).toFixed(12)));
     }
+    $('.deliveryCharge').val(delivery);
+    $('.grandTotal').val(+((+subTotal) + (+delivery)).toFixed(12));
 }

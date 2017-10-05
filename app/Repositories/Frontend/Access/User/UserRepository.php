@@ -262,6 +262,7 @@ class UserRepository extends BaseRepository
                                 'street' => $input['street'],
                                 'city' => $input['city'],
                                 'zone' => $input['zone'],
+                                'district' => $input['district'],
                                 'image' => $pname,
                               ]);  
        $user_id =  DB::table('user_information')->select('user_id','c_logo')->where('user_id',$id)->first();
@@ -299,6 +300,7 @@ class UserRepository extends BaseRepository
                                 'c_street' => $input['c_street'],
                                 'c_city' => $input['c_city'],
                                 'c_zone' => $input['c_zone'],
+                                'c_district' => $input['c_district'],
                                 'c_description' => $input['c_description'],
                                 'c_logo' => $filename,
                               ]);   

@@ -26,10 +26,12 @@
 			      	<div class="col-md-12">                
 			   			<div class="related-keyword">
 			    			<span>Related searches:</span>
-			    			@foreach($categories as $cat)
-				    			@if($cat->id != $category->id)
-							    <a class="related-keyword-links" href="{{asset('category/'.$cat->url)}}">{{$cat->title}}</a>
-							    @endif
+			    			@foreach($categories as $key=> $cat)
+			    				@if($key < App\Models\Category::getRelatedSearchLimit())
+					    			@if($cat->id != $category->id)
+								    <a class="related-keyword-links" href="{{asset('category/'.$cat->url)}}">{{$cat->title}}</a>
+								    @endif
+								@endif
 							@endforeach
 			   			</div>
 			   		</div>

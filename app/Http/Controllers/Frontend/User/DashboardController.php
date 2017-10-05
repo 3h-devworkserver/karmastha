@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Zone;
+use App\Models\District;
 
 /**
  * Class DashboardController.
@@ -19,7 +21,9 @@ class DashboardController extends Controller
 
     public function profile()
     {
-        return view('frontend.user.profile')->withClass('profile-info');
+        $zones = Zone::all()->pluck('zone_name', 'zone_id');
+        $districts = District::all();
+        return view('frontend.user.profile',compact('zones', 'districts'))->withClass('profile-info');
     }
 
     public function passwordchange()

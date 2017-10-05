@@ -40,10 +40,11 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
-input[type="radio"]:checked + label span::before {
+.userdashboard input[type="radio"]:checked + label span::before {
   font-size: 0.6em;
   left: 0.5em;
-  top: 0.3em;
+  top: 0.5em;
+  line-height: 10px;
 }
 
 /* -------------------------------- 
@@ -1768,7 +1769,8 @@ Sidebar
   height: 150px;
 }
 .userdash-right .list-module-wrap .edit-profileinfo .address-info input[type="text"],
-.userdash-right .list-module-wrap .edit-profileinfo .address-info textarea{
+.userdash-right .list-module-wrap .edit-profileinfo .address-info textarea,
+.userdash-right .list-module-wrap .edit-profileinfo .address-info .form-control{
   margin-bottom: 20px;
 }
 

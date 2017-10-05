@@ -50,7 +50,6 @@
 
   <!-- Styles -->
   @yield('after-styles')
-  
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
   <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet">

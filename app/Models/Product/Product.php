@@ -41,7 +41,7 @@ class Product extends Model
     // }
 
     public function categorys(){
-        return $this->belongsToMany('App\Models\Category');
+        return $this->belongsToMany('App\Models\Category')->where('status', 1);
     }
 
     public function gallerys(){

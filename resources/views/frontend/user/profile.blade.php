@@ -117,10 +117,17 @@
                                 <div class="address-info">
                                 <label>Street<span>*</span></label>
                                 <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->street; }?>" name="street" placeholder="Enter street" />
+                                <label>Zone<span>*</span></label>
+                                {{Form::select('zone', $zones, $extrainfo->zone, ['placeholder'=>'-- Select Zone --','class' => 'form-control zone required'])}}
+                                <label>District<span>*</span></label>
+                                <select class="form-control required district" name="district" data-district ="{{$extrainfo->district}}" required>
+                                    <option value="">-- Select District --</option>
+                                    @foreach($districts as $district)
+                                    <option class="hide" data-attr="{{$district->zone_id}}" value="{{$district->district_id}}">{{$district->district_name}}</option>
+                                    @endforeach
+                                </select>
                                 <label>City<span>*</span></label>
                                 <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->city; }?>" name="city" placeholder="Enter city" />
-                                <label>Zone<span>*</span></label>
-                                <input type="text" class="form-control required" value="<?php if(!empty( $extrainfo )){ echo $extrainfo->zone; }?>" name="zone" placeholder="Enter zone" />
                                 </div>
                               </div>
 
@@ -148,10 +155,19 @@
                                 <div class="address-info">
                                 <label>Street</label>
                                 <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_street; }?>" name="c_street" placeholder="Enter street" />
+
+                                <label>Zone<span>*</span></label>
+                                {{Form::select('c_zone', $zones, $info->c_zone, ['placeholder'=>'-- Select Zone --','class' => 'form-control cZone required'])}}
+                                <label>District<span>*</span></label>
+                                <select class="form-control required cDistrict" name="c_district" data-district ="{{$info->c_district}}" required>
+                                    <option value="">-- Select District --</option>
+                                    @foreach($districts as $district)
+                                    <option class="hide" data-attr="{{$district->zone_id}}" value="{{$district->district_id}}">{{$district->district_name}}</option>
+                                    @endforeach
+                                </select>
                                 <label>City</label>
                                 <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_city; }?>" name="c_city" placeholder="Enter city" />
-                                <label>Zone</label>
-                                <input type="text" class="form-control" value="<?php if(!empty( $info )){ echo $info->c_zone; }?>" name="c_zone" placeholder="Enter zone" />
+
                                 <label>Company Introduction</label>
                                 <textarea name="c_description" placeholder="Enter text" class="form-control"/><?php if(!empty( $info )){ echo $info->c_description; }?></textarea>
                                 <label>Logo</label>

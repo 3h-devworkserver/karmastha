@@ -8,6 +8,10 @@ protected $table = 'categorys';
 private $productLimit = 15;
 private $childLimit = 4;
 
+public static function getRelatedSearchLimit(){
+	return  5;
+}
+
 	// Recursive function that builds the menu from an array or object of items
 	// In a perfect world some parts of this function would be in a custom Macro or a View
 	public function buildMenu($menu, $parentid = 0) 

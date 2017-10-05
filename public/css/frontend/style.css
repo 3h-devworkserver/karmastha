@@ -166,9 +166,9 @@ input[type="radio"]:checked + label span::before {
     /* fix for flashing background */
     -webkit-transform: translate3d(0px, 0px, 0px);
 }
-.owl-carousel .owl-controls .owl-nav .owl-prev,
-.owl-carousel .owl-controls .owl-nav .owl-next,
-.owl-carousel .owl-controls .owl-dot {
+.owl-carousel .owl-nav .owl-prev,
+.owl-carousel .owl-nav .owl-next,
+.owl-carousel .owl-dot {
     cursor: pointer;
     cursor: hand;
     -webkit-user-select: none;
@@ -301,8 +301,8 @@ input[type="radio"]:checked + label span::before {
     position: relative;
     z-index: 1;
 }
-.owl-carousel .owl-controls .owl-nav .owl-prev,
-.owl-carousel .owl-controls .owl-nav .owl-next {
+.owl-carousel .owl-nav .owl-prev,
+.owl-carousel .owl-nav .owl-next {
     color: #fff;
     font-size: 25px;
     height: 50px;
@@ -317,14 +317,14 @@ input[type="radio"]:checked + label span::before {
     transform: translateY(-50%);
     background: #742b96;
 }
-.owl-carousel .owl-controls .owl-nav .owl-prev {
+.owl-carousel .owl-nav .owl-prev {
     left:50px;
 }
-.owl-carousel .owl-controls .owl-nav .owl-next {
+.owl-carousel .owl-nav .owl-next {
     right:50px;
 }
-.owl-carousel .owl-controls .owl-nav .owl-prev:hover,
-.owl-carousel .owl-controls .owl-nav .owl-next:hover {
+.owl-carousel .owl-nav .owl-prev:hover,
+.owl-carousel  .owl-nav .owl-next:hover {
     color: #fff;
 }
 .owl-carousel .owl-dots .owl-dot {
@@ -792,6 +792,7 @@ section {
 }
 .mid-header .search-box .input-group-btn .btn {
   border: none;
+  border-bottom-right-radius: 0;
   padding: 10px 15px;
 }
 .mid-header .search-box .input-group-btn .btn:hover{ background: #ffffff; color: #742b96; }
@@ -802,8 +803,9 @@ section {
     font-size: 18px;
     color: #742b96;
 }
-
+.ui-menu.ui-widget-content { width: 562px !important; }
 .mid-header .ui-menu-item { padding: 5px 5px 0; }
+.ui-menu .ui-menu-item-wrapper{ padding: 0.8em 1em 0.8em 1.4em; }
 .ui-state-active, .ui-widget-content .ui-state-active, 
 .ui-widget-header .ui-state-active, a.ui-button:active, 
 .ui-button:active, .ui-button.ui-state-active:hover{ 
@@ -1104,16 +1106,16 @@ nav{
 .banner-wrapper .owl-carousel .owl-dots .owl-dot.active span{
     background: #742b96;
 }
-.banner-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev,
-.banner-wrapper .owl-carousel .owl-controls .owl-nav .owl-next {
+.banner-wrapper .owl-carousel .owl-nav .owl-prev,
+.banner-wrapper .owl-carousel .owl-nav .owl-next {
     opacity: 0;
     visibility: hidden;
     -webkit-transition: opacity 0.5s ease-in-out 0s;
     -o-transition: opacity 0.5s ease-in-out 0s;
     transition: opacity 0.5s ease-in-out 0s;
 }
-.banner-wrapper .owl-carousel:hover .owl-controls .owl-nav .owl-prev,
-.banner-wrapper .owl-carousel:hover .owl-controls .owl-nav .owl-next {
+.banner-wrapper .owl-carousel:hover .owl-nav .owl-prev,
+.banner-wrapper .owl-carousel:hover .owl-nav .owl-next {
     opacity: 1;
     visibility: visible;
 }
@@ -1320,17 +1322,17 @@ nav{
 custom owl controls
 -------------------------------*/
 
-.products-wrapper .owl-carousel .owl-controls .owl-nav .owl-next,
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-next {
+.products-wrapper .owl-carousel .owl-nav .owl-next,
+.brands-wrapper .owl-carousel .owl-nav .owl-next {
   right: 20px;
 }
-.products-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev ,
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev {
+.products-wrapper .owl-carousel .owl-nav .owl-prev ,
+.brands-wrapper .owl-carousel .owl-nav .owl-prev {
   left: inherit;
   right:50px;
 }
-.products-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev:after,
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev:after{
+.products-wrapper .owl-carousel .owl-nav .owl-prev:after,
+.brands-wrapper .owl-carousel .owl-nav .owl-prev:after{
     content: '';
     border-right:1px solid #e9e9e9;
     height: 13px;
@@ -1338,10 +1340,10 @@ custom owl controls
     top: 18px;
     position: absolute;
 }
-.products-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev, 
-.products-wrapper .owl-carousel .owl-controls .owl-nav .owl-next ,
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev, 
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-next {
+.products-wrapper .owl-carousel .owl-nav .owl-prev, 
+.products-wrapper .owl-carousel .owl-nav .owl-next ,
+.brands-wrapper .owl-carousel .owl-nav .owl-prev, 
+.brands-wrapper .owl-carousel .owl-nav .owl-next {
   top: -57px;
   width: auto;
   height: auto;
@@ -1349,8 +1351,8 @@ custom owl controls
   color: #8b8b8b;
   font-size: 15px;
 }
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-prev, 
-.brands-wrapper .owl-carousel .owl-controls .owl-nav .owl-next {
+.brands-wrapper .owl-carousel .owl-nav .owl-prev, 
+.brands-wrapper .owl-carousel .owl-nav .owl-next {
     top: -40px;
 }
 .products-wrapper.three-col .mt30 .col-md-3{
@@ -2451,12 +2453,11 @@ label {
   background: #f9f9f9;
   height: 40px;
 }
-.box textarea.form-control{
-    height: 150px;
-}
-.tab-content #messages .box .form-group input[type="submit"]{
-    width: 90%
-}
+.box textarea.form-control{ height: 150px; }
+.box .form-group button { width: 90px; }
+.box .form-group { margin-bottom: 35px; }
+.box .form-group.has-error{ margin-bottom: 0; }
+.tab-content #messages .box .form-group input[type="submit"]{ width: 90% }
 .payment-option {
   float: left;
   margin-top: 10px;
@@ -2468,7 +2469,8 @@ label {
   display: inline-block;
   width: 100%;
 }
-
+.box + .payment-option [class*="col-"],
+.box + .payment-option [class^="col-"] { padding-left: 0; }
 .payment-option h3 {
   font-weight: normal;
   text-transform: none;
@@ -2482,37 +2484,29 @@ label {
   padding-bottom: 15px;
   text-transform: capitalize;
 }
-
 .payment-img {
-  border: 1px solid #ccc;
   float: left;
   margin-right: 20px;
   position: relative;
+}
+.payimage {
+  border: 2px solid #ccc;
+  cursor: pointer;
+  display: inline-block;
+  height: 120px;
+  text-align: center;
   width: 120px;
-  height: 120px
 }
 
 .hide-option .payment-img {
   opacity: 0.4;
 }
+.hide-option .showOptions .payment-img{ opacity: 1; }
+/* .dummy {
+    padding-top: 100%; forces 1:1 aspect ratio
+} */
 
-.dummy {
-    padding-top: 100%; /* forces 1:1 aspect ratio */
-}
-
-.payment_image {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 5px;
-    right: 0;
-
-    text-align:center; /* Align center inline elements */
-    font: 0/0 a;
-}
-
-.payment_image:before {
+.payimage:before {
     content: ' ';
     display: inline-block;
     vertical-align: middle;
@@ -2523,6 +2517,15 @@ label {
     vertical-align: middle;
     display: inline-block;
 }
+.payment_image label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+  display: block;
+}
+.showOptions .payment_image label > input:checked + span{ /* (RADIO CHECKED) IMAGE STYLES */
+  border: 1px solid #742b96;
+}
+
 /* toggle switch button */ 
 
 .switch {

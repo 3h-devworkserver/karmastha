@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cartitem\Cartitem;
 use App\Models\Product\Product;
+use App\Models\Purchase\Purchase;
+use App\Models\Purchase\Payment;
+use App\Models\Zone;
+use App\Models\District;
 use Auth;
 use Illuminate\Http\Request;
 use Session;
 use DB;
 use LaraCart;
+use Mail;
     
 /**
  * Class ProductController.
@@ -444,13 +449,222 @@ class ProductController extends Controller
      * checkout process
      * @return \Illuminate\Http\Response
      */
-    public function checkout(){
-        return "checkout";
-        $cartItems = Session::has('cart') ? Session::get('cart') : null;
-        if (!empty($cartItems)) {
-            Session::forget('cart.'.$index);
+    public function checkout(Request $request){
+        $method = $request->method();
+
+        if (!$request->isMethod('post')) {
+            return redirect()->route('frontend.cart.view');
         }
-        return redirect()->route('frontend.cart.view');
+        $subTotal = $request->subTotal;
+        $deliveryCharge = $request->deliveryCharge;
+        $grandTotal = $request->grandTotal;
+        $deliveryLocation = $request->deliveryLocation;
+
+        if ($deliveryLocation == 'ktm-in') {
+            $deliveryLocation = 'kathmandu (inside ring road)';
+        }else if ($deliveryLocation == 'ktm-out') {
+            $deliveryLocation = 'kathmandu (outside ring road)';
+        }else if ($deliveryLocation == 'ltp-in') {
+            $deliveryLocation = 'lalitpur (inside ring road)';
+        }else if ($deliveryLocation == 'ltp-out') {
+            $deliveryLocation = 'lalitpur (outside ring road)';
+        }else if ($deliveryLocation == 'bkp') {
+            $deliveryLocation = 'Bhaktapur';
+        }
+
+        if (Auth::check()) {
+            $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
+            $user = Auth::user();
+        }
+        else {
+            $cartItems = LaraCart::getItems();
+            $user = '';
+        }
+
+        $zones= Zone::all()->pluck('zone_name', 'zone_id');
+        $districts= District::all();
+
+        if(!empty($cartItems)){
+            return view('frontend.product.checkout', compact('cartItems', 'subTotal', 'deliveryCharge', 'grandTotal', 'deliveryLocation', 'user', 'zones', 'districts'))->withClass('inner-page cart-page');
+        }
+        // else{
+        //     return view('frontend.product.cart', compact('cartItems'))->withClass('inner-page empty-cart-page');
+        // }
+        
+        // return "checkout";
+
+        // $cartItems = Session::has('cart') ? Session::get('cart') : null;
+        // if (!empty($cartItems)) {
+        //     Session::forget('cart.'.$index);
+        // }
+        // return redirect()->route('frontend.cart.view');
     }
+
+     /**
+     * checkout details
+     * @return \Illuminate\Http\Response
+     */
+    public function checkoutDetails(Request $request){
+        try {
+            parse_str($request->billingDetail, $billingDetail);
+            parse_str($request->shippingDetail, $shippingDetail);
+            parse_str($request->paymentSelectionForm, $paymentSelectionForm);
+            $sessionkey = str_random(10);
+            $orderno = str_random(5);
+
+            DB::transaction(function () use ($request,$billingDetail, $shippingDetail, $paymentSelectionForm, $sessionkey, $orderno) {
+                $anotherShipping = $request->anotherShipping;
+
+                // return $billingDetail;
+                if ($anotherShipping == 'true') {
+                    $purchase = Purchase::create([
+                        'user_id' => Auth::user()->id,  
+                        'session_key' => $sessionkey,  
+                        'ordernumber' => $orderno,  
+
+                        'fname' => $billingDetail['fname'],  
+                        'lname' => $billingDetail['lname'],  
+                        'zone' => $billingDetail['zone'],  
+                        'district' => $billingDetail['district'],  
+                        'city' => $billingDetail['city'],  
+                        'st_address' => $billingDetail['st_address'],  
+                        'st_address2' => $billingDetail['st_address2'],  
+                        'phone' => $billingDetail['phone'],  
+                        'email' => $billingDetail['email'], 
+
+                        'diff_ship_address' => 1, 
+
+                        'ship_fname' => $shippingDetail['ship_fname'],  
+                        'ship_lname' => $shippingDetail['ship_lname'],  
+                        'ship_zone' => $shippingDetail['ship_zone'],  
+                        'ship_district' => $shippingDetail['ship_district'],  
+                        'ship_city' => $shippingDetail['ship_city'],  
+                        'ship_st_address' => $shippingDetail['ship_st_address'],  
+                        'ship_st_address2' => $shippingDetail['ship_st_address2'],  
+                        'ship_phone' => $shippingDetail['ship_phone'],  
+                        'ship_email' => $shippingDetail['ship_email'],
+
+                        'payment_method' => $paymentSelectionForm['payment_method'],
+                        'subtotal' => $paymentSelectionForm['subtotal'],
+                        'delivery_location' => $paymentSelectionForm['delivery_location'],
+                        'delivery_charge' => $paymentSelectionForm['delivery_charge'],
+                        'grand_total' => $paymentSelectionForm['grand_total'],
+                    ]);
+                }else{
+                    $purchase = Purchase::create([
+                        'user_id' => Auth::user()->id,  
+                        'session_key' => $sessionkey,  
+                        'ordernumber' => $orderno,
+
+                        'fname' => $billingDetail['fname'],  
+                        'lname' => $billingDetail['lname'],  
+                        'zone' => $billingDetail['zone'],  
+                        'district' => $billingDetail['district'],  
+                        'city' => $billingDetail['city'],  
+                        'st_address' => $billingDetail['st_address'],  
+                        'st_address2' => $billingDetail['st_address2'],  
+                        'phone' => $billingDetail['phone'],  
+                        'email' => $billingDetail['email'], 
+
+                        'diff_ship_address' => 0, 
+
+                        'payment_method' => $paymentSelectionForm['payment_method'],
+                        'subtotal' => $paymentSelectionForm['subtotal'],
+                        'delivery_location' => $paymentSelectionForm['delivery_location'],
+                        'delivery_charge' => $paymentSelectionForm['delivery_charge'],
+                        'grand_total' => $paymentSelectionForm['grand_total'],
+                    ]);
+                }
+
+                $cartIdsArray = explode(',', $billingDetail['cartIds']);
+                foreach($cartIdsArray as $cartId){
+                    $item = CartItem::findorFail($cartId);
+                    $purchase->purchaseItems()->create([
+                        'product_id' => $item->product_id,
+                        'cartitem_id' => $item->id,
+                        'identifier' => $item->identifier,                        
+                        'qty' => $item->qty,               
+                        'price' => productPrice($item->product_id),                
+                    ]);
+                }
+
+            });
+            
+            // parse_str($request->paymentSelectionForm, $paymentSelectionForm);
+            return response()->json(['stat'=> 'success', 
+                                    'method'=> $paymentSelectionForm['payment_method'],
+                                    'email' => $billingDetail['email'],
+                                    'orderno'=> $orderno,
+                                    'sessionkey'=> $sessionkey
+                                ]);
+        } catch (Exception $e) {
+            return response()->json(['stat'=> 'error']);
+        }
+
+    }
+
+
+     /**
+     * successful payment
+     * @return \Illuminate\Http\Response
+     */
+    public function successPayment(Request $request){
+        DB::transaction(function() use ($request){
+            $purchase = Purchase::where('ordernumber', $request->ordernumber)->where('session_key', $request->session_key)->first();
+            if (!empty($purchase)) {
+                $payment = $purchase->payment()->create([
+                    'purchase_id' => $purchase->id,
+                ]);
+
+                $paymentIpay = $payment->paymentIpay()->create([
+                    'ordernumber' => $request->ordernumber,
+                    'customer_email' => $request->customer_email,
+                    'currency' => $request->currency,
+                    'amount' => $request->amount,
+                    'description' => $request->description,
+                    'transactionid' => $request->transactionid,
+                    'confirmation_code' => $request->confirmation_code,
+                    'session_key' => $request->session_key,
+                ]);
+
+                $purchaseItems = $purchase->purchaseItems;
+                if (count($purchaseItems) > 0) {
+                    foreach ($purchaseItems as $key => $purchaseItem) {
+                        CartItem::destroy($purchaseItem->cartitem_id);
+                    }
+                }
+
+                // $purchaseItems = $purchase->purchaseItems;
+                // if (($purchaseItems) > 0 ) {
+                //     foreach ($purchaseItems as $key => $purchaseItem) {
+                //         $purchaseItem->update([
+                //             'cartitem_id' => null, 
+                //         ]);
+                //     }
+                // }
+            }
+        // // send email 
+        // Mail::send('emails.purchaseemail',['paymentIpay'=>$paymentIpay], function($message) use($paymentIpay){
+        //     $message->to($paymentIpay->customer_email, 'customer')
+        //     ->subject('Please confirm your account.');
+        // });
+        // //end of email 
+        });
+
+
+        return redirect('/')->withFlashPaymentSuccess('Payment successful');
+
+    }
+
+     /**
+     * cancel or unsuccessful payment
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelPayment(Request $request){
+        return $request->all();
+    }
+
+
+
 
 }

@@ -126,4 +126,29 @@
   ?> 
 @endif
 
+
+@if (session()->get('flash_payment_success'))
+  <!-- Modal -->
+  <div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                  </button>
+                   <h4 class="modal-title" id="paymentSuccessModalLabel">Payment Successful..</h4>
+
+              </div>
+              {{-- <div class="modal-body">
+                  <p>However the account provided is not known.
+                      <BR>If you just got invited to the group, please wait for a day to have the database synchronized.</p>
+                  <p>You will now be shown the Demo site.</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div> --}}
+          </div>
+      </div>
+  </div>
+@endif
+
 @endsection
