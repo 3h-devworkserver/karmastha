@@ -40,6 +40,10 @@ trait UserRelationship
         return $this->hasOne('App\Models\Access\User\Profile');
     }
 
+    public function wishlist(){
+        return $this->hasMany('App\Models\Wishlist');
+    }
+
 
 
 

@@ -1,5 +1,5 @@
 @if(!empty($ads->second_image) || !empty($ads->third_image) || !empty($ads->fourth_image) || !empty($ads->fifth_image) )
-<section class="advertisement-wrappers pb0">
+<section class="advertisement-wrappers">
   <div class="container">
     <div class="row">
       @if(!empty($ads->second_image))

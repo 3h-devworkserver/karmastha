@@ -88,10 +88,15 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/font-awesome.min.css')}}">  --}}
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-     <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Arimo|Lato:300,400" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/bootstrap.min.css')}}"> 
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/sumoselect.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="{{asset('font/flaticon.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/userdash.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/dashboard-style.css')}}">
     <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
 
@@ -111,10 +116,21 @@
 <body class="{{$class}}">
 
 <div class="main-container dashdb">
-    @include('frontend.user.includes.header')
+    @include('frontend.includes.header')
 </div>
     <div class="userdashboard">
-        @yield('content')
+        <main class="cd-main-content">
+
+            @include('frontend.user.includes.sidebar')
+            <div class="dashboard-content">
+                <div class="page-container">
+                    <div class="row">
+                        @yield('content')
+                    </div>
+                </div>
+            </div> <!-- content-wrapper -->
+
+        </main> <!-- cd-main-content -->
 
         <!-- Starts footer container -->
         @include('frontend.includes.footer')
@@ -139,10 +155,11 @@
 @yield('before-scripts')
 
 {{ Html::script('js/dashboard/jquery.menu-aim.js') }}
-{{-- {{ Html::script('js/dashboard/dash_usernav.js') }} --}}
-{{ Html::script('js/dashboard/custom.js') }}
+<script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
+{{ Html::script('js/dashboard/dash_user_nav.js') }}
 
 @yield('after-scripts')
+{{ Html::script('js/dashboard/custom.js') }}
 
 </body>
 </html>

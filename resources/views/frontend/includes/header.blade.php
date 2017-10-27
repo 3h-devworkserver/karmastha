@@ -17,10 +17,17 @@
                <!--  <a href="#" class="dropbtn">My Karmastha <i class="fa fa-angle-down"></i></a> -->
                <a href="#" class="dropdown-toggle dropbtn">@if(Auth::check()) {{Auth::user()->name}} @else My Karmastha @endif <i class="fa fa-angle-down"></i></a>
                   <ul class="dropdown-menu dropdown-content">
-                    <li><a href="{{url('/dashboard')}}">dashboard</a></li>
+                  @if(Auth::check() && Auth::user()->hasRole(1))
+                    <li><a href="{{url('admin/dashboard')}}">dashboard</a></li>
+                  @else
+                    <li><a href="{{url('user/dashboard')}}">dashboard</a></li>
                     <li><a href="#">my orders</a></li>
-                    <li><a href="profile.html">my account</a></li>
+                    <li><a href="#">my account</a></li>
                     <li><a href="{{ URL::to('/wishlist') }}">my favorites  @if( !empty($wishlist)) ( {{  $wishlist }} ) @endif</a></li>
+                  @endif
+                    @if(Auth::check())
+                    <li><a href="{{ URL::to('/logout') }}"> <span>sign out</span></a></li>
+                    @endif
                   </ul>
               </li>            
               <li><a href="">Contact</a></li>

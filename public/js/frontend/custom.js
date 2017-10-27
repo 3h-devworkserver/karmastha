@@ -75,13 +75,13 @@ $("#slideshow > div:gt(0)").hide();
 
 $(document).ready(function(){
     $('.selectBox').SumoSelect(); //activate sumoselect
+    // adding down arrow in sumoselect in search
+    $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
+    
     shipping(); // for cart page
     NProgress.configure({ showSpinner: false }); // removes spinner from progress
 
     $('#paymentSuccessModal').modal('show');
-
-    // adding down arrow in sumoselect in search
-    $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
 
     /** ====== generic anchor tag used to submit form ===== **/
     $(document).on('click', 'a.submit', function(){
@@ -689,6 +689,9 @@ $(document).ready(function(){
             }
             $('.district option').first().removeClass('hide');
            $('.district').val('');
+           $('select.district')[0].sumo.reload();
+           // adding down arrow in sumoselect in search
+            $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
         });
     });
 
@@ -701,6 +704,9 @@ $(document).ready(function(){
             }
         });
         $('.district').val($('.district').attr('data-district'));
+        $('select.district')[0].sumo.reload();
+        // adding down arrow in sumoselect in search
+        $('.SumoSelect .SelectBox label i').addClass('fa fa-angle-down');
     }
 
     $(document).on('change', '.cZone', function(){
@@ -711,7 +717,8 @@ $(document).ready(function(){
                 $(this).addClass('hide');
             }
             $('.cDistrict option').first().removeClass('hide');
-           $('.cDistrict').val('');
+            $('.cDistrict').val('');
+            $('select.cDistrict')[0].sumo.reload();
         });
     });
 
@@ -803,6 +810,7 @@ $(document).ready(function(){
                     form.find('input[name="OrderNo"]').val(response.orderno);
                     form.find('input[name="customer_email"]').val(response.email);
                     form.find('input[name="Session_Key"]').val(response.sessionkey);
+                    form.find('input[name="ReturnUrl"]').val(response.returnUrl);
                     form.submit();
                 }else{
                     alert('error1');

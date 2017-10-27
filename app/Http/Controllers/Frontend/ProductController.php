@@ -313,7 +313,7 @@ class ProductController extends Controller
             $cartItems = LaraCart::getItems();
         }
 
-        if(!empty($cartItems)){
+        if( count($cartItems) > 0 ){
             return view('frontend.product.cart', compact('cartItems'))->withClass('inner-page cart-page');
         }else{
             return view('frontend.product.cart', compact('cartItems'))->withClass('inner-page empty-cart-page');
@@ -595,7 +595,8 @@ class ProductController extends Controller
                                     'method'=> $paymentSelectionForm['payment_method'],
                                     'email' => $billingDetail['email'],
                                     'orderno'=> $orderno,
-                                    'sessionkey'=> $sessionkey
+                                    'sessionkey'=> $sessionkey,
+                                    'returnUrl'=> url('payment/success?method='.$paymentSelectionForm['payment_method'])
                                 ]);
         } catch (Exception $e) {
             return response()->json(['stat'=> 'error']);
@@ -614,6 +615,8 @@ class ProductController extends Controller
             if (!empty($purchase)) {
                 $payment = $purchase->payment()->create([
                     'purchase_id' => $purchase->id,
+                    'user_id' => $purchase->user_id,
+                    'payment_method' => $request->method,
                 ]);
 
                 $paymentIpay = $payment->paymentIpay()->create([
@@ -642,16 +645,19 @@ class ProductController extends Controller
                 //         ]);
                 //     }
                 // }
+
+                // send email 
+                Mail::send('emails.purchaseemail',['paymentIpay'=>$paymentIpay], function($message) use($paymentIpay){
+                    $message->to($paymentIpay->customer_email, 'customer')
+                    ->subject('Payment Successful.');
+                });
+                //end of email 
+            }else{
+
             }
-        // // send email 
-        // Mail::send('emails.purchaseemail',['paymentIpay'=>$paymentIpay], function($message) use($paymentIpay){
-        //     $message->to($paymentIpay->customer_email, 'customer')
-        //     ->subject('Please confirm your account.');
-        // });
-        // //end of email 
         });
 
-
+        // return redirect->withFlashPaymentSuccess('Payment successful');
         return redirect('/')->withFlashPaymentSuccess('Payment successful');
 
     }

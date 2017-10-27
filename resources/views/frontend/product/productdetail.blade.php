@@ -87,7 +87,7 @@
 	              	<div class="xzoom-container">
 		                <div class="add-wishlist">
                       <!-- <a href="#" class="wish-list" data-toggle="tooltip" data-placement="left" data-original-title="Add To Wishlist"><i class="la-icon-heart-o"></i></a> -->
-                        <a href="{{ URL::to('wishlist/store/?id='.$product->id) }}" class="wishlist" data-id="{{ $product->id }}" data-price="{{ productPrice($product->id)}}" data-name="{{ $product->name}}">
+                        <a href="{{ URL::to('user/wishlist/store/?id='.$product->id) }}" class="wishlist" data-id="{{ $product->id }}" data-price="{{ productPrice($product->id)}}" data-name="{{ $product->name}}">
                           <i class="la-icon-heart-o"></i>                  
                         </a>
                     </div>

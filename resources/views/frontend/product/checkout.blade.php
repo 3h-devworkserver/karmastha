@@ -204,15 +204,16 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 		                    <div class="col-sm-6">
 		                        <div class="form-group">
 		                            <label for="zone">Zone</label>
-		                            {{Form::select('zone', $zones, $zone, ['placeholder'=>'-- Select Zone --','class' => 'form-control zone', 'id'=>'zone'])}}
+		                            {{Form::select('zone', $zones, $zone, ['placeholder'=>'-- Select Zone --','class' => 'form-control zone selectBox', 'id'=>'zone'])}}
 		                        </div>
 		                    </div>
 
 		                  	<div class="col-sm-6 col-md-6">
 		                      <div class="form-group">
 		                        <label for="district">district</label>
-		                        <select class="form-control district" id="district" name="district" data-district ="{{$district}}" required>
-                                    <option value="">-- Select District --</option>
+		                        <select class="form-control district selectBox" id="district" name="district" data-district ="{{$district}}" required>
+		                        	<option selected="selected" disabled="disabled" value="" hidden="hidden">-- Select District --</option>
+                                    {{-- <option value="">-- Select District --</option> --}}
                                     @foreach($districts as $district)
                                     <option class="hide" data-attr="{{$district->zone_id}}" value="{{$district->district_id}}">{{$district->district_name}}</option>
                                     @endforeach
@@ -315,15 +316,16 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 				                    <div class="col-sm-6">
 				                        <div class="form-group">
 				                            <label for="ship_zone">Zone</label>
-				                            {{Form::select('ship_zone', $zones, null, ['placeholder'=>'-- Select Zone --','class' => 'form-control cZone', 'id'=>'ship_zone'])}}
+				                            {{Form::select('ship_zone', $zones, null, ['placeholder'=>'-- Select Zone --','class' => 'form-control cZone selectBox', 'id'=>'ship_zone'])}}
 				                        </div>
 				                    </div>
 
 				                    <div class="col-sm-6 col-md-6">
 				                      <div class="form-group">
 				                        <label for="ship_district">district</label>
-				                        <select class="form-control cDistrict" id="ship_district" name="ship_district" data-district ="" required>
-		                                    <option value="">-- Select District --</option>
+				                        <select class="form-control cDistrict selectBox" id="ship_district" name="ship_district" data-district ="" required>
+				                        	<option selected="selected" disabled="disabled" value="" hidden="hidden">-- Select District --</option>
+		                                    {{-- <option value="">-- Select District --</option> --}}
 		                                    @foreach($districts as $district)
 		                                    <option class="hide" data-attr="{{$district->zone_id}}" value="{{$district->district_id}}">{{$district->district_name}}</option>
 		                                    @endforeach
@@ -399,6 +401,7 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 						  	</label>
 	                    </div>
 	                  </div>
+	                  <!--
 	                  <div class="esewa payment-img">
 	                    <div class="dummy"></div>
 	                    <div class="payment_image">
@@ -407,7 +410,7 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 						    	<span class="payimage"><img src="{{asset('images/e-sewa.png')}}"></span>
 						  	</label>
 	                    </div>
-	                  </div>
+	                  </div> -->
 	                </div>
 	                {{Form::close()}}
 	              </div><!--pannel body end-->
@@ -444,11 +447,12 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 	          	<input name="OrderNo" type="hidden" value="">             
 	          	<input name="MerchantId" type="hidden" value="{{env('MERCHANTID', '')}}">             
 	          	<input name="Description" type="hidden" value="Service ID, Service Type, Service Details">             
-	          	<input name="ReturnUrl" type="hidden" value="{{url('payment/success')}}">             
+	          	<input name="ReturnUrl" type="hidden" value="">             
 	          	<input name="CurrencyCode" type="hidden" value="NPR">             
 	          	<input name="customer_email" type="hidden" value="">             
 	          	<input name="ErrorUrl" type="hidden" value="{{url('payment/cancel')}}">             
-	          	<input name="Amount" type="hidden" value="0.1">                    
+	          	{{-- <input name="Amount" type="hidden" value="0.1">                     --}}
+	          	<input name="Amount" type="hidden" value="{{$grandTotal}}">                    
 	          	<input name="Session_Key" type="hidden" value="">         
 	         </form>
 

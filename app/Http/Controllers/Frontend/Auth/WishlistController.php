@@ -33,7 +33,7 @@ class WishlistController extends Controller
         $ads= Ads::first();
         $wishlists = DB::table('product_wishlist')->where('user_id',$user)->get();
         $wishlist = DB::table('product_wishlist')->where('user_id',$user)->count();
-        return view('frontend.wishlist',compact('sliders','ads','page','wishlists','wishlist'));
+        return view('frontend.user.wishlist',compact('sliders','ads','page','wishlists','wishlist'))->withClass('wishlist');
     }
 
     /**
@@ -44,11 +44,10 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        
         if( Auth::user()){
             $user = Auth::user()->id;
         }
-        $duplicates = DB::table('product_wishlist')->where('product_id',$_GET['id'])->first();
+        $duplicates = DB::table('product_wishlist')->where('user_id', $user)->where('product_id',$_GET['id'])->first();
 
         if (!empty($duplicates)) {
             return redirect()->back()->withSuccessMessage('Item is already in your wishlist!');
@@ -83,7 +82,7 @@ class WishlistController extends Controller
     public function destroy($id)
     {
         DB::table('product_wishlist')->where('product_id',$id)->delete();
-        return redirect('wishlist')->withSuccessMessage('Item has been removed!');
+        return redirect('user/wishlist')->withSuccessMessage('Item has been removed!');
     }
 
     /**
@@ -94,7 +93,7 @@ class WishlistController extends Controller
     public function emptyWishlist()
     {
         DB::table('product_wishlist')->truncate();
-        return redirect('wishlist')->withSuccessMessage('Your wishlist has been cleared!');
+        return redirect('user/wishlist')->withSuccessMessage('Your wishlist has been cleared!');
     }
 
     /**

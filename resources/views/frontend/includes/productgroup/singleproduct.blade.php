@@ -12,7 +12,7 @@
     </a>
   </div>
   <div class="action">
-  <a href="{{ URL::to('wishlist/store/?id='.$product->id) }}" class="wishlist" data-id="{{ $product->id }}" data-price="{{ productPrice($product->id)}}" data-name="{{ $product->name}}">
+  <a href="{{ URL::to('user/wishlist/store/?id='.$product->id) }}" class="wishlist" data-id="{{ $product->id }}" data-price="{{ productPrice($product->id)}}" data-name="{{ $product->name}}">
       <i class="la-icon-heart-o"></i>                  
     </a>
   </div>

@@ -40,6 +40,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           <div class="cart-review">
             @if(Auth::check())
+            <?php 
+                $countItems = 0;
+            ?>
 
               @foreach($cartItems as $cartItem)
                   <?php
@@ -99,6 +102,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                       @else
                                                         <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                           {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                          <?php 
+                                                              $countItems +=  $cartItem->qty;
+                                                          ?>
                                                         <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                                           {{-- alert('product combination available'); --}}
                                                       @endif
@@ -120,6 +126,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                                   @else
                                                     <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                                    <?php 
+                                                        $countItems +=  $cartItem->qty;
+                                                    ?>
                                                     <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                                   @endif
                                                 @endif
@@ -130,9 +139,15 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                               <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                               @if($productAttrCombination->quantity == 0) 
                                                   {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                                  <?php 
+                                                      $countItems +=  $cartItem->qty;
+                                                  ?>
                                                   {{-- alert('product combination available unlimited'); --}}
                                               @else
                                                   {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                  <?php 
+                                                      $countItems +=  $cartItem->qty;
+                                                  ?>
                                                   {{-- alert('product combination available'); --}}
                                               @endif
                                               <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
@@ -145,6 +160,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                               @else
                                                 <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                 {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                                <?php 
+                                                      $countItems +=  $cartItem->qty;
+                                                  ?>
                                                 <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                               @endif
                                             @endif
@@ -179,7 +197,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
               @endforeach
 
             @else
-
+            <?php 
+                $countItems = 0;
+            ?>
               @foreach($cartItems as $cartItem)
                   <?php
                   $stock = '';
@@ -237,6 +257,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                               @else
                                                 <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                                   {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                                  <?php 
+                                                      $countItems +=  $cartItem->qty;
+                                                  ?>
                                                   {{-- alert('product combination available'); --}}
                                                 <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                               @endif
@@ -258,6 +281,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                           @else
                                             <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                             {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
+                                            <?php 
+                                                $countItems +=  $cartItem->qty;
+                                            ?>
                                             <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                           @endif
                                         @endif
@@ -268,9 +294,15 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                       <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                       @if($productAttrCombination->quantity == 0) 
                                           {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                          <?php 
+                                              $countItems +=  $cartItem->qty;
+                                          ?>
                                           {{-- alert('product combination available unlimited'); --}}
                                       @else
                                           {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
+                                          <?php 
+                                              $countItems +=  $cartItem->qty;
+                                          ?>
                                           {{-- alert('product combination available'); --}}
                                       @endif
                                       <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
@@ -282,6 +314,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                                       @else
                                         <div class="btn-minus"><i class="fa fa-angle-down qty-input"></i></div>
                                         {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
+                                        <?php 
+                                            $countItems +=  $cartItem->qty;
+                                        ?>
                                         <div class="btn-plus"><i class="fa fa-angle-up qty-input"></i></div>
                                       @endif
                                     @endif
@@ -333,100 +368,102 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                       <!-- <a href="#" class="btn btn-default">update cart</a>  -->
                     </div>
 
-                    {{Form::open(['url' => '/checkout'])}}
-                      {{Form::hidden('subTotal', CartItemsSubTotalPrice() )}}
-                      {{Form::hidden('deliveryCharge', 100 , ['class'=>'deliveryCharge'])}}
-                      {{Form::hidden('grandTotal', null , ['class'=>'grandTotal'])}}
-                      <div class="text-right">
-                        <div class="right-grand-total">
-                          <div class="sumarry-total cart-totals">
-                            <span class="pull-left">sub total</span>
-                            <span class="grandprice subTotal" data-subtotal="{{CartItemsSubTotalPrice()}}">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
-                          </div>
-                          <div class="total-calculate cart-totals">
-                            <span class="pull-left"><a type="button" href="javascript:void(0)" onclick="return menuslidedown();">calculate Delivery Charge<i class="fa fa-angle-down"></i></a></span>
-                            <div class="" id="billingopt">
-                              <div class="box">
-                                {{-- <form method="post" action=""> --}}
+                    @if($countItems != 0)
+                      {{Form::open(['url' => '/checkout'])}}
+                        {{Form::hidden('subTotal', CartItemsSubTotalPrice() )}}
+                        {{Form::hidden('deliveryCharge', 100 , ['class'=>'deliveryCharge'])}}
+                        {{Form::hidden('grandTotal', null , ['class'=>'grandTotal'])}}
+                        <div class="text-right">
+                          <div class="right-grand-total">
+                            <div class="sumarry-total cart-totals">
+                              <span class="pull-left">sub total</span>
+                              <span class="grandprice subTotal" data-subtotal="{{CartItemsSubTotalPrice()}}">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
+                            </div>
+                            <div class="total-calculate cart-totals">
+                              <span class="pull-left"><a type="button" href="javascript:void(0)" onclick="return menuslidedown();">calculate Delivery Charge<i class="fa fa-angle-down"></i></a></span>
+                              <div class="" id="billingopt">
+                                <div class="box">
+                                  {{-- <form method="post" action=""> --}}
 
-                                  {{-- <div class="content">
-                                    <div class="form-group">
-                                      <select class="form-control" id="country">
-                                        <option value="germany">kathmandu valley(inside ring road)</option>
-                                        <option value="austria">Österreich</option>
-                                        <option value="swiss">Schweiz</option>
-                                        <option value="usa">USA</option>
-                                      </select>
-                                    </div>
-                                    <div class="form-group">
-                                      <select class="form-control" id="country">
-                                        <option value="germany">Deutschland</option>
-                                        <option value="austria">Österreich</option>
-                                        <option value="swiss">Schweiz</option>
-                                        <option value="usa">USA</option>
-                                      </select>
-                                    </div>
-                                  </div>  --}}
+                                    {{-- <div class="content">
+                                      <div class="form-group">
+                                        <select class="form-control" id="country">
+                                          <option value="germany">kathmandu valley(inside ring road)</option>
+                                          <option value="austria">Österreich</option>
+                                          <option value="swiss">Schweiz</option>
+                                          <option value="usa">USA</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <select class="form-control" id="country">
+                                          <option value="germany">Deutschland</option>
+                                          <option value="austria">Österreich</option>
+                                          <option value="swiss">Schweiz</option>
+                                          <option value="usa">USA</option>
+                                        </select>
+                                      </div>
+                                    </div>  --}}
 
-                                  <div class="content">
-                                    <div class="form-group">
-                                      <select class="form-control" id="shipping" name="deliveryLocation">
-                                        <option value="ktm-in">kathmandu (inside ring road)</option>
-                                        <option value="ktm-out">kathmandu (outside ring road)</option>
-                                        <option value="ltp-in">lalitpur (inside ring road)</option>
-                                        <option value="ltp-out">lalitpur (outside ring road)</option>
-                                        <option value="bkp">Bhaktapur</option>
-                                      </select>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                      <select class="form-control" id="country">
-                                        <option value="germany">Deutschland</option>
-                                        <option value="austria">Österreich</option>
-                                        <option value="swiss">Schweiz</option>
-                                        <option value="usa">USA</option>
-                                      </select>
-                                    </div> --}}
-                                  </div> 
+                                    <div class="content">
+                                      <div class="form-group">
+                                        <select class="form-control" id="shipping" name="deliveryLocation">
+                                          <option value="ktm-in">kathmandu (inside ring road)</option>
+                                          <option value="ktm-out">kathmandu (outside ring road)</option>
+                                          <option value="ltp-in">lalitpur (inside ring road)</option>
+                                          <option value="ltp-out">lalitpur (outside ring road)</option>
+                                          <option value="bkp">Bhaktapur</option>
+                                        </select>
+                                      </div>
+                                      {{-- <div class="form-group">
+                                        <select class="form-control" id="country">
+                                          <option value="germany">Deutschland</option>
+                                          <option value="austria">Österreich</option>
+                                          <option value="swiss">Schweiz</option>
+                                          <option value="usa">USA</option>
+                                        </select>
+                                      </div> --}}
+                                    </div> 
 
 
 
-                                {{-- </form> --}}
-                              </div>
-                              <div class="shipping-table-info">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th>services</th>
-                                      <th>delivery</th>
-                                      <th>cost</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>standard delivery</td>
-                                      <td>2 days(s)</td>
-                                      <td class="cost">NPR 50</td>
-                                    </tr>
-                                    
-                                  </tbody>
-                                </table>
-                                </table>
+                                  {{-- </form> --}}
+                                </div>
+                                <div class="shipping-table-info">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th>services</th>
+                                        <th>delivery</th>
+                                        <th>cost</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>standard delivery</td>
+                                        <td>2 days(s)</td>
+                                        <td class="cost">NPR 50</td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="grand-total cart-totals">
-                          <span>total:</span>
-                          {{-- <span class="grandprice">NPR <em>{{LaraCart::total()}}</em></span> --}}
-                          {{-- <span class="grandprice total">NPR <em>{{CartItemsSubTotalPrice()}}</em></span> --}}
-                          <span class="grandprice total">NPR <em></em></span>
-                        </div>
-                        <div class="checkout-btn ">
-                          <button class="btn btn-primary bigwidth open-door checkoutBtn">proceed to checkout</button>
-                        </div>
+                          <div class="grand-total cart-totals">
+                            <span>total:</span>
+                            {{-- <span class="grandprice">NPR <em>{{LaraCart::total()}}</em></span> --}}
+                            {{-- <span class="grandprice total">NPR <em>{{CartItemsSubTotalPrice()}}</em></span> --}}
+                            <span class="grandprice total">NPR <em></em></span>
+                          </div>
+                          <div class="checkout-btn ">
+                            <button class="btn btn-primary bigwidth open-door checkoutBtn">proceed to checkout</button>
+                          </div>
 
-                      </div><!-- End text-right -->
-                    {{Form::close()}}
+                        </div><!-- End text-right -->
+                      {{Form::close()}}
+                    @endif
 
                   </div>
               </div>
@@ -437,7 +474,9 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
         
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="cart-confirm gray-bg">
-            <h2>cart sumary<span>({{countCartItems()}} items)</span></h2>
+            {{-- <h2>cart sumary<span>({{countCartItems()}} items)</span></h2> --}}
+            <h2>cart sumary<span>({{$countItems}} items)</span></h2>
+            @if($countItems != 0)
             <div class="cart-total">
               <span class="pull-left">total</span>
               {{-- <span class="pull-right">NPR <em>{{LaraCart::total()}}</em></span> --}}
@@ -448,6 +487,7 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
             <div class="cart-order-btn">
               <button type="submit" class="btn btn-primary bigwidth open-door checkoutBtn2">Proceed to checkout</button>
             </div>
+            @endif
             <div class="cart-logo-dis">
               <div class="cart-logo">
                 @if(!empty($setting->logo2))

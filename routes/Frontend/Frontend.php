@@ -18,7 +18,7 @@ Route::get('/productsorting', 'FrontendController@productSorting')->name('produc
 
 Route::group(['middleware' => 'auth'], function () {
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
-Route::get('dashboard/password', 'ChangePasswordController@formPassword')->name('password');
+    Route::get('user/password', 'ChangePasswordController@formPassword')->name('password');
 });
 });
 
@@ -31,8 +31,9 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
         /*
          * User Dashboard Specific
          */
-        Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-        Route::get('dashboard/profile', 'DashboardController@profile')->name('profile');
+        Route::get('user/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::get('user/profile', 'DashboardController@profile')->name('profile');
+        // Route::get('user/wishlist', 'DashboardController@wishlist')->name('wishlist');
 
         /*
          * User Account Specific
@@ -45,5 +46,10 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
         //Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
         Route::patch('profile/update/{id}', 'ProfileController@userUpdate')->name('profile.update');
         Route::patch('password/update/{id}', 'ProfileController@passwordUpdate')->name('password.update');
+
+        /*
+         * User orders
+         */
+        Route::get('user/orders', 'OrderController@index')->name('orders');
     });
 });

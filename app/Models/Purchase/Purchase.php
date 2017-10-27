@@ -28,5 +28,4 @@ class Purchase extends Model
         return $this->hasMany('App\Models\Purchase\PurchaseItem');
     }
 
-
 }

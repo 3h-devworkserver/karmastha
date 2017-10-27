@@ -24,5 +24,9 @@ class Payment extends Model
         return $this->hasOne('App\Models\Purchase\PaymentIpay');
     }
 
+    public function purchase(){
+        return $this->belongsTo('App\Models\Purchase\Purchase');
+    }
+
 
 }

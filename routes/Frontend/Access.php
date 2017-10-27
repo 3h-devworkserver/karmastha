@@ -18,10 +18,10 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         // Change Password Routes
         Route::patch('password/change', 'ChangePasswordController@changePassword')->name('password.change');
 
-        Route::get('wishlist', 'WishlistController@index');
-        Route::get('wishlist/store', 'WishlistController@store');
-        Route::delete('wishlist/destroy/{id}', 'WishlistController@destroy');
-        Route::delete('emptyWishlist', 'WishlistController@emptyWishlist');
+        Route::get('user/wishlist', 'WishlistController@index');
+        Route::get('user/wishlist/store', 'WishlistController@store');
+        Route::delete('user/wishlist/destroy/{id}', 'WishlistController@destroy');
+        Route::delete('/user/emptyWishlist', 'WishlistController@emptyWishlist');
     });
 
     /*

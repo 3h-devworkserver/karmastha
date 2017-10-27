@@ -28,7 +28,8 @@
                                           </li>
 
                                           <li> Hello, <a href="#"><span>{{ $user->name }}</span><i class="fa fa-address-card" aria-hidden="true"></i></a></li>
-                                          <li><a href="{{ URL::to('/dashboard/profile') }}"><span>my account</span></a><a href="{{ URL::to('/logout') }}"> <span>signout</span></a></li>
+                                          <li><a href="{{ URL::to('/dashboard/profile') }}"><span>my account</span></a></li>
+                                          <li><a href="{{ URL::to('/logout') }}"> <span>signout</span></a></li>
                                           
                                       </ul> 
                                     </div>  

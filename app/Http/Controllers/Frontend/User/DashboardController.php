@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\User;
 use App\Http\Controllers\Controller;
 use App\Models\Zone;
 use App\Models\District;
+use Auth;
 
 /**
  * Class DashboardController.
@@ -30,5 +31,11 @@ class DashboardController extends Controller
     {
         return view('frontend.user.password')->withClass('password-info');
     }
+
+    // public function wishlist(){
+    //     $wishtlist = Auth::user()->wishlist;
+    //     return $wishtlist;
+    //     return view('frontend.user.wishlist.blade.php');
+    // }
     
 }
