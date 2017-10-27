@@ -60,7 +60,7 @@
 		                        	<td><span class="old">NPR{{ $item->price }}</span>  <span class="price">NPR {{ $item->special_price }}</span></td>
 		                        @endif
 		                        {{-- <td>${{ $item->special_price }}</td> --}}
-		                        <td class=""></td>
+		                        <td class="column-spacer"></td>
 		                        <td>
 		                            <form action="{{ url('wishlist/destroy', [$item->id]) }}" method="POST" class="side-by-side">
 		                                {!! csrf_field() !!}
@@ -102,11 +102,11 @@
         </div>
     
     </div>
-    <div class="col-sm-4 col-md-4">
+    {{-- <div class="col-sm-4 col-md-4">
         <div class="maui-row-right mt15">
             @include('frontend.user.includes.noticeboard')
             @include('frontend.user.includes.supplier')
         </div>
-    </div>
+    </div> --}}
 
 @endsection

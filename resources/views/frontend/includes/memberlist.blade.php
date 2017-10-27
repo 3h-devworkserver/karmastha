@@ -6,12 +6,12 @@
         @foreach( $members as $key => $member)
         <div class="item">
           @if( $member->url  != '#' || !empty( $member->url))
-          <a href="http://{{$member->url}}" target="_blank" alt="">
+          <a href="http://{{$member->url}}" target="_blank" alt="" class="member-img">
           @else
-          <a href="#">
+          <a href="#" class="member-img">
           @endif
-          <div class="member-img" style="background-image: url({{str_replace(' ', '%20', getImageUrl('', $member->logo))}});"></div>
-            {{-- <img src="{{asset('/'.$member->logo)}}" alt=""> --}}
+          {{-- <div class="member-img" style="background-image: url({{str_replace(' ', '%20', getImageUrl('', $member->logo))}});"></div> --}}
+            <img src="{{asset('/'.$member->logo)}}" alt="">
           </a>
         </div>
         @endforeach

@@ -1,4 +1,17 @@
 @if( !empty($sliders) && count($sliders) > 0 )
+<section class="banner-wrapper pb0 pt0">
+    <div class="owl-carousel">
+      @foreach( $sliders as $key => $slider)
+      <div class="item bg-img" style="background-image: url({{asset('/'.$slider->Slider_image)}});">
+
+      </div>
+      @endforeach
+    </div>
+</section>
+@endif
+
+<?php /* ?>
+@if( !empty($sliders) && count($sliders) > 0 )
 <section class="banner-wrapper pb0">
   <div class="container">
     <div class="row">
@@ -27,3 +40,4 @@
   </div>
 </section>
 @endif
+<?php */ ?>

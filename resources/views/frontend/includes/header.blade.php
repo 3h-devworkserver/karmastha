@@ -29,9 +29,10 @@
                     <li><a href="{{ URL::to('/logout') }}"> <span>sign out</span></a></li>
                     @endif
                   </ul>
-              </li>            
+              </li> 
+              <!--           
               <li><a href="">Contact</a></li>
-              <li><a href="">Help</a></li>                                    
+              <li><a href="">Help</a></li>   -->                                 
             </ul>
           </div>
         </div>

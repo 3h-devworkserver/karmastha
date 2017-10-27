@@ -54,12 +54,12 @@
         
     
     </div>
-    <div class="col-sm-4 col-md-4">
+    {{-- <div class="col-sm-4 col-md-4">
         <div class="maui-row-right mt15">
             @include('frontend.user.includes.noticeboard')
             @include('frontend.user.includes.supplier')
         </div>
-    </div>
+    </div> --}}
             
 
 @endsection

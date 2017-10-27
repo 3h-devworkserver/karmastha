@@ -21,11 +21,25 @@
 
 @include('frontend.includes.banner')
 
+
+<section class="new-offer">
+  <div class="container">
+    <div class="offer-image bg-img" style="background-image:url('http://192.168.0.23/karmastha/public/images/44.jpg')">
+        <div class="offer-cap">
+          <h3 class="color-title">New offer</h3>
+          <button class="btn btn-outline">book now</button>
+        </div>
+    </div>
+  </div>
+</section>
+
+<?php /* ?>
 @include('frontend.includes.advertisement')
+<?php */ ?>
 
+<?php /* ?>
 @if( count($tproducts) > 0 )
-
-<section class="products-wrapper pb0">
+<section class="products-wrapper">
   <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -45,6 +59,7 @@
   </div>
 </section>
 @endif
+<?php */ ?>
 
 @if(count($categoryDisplays) > 0)
 @foreach($categoryDisplays as $categoryDisplay)

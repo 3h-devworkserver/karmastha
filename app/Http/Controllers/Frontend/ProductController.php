@@ -96,7 +96,11 @@ class ProductController extends Controller
     	}
         $product->increaseView();
         $baseImage = $product->productBaseImage;
-        return view('frontend.product.productdetail', compact('product', 'baseImage', 'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
+        if ($product->slug == 'mobile') {
+            return view('frontend.product.productdetailbooking', compact('product', 'baseImage', 'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
+        }else{
+            return view('frontend.product.productdetail', compact('product', 'baseImage', 'tmp', 'tmp2'))->withClass('inner-page product-detail-page');
+        }
     }
 
      /**

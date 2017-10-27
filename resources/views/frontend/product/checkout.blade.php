@@ -465,6 +465,17 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
     </div>
   </div>
 </section>
+@endsection
 
-
+@section('after-scripts')
+<script>
+	$(window).on('scroll', function(){
+        //You've scrolled this much:
+        if ($(window).scrollTop() >= '208') {
+            $('.cart-confirm').addClass('is-fixed');
+        }else{
+            $('.cart-confirm').removeClass('is-fixed');
+        }
+    });
+</script>
 @endsection

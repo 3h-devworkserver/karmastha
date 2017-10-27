@@ -96,8 +96,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/userdash.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/dashboard-style.css')}}">
     <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/dashboard-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/responsive.css')}}">
 
     @yield('after-styles')
