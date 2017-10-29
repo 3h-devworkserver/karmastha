@@ -1,104 +1,76 @@
 @extends('frontend.user.layouts.frontend-app')
 
-@section ('title', 'Wishlist')
+@section ('title', 'Favorites List')
 {{-- @include('frontend.includes.banner') --}}
 
 {{-- @include('frontend.includes.advertisement') --}}
 @section('content')
     
-    <div class="col-sm-8 col-md-8">
+    <div class="col-sm-12 col-md-12 Fullcontent-wrap">
         @include('includes.partials.messages')
 
         <div class="userdash-right">
-           	<div class="container">
-
-		        @if (session()->has('success_message'))
-		            <div class="alert alert-success">
-		                {{ session()->get('success_message') }}
+			
+	        @if (session()->has('success_message'))
+	        	<div class="row">
+		            <div class="col-sm-12">
+			            <div class="alert alert-success">
+			                {{ session()->get('success_message') }}
+			            </div>
 		            </div>
-		        @endif
+	        	</div>
+	        @endif
 
-		        @if (session()->has('error_message'))
-		            <div class="alert alert-danger">
-		                {{ session()->get('error_message') }}
-		            </div>
-		        @endif
+	        @if (session()->has('error_message'))
+	        	<div class="row">
+		            <div class="col-sm-12">
+			            <div class="alert alert-danger">
+			                {{ session()->get('error_message') }}
+			            </div>
+			        </div>
+		        </div>
+	        @endif
 
 		        @if (count($wishlists) > 0)
 
-		            <table class="table wishlist-table">
-		                <thead>
-		                    <tr>
-		                        <th class="table-image"></th>
-		                        <th>Product Name</th>
+		        <table id="wishlist-table" class="table table-bordered table-striped table-hover" width="100%">
+					<thead class="hide">
+						<tr>
+							<th>aaa</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
 
-		                        <th>Price</th>
-		                        <th class="column-spacer"></th>
-		                        <th></th>
-		                    </tr>
-		                </thead>
-
-		                <tbody>
-		                    @foreach ($wishlists as $key => $wish )
-		                    <?php 
-
-		                        $item = DB::table('products')
-		                        ->join('product_price','products.id','=','product_price.product_id')
-		                        ->select('products.name','product_price.price','product_price.special_price','products.id')
-		                        ->where('products.id',$wish->product_id)
-		                        ->first();
-
-		                    ?>
-		                    <tr>
-		                        <td class="table-image">
-		                            <a href="#"><img src="{{ asset('/images/product/'.$item->id.'/thumbnail/'. getThumbImage($item->id) ) }}" alt="product" class="img-responsive cart-image"></a></td>
-		                        <td><a href="#">{{ $item->name }}</a></td>
-
-		                        @if(empty($item->special_price))
-		                        	<td><span class="price">NPR {{ $item->price }}</span></td>
-		                        @else
-		                        	<td><span class="old">NPR{{ $item->price }}</span>  <span class="price">NPR {{ $item->special_price }}</span></td>
-		                        @endif
-		                        {{-- <td>${{ $item->special_price }}</td> --}}
-		                        <td class="column-spacer"></td>
-		                        <td>
-		                            <form action="{{ url('wishlist/destroy', [$item->id]) }}" method="POST" class="side-by-side">
-		                                {!! csrf_field() !!}
-		                                <input type="hidden" name="_method" value="DELETE">
-		                                <input type="submit" class="btn btn-danger btn-sm" value="Remove">
-		                            </form>
-
-		                        </td>
-		                    </tr>
-		                    @endforeach
-
-		                </tbody>
-		            </table>
-
+	            
 		            <div class="spacer"></div>
 
 					<div class="button-group">
 			            {{-- <a href="{{ URL::to('/')}}" class="btn btn-primary btn-lg">Continue Shopping</a> &nbsp; --}}
 
-			            <div style="float:right">
+			            {{-- <div style="float:right">
 			                <form action="{{ url('/emptyWishlist') }}" method="POST">
 			                    {!! csrf_field() !!}
 			                    <input type="hidden" name="_method" value="DELETE">
 			                    <input type="submit" class="btn btn-danger btn-lg" value="Empty Wishlist">
 			                </form>
-			            </div>
+			            </div> --}}
 					</div>
 
 		        @else
+			        <div is="null" class="list-module-listempty">
+	                    <div is="null" class="list-module-listempty_title">
+	                        <i is="null" type="notice" class="fa fa-exclamation-circle list-module-listempty_titleicon" aria-hidden="true"></i><!-- react-text: 344 -->No Product added in Favorites.
+	                        <!-- /react-text -->
+	                    </div>
+	                </div>
 
-		            <h3>You have no items in your Wishlist</h3>
-		            <a href="{{ URL::to('/')}}" class="btn btn-primary btn-lg">Continue Shopping</a>
+		            {{-- <h3>You have no items in your Wishlist</h3> --}}
 
 		        @endif
 
 		        <div class="spacer"></div>
 
-		    </div> <!-- end container -->
         </div>
     
     </div>

@@ -33,6 +33,7 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
          */
         Route::get('user/dashboard', 'DashboardController@index')->name('dashboard');
         Route::get('user/profile', 'DashboardController@profile')->name('profile');
+    Route::get('user/image', 'DashboardController@uploadImage')->name('image');
         // Route::get('user/wishlist', 'DashboardController@wishlist')->name('wishlist');
 
         /*
@@ -45,6 +46,7 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
          */
         //Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
         Route::patch('profile/update/{id}', 'ProfileController@userUpdate')->name('profile.update');
+        Route::patch('profile/image/{id}', 'ProfileController@userImageUpdate')->name('profile.image.update');
         Route::patch('password/update/{id}', 'ProfileController@passwordUpdate')->name('password.update');
 
         /*

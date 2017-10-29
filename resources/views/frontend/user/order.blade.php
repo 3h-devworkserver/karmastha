@@ -4,10 +4,79 @@
 
 @section('content')
 
-    <div class="col-sm-8 col-md-8">
+    <div class="col-sm-12 col-md-12 Fullcontent-wrap">
         
         @include('includes.partials.messages')
-        @foreach($payments as $key => $payment)
+
+        <div class="userdash-right">
+            
+            @if (session()->has('success_message'))
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-success">
+                            {{ session()->get('success_message') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (session()->has('error_message'))
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-danger">
+                            {{ session()->get('error_message') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+                @if (count($payments) > 0)
+
+                <table id="order-table" class="table table-bordered table-striped table-hover" width="100%">
+                    <thead class="">
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Order No.</th>
+                            <th>Payment Type</th>
+                            <th>Total Payment</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                
+                    <div class="spacer"></div>
+
+                    <div class="button-group">
+                        {{-- <a href="{{ URL::to('/')}}" class="btn btn-primary btn-lg">Continue Shopping</a> &nbsp; --}}
+
+                        {{-- <div style="float:right">
+                            <form action="{{ url('/emptyWishlist') }}" method="POST">
+                                {!! csrf_field() !!}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" class="btn btn-danger btn-lg" value="Empty Wishlist">
+                            </form>
+                        </div> --}}
+                    </div>
+
+                @else
+                    <div is="null" class="list-module-listempty">
+                        <div is="null" class="list-module-listempty_title">
+                            <i is="null" type="notice" class="fa fa-exclamation-circle list-module-listempty_titleicon" aria-hidden="true"></i><!-- react-text: 344 -->No Order Transaction Available.
+                            <!-- /react-text -->
+                        </div>
+                    </div>
+                @endif
+
+                <div class="spacer"></div>
+
+        </div>
+
+
+
+<?php /*
+         @foreach($payments as $key => $payment)
             @if($payment->payment_method == 'ipay')
                 <?php   
                     $ipay = $payment->paymentIpay;  
@@ -50,8 +119,8 @@
                   </div>
                 </div>
             @endif
-        @endforeach
-        
+        @endforeach }
+<?php  */ ?>      
     
     </div>
     {{-- <div class="col-sm-4 col-md-4">

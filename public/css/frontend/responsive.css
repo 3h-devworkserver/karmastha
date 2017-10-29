@@ -551,3 +551,20 @@ header + section { padding-top: 25px !important; }
   .cart-qty div.qty-section > div > input { height: 30px; max-width: 19%; }
   .cart-qty .qty-section{ height: 30px; }
 }
+
+@media only screen and (max-width:1350px){
+  
+/*   .banner-wrapper .item .slider-1 {
+  position: absolute;
+  right: 803px;
+  top: 223px;
+}
+.banner-wrapper .item .slider-2 {
+  position: absolute;
+  right: 820px;
+  top: 170px;
+} */
+
+}
+
+

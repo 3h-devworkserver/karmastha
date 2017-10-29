@@ -675,6 +675,20 @@ class ProductController extends Controller
     }
 
 
+    public function preBooking(Request $request){
+        // return $request->all();
+        // send email 
+        Mail::send('emails.bookingemail',['info'=>$request->all()], function($message) use($request){
+            // $message->to('yojan@3hammers.com', 'Admin')
+            $message->to('dkarmastha101@gmail.com', 'Admin')
+            ->subject('Booking Details:');
+        });
+        //end of email 
+
+        return redirect()->back()->withPaymentSuccess('Product has been successfully booked.');
+    }
+
+
 
 
 }

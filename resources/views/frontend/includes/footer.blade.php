@@ -7,7 +7,7 @@
             <ul class="list-unstyled">
                 <li><a href="">About Us</a></li>
                 <li><a href="">Business Member</a></li>
-                <li><a href="">Portfoli</a></li>
+                <li><a href="">Portfolio</a></li>
                 <li><a href="">Carrier</a></li>
             </ul>
         </div>
@@ -41,21 +41,16 @@
             <div class="col-md-6 col-sm-6">
               <h4>Follow Us</h4>
               <ul class="list-unstyled social-links">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><img src="{{asset('images/fb.png')}}"></a></li>
               </ul>
               
             </div>
             <div class="col-md-12">
               <h4>Payment Partners</h4>
               <ul class="list-unstyled payment">
-                <li><a href="#"><img src="{{asset('front-images/1.png')}}" alt=""></a></li>
-                <li><a href="#"><img src="{{asset('front-images/2.png')}}" alt=""></a></li>
-                <li><a href="#"><img src="{{asset('front-images/3.png')}}" alt=""></a></li>
-                <li><a href="#"><img src="{{asset('front-images/4.png')}}" alt=""></a></li>
+                <li><a href="#"><img src="{{asset('images/esewa-sm.png')}}" alt=""></a></li>
+                <li><a href="#"><img src="{{asset('images/ipay-sm.png')}}" alt=""></a></li>
+                <li><a href="#"><img src="{{asset('images/nibl.png')}}" alt=""></a></li>
               </ul>
             </div>
           </div>
@@ -65,7 +60,7 @@
             <ul class="list-unstyled contact-info">
                 <li><i class="fa fa-phone"></i>01-4564488</li>
                 <li><a href="mailto:dkarmastha@gmail.com"><i class="fa fa-envelope"></i>dkarmastha@<span>gmail.com</span></a></li>
-                <li><i class="fa fa-map-marker"></i>New Road, Kathmandu</li>
+                <li><i class="fa fa-map-marker"></i>Thamel, Kathmandu</li>
                
             </ul>
         </div>
@@ -82,7 +77,7 @@
         </div>
         <div class="col-md-6 col-sm-6">
           <p class="digital-agency">
-              Digital Agency : <a href="http://www.3hammers.com"><img src="{{asset('front-images/3hammers.png')}}" alt="Three Hammers"></a>
+              Partner Agency : <a href="http://www.3hammers.com"><img src="{{asset('front-images/3hammers.png')}}" alt="Three Hammers"></a>
           </p>
         </div>
       </div>

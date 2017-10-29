@@ -57,4 +57,9 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 
     Route::get('/data/table/attributes', 'Backend\AttributeController@load');
 
+
+    // frontend
+    Route::get('/data/table/user/wishlist', 'Frontend\Auth\WishlistController@load');
+    Route::get('/data/table/user/order', 'Frontend\User\OrderController@load');
+
     

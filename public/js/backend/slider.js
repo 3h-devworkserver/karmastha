@@ -88,11 +88,11 @@ function ImageSrc(input,preview)
         var height = this.height;
         var width = this.width;
 
-        if (height < 370 || width < 881) {
+        if (height < 330 || width < 1900) {
           swal({                  
             title: "Invalid Size",
             type:"warning", 
-            text: "Dimension must be greater than 370*881",
+            text: "Dimension must be greater than 330*1900",
             timer: 1000,
             showConfirmButton: false             
           });

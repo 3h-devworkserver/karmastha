@@ -40,7 +40,7 @@ class SliderController extends Controller
 	public function load()
 	{
 
-		$sliders=Slide::select('title')->groupBy('title')->get();
+		$sliders=Slide::select('id','title')->groupBy('id', 'title')->get();
 
 		//$sliders=Slide::select('title','created_at','updated_at');
 				

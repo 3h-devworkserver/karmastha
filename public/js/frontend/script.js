@@ -43,7 +43,7 @@
         $('.banner-wrapper .owl-carousel').owlCarousel({
             items: 1,
             loop: true,
-            dots:true,
+            dots:false,
             margin:0,
             nav: true,
             navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],                
@@ -56,6 +56,7 @@
 
     function productCarousel(){
         $('.four-col .owl-carousel').owlCarousel({
+            stagePadding: 50,
             loop:true,
             margin:15,
             dots:false,
@@ -69,7 +70,8 @@
                     items:2
                 },
                 1000:{
-                    items:4
+                    // items:4
+                    items:3
                 }
             }
         })
@@ -97,7 +99,8 @@
     }
     
     function businessMemberCarousel(){
-        $('.brands-wrapper .owl-carousel').owlCarousel({
+        // $('.brands-wrapper .owl-carousel').owlCarousel({
+        $('.aaaa').owlCarousel({
             loop:true,
             margin:30,
             dots:false,

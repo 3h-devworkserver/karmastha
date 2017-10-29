@@ -336,13 +336,16 @@
                   <div class="plus-minus-pro-action product-info-item clearfix">
                       <div class="sin-plus-minus cart-size clearfix">
                           <div class="cart-btn">
-                            <a href="javascript:void(0)" class="btn btn-primary open-door " tabindex="-1">
+                            <a href="javascript:void(0)" class="btn btn-primary open-door " tabindex="-1" data-toggle="modal" data-target="#myModal">
                               <span class="text-capitalize"><i class="fa fa-shopping-cart"></i> book now</span>
                             </a>
                           </div>  
                       </div>
                   </div>
                   <!-- plus-minus-pro-action end -->
+
+                      
+                      </div>
 
                 {{Form::close()}}
 
@@ -586,5 +589,55 @@
   </div>
 </section>
 -->
+
+<!-- Modal -->
+                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Booking Form</h4>
+                            </div>
+                            {{Form::open(['url'=>'product/prebooking', 'id'=>'preBookingForm'])}}
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Name *</label>
+                                      <input type="text" class="form-control" placeholder="Name" name="name">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Email *</label>
+                                      <input type="text" class="form-control" placeholder="Email" name="email">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Mobile No. *</label>
+                                      <input type="" class="form-control" placeholder="Phone No." name="phone">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="">Color *</label>
+                                        <select class="form-control" name="color">
+                                          <option>Black</option>
+                                          <option>Silver</option>
+                                          <option>Gold</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> <!-- modal body-->
+                              <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --}}
+                                <button type="submit" class="btn btn-primary open-door">Submit</button>
+                              </div>
+                            {{Form::close()}}
+                          </div>
+                        </div>
+                      </div>
 
 @endsection

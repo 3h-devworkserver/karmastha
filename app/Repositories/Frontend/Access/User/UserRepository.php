@@ -230,41 +230,60 @@ class UserRepository extends BaseRepository
     public function updateProfile($id, $input)
     {
 
-       
         $user = $this->find($id);
+
         $user->name = $input['fname'].' '.$input['lname'];
         // $user->name = $input['fullname'];
-        if( $input['business_type'] != '0'){
-            $user->roles()->update(['role_id'=>$input['business_type']]);
-        }
-       $user_img =  DB::table('profiles')->select('image')->where('user_id',$id)->first();
-            if(Input::hasFile('pimage'))
-                        {
-                            $file = Input::file('pimage');
-                            $destinationPath = public_path(). '/images/logo/';
-                             $pname = $file->getClientOriginalName();
-                             $file->move($destinationPath, $pname);
+        if( $input['business_type'] == 'vendor'){
+            $user->roles()->update(['role_id'=>'4']);
+        }elseif($input['business_type'] == 'wholesaler'){
+            $user->roles()->update(['role_id'=>'6']);
+        }        
+        // $user_img =  DB::table('profiles')->select('image')->where('user_id',$id)->first();
+        //     if(Input::hasFile('pimage'))
+        //                 {
+        //                     $file = Input::file('pimage');
+        //                     $destinationPath = public_path(). '/images/logo/';
+        //                      $pname = $file->getClientOriginalName();
+        //                      $file->move($destinationPath, $pname);
                            
-                        }
-                        else
-                        {
-                            if($user_img->image != ''){
-                                $pname = $user_img->image;
-                            }else{
-                                $pname = '';
-                            }
-                        }
+        //                 }
+        //                 else
+        //                 {
+        //                     if($user_img->image != ''){
+        //                         $pname = $user_img->image;
+        //                     }else{
+        //                         $pname = '';
+        //                     }
+        //                 }
+        if($input['b_pattern'] == 1 ){
+            $jobtitle = $input['job_title'];
+            $c_description = $input['c_description'];
+            $business_type = NULL;
+        }else{
+            $jobtitle = NULL;
+            $c_description = NULL;
+            $business_type = $input['business_type'];
+        }
         DB::table('profiles')
                             ->where('user_id', $id)
                             ->update([
                                 'fname' => $input['fname'],
                                 'lname' => $input['lname'],
-                                'phone' => $input['phone'],
+                                'b_pattern' => $input['b_pattern'],
+                                'gender' => $input['gender_profile'],
+                                'code' => $input['code'],
+                                'faxcode' => $input['faxcode'],
+                                'areacode' => $input['areacode'],
+                                'faxareacode' => $input['faxareacode'],
+                                'phone' => $input['number'],
+                                'fax' => $input['faxnumber'],
                                 'street' => $input['street'],
                                 'city' => $input['city'],
-                                'zone' => $input['zone'],
-                                'district' => $input['district'],
-                                'image' => $pname,
+                                'zone' => $input['province'],
+                                'country' => $input['country'],
+                                'job_title' => $jobtitle,
+                                //'image' => $pname,
                               ]);  
        $user_id =  DB::table('user_information')->select('user_id','c_logo')->where('user_id',$id)->first();
        if(!empty($input['website_url'])){
@@ -273,8 +292,8 @@ class UserRepository extends BaseRepository
                             $url = '';
                         }
        if( !empty($user_id)){
-
-        if(Input::hasFile('c_logo'))
+                    if($input['b_pattern'] == 1 ){
+                        if(Input::hasFile('c_logo'))
                         {
                             $file = Input::file('c_logo');
                             $destinationPath = public_path(). '/images/logo/';
@@ -290,24 +309,31 @@ class UserRepository extends BaseRepository
                                 $filename = '';
                             }
                         }
+                        }else{
+
+                            $filename = '';
+                    }
 
 
                         
          DB::table('user_information')
                             ->where('user_id', $id)
                             ->update([
+                                'c_name' => $input['c_name'],
                                 'website' => $input['website'],
                                 'website_url' => $url,
-                                'c_street' => $input['c_street'],
-                                'c_city' => $input['c_city'],
-                                'c_zone' => $input['c_zone'],
-                                'c_district' => $input['c_district'],
-                                'c_description' => $input['c_description'],
+                                'c_street' => '',
+                                'c_city' => '',
+                                'c_zone' => '1',
+                                'c_district' => '1',
+                                'c_description' => $c_description,
                                 'c_logo' => $filename,
+                                'b_experience' => $input['b_experience'],
+                                'b_type' => $business_type,
                               ]);   
        }else{
-
-        if(Input::hasFile('c_logo'))
+            if($input['b_patern'] == 1 ){
+                        if(Input::hasFile('c_logo'))
                         {
                             $file = Input::file('c_logo');
                             $destinationPath = public_path(). '/images/logo/';
@@ -317,16 +343,23 @@ class UserRepository extends BaseRepository
                         }else{
                             $filename = '';
                         }
+            }else{
+                            $filename = '';
+            }
+
          DB::table('user_information')
          ->insert([
-                                'user_id' => $id,
+                                'c_name' => $input['c_name'],
                                 'website' => $input['website'],
                                 'website_url' => $url,
-                                'c_street' => $input['c_street'],
-                                'c_city' => $input['c_city'],
-                                'c_zone' => $input['c_zone'],
-                                'c_description' => $input['c_description'],
+                                'c_street' => '',
+                                'c_city' => '',
+                                'c_zone' => '1',
+                                'c_district' => '1',
+                                'c_description' => $c_description,
                                 'c_logo' => $filename,
+                                'b_experience' => $input['b_experience'],
+                                'b_type' => $business_type,
             ]);
        }
 

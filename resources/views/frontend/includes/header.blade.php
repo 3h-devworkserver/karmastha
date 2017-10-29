@@ -21,9 +21,9 @@
                     <li><a href="{{url('admin/dashboard')}}">dashboard</a></li>
                   @else
                     <li><a href="{{url('user/dashboard')}}">dashboard</a></li>
-                    <li><a href="#">my orders</a></li>
-                    <li><a href="#">my account</a></li>
-                    <li><a href="{{ URL::to('/wishlist') }}">my favorites  @if( !empty($wishlist)) ( {{  $wishlist }} ) @endif</a></li>
+                    <li><a href="{{url('user/orders')}}">my orders</a></li>
+                    <li><a href="{{url('user/profile')}}">my account</a></li>
+                    <li><a href="{{ URL::to('user/wishlist') }}">my favorites  @if( !empty($wishlist)) ( {{  $wishlist }} ) @endif</a></li>
                   @endif
                     @if(Auth::check())
                     <li><a href="{{ URL::to('/logout') }}"> <span>sign out</span></a></li>

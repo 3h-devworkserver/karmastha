@@ -94,7 +94,7 @@
     
     <link rel="stylesheet" type="text/css" href="{{asset('font/flaticon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/ap-drilldown-menu.css')}}">
-
+    {{ Html::style('css/backend/plugin/datatables/dataTables.bootstrap.min.css') }}
     <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/userdash.css')}}">
     <link rel="stylesheet" href="{{asset('css/frontend/style.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/dashboard/dashboard-style.css')}}">
@@ -106,6 +106,11 @@
     <script src="{{asset('js/dashboard/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/dashboard/jquery.flexisel.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/backend/jquery.validate.js')}}"></script>
+    <script>
+        var base_url = '{{ URL::to("") }}';
+        var full_current_url = '{{ URL::full() }}';
+        var current_url = '{{ URL::current() }}';
+    </script>
     @if(!empty($setting))
         @if(!empty($setting->misc_javascript))
             {!! $setting->misc_javascript !!}
@@ -124,7 +129,7 @@
             @include('frontend.user.includes.sidebar')
             <div class="dashboard-content">
                 <div class="page-container">
-                    <div class="row">
+                    <div class="row dash-Wcontent">
                         @yield('content')
                     </div>
                 </div>
@@ -156,6 +161,9 @@
 
 {{ Html::script('js/dashboard/jquery.menu-aim.js') }}
 <script src="{{asset('js/frontend/sumoselect.min.js')}}"></script>
+  {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
+{{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
+
 {{ Html::script('js/dashboard/dash_user_nav.js') }}
 
 @yield('after-scripts')

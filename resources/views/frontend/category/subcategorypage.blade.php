@@ -362,7 +362,16 @@
 					            </div>
 							
 								<div class="brands-list clearfix">
-						      		@include('frontend.includes.categoryproductlist')
+									@if(count($products) > 0)
+						      			@include('frontend.includes.categoryproductlist')
+						      		@else
+										<div is="null" class="list-module-listempty">
+							                <div is="null" class="list-module-listempty_title">
+							                    <i is="null" type="notice" class="fa fa-exclamation-circle list-module-listempty_titleicon" aria-hidden="true"></i><!-- react-text: 344 -->No Product Available for this category.
+							                    <!-- /react-text -->
+							                </div>
+							            </div>
+						      		@endif
 						      	</div>
 
 				            </section>

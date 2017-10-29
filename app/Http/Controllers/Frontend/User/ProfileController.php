@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Frontend\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\User\UpdateProfileRequest;
 use App\Repositories\Frontend\Access\User\UserRepository;
-
+use DB;
+use Illuminate\Support\Facades\Input;
 /**
  * Class ProfileController.
  */
@@ -59,5 +60,38 @@ class ProfileController extends Controller
         $output = $this->user->updateProfile(access()->id(), $request->all());
         return redirect('/user/password')->withFlashSuccess(trans('strings.frontend.user.profile_updated'));
 
+    }
+
+    public function userImageUpdate($id){
+
+                $user_img =  DB::table('user_image')->select('id','image')->where('user_id',$id)->first();
+                    if(Input::hasFile('pimage'))
+                        {
+                            $file = Input::file('pimage');
+                            $destinationPath = public_path(). '/images/logo/';
+                             $pname = $file->getClientOriginalName();
+                             $file->move($destinationPath, $pname);
+                           
+                        }
+                        else
+                        {
+                            if($user_img->image != ''){
+                                $pname = $user_img->image;
+                            }else{
+                                $pname = '';
+                            }
+                        }
+
+               if(!empty($user_img->id)){
+                    DB::table('user_image')->where('user_id',$id)->update([
+                            'image' => $pname,
+                    ]);
+               } else {
+                 DB::table('user_image')->insert([
+                             'user_id' => $id,
+                             'image' => $pname,
+                    ]);
+               }  
+               return redirect('/user/image')->withFlashSuccess(trans('strings.frontend.user.profile_updated'));      
     }
 }

@@ -13,7 +13,7 @@ $(function() {
     margin:10,
     nav:true,
     navText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-    dots:false,
+    dots: false,
     startPosition:0,
     items:1,
     // responsive:{
@@ -263,6 +263,18 @@ $(document).ready(function(){
 
 
     /** ====== start - product detail page  ===== **/
+
+        $('#preBookingForm').validate({
+            rules:{
+                'name': 'required',
+                'phone': 'required',
+                'color': 'required',
+                email: {
+                  required: true,
+                  email: true
+                }
+            }
+        });
 
         /** ====== add border while clicking attributes  ===== **/
         $(document).on('click', 'label.attribute', function(){

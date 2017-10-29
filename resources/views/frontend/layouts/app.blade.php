@@ -48,6 +48,7 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/xzoom.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/nprogress.css')}}">
 
+
   <!-- Styles -->
   @yield('after-styles')
   <link rel="stylesheet" type="text/css" href="{{asset('css/frontend/style.css')}}">
@@ -88,6 +89,7 @@
 {{-- {{ Html::script('js/frontend/jquery.validate.js') }} --}}
  {!! Html::script('jquery-validation-1.15.0/dist/jquery.validate.js') !!}
 <script src="{{asset('js/frontend/nprogress.js')}}"></script>
+
 
 <script type="text/javascript">
   function openNav() {

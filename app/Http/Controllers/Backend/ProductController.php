@@ -28,10 +28,14 @@ class ProductController extends Controller
     private $productDir = 'images/product/';
     private $baseWidth = 458;
     private $baseHeight = 508;
-    private $smallWidth = 252;
-    private $smallHeight = 250;
-    private $thumbnailWidth = 124;
-    private $thumbnailHeight = 115;
+    // private $smallWidth = 252;
+    private $smallWidth = 292;
+    // private $smallHeight = 250;
+    private $smallHeight = 260;
+    // private $thumbnailWidth = 124;
+    private $thumbnailWidth = 160;
+    // private $thumbnailHeight = 115;
+    private $thumbnailHeight = 160;
 
     /**
      * Display a listing of the resource.

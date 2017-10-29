@@ -32,6 +32,11 @@ class DashboardController extends Controller
         return view('frontend.user.password')->withClass('password-info');
     }
 
+    public function uploadImage()
+    {
+        return view('frontend.user.profileimage')->withClass('image-info');
+    }
+
     // public function wishlist(){
     //     $wishtlist = Auth::user()->wishlist;
     //     return $wishtlist;

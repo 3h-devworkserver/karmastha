@@ -82,50 +82,57 @@
         @endif
          
         @if(count($category->childsWithOrder) > 0 )
-        <div class="category-circle text-center">
-          <div class="content-circle">
+          <div class="category-circle text-center">
+            <div class="content-circle">
 
-          	@foreach($category->childsWithOrder as $key => $child)
-          	  @if( $key < 6 )
-                <div class="item">
-                  <a href="{{ URL::to('/category/'.$child->url) }}">
-                    <div class="thumbnail">
-                      <div class="product-img">
-                        <div class="img-wrap">
-                          <img src="{{getImageUrl('images/category/',$child->feat_img)}}" alt="">
+            	@foreach($category->childsWithOrder as $key => $child)
+            	  @if( $key < 6 )
+                  <div class="item">
+                    <a href="{{ URL::to('/category/'.$child->url) }}">
+                      <div class="thumbnail">
+                        <div class="product-img">
+                          <div class="img-wrap">
+                            <img src="{{getImageUrl('images/category/',$child->feat_img)}}" alt="">
+                          </div>
+                        </div>
+                        <div class="caption">
+                          <h3>{{$child->title}}</h3>
                         </div>
                       </div>
-                      <div class="caption">
-                        <h3>{{$child->title}}</h3>
+                    </a>
+                  </div>
+        		    @endif
+        			@endforeach
+              
+              @if(count($category->childsWithOrder) > 6 )
+              <div class="item">
+                <div class="thumbnail cursor" type="button" data-toggle="collapse" data-target="#viewall-dropdown">
+                  <div class="category-img">
+                    {{-- <div class="img-wrap">
+                      <span>see more</span>
+                    </div> --}}
+                    <div class="img-wrap">
+                      <div>
+                        <span style="display: table-cell; vertical-align: middle;">see more</span>
                       </div>
                     </div>
-                  </a>
-                </div>
-      		    @endif
-      			@endforeach
-            
-            @if(count($category->childsWithOrder) > 6 )
-            <div class="item">
-              <div class="thumbnail cursor" type="button" data-toggle="collapse" data-target="#viewall-dropdown">
-                <div class="category-img">
-                  {{-- <div class="img-wrap">
-                    <span>see more</span>
-                  </div> --}}
-                  <div class="img-wrap">
-                    <div>
-                      <span style="display: table-cell; vertical-align: middle;">see more</span>
-                    </div>
                   </div>
-                </div>
-                <div class="caption viewall">
-                  <h3>More Categories</h3>
-                </div>
-              </div>  
-            </div>
-            @endif
+                  <div class="caption viewall">
+                    <h3>More Categories</h3>
+                  </div>
+                </div>  
+              </div>
+              @endif
 
+            </div>
           </div>
-        </div>
+        @else
+            <div is="null" class="list-module-listempty">
+                <div is="null" class="list-module-listempty_title">
+                    <i is="null" type="notice" class="fa fa-exclamation-circle list-module-listempty_titleicon" aria-hidden="true"></i><!-- react-text: 344 -->No Child Categories Available.
+                    <!-- /react-text -->
+                </div>
+            </div>
         @endif
 
       </div>
@@ -166,10 +173,12 @@
 @endif
 
 <!-- trending product -->
-{!! product_group(1) !!}
+{{-- {!! product_group(1) !!} --}}
 
 <!-- top brands -->
+<section class="brand-member"><div class="container"><div class="inner-wrapper">
 {!! top_brand_list() !!}
+</div></div></section>
 
 @if(count($category->middleBanners) > 0)
 <section class="banner-wrapper gray-bg">

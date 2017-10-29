@@ -273,21 +273,23 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
 	            <div class="payment-option">
 	              <div class="pannel-header">
-	                <div class="col-md-6">
-	                  <div class="payment-header">
-	                    <h3 class="section-title-1">Ship to a different address?</h3>
-	                  </div>
-	                </div>
+		            <div class="row">
+		                <div class="col-md-6">
+		                  <div class="payment-header">
+		                    <h3 class="section-title-1">Ship to a different address?</h3>
+		                  </div>
+		                </div>
 
-	                <div class="col-md-6">
-	                  <div class="toggle-switch">
-	                    <label class="switch">
-	                      <input type="checkbox" onclick="return menuslidedown();" class="total-calculate" name="showShippingDetail" disabled>
-	                      <div class="slider round"></div>
-	                    </label>
-	                  </div>
-	                  
-	                </div>
+		                <div class="col-md-6">
+		                  <div class="toggle-switch">
+		                    <label class="switch">
+		                      <input type="checkbox" onclick="return menuslidedown();" class="total-calculate" name="showShippingDetail" disabled>
+		                      <div class="slider round"></div>
+		                    </label>
+		                  </div>
+		                  
+		                </div>
+		            </div>
 
 	                <div class="collapse" id="billingopt">
 	                  <div class="box">

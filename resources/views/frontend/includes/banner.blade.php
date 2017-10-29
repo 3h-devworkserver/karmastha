@@ -3,7 +3,11 @@
     <div class="owl-carousel">
       @foreach( $sliders as $key => $slider)
       <div class="item bg-img" style="background-image: url({{asset('/'.$slider->Slider_image)}});">
-
+        @if($key == 0)
+          <a href="{{url($slider->link)}}" target="_blank" class="btn btn-default slider-{{$key+1}}">Pre Order</a>
+        @else
+          <a href="{{url($slider->link)}}" target="_blank" class="btn btn-default slider-{{$key+1}}">Order Now</a>
+        @endif
       </div>
       @endforeach
     </div>

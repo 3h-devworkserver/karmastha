@@ -14,11 +14,6 @@ body {
   background-color: #f2f3f7;
 }
 
-.dashboard-content .row {
-  margin-left: 0;
-  margin-right: 15px;
-}
-
 a {
   color: #742b96;
   text-decoration: none;
@@ -40,13 +35,61 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
-.userdashboard input[type="radio"]:checked + label span::before {
-  font-size: 0.6em;
-  left: 0.5em;
-  top: 0.5em;
-  line-height: 10px;
+/* .userdash-right input[type="checkbox"] + label span, 
+.userdash-right input[type="radio"] + label span{
+  border: none;
+  width: 0;
+  height: 0;
 }
+.userdash-right input[type="radio"]:checked + label span::before{
+  content: "\f111";
+  display: block;
+  font-family: 'fontawesome';
+}
+.userdash-right input[type="radio"]:checked + label span::after{
+  content: "\f1db";
+  display: block;
+  font-family: 'fontawesome';
+} */
+.userdash-right input[type="radio"]:checked + label span::before {
+    content: "\f111";
+    font-size: 10px;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    text-align: center;
+    right: 0;
+}
+.userdash-right input[type="radio"] + label span {
+    border-radius: 50px;
+    text-align: center;
+    line-height: 16px;
+    position: relative;
+}
+.userdash-right input[type="checkbox"] + label span, input[type="radio"] + label span {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: -2px 10px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.userdash-right input[type="checkbox"] + label span, 
+.userdash-right input[type="radio"] + label span{
+  width: 16px;
+  height: 16px;
+}
+input[type="checkbox"]:checked + label span::before, 
+input[type="radio"]:checked + label span::before,
+input[type="checkbox"] + label span::after, 
+input[type="radio"] + label span::after{ color: #575757; }
 .btn.btn-default, .btn.btn-primary{ color: #ffffff; }
+.required_wrap .profile-form .control-label {
+    text-align: right;
+}
+input[type="submit"].btn.btn-primary.open-door:hover{ background: #68178e; }
 
 /* -------------------------------- 
 
@@ -197,9 +240,6 @@ Main Page Header
 .userdashboard footer{
   margin-top: 0;
 }
-
-
-
 
 
 /* -------------------------------- 
@@ -514,7 +554,7 @@ Sidebar
   top: 0;
   width: 100%;
   padding: 45px 0 0;
-  background-color: #2c3136;
+  background-color: #1E262D;
   visibility: hidden;
   opacity: 0;
   max-height: 100vh;

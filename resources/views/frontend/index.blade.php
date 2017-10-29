@@ -22,16 +22,48 @@
 @include('frontend.includes.banner')
 
 
-<section class="new-offer">
+
+
+
+<section class="super-deal">
   <div class="container">
-    <div class="offer-image bg-img" style="background-image:url('http://192.168.0.23/karmastha/public/images/44.jpg')">
-        <div class="offer-cap">
-          <h3 class="color-title">New offer</h3>
-          <button class="btn btn-outline">book now</button>
+    <div class="inner-wrapper">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="deal-block">
+              <img src="{{asset('images/rocket-1.jpg')}}" alt="">
+              <div class="deal-link">
+                <h3>Nepsonic Rocket </h3>
+                <a href="{{url('product/nepsonic-rocket')}}" class="btn btn-default">Order Now</a>
+                
+              </div>
+            
+          </div>
         </div>
+        <div class="col-md-8">
+          <div class="deal-second-block">
+                <div class="deal-block">
+                  <img src="{{asset('images/nebula-1.png')}}" alt="">
+                  <div class="deal-link">
+                    <h3>Nepsonic Nebula | Black, Silver, Golden </h3>
+                    <a href="{{url('product/nepsonic-nebula-s1-55')}}" class="btn btn-default">Book Now</a>
+                  </div>
+                </div>
+                <div class="deal-description text-center">
+                  <h4>Coming soon</h4>
+                  <p class="nebula-model">Nepsonic Nebula #S1 Series
+                    <span>Dual Sim, 12 MB Camera, Finger Touch, Fastest 4G mobile & more</span></p>
+                  <p class="pre-book">Pre-booking offer <strong><span>20%</span> off</strong></p>
+                  <p class="book-info">Book yours now before 5th November</p>
+                </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+
 
 <?php /* ?>
 @include('frontend.includes.advertisement')
