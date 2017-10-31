@@ -406,6 +406,17 @@ if (! function_exists('productPrice')) {
     }
 }
 
+if (! function_exists('rawProductPrice')) {
+    /* 
+     * price of product
+     */
+    function rawProductPrice($id) {
+        $product = Product::findOrFail($id);
+        $price = (empty($product->productPrice->special_price)) ? $product->productPrice->price : $product->productPrice->special_price;
+        return $price;
+    }
+}
+
 if (! function_exists('custom_number_format')) {
     /* 
      * formatting for currency
@@ -437,7 +448,7 @@ if (! function_exists('CartItemsSubTotalPrice')) {
     /* 
      * total price of cartitems
      */
-    function CartItemsSubTotalPrice(){
+    function CartItemsSubTotalPrice($type='display'){
         if (Auth::check()) {
             $cartItems = Cartitem::where('user_id', Auth::user()->id)->get();
 
@@ -453,7 +464,7 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                             if ($productAttrCombination->quantity == 0){
                                 
                             }else{
-                                $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                                $total += (floatval($cartItem->qty * rawProductPrice($product->id) ));
                                  // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
                             }
                         }else{
@@ -466,14 +477,14 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                         if ($product->productInventory->availability != 'in stock'){
                             
                         }else{
-                            $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                            $total += (floatval($cartItem->qty * rawProductPrice($product->id) ));
                           // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
                         }
                       }
                     }
                 }else{
                     if(!empty($productAttrCombination)){
-                        $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                        $total += (floatval($cartItem->qty * rawProductPrice($product->id) ));
                         // if($productAttrCombination->quantity == 0) {
                         //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
                         // }else{
@@ -484,7 +495,7 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                     if( count($product->productAttrCombination) > 0 ) {
                       
                     }else{
-                        $total += custom_number_format(floatval($cartItem->qty * productPrice($product->id) ));
+                        $total += (floatval($cartItem->qty * rawProductPrice($product->id) ));
                        // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}} 
                     }
                   }
@@ -505,7 +516,7 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                             if ($productAttrCombination->quantity == 0){
                                 
                             }else{
-                                $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                                $total += (floatval($cartItem->qty * $cartItem->price ));
                                  // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$productAttrCombination->quantity, 'readonly'])}}
                             }
                         }else{
@@ -518,14 +529,14 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                         if ($product->productInventory->availability != 'in stock'){
                             
                         }else{
-                            $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                            $total += (floatval($cartItem->qty * $cartItem->price ));
                           // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>$product->productInventory->quantity, 'readonly'])}}
                         }
                       }
                     }
                 }else{
                     if(!empty($productAttrCombination)){
-                        $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                        $total += (floatval($cartItem->qty * $cartItem->price ));
                         // if($productAttrCombination->quantity == 0) {
                         //     {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}}
                         // }else{
@@ -536,7 +547,7 @@ if (! function_exists('CartItemsSubTotalPrice')) {
                     if( count($product->productAttrCombination) > 0 ) {
                       
                     }else{
-                        $total += custom_number_format(floatval($cartItem->qty * $cartItem->price ));
+                        $total += (floatval($cartItem->qty * $cartItem->price ));
                        // {{Form::text('qty', $cartItem->qty ,['class'=>'cart-plus-minus-box quantity', 'min'=>'1', 'max'=>'99999999', 'readonly'])}} 
                     }
                   }
@@ -544,7 +555,11 @@ if (! function_exists('CartItemsSubTotalPrice')) {
             }
 
         }
-            return $total;
+        if ($type=='raw') {
+            return ($total);
+        }else{
+            return custom_number_format($total);
+        }
 
 
 

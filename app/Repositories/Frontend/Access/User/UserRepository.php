@@ -227,7 +227,7 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function updateProfile($id, $input)
+    public function updateProfile($id, $input, $request='')
     {
 
         $user = $this->find($id);
@@ -320,7 +320,7 @@ class UserRepository extends BaseRepository
                             ->where('user_id', $id)
                             ->update([
                                 'c_name' => $input['c_name'],
-                                'website' => $input['website'],
+                                'website' => $request->website,
                                 'website_url' => $url,
                                 'c_street' => '',
                                 'c_city' => '',
@@ -332,7 +332,7 @@ class UserRepository extends BaseRepository
                                 'b_type' => $business_type,
                               ]);   
        }else{
-            if($input['b_patern'] == 1 ){
+            if($input['b_pattern'] == 1 ){
                         if(Input::hasFile('c_logo'))
                         {
                             $file = Input::file('c_logo');
@@ -346,11 +346,12 @@ class UserRepository extends BaseRepository
             }else{
                             $filename = '';
             }
-
+//echo '<pre>'; print_r($input); die();
          DB::table('user_information')
          ->insert([
+                                'user_id'=> $id,
                                 'c_name' => $input['c_name'],
-                                'website' => $input['website'],
+                                'website' => $request->website,
                                 'website_url' => $url,
                                 'c_street' => '',
                                 'c_city' => '',

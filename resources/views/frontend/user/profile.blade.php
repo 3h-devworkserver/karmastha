@@ -62,7 +62,7 @@
                           <label class="col-lg-3 control-label">business pattern</label>
                           <div class="col-lg-9 useradio">
                             <input id="represent" name="b_pattern" class="represent_user required" value="1" type="radio" <?php if(!empty($extrainfo->b_pattern)) { if($extrainfo->b_pattern == '1') { echo 'checked = checked'; }} ?> > <label for="represent" id="represent"><span></span>I represent a company</label>
-                            <input id="notrepresent" name="b_pattern" class="user_notrepresent" value="0" type="radio" <?php if(!empty($extrainfo->b_pattern)) { if($extrainfo->b_pattern == '0') { echo 'checked = checked'; }} ?> > <label for="notrepresent" id="notrepresent" ><span></span>I donot represent a company</label>
+                            <input id="notrepresent" name="b_pattern" class="user_notrepresent" value="0" type="radio" <?php  if($extrainfo->b_pattern != '1') { echo 'checked = checked'; } ?> > <label for="notrepresent" id="notrepresent" ><span></span>I donot represent a company</label>
                           </div>
                         </div>
                         <div class="form-group">
@@ -192,9 +192,9 @@
                           <label class="col-lg-3 control-label">website</label>
                           <div class="col-lg-9 useradio">
                            <input type="radio" id="website" name="website" class="have_one required" value="1" <?php if(!empty($info->website) ){ if($info->website == '1'){ echo 'checked = checked';}}?> > <label for="website" id="have_one"><span></span>I have one</label>
-                           <input type="radio" id="other" name="website" class="dont_have_one" value="0" <?php if( !empty($info->website) ){ if( $info->website == '0'){ echo 'checked = checked';} }?>> <label for="other" id="tested"><span></span>I don't have one</label>
+                           <input type="radio" id="other" name="website" class="dont_have_one" value="0" <?php if( isset($info) ){ if( $info->website == '0'){ echo 'checked = checked';} }?>> <label for="other" id="tested"><span></span>I don't have one</label>
                       
-                          <div class="form-group opentext" style="<?php if( !empty( $info->website) ) { if( $info->website == '0'){ echo 'display:none;'; } }?>" >
+                          <div class="form-group opentext" style="<?php if( empty( $info->website) ) {  echo 'display:none;'; } ?>" >
                         <input type="text" name="website_url" placeholder="http://www.example.com" value="<?php if(!empty( $info ) ) { if($info->website != 0 ){ echo $info->website_url; } } ?>" class="form-control website_url <?php if(!empty( $info ) ) { if( $info->website != 0 ){ echo 'required'; } }?>">
                             <span class="form-BContent">Example: http://www.example.com</span>
                       </div>

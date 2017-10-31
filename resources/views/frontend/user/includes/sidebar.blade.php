@@ -13,33 +13,33 @@
     </a>
     <ul>
         <li class="has-children {{ active_class(Active::checkUriPattern('user/dashboard')) }}">
-            <a href="{{url('user/dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+            <a href="{{url('user/dashboard')}}"><i class="flaticon-home" aria-hidden="true"></i>Home</a>
         </li>
 
         <li class="has-children {{ active_class(Active::checkUriPattern('user/profile')) }} {{ active_class(Active::checkUriPattern('user/password')) }}">
-            <a href="#0"><i class="fa fa-user" aria-hidden="true"></i>My Account<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <a href="#0"><i class="flaticon-user" aria-hidden="true"></i>My Account<i class="fa fa-angle-right" aria-hidden="true"></i></a>
             <ul>
                 <li>                
-                    <a href="{{ URL::to('user/profile') }}"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
+                    <a href="{{ URL::to('user/profile') }}"><i class="flaticon-user" aria-hidden="true"></i>My Profile</a>
                 </li>
                 <li>                
-                    <a href="{{ URL::to('user/password') }}"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Change Password</a>
+                    <a href="{{ URL::to('user/password') }}"><i class="flaticon-padlock" aria-hidden="true"></i>Change Password</a>
                 </li> 
                 <li>                
-                    <a href="{{ URL::to('user/image') }}"><i class="fa fa-image" aria-hidden="true"></i>My Profile Image</a>
+                    <a href="{{ URL::to('user/image') }}"><i class="flaticon-image" aria-hidden="true"></i>My Profile Image</a>
                 </li> 
             </ul>
         </li>
 
         <li class="has-children ">
-            <a href="#0"><i class="fa fa-file-text" aria-hidden="true"></i>Orders<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <a href="#0"><i class="flaticon-document" aria-hidden="true"></i>Orders<i class="fa fa-angle-right" aria-hidden="true"></i></a>
             <ul>
-                <li><a href="{{url('user/orders')}}"><i class="fa fa-file-text" aria-hidden="true"></i>All Orders</a></li>
+                <li><a href="{{url('user/orders')}}"><i class="flaticon-document" aria-hidden="true"></i>All Orders</a></li>
             </ul>
         </li>
 
         <li class="has-children {{ active_class(Active::checkUriPattern('user/wishlist')) }}">
-            <a href="{{url('user/wishlist')}}"><i class="fa fa-star" aria-hidden="true"></i>Favorites</a>
+            <a href="{{url('user/wishlist')}}"><i class="flaticon-star" aria-hidden="true"></i>Favorites</a>
         </li>
 
         {{-- <li class="has-children">

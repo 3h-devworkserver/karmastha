@@ -719,7 +719,7 @@ section {
   color: #a8a8a8; 
 }
 .search-box .SumoSelect > .CaptionCont::after {
-  content: "\f100";
+  content: "\f102";
   float: left;
   font-family: "Flaticon";
   font-size: 22px;

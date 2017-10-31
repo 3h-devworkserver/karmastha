@@ -182,7 +182,8 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
                           <div class="sub-total fix-width">
                             <h6>total</h6>
                             @if($stock != 'out of stock')
-                              <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
+                              <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * rawProductPrice($product->id) ))}}</em></span>
+                              {{-- <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span> --}}
                             @endif
                           </div>
                           {{Form::open(['url'=>'/cart/removeitem/'.$cartItem->id, 'method'=>'get'])}}
@@ -370,14 +371,14 @@ Shopping Cart @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 
                     @if($countItems != 0)
                       {{Form::open(['url' => '/checkout'])}}
-                        {{Form::hidden('subTotal', CartItemsSubTotalPrice() )}}
+                        {{Form::hidden('subTotal', CartItemsSubTotalPrice('raw') )}}
                         {{Form::hidden('deliveryCharge', 100 , ['class'=>'deliveryCharge'])}}
                         {{Form::hidden('grandTotal', null , ['class'=>'grandTotal'])}}
                         <div class="text-right">
                           <div class="right-grand-total">
                             <div class="sumarry-total cart-totals">
                               <span class="pull-left">sub total</span>
-                              <span class="grandprice subTotal" data-subtotal="{{CartItemsSubTotalPrice()}}">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
+                              <span class="grandprice subTotal" data-subtotal="{{CartItemsSubTotalPrice('raw')}}">NPR <em>{{CartItemsSubTotalPrice()}}</em></span>
                             </div>
                             <div class="total-calculate cart-totals">
                               <span class="pull-left"><a type="button" href="javascript:void(0)" onclick="return menuslidedown();">calculate Delivery Charge<i class="fa fa-angle-down"></i></a></span>

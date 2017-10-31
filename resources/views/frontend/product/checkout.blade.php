@@ -143,7 +143,7 @@ Checkout @if(!empty($setting->tagline))|| {{$setting->tagline}}@endif
 			               	<div class="sub-total fix-width">
 			                  <h6>total</h6>
 			                  	@if($stock != 'out of stock')
-			                      <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * productPrice($product->id) ))}}</em></span>
+			                      <span>NPR<em>{{custom_number_format(floatval($cartItem->qty * rawProductPrice($product->id) ))}}</em></span>
 			                    @endif
 			                </div>
 

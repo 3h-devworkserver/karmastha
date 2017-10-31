@@ -178,7 +178,7 @@ class ProductController extends Controller
             
         }else{
             // Adding an item to the cart
-            $item = LaraCart::add($request->product, $product->name, (int)$request->qty, $product->productPrice->price, [
+            $item = LaraCart::add($request->product, $product->name, (int)$request->qty, rawProductPrice($product->id), [
                 'attr_name' => $request->attr_name,
                 'attr_value' => $request->attr_value,
                 'attr_value_id' => $request->attr,
@@ -588,7 +588,7 @@ class ProductController extends Controller
                         'cartitem_id' => $item->id,
                         'identifier' => $item->identifier,                        
                         'qty' => $item->qty,               
-                        'price' => productPrice($item->product_id),                
+                        'price' => rawProductPrice($item->product_id),                
                     ]);
                 }
 

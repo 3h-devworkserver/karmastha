@@ -36,7 +36,7 @@
                                 <a href="#">
                                     <div class="mtl-num-part">
                                         <span class="J-totalNum mtl-num-big" title="0">0</span>
-                                        <i class="fa fa-file-text-o"></i>
+                                        <i class="flaticon-file-1"></i>
                                     </div>
                                     <span class="intro-content">pending order</span>
                                 </a>
@@ -51,7 +51,7 @@
                                 <a href="#">
                                 <div class="mtl-num-part">
                                         <span class="J-totalNum mtl-num-big" title="0">0</span>
-                                        <i class="fa fa-file-text-o"></i>
+                                        <i class="flaticon-file"></i>
                                     </div>
                                     <span class="intro-content">completed order</span>
                                 </a>
@@ -66,9 +66,9 @@
                                 <a href="#">
                                 <div class="mtl-num-part">
                                         <span class="J-totalNum mtl-num-big" title="0">0</span>
-                                        <i class="fa fa-file-text-o"></i>
+                                        <i class="flaticon-file-2"></i>
                                     </div>
-                                    <span class="intro-content">cancled order</span>
+                                    <span class="intro-content">canceled order</span>
                                 </a>
                                 
                             </div>

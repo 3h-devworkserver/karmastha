@@ -138,9 +138,9 @@
                 <!-- single-product-price -->
                 <div class="pro-price product-info-item clearfix">
                 	@if($product->productPrice->special_price)
-                    	<span class="old">NPR {{$product->productPrice->price}}</span> 
+                    	<span class="old">NPR {{ custom_number_format($product->productPrice->price)}}</span> 
                     @endif
-                    <span class="new">@if(!empty($product->productPrice->special_price)) NPR {{$product->productPrice->special_price}} @else NPR {{$product->productPrice->price}} @endif</span> 
+                    <span class="new">NPR {{ productPrice($product->id)}}</span>
                 	@if($product->productPrice->special_price)
                     	<span class="incl-dis">{{round(($product->productPrice->price - $product->productPrice->special_price)/$product->productPrice->price*100)}}% off</span>
                     @endif
